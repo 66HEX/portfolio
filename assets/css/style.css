@@ -7,7 +7,7 @@ html, body {
     max-width: 100%;
     overflow-x: clip;
 }
-body{
+body {
     font-family: var(--font-base);
     background-image: url("../images/hero-image.png");
     background-position: center;
@@ -17,6 +17,10 @@ body{
     height: 100vh;
     margin: 0;
     line-height: 1.7;
+    -webkit-background-attachment: fixed;
+    -moz-background-attachment: fixed;
+    -o-background-attachment: fixed;
+    background-attachment: fixed;
 }
 h1,h2,h3,h4,h5,h6{
     font-weight: 600;
