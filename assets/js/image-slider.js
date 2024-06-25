@@ -1,7 +1,7 @@
 let items = document.querySelectorAll('.slider .slider-card');
 let active = 2;
 let initialX = null;
-let swipeThreshold = 30; // Adjust as needed
+let swipeThreshold = 100; // Adjust as needed
 function loadShow() {
     const totalItems = items.length;
     const activeItem = items[active];
