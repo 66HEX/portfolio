@@ -24,14 +24,14 @@ const DockItem = ({
   return (
     <div className="dock-item" style={linkStyle} onMouseEnter={onMouseEnter}>
       {external ? (
-        <a href={path} target="_blank" rel="noopener noreferrer">
+        <a href={path} target="_blank" rel="noopener noreferrer " aria-label="Navigation link">
           <div className="dock-item-link-wrap">
             <IconComponent size="18px" style={{ color: "hsl(0, 0%, 60%)" }} />
           </div>
         </a>
       ) : (
         <Link to={path}>
-          <div className="dock-item-link-wrap">
+          <div className="dock-item-link-wrap" aria-label="Navigation link">
             <IconComponent size="18px" style={{ color: "hsl(0, 0%, 60%)" }} />
           </div>
         </Link>
