@@ -29,20 +29,20 @@ const Photos = () => {
   return (
       <div className="container page-photos" ref={container}>
           <div className="photos-col">
-              <img src={WorkImage1} alt=""/>
-              <img src={WorkImage2} alt=""/>
-              <img src={WorkImage3} alt=""/>
-              <img src={WorkImage4} alt=""/>
-              <img src={WorkImage5} alt=""/>
-              <img src={WorkImage6} alt=""/>
+              <img src={WorkImage1} alt="Website image"/>
+              <img src={WorkImage2} alt="Website image"/>
+              <img src={WorkImage3} alt="Website image"/>
+              <img src={WorkImage4} alt="Website image"/>
+              <img src={WorkImage5} alt="Website image"/>
+              <img src={WorkImage6} alt="Website image"/>
           </div>
           <div className="photos-col">
-              <img src={WorkImage9} alt=""/>
-              <img src={WorkImage10} alt=""/>
-              <img src={WorkImage11} alt=""/>
-              <img src={WorkImage12} alt=""/>
-              <img src={WorkImage7} alt=""/>
-              <img src={WorkImage8} alt=""/>
+              <img src={WorkImage9} alt="Website image"/>
+              <img src={WorkImage10} alt="Website image"/>
+              <img src={WorkImage11} alt="Website image"/>
+              <img src={WorkImage12} alt="Website image"/>
+              <img src={WorkImage7} alt="Website image"/>
+              <img src={WorkImage8} alt="Website image"/>
           </div>
       </div>
   );
