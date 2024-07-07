@@ -1,0 +1,28 @@
+.page-photos {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  margin-bottom: 7.5em;
+}
+.photos-col{
+  width: 50%;
+}
+.page-photos img {
+  position: relative;
+  max-height: 370px;
+  padding-bottom: 0.5em;
+  filter: blur(2px) brightness(0.5);
+  transition: filter 0.3s ease-in-out;
+}
+.photos-col img:hover {
+  filter: blur(0px) brightness(1);
+}
+@media (max-width: 900px) {
+  .page-photos {
+    flex-direction: column;
+  }
+  .photos-col{
+    width: 100%;
+  }
+}
+

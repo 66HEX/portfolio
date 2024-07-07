@@ -1,0 +1,77 @@
+:root {
+  font-family: "Urbanist", Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --dark-bg-color: hsl(0 0% 3.5%);
+  --dark-text-color: hsl(0 0% 95%);
+  --dark-text-secondary: hsl(0 0% 80%);
+  --dark-text-tertiary: hsl(0 0% 60%);
+  --dark-btn-bg: hsl(0 0% 1%);
+  --dark-card-bg: hsl(0 0% 10%);
+  --dark-card-border: hsl(0 0% 10%);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+body{
+  background: var(--dark-bg-color);
+  touch-action: pan-x pan-y;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.container.page-projects,
+.container.page-post {
+  padding: 0.5em;
+  width: 50%;
+  margin: 5em auto;
+}
+.container {
+  padding: 0.5em;
+}
+h1 {
+  color: var(--dark-text-color);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+p {
+  text-decoration: none;
+  color: var(--dark-text-color);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+a {
+  text-decoration: none;
+}
+button {
+  width: 100%;
+  border-radius: 8px;
+  padding: 1em 0;
+  margin-top: 0.3em;
+  background-color: var(--dark-btn-bg);
+  outline: none;
+  border: none;
+  color: var(--dark-text-color);
+}
+@media (max-width: 900px) {
+  .container.page-projects,
+  .container,
+  .container.page-post {
+    width: 100%;
+  }
+}

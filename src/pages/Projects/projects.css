@@ -1,0 +1,53 @@
+.project-item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  border-radius: 10px;
+  gap: 0.5em;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.project-item:hover {
+  background-color: var(--dark-card-bg);
+}
+
+.project-title,
+.project-copy {
+  flex-shrink: 0;
+}
+
+.project-copy p {
+  color: var(--dark-text-tertiary);
+}
+
+.project-divider {
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--dark-card-border);
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.project-year {
+  flex-shrink: 0;
+}
+
+.project-year p {
+  color: var(--dark-text-color);
+}
+.projects-header{
+  color: var(--dark-text-color);
+  font-family: "JetBrains Mono";
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 50px;
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .project-copy {
+    display: none;
+  }
+}
