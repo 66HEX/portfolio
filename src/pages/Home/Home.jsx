@@ -45,7 +45,7 @@ const Home = () => {
             duration: 1,
             opacity: 0,
             ease: "power3.out",
-            delay: 0.5,
+            delay: 2,
         });
 
         gsap.to(".spline-container", {
