@@ -9,7 +9,6 @@
 }
 .page-photos img {
   position: relative;
-  max-height: 370px;
   padding-bottom: 0.5em;
   filter: blur(2px) brightness(0.5);
   transition: filter 0.3s ease-in-out;
