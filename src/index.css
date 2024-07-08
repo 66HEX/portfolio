@@ -12,7 +12,7 @@
   --dark-text-tertiary: hsl(0 0% 60%);
   --dark-btn-bg: hsl(0 0% 1%);
   --dark-card-bg: hsl(0 0% 10%);
-  --dark-card-border: hsl(0 0% 10%);
+  --dark-card-border: hsl(0 0% 20%);
 }
 * {
   margin: 0;
