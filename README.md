@@ -67,6 +67,8 @@ npm start
 ```
 The application will be available at http://localhost:3000.
 
-## Author
+## License
 
-Marek Jóźwiak
+This project is licensed under the terms of the MIT license. See the LICENSE file for more information.
+
+Designed by [Marek Jóźwiak](https://github.com/66HEX).
