@@ -1,4 +1,4 @@
-# HEX - Freelance Web Developer
+# HEX - Portfolio
 
 ## Project Description
 
