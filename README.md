@@ -21,11 +21,9 @@ You can view the live version of the application at this [link](https://hextheco
 ## Technologies
 
 - React
-- GSAP
-- React Icons
 - React Router DOM
-- @splinetool/react-spline
-- use-scramble
+- GSAP
+- Spline
 - Vite
 - Vercel
 
