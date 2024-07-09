@@ -47,12 +47,12 @@ To run the project locally, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/hex-portfolio.git
+    git clone https://github.com/66HEX/portfolio.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd hex-portfolio
+    cd portfolio
     ```
 
 3. Install the dependencies:
