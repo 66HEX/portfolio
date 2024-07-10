@@ -30,7 +30,7 @@ You can view the live version of the application at this [link](https://hextheco
 ## Project Structure
 
 - `index.html`: Main HTML file of the application.
-- `src/main.jsx`: Main JavaScript file initializing the React application.
+- `src/App.jsx`: Main JavaScript file initializing the React application.
 - `src/components/Dock.jsx`: Dock component for navigation.
 - `src/components/LiveClockUpdate.jsx`: Clock component.
 - `src/components/Preloader.jsx`: Preloader component.
