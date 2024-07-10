@@ -2,7 +2,7 @@
 
 ## Project Description
 
-HEX is a portfolio website showcasing my services and projects .The application is built using React, GSAP for animations, and other modern web technologies.
+This project is a portfolio website showcasing my services and other projects. The application is built using React, GSAP for animations, and other modern web technologies.
 
 ## Demo
 
