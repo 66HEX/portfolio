@@ -4,6 +4,7 @@ import Spline from "@splinetool/react-spline";
 import LiveClockUpdate from "../../components/LiveClockUpdate/LiveClockUpdate";
 import "./home.css";
 import {useGSAP} from "@gsap/react";
+import HeroImage from "/images/hex-logo.png";
 
 gsap.registerPlugin(useGSAP);
 
@@ -90,7 +91,7 @@ const Home = () => {
     return (
         <>
             <div className={'hero-container container'}>
-                <img className="hero-logo" src="/images/hex-logo.png" alt="Logo"/>
+                <img className="hero-logo" src={HeroImage} alt="Logo"/>
                 <div className="spline-container">
                     <Spline className="spline-blur"
                             scene="https://prod.spline.design/H-L8tIuQGwRClfeH/scene.splinecode"/>
