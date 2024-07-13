@@ -16,6 +16,7 @@ const DockItem = ({
   isNeighbor,
   onMouseEnter,
   external,
+  label
 }) => {
   const scale = isHovered ? 1.2 : isNeighbor ? 1 : 1;
   const margin = isHovered || isNeighbor ? "10px" : "10px";
@@ -24,14 +25,14 @@ const DockItem = ({
   return (
     <div className="dock-item" style={linkStyle} onMouseEnter={onMouseEnter}>
       {external ? (
-        <a href={path} target="_blank" rel="noopener noreferrer " aria-label="Navigation link">
+        <a href={path} target="_blank" rel="noopener noreferrer" aria-label={label}>
           <div className="dock-item-link-wrap">
             <IconComponent size="18px" style={{ color: "hsl(0, 0%, 60%)" }} />
           </div>
         </a>
       ) : (
-        <Link to={path}>
-          <div className="dock-item-link-wrap" aria-label="Navigation link">
+        <Link to={path} aria-label={label}>
+          <div className="dock-item-link-wrap">
             <IconComponent size="18px" style={{ color: "hsl(0, 0%, 60%)" }} />
           </div>
         </Link>
@@ -88,14 +89,15 @@ const Dock = () => {
   }, []);
 
   const icons = [
-    { icon: SlHome, path: "/" },
-    { icon: SlUser, path: "/about" },
-    { icon: SlCamera, path: "/photos" },
-    { icon: SlFolder, path: "/projects" },
+    { icon: SlHome, path: "/", label: "Home" },
+    { icon: SlUser, path: "/about", label: "About" },
+    { icon: SlCamera, path: "/photos", label: "Photos" },
+    { icon: SlFolder, path: "/projects", label: "Projects" },
     {
       icon: SlSocialInstagram,
       path: "https://www.instagram.com/hexthecoder/",
       external: true,
+      label: "Instagram"
     },
   ];
 
@@ -111,6 +113,7 @@ const Dock = () => {
             isNeighbor={Math.abs(index - hoveredIndex) === 1}
             onMouseEnter={() => handleMouseEnter(index)}
             external={item.external}
+            label={item.label}
           />
         ))}
       </div>
