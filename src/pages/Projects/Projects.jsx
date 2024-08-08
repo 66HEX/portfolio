@@ -22,7 +22,13 @@ const useMultipleScrambles = (projects) => {
 };
 
 const Projects = () => {
-  const projectData = [   
+  const projectData = [
+{
+  title: "Website for Lean Bulls Gym",
+  copy: "Created a powerful online presence for powerlifting enthusiasts",
+  year: "2024",
+  url: "https://66hex.github.io/lean-bulls-gym/",
+},
 {
   title: "New Logo Design for Natalia Jasińska",
   copy: "Designed a fresh and distinctive logo to enhance brand identity",
@@ -43,11 +49,11 @@ const Projects = () => {
 },
 {
   title: "Sponsorship Proposal Design for Sports Club",
-  copy: "Created a visually appealing sponsorship proposal to attract potential partners",
+  copy: "Created a visually appealing sponsorship proposal to attract partners",
   year: "2024",
-  url: "https://example.com/sportsclubproposal",
+  url: "https://drive.google.com/file/d/1CChmdIq6mNPXuCrkVEfFCFrK7zwIWUJS/view?usp=sharing",
 }
-  ];
+];
 
   const scrambledProjects = useMultipleScrambles(projectData);
   useEffect(() => {
