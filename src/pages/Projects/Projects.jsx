@@ -49,7 +49,7 @@ const Projects = () => {
 },
 {
   title: "Sponsorship Proposal Design for Sports Club",
-  copy: "Created a visually appealing sponsorship proposal to attract partners",
+  copy: "Designed an eye-catching sponsorship proposal",
   year: "2024",
   url: "https://drive.google.com/file/d/1CChmdIq6mNPXuCrkVEfFCFrK7zwIWUJS/view?usp=sharing",
 }
