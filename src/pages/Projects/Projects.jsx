@@ -22,37 +22,31 @@ const useMultipleScrambles = (projects) => {
 };
 
 const Projects = () => {
-  const projectData = [
-    {
-      title: "Website for Lean Bulls Gym",
-      copy: "Created a powerful online presence for powerlifting enthusiasts",
-      year: "2024",
-      url: "https://66hex.github.io/lean-bulls-gym/",
-    },
-    {
-      title: "New Logo Design for Natalia Jasińska",
-      copy: "Designed a fresh and distinctive logo to enhance brand identity",
-      year: "2024",
-      url: "https://nataliajasinska.pl/",
-    },
-    {
-      title: "E-commerce Store for Natalia Jasińska",
-      copy: "Launched a seamless online shopping experience using Shopify",
-      year: "2024",
-      url: "https://nataliajasinska.pl/",
-    },
-    {
-      title: "Landing Page for Mo Commerce",
-      copy: "Designed an impactful landing page highlighting marketing solutions",
-      year: "2024",
-      url: "https://66hex.github.io/mo-commerce/",
-    }
-    {
-      title: "Sponsorship Proposal Design for Sports Club",
-      copy: "Created a visually appealing sponsorship proposal to attract potential partners",
-      year: "2024",
-      url: "https://drive.google.com/file/d/1CChmdIq6mNPXuCrkVEfFCFrK7zwIWUJS/view?usp=sharing",
-    }
+  const projectData = [   
+{
+  title: "New Logo Design for Natalia Jasińska",
+  copy: "Designed a fresh and distinctive logo to enhance brand identity",
+  year: "2024",
+  url: "https://nataliajasinska.pl/",
+},
+{
+  title: "E-commerce Store for Natalia Jasińska",
+  copy: "Launched a seamless online shopping experience using Shopify",
+  year: "2024",
+  url: "https://nataliajasinska.pl/",
+},
+{
+  title: "Landing Page for Mo Commerce",
+  copy: "Designed an impactful landing page highlighting marketing solutions",
+  year: "2024",
+  url: "https://66hex.github.io/mo-commerce/",
+},
+{
+  title: "Sponsorship Proposal Design for Sports Club",
+  copy: "Created a visually appealing sponsorship proposal to attract potential partners",
+  year: "2024",
+  url: "https://example.com/sportsclubproposal",
+}
   ];
 
   const scrambledProjects = useMultipleScrambles(projectData);
