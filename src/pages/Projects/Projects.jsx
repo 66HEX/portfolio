@@ -47,6 +47,12 @@ const Projects = () => {
       year: "2024",
       url: "https://66hex.github.io/mo-commerce/",
     }
+    {
+      title: "Sponsorship Proposal Design for Sports Club",
+      copy: "Created a visually appealing sponsorship proposal to attract potential partners",
+      year: "2024",
+      url: "https://drive.google.com/file/d/1CChmdIq6mNPXuCrkVEfFCFrK7zwIWUJS/view?usp=sharing",
+    }
   ];
 
   const scrambledProjects = useMultipleScrambles(projectData);
