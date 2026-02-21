@@ -1,0 +1,32 @@
+---
+title: "Frame: because I can't remember FFmpeg flags"
+description: "How a small frustration turned into an open source project with 500 stars in 26 days."
+date: "2026-02-17"
+tags:
+  - rust
+  - tauri
+  - ffmpeg
+thumbnail: "/images/works/frame.webp"
+published: true
+layout: docs
+---
+
+# Core problem
+
+It started with frustration. Every time I needed to quickly convert a file, I ended up on Stack Overflow looking for the same FFmpeg flag I found a week ago. I ended up spending weeks writing my own solution, which is probably the most programmer-like thing you can say.
+
+Frame was supposed to be a small, personal project. I uploaded it to GitHub with virtually no expectations. 26 days later: 500 stars, 5 contributors, and tens of thousands of views. I was a little surprised, so I decided to take it seriously and develop the project so that it would actually meet the expectations of the people who reached for it.
+
+## What it does
+
+Frame is an FFmpeg overlay with a native interface, built on Tauri v2. It supports the most popular video and audio formats, gives you full control over codecs, bitrate, scaling, and everything else that is usually hidden behind flags in the terminal.
+
+One of the things I'm most happy about is the integration with Real-ESRGAN for AI upscaling. You can double or quadruple the resolution with significantly better results than classic scaling algorithms. This is especially useful for older material.
+
+Rust is underneath, which has several practical consequences. The application overhead is really low, task processing is done asynchronously via a Tokio-based queue, and by default you can run two FFmpeg processes in parallel without any noticeable impact on the rest of the system. Compared to Electron, the difference in memory consumption is simply noticeable.
+
+## Project status
+
+The project is alive, I accept pull requests, and I have specific plans for future features. If you use it and find something useful missing, open an issue.
+
+The code is on [GitHub](https://github.com/66HEX/frame), licensed under GPLv3.

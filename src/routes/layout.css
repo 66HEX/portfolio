@@ -1,0 +1,513 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "SFPro";
+  src: url("../lib/assets/fonts/SFPro/SFPro-Regular-en.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2000-206F, U+20A0-20CF, U+20AC, U+2122;
+}
+
+@font-face {
+  font-family: "SFPro";
+  src: url("../lib/assets/fonts/SFPro/SFPro-Medium-en.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2000-206F, U+20A0-20CF, U+20AC, U+2122;
+}
+
+@font-face {
+  font-family: "SFMono";
+  src: url("../lib/assets/fonts/SFMono/SFMono-Regular-en.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2000-206F, U+20A0-20CF, U+20AC, U+2122;
+}
+
+* {
+  box-sizing: border-box;
+  min-width: 0;
+  text-box: trim-both cap alphabetic;
+}
+
+:root {
+  interpolate-size: allow-keywords;
+  color-scheme: light;
+  --theme-transition-duration: 180ms;
+  --theme-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+textarea {
+  resize: none;
+}
+
+.noise-filter-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.bg-noise {
+  position: var(--pos, absolute);
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z, 10);
+  mix-blend-mode: var(--noise-blend-mode, screen);
+  opacity: var(--noise-opacity, 0.025);
+  -webkit-filter: url(#noise-bg-fx) grayscale(100%);
+  filter: url(#noise-bg-fx) grayscale(100%);
+}
+
+@keyframes theme-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+::view-transition-old(root) {
+  animation-name: theme-fade-out;
+  animation-duration: var(--theme-transition-duration);
+  animation-timing-function: var(--theme-transition-easing);
+}
+
+::view-transition-new(root) {
+  animation-name: theme-fade-in;
+  animation-duration: var(--theme-transition-duration);
+  animation-timing-function: var(--theme-transition-easing);
+}
+
+html {
+  text-size-adjust: 100%;
+  background: var(--background);
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-sfpro), ui-sans-serif, system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+textarea,
+select,
+button,
+option {
+  field-sizing: content;
+  /* Keep global text-box trimming for layout, but disable it on form controls to avoid glyph clipping. */
+  text-box: normal;
+}
+
+input {
+  text-transform: none;
+}
+
+:root {
+  --background: oklch(0.712 0.0085 264.38);
+  --foreground: oklch(0.252 0.0085 264.38);
+  --card: oklch(0.95 0.0085 264.38 / 0.3);
+  --toast: oklch(0.7849 0.0078 260.73);
+  --font-sfpro: "SFPro", sans-serif;
+  --font-sfmono: "SFMono", monospace;
+  --noise-blend-mode: multiply;
+  --noise-opacity: 0.05;
+  --ds-gray-alpha-100: oklch(0.985 0.0085 264.38 / 0.05);
+  --ds-gray-alpha-200: oklch(0.985 0.0085 264.38 / 0.1);
+  --ds-gray-alpha-400: oklch(0.985 0.0085 264.38 / 0.2);
+  --ds-gray-alpha-600: oklch(0.985 0.0085 264.38 / 0.4);
+  --ds-gray-alpha-800: oklch(0.205 0.0085 264.38 / 0.6);
+  --ds-blue-500: oklch(0.6231 0.188 259.81);
+  --ds-blue-600: oklch(0.5461 0.2152 262.88);
+  --ds-blue-700: oklch(0.4882 0.2172 264.38);
+  --ds-blue-800: oklch(0.4244 0.1809 265.64);
+  --ds-blue-900: oklch(0.5635 0.2408 260.82);
+
+  --ds-red-600: oklch(0.5771 0.2152 27.33);
+  --ds-red-700: oklch(0.5054 0.1905 27.52);
+  --ds-red-800: oklch(0.4437 0.1613 26.9);
+  --ds-red-900: oklch(0.5712 0.2219 20.09);
+
+  --ds-green-600: oklch(0.6271 0.1699 149.21);
+  --ds-green-700: oklch(0.5273 0.1371 150.07);
+
+  --ds-amber-800: oklch(0.7686 0.1647 70.08);
+  --ds-orange-600: oklch(0.6461 0.1943 41.12);
+  --card-highlight-top: color-mix(in srgb, white 20%, transparent);
+  --card-highlight-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 70%, transparent);
+  --card-highlight-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 64%, transparent);
+  --card-highlight-bottom: color-mix(in srgb, var(--background) 80%, transparent);
+  --card-highlight-opacity: 0.9;
+  --input-highlight-top-shadow: color-mix(in srgb, black 12%, transparent);
+  --input-highlight-inner-shadow: color-mix(in srgb, black 30%, transparent);
+  --input-highlight-border-top: color-mix(in srgb, white 10%, transparent);
+  --input-highlight-border-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 66%, transparent);
+  --input-highlight-border-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 58%, transparent);
+  --input-highlight-border-bottom: color-mix(in srgb, var(--background) 86%, transparent);
+  --input-highlight-border-opacity: 0.62;
+  --btn-primary-foreground: oklch(0.985 0.007 264.38);
+  --btn-primary-outline: transparent;
+  --btn-primary-text-shadow: 0 1px 0 rgb(0 0 0 / 0.2);
+  --btn-secondary-outline: transparent;
+  --btn-secondary-text-shadow: 0 1px 0 color-mix(in srgb, white 20%, transparent);
+  --text-primary-text-shadow: 0 1px 0 color-mix(in srgb, white 10%, transparent);
+  --text-muted-text-shadow: 0 1px 0 color-mix(in srgb, white 8%, transparent);
+  --btn-secondary-border-top: color-mix(in srgb, white 20%, transparent);
+  --btn-secondary-border-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 55%, transparent);
+  --btn-secondary-border-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 44%, transparent);
+  --btn-secondary-border-bottom: color-mix(in srgb, var(--background) 78%, transparent);
+  --btn-secondary-border-opacity: 0.9;
+  --btn-secondary-surface-top: color-mix(in srgb, var(--color-card) 94%, var(--background) 6%);
+  --btn-secondary-surface-bottom: color-mix(in srgb, var(--color-card) 76%, var(--background) 24%);
+  --hero-banner-glitter-color: #b1b4b9;
+
+  --radius-base: 0.175rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.1648 0.0075 264.38);
+  --foreground: oklch(0.985 0.007 264.38);
+  --card: oklch(0.985 0.0075 264.38 / 0.05);
+  --toast: oklch(0.2169 0.0066 258.37);
+  --noise-blend-mode: screen;
+  --noise-opacity: 0.025;
+  --ds-gray-alpha-100: oklch(0.985 0.007 264.38 / 0.05);
+  --ds-gray-alpha-200: oklch(0.985 0.007 264.38 / 0.1);
+  --ds-gray-alpha-400: oklch(0.985 0.007 264.38 / 0.2);
+  --ds-gray-alpha-600: oklch(0.985 0.007 264.38 / 0.4);
+  --ds-gray-alpha-800: oklch(0.985 0.007 264.38 / 0.6);
+  --card-highlight-top: color-mix(in srgb, var(--foreground) 14%, transparent);
+  --card-highlight-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 70%, transparent);
+  --card-highlight-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 64%, transparent);
+  --card-highlight-bottom: color-mix(in srgb, var(--background) 80%, transparent);
+  --card-highlight-opacity: 0.9;
+  --input-highlight-top-shadow: color-mix(in srgb, black 44%, transparent);
+  --input-highlight-inner-shadow: color-mix(in srgb, black 55%, transparent);
+  --input-highlight-border-top: color-mix(in srgb, var(--foreground) 12%, transparent);
+  --input-highlight-border-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 46%, transparent);
+  --input-highlight-border-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 38%, transparent);
+  --input-highlight-border-bottom: color-mix(in srgb, var(--background) 86%, transparent);
+  --input-highlight-border-opacity: 0.62;
+  --btn-primary-foreground: var(--foreground);
+  --btn-primary-outline: color-mix(in srgb, black 55%, transparent);
+  --btn-primary-text-shadow: 0 1px 0 rgb(0 0 0 / 0.4);
+  --btn-secondary-outline: color-mix(in srgb, black 55%, transparent);
+  --btn-secondary-text-shadow: 0 1px 0 rgb(0 0 0 / 0.4);
+  --text-primary-text-shadow: 0 1px 0 color-mix(in srgb, black 20%, transparent);
+  --text-muted-text-shadow: 0 1px 0 color-mix(in srgb, black 15%, transparent);
+  --btn-secondary-border-top: color-mix(in srgb, var(--background) 95%, transparent);
+  --btn-secondary-border-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 55%, transparent);
+  --btn-secondary-border-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 44%, transparent);
+  --btn-secondary-border-bottom: color-mix(in srgb, var(--background) 78%, transparent);
+  --btn-secondary-border-opacity: 0.9;
+  --btn-secondary-surface-top: color-mix(in srgb, var(--ds-gray-alpha-200) 94%, var(--background) 6%);
+  --btn-secondary-surface-bottom: color-mix(in srgb, var(--ds-gray-alpha-200) 76%, var(--background) 24%);
+  --hero-banner-glitter-color: #202229;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-toast: var(--toast);
+  --font-mono: var(--font-sfmono);
+
+  --color-gray-alpha-100: var(--ds-gray-alpha-100);
+  --color-gray-alpha-200: var(--ds-gray-alpha-200);
+  --color-gray-alpha-400: var(--ds-gray-alpha-400);
+  --color-gray-alpha-600: var(--ds-gray-alpha-600);
+  --color-gray-alpha-800: var(--ds-gray-alpha-800);
+
+  --color-blue-500: var(--ds-blue-500);
+  --color-blue-600: var(--ds-blue-600);
+  --color-blue-700: var(--ds-blue-700);
+  --color-blue-800: var(--ds-blue-800);
+  --color-blue-900: var(--ds-blue-900);
+
+  --color-red-600: var(--ds-red-600);
+  --color-red-700: var(--ds-red-700);
+  --color-red-800: var(--ds-red-800);
+  --color-red-900: var(--ds-red-900);
+
+  --color-green-600: var(--ds-green-600);
+  --color-green-700: var(--ds-green-700);
+
+  --color-amber-800: var(--ds-amber-800);
+  --color-orange-600: var(--ds-orange-600);
+
+  --radius-xs: calc(var(--radius-base) * 1);
+  --radius-sm: calc(var(--radius-base) * 2);
+  --radius-md: calc(var(--radius-base) * 3);
+  --radius-lg: calc(var(--radius-base) * 4);
+  --radius-xl: calc(var(--radius-base) * 6);
+  --radius-2xl: calc(var(--radius-base) * 8);
+  --radius-3xl: calc(var(--radius-base) * 12);
+  --radius-4xl: calc(var(--radius-base) * 16);
+  --radius-full: 9999px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ds-gray-alpha-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ds-gray-alpha-200);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--ds-gray-alpha-200);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--ds-gray-alpha-400);
+}
+
+.button-highlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.button-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow:
+    inset 0 0.5px 0 var(--ds-gray-alpha-400),
+    inset 0 0 0 0.5px var(--ds-gray-alpha-200);
+}
+
+.card-shadow {
+  box-shadow:
+    0px 0px 0px 1px rgb(0 0 0 / 0.06),
+    0px 1px 1px -0.5px rgb(0 0 0 / 0.06),
+    0px 3px 3px -1.5px rgb(0 0 0 / 0.06),
+    0px 6px 6px -3px rgb(0 0 0 / 0.06),
+    0px 12px 12px -6px rgb(0 0 0 / 0.06),
+    0px 24px 24px -12px rgb(0 0 0 / 0.06);
+}
+
+.card-highlight {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--foreground);
+}
+
+.card-highlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  border: 1.5px solid transparent;
+  -webkit-mask:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(black, black);
+  mask:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(black, black);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background: linear-gradient(
+      180deg,
+      var(--card-highlight-top),
+      var(--card-highlight-mid-1) 42%,
+      var(--card-highlight-mid-2) 78%,
+      var(--card-highlight-bottom)
+    )
+    border-box;
+  opacity: var(--card-highlight-opacity);
+}
+
+.input-highlight {
+  position: relative;
+  isolation: isolate;
+
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    inset 0 1px 0 var(--input-highlight-top-shadow),
+    inset 0 8px 14px -12px var(--input-highlight-inner-shadow);
+}
+
+.input-highlight::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  border: 1px solid transparent;
+  -webkit-mask:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(black, black);
+  mask:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(black, black);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background: linear-gradient(
+      0deg,
+      var(--input-highlight-border-top),
+      var(--input-highlight-border-mid-1) 42%,
+      var(--input-highlight-border-mid-2) 80%,
+      var(--input-highlight-border-bottom)
+    )
+    border-box;
+  opacity: var(--input-highlight-border-opacity);
+}
+
+.btn-primary,
+.btn-secondary {
+  position: relative;
+  appearance: none;
+  isolation: isolate;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  outline: 1px solid transparent;
+  transition:
+    filter 150ms ease-out,
+    box-shadow 150ms ease-out;
+  --btn-border-top: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --btn-border-mid-1: color-mix(in srgb, var(--ds-gray-alpha-400) 72%, transparent);
+  --btn-border-mid-2: color-mix(in srgb, var(--ds-gray-alpha-200) 62%, transparent);
+  --btn-border-bottom: color-mix(in srgb, var(--background) 80%, transparent);
+  --btn-border-opacity: 0.72;
+}
+
+.btn-primary {
+  color: var(--btn-primary-foreground);
+  outline: 1px solid var(--btn-primary-outline);
+  text-shadow: var(--btn-primary-text-shadow);
+  background:
+    radial-gradient(ellipse at -20px top, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0)),
+    linear-gradient(180deg, var(--ds-blue-700), color-mix(in srgb, var(--ds-blue-900) 84%, black));
+}
+
+.btn-primary::after,
+.btn-secondary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1.5px solid transparent;
+  z-index: 1;
+  -webkit-mask:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(black, black);
+  mask:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(black, black);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background: linear-gradient(
+      180deg,
+      var(--btn-border-top),
+      var(--btn-border-mid-1) 41%,
+      var(--btn-border-mid-2) 75%,
+      var(--btn-border-bottom)
+    )
+    border-box;
+  opacity: var(--btn-border-opacity);
+}
+
+.btn-primary::after {
+  background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.72),
+      rgb(0 0 0 / 0.24) 41%,
+      rgb(0 0 0 / 0.24) 75%,
+      rgb(255 255 255 / 0.28)
+    )
+    border-box;
+  mix-blend-mode: overlay;
+  opacity: 1;
+}
+
+.btn-secondary {
+  color: var(--foreground);
+  outline: 1px solid var(--btn-secondary-outline);
+  text-shadow: var(--btn-secondary-text-shadow);
+  background:
+    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--color-card) 85%, transparent), transparent 58%),
+    linear-gradient(180deg, var(--btn-secondary-surface-top), var(--btn-secondary-surface-bottom));
+}
+
+.btn-secondary::after {
+  --btn-border-top: var(--btn-secondary-border-top);
+  --btn-border-mid-1: var(--btn-secondary-border-mid-1);
+  --btn-border-mid-2: var(--btn-secondary-border-mid-2);
+  --btn-border-bottom: var(--btn-secondary-border-bottom);
+  --btn-border-opacity: var(--btn-secondary-border-opacity);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--ds-blue-500);
+  outline-offset: 1px;
+}
+
+@media (hover: hover) {
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(1.12) saturate(1.05);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  filter: saturate(0.8);
+}
+
+.text-foreground {
+  text-shadow: var(--text-primary-text-shadow);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 28;
+}
+
+.text-gray-alpha-800 {
+  text-shadow: var(--text-muted-text-shadow);
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 17;
+}
