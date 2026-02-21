@@ -50,7 +50,7 @@
       path: page.url.pathname,
       currentUrl: page.url,
       image: homepageContent.hero.avatarSrc,
-      imageAlt: "Marek Jozwiak profile photo",
+      imageAlt: "Open Graph Image for Marek Jozwiak's Portfolio",
       type: "website",
       keywords: [
         "Marek Jozwiak",
