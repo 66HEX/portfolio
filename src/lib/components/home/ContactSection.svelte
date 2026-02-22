@@ -403,10 +403,12 @@
         </div>
       </label>
 
-      <div class="relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-md">
+      <div
+        class="btn-secondary relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-md hover:filter-none!"
+      >
         <div class="relative h-15 w-full">
           <div
-            class="mt-1 flex h-full w-full scale-101 items-end justify-center [&>*:first-child]:w-full"
+            class="light:brightness-62 mt-1 flex h-full w-full scale-101 items-end justify-center dark:brightness-55 [&>*:first-child]:w-full"
             bind:this={turnstileContainer}
           ></div>
         </div>
