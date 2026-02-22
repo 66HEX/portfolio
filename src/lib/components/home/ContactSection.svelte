@@ -100,6 +100,15 @@
     }
   }
 
+  $effect(() => {
+    const message = turnstileError.trim();
+    if (message.length === 0) {
+      return;
+    }
+
+    showContactToast("error", content.form.errorLabel, message, 6500);
+  });
+
   function getTurnstileFromWindow(): TurnstileApi | undefined {
     return (window as Window & { turnstile?: TurnstileApi }).turnstile;
   }
