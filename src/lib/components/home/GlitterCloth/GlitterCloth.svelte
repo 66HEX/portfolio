@@ -71,7 +71,7 @@
     ...rest
   }: Props = $props();
 
-  const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+  const dpr = 1;
 </script>
 
 <div class={cn("relative h-full w-full overflow-hidden", className)} {...rest}>
