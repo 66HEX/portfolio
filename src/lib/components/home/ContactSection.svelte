@@ -339,7 +339,7 @@
       />
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.nameLabel}</span>
+        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.nameLabel}</span>
         <div class="input-highlight bg-background h-7.5 rounded-sm">
           <Input
             type="text"
@@ -356,7 +356,7 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.emailLabel}</span>
+        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.emailLabel}</span>
         <div class="input-highlight bg-background h-7.5 rounded-sm">
           <Input
             type="email"
@@ -372,7 +372,7 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.subjectLabel}</span>
+        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.subjectLabel}</span>
         <div class="input-highlight bg-background h-7.5 rounded-sm">
           <Input
             type="text"
@@ -389,7 +389,7 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.messageLabel}</span>
+        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.messageLabel}</span>
         <div class="input-highlight bg-background rounded-sm">
           <textarea
             name="message"
