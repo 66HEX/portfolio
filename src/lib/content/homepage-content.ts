@@ -96,11 +96,6 @@ export type HomepageContent = {
   };
   contact: {
     title: string;
-    description: string;
-    directEmailLabel: string;
-    directEmail: string;
-    availabilityLabel: string;
-    responseTimeLabel: string;
     form: {
       nameLabel: string;
       emailLabel: string;
@@ -280,11 +275,6 @@ export const homepageContent: HomepageContent = {
   },
   contact: {
     title: "Contact",
-    description: "Send a short brief and I'll reply with next steps, scope outline, and timeline.",
-    directEmailLabel: "Direct email",
-    directEmail: "hexthecoder@gmail.com",
-    availabilityLabel: "Current availability: open for new projects",
-    responseTimeLabel: "Typical response time: within 24 hours",
     form: {
       nameLabel: "Name",
       emailLabel: "Email",
