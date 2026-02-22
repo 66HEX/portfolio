@@ -16,6 +16,7 @@
 
   const THEME_STORAGE_KEY = "theme-preference";
   const DARK_CLASS = "dark";
+  const THEME_CHANGE_EVENT = "themechange";
 
   let { name, role, links }: Props = $props();
   let theme = $state<ThemePreference>("light");
@@ -33,6 +34,14 @@
           themeColorMeta.setAttribute(
             "content",
             nextTheme === "dark" ? seoConfig.themeColorDark : seoConfig.themeColorLight,
+          );
+        }
+
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(
+            new CustomEvent(THEME_CHANGE_EVENT, {
+              detail: { theme: nextTheme },
+            }),
           );
         }
       };

@@ -27,10 +27,12 @@
     turnstileToken: string;
   };
 
+  type ThemePreference = "light" | "dark";
+
   type TurnstileRenderOptions = {
     sitekey: string;
     size: "flexible";
-    theme: "auto";
+    theme: ThemePreference;
     action: string;
     callback: (token: string) => void;
     "expired-callback": () => void;
@@ -47,6 +49,8 @@
   const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
   const TURNSTILE_LAZY_ROOT_MARGIN = "320px 0px";
   const TURNSTILE_LAZY_ANCHOR_SELECTOR = "[data-turnstile-lazy-anchor]";
+  const TURNSTILE_THEME_CHANGE_EVENT = "themechange";
+  const DARK_CLASS = "dark";
   const turnstileSiteKey = publicEnv.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
 
   let { content }: Props = $props();
@@ -67,6 +71,7 @@
   let turnstileApi: TurnstileApi | null = null;
   let turnstileApiPromise: Promise<TurnstileApi> | null = null;
   let turnstileInitStarted = false;
+  let turnstileTheme = $state<ThemePreference>("light");
 
   type ToastKind = "success" | "error" | "info";
 
@@ -161,6 +166,14 @@
     return turnstileApiPromise;
   }
 
+  function readThemeFromDom(): ThemePreference {
+    if (typeof document === "undefined") {
+      return "light";
+    }
+
+    return document.documentElement.classList.contains(DARK_CLASS) ? "dark" : "light";
+  }
+
   function resetTurnstileWidget(): void {
     turnstileToken = "";
     if (turnstileApi && turnstileWidgetId) {
@@ -183,7 +196,7 @@
     turnstileWidgetId = turnstileApi.render(turnstileContainer, {
       sitekey: turnstileSiteKey,
       size: "flexible",
-      theme: "auto",
+      theme: turnstileTheme,
       action: "contact_form",
       callback: (token: string) => {
         turnstileToken = token;
@@ -210,6 +223,29 @@
 
     let active = true;
     let observer: IntersectionObserver | null = null;
+
+    turnstileTheme = readThemeFromDom();
+
+    const handleThemeChange = (event: Event): void => {
+      const nextThemeFromEvent =
+        event instanceof CustomEvent && event.detail && typeof event.detail === "object" && "theme" in event.detail
+          ? event.detail.theme
+          : undefined;
+
+      const nextTheme =
+        nextThemeFromEvent === "light" || nextThemeFromEvent === "dark" ? nextThemeFromEvent : readThemeFromDom();
+
+      if (nextTheme === turnstileTheme) {
+        return;
+      }
+
+      turnstileTheme = nextTheme;
+      if (turnstileApi && turnstileContainer) {
+        renderTurnstileWidget();
+      }
+    };
+
+    window.addEventListener(TURNSTILE_THEME_CHANGE_EVENT, handleThemeChange);
 
     const initTurnstile = async (): Promise<void> => {
       if (turnstileInitStarted) {
@@ -266,6 +302,7 @@
     return () => {
       active = false;
       observer?.disconnect();
+      window.removeEventListener(TURNSTILE_THEME_CHANGE_EVENT, handleThemeChange);
       if (turnstileApi && turnstileWidgetId) {
         turnstileApi.remove(turnstileWidgetId);
       }
