@@ -18,6 +18,11 @@ export const contactFormSchema = z.object({
     .min(20, "Message must be at least 20 characters long.")
     .max(3000, "Message must be at most 3000 characters long."),
   website: z.string().trim().max(120, "Website field must be at most 120 characters long.").optional().default(""),
+  turnstileToken: z
+    .string()
+    .trim()
+    .min(1, "Please complete the anti-bot verification.")
+    .max(2048, "Verification token is too long. Refresh the page and try again."),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;

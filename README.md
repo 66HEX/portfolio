@@ -54,6 +54,7 @@
 
 - **Contact API (`/api/contact`):**
   - zod validation
+  - Cloudflare Turnstile token verification
   - honeypot anti-spam field
   - IP-based rate limiting
   - Resend integration for transactional email delivery
@@ -175,7 +176,14 @@ Available variables:
 - `GITHUB_TOKEN` (optional, enables live GitHub contribution data)
 - `RESEND_API_KEY` (required for contact form email sending)
 - `CONTACT_FROM_EMAIL` (optional override)
-- `CONTACT_TO_EMAIL`
+- `CONTACT_TO_EMAIL` (required recipient mailbox)
+- `PUBLIC_TURNSTILE_SITE_KEY` (required for client widget)
+- `TURNSTILE_SECRET_KEY` (required for server-side token verification)
+
+Turnstile setup:
+
+- Create a Turnstile widget in **Managed** mode.
+- Use its Site Key as `PUBLIC_TURNSTILE_SITE_KEY` and Secret Key as `TURNSTILE_SECRET_KEY`.
 
 ## Installation
 
