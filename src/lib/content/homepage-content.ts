@@ -1,6 +1,7 @@
 import type { Component, ComponentType } from "svelte";
 import Clock3 from "lucide-svelte/icons/clock-3";
 import Code from "lucide-svelte/icons/code";
+import FileText from "lucide-svelte/icons/file-text";
 import Link2 from "lucide-svelte/icons/link-2";
 import Mail from "lucide-svelte/icons/mail";
 import MapPin from "lucide-svelte/icons/map-pin";
@@ -142,6 +143,12 @@ const socialLinks: HomeSocialLink[] = [
     handle: "@66hex",
     href: "https://21st.dev/66hex",
     icon: Icon21st,
+  },
+  {
+    platform: "Resume",
+    handle: "",
+    href: "/resume.pdf",
+    icon: FileText,
   },
 ];
 

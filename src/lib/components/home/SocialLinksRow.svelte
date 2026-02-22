@@ -69,7 +69,7 @@
     <p class="text-gray-alpha-800 text-xs leading-none">{role}</p>
   </header>
   <div
-    class="bg-background input-highlight absolute! top-0.5 right-0 flex items-center gap-1 rounded-full p-1 sm:right-32"
+    class="bg-background input-highlight absolute! top-0.5 right-0 flex items-center gap-1 rounded-full p-1 sm:right-40"
   >
     <Switch
       ariaLabel="Toggle color theme"
