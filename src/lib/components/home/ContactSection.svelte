@@ -27,11 +27,10 @@
     turnstileToken: string;
   };
 
-  type TurnstileTheme = "light" | "dark";
   type TurnstileRenderOptions = {
     sitekey: string;
     size: "flexible";
-    theme: TurnstileTheme;
+    theme: "auto";
     action: string;
     callback: (token: string) => void;
     "expired-callback": () => void;
@@ -46,7 +45,6 @@
 
   const TURNSTILE_SCRIPT_ID = "cf-turnstile-api-script";
   const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-  const DARK_CLASS = "dark";
   const turnstileSiteKey = publicEnv.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
 
   let { content }: Props = $props();
@@ -61,13 +59,11 @@
   });
   let turnstileToken = $state("");
   let turnstileError = $state("");
-  let turnstileTheme = $state<TurnstileTheme>("light");
 
   let turnstileContainer: HTMLDivElement | null = null;
   let turnstileWidgetId: string | null = null;
   let turnstileApi: TurnstileApi | null = null;
   let turnstileApiPromise: Promise<TurnstileApi> | null = null;
-  let themeObserver: MutationObserver | null = null;
 
   type ToastKind = "success" | "error" | "info";
 
@@ -162,13 +158,6 @@
     return turnstileApiPromise;
   }
 
-  function resolveTurnstileTheme(): TurnstileTheme {
-    if (typeof document === "undefined") {
-      return "light";
-    }
-    return document.documentElement.classList.contains(DARK_CLASS) ? "dark" : "light";
-  }
-
   function resetTurnstileWidget(): void {
     turnstileToken = "";
     if (turnstileApi && turnstileWidgetId) {
@@ -191,7 +180,7 @@
     turnstileWidgetId = turnstileApi.render(turnstileContainer, {
       sitekey: turnstileSiteKey,
       size: "flexible",
-      theme: turnstileTheme,
+      theme: "auto",
       action: "contact_form",
       callback: (token: string) => {
         turnstileToken = token;
@@ -220,23 +209,12 @@
 
     const initTurnstile = async (): Promise<void> => {
       try {
-        turnstileTheme = resolveTurnstileTheme();
         turnstileApi = await loadTurnstileApi();
         if (!active) {
           return;
         }
 
         renderTurnstileWidget();
-
-        themeObserver = new MutationObserver(() => {
-          const nextTheme = resolveTurnstileTheme();
-          if (nextTheme === turnstileTheme) {
-            return;
-          }
-          turnstileTheme = nextTheme;
-          renderTurnstileWidget();
-        });
-        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
       } catch {
         turnstileError = "Couldn't load anti-bot verification. Refresh and try again.";
       }
@@ -246,8 +224,6 @@
 
     return () => {
       active = false;
-      themeObserver?.disconnect();
-      themeObserver = null;
       if (turnstileApi && turnstileWidgetId) {
         turnstileApi.remove(turnstileWidgetId);
       }
