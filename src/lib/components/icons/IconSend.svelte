@@ -17,7 +17,7 @@
   xmlns="http://www.w3.org/2000/svg"
   width={size}
   height={size}
-  viewBox="0 0 24 24"
+  viewBox="0 0 18 18"
   fill="none"
   stroke="currentColor"
   stroke-width={strokeWidth}
@@ -26,6 +26,24 @@
   class={className}
   {...props}
 >
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
+  <line
+    x1="15.813"
+    y1="2.187"
+    x2="7.657"
+    y2="10.343"
+    fill="none"
+    stroke="rgba(247, 248, 248, 1)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.5"
+    data-color="color-2"
+  ></line>
+  <path
+    d="M15.947,2.73l-4.154,12.923c-.142,.443-.743,.509-.977,.106l-3.159-5.416L2.241,7.184c-.402-.235-.337-.835,.106-.977L15.27,2.053c.417-.134,.811,.26,.677,.677Z"
+    fill="none"
+    stroke="rgba(247, 248, 248, 1)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="1.5"
+  ></path>
 </svg>
