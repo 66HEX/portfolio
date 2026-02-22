@@ -1,6 +1,5 @@
 <script lang="ts">
   import IconChevronDown from "$lib/components/icons/IconChevronDown.svelte";
-  import { cubicInOut } from "svelte/easing";
   import { slide } from "svelte/transition";
   import type { TransitionConfig } from "svelte/transition";
   import type { FaqItem } from "$lib/content/homepage-content";
@@ -26,7 +25,6 @@
     const { from, to, duration = 180 } = params;
     return {
       duration,
-      easing: cubicInOut,
       css: (t) => `transform: rotate(${from + (to - from) * t}deg);`,
     };
   }
@@ -63,8 +61,7 @@
             id={`faq-answer-${index}`}
             class="overflow-hidden"
             transition:slide={{
-              duration: 220,
-              easing: cubicInOut,
+              duration: 300,
             }}
           >
             <div class="pb-1">
