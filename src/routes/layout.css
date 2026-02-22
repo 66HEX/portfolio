@@ -36,7 +36,6 @@
 }
 
 :root {
-  interpolate-size: allow-keywords;
   color-scheme: light;
   --theme-transition-duration: 180ms;
   --theme-transition-easing: cubic-bezier(0.22, 1, 0.36, 1);
@@ -95,7 +94,6 @@ textarea {
 }
 
 html {
-  text-size-adjust: 100%;
   background: var(--background);
 }
 
