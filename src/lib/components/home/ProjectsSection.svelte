@@ -33,10 +33,10 @@
           />
         </div>
 
-        <h3 class="text-foreground mt-3 text-sm font-medium">
+        <h3 class="text-foreground mt-3 text-sm leading-none font-medium">
           {project.title}
         </h3>
-        <p class="text-gray-alpha-800 mt-2 text-xs leading-relaxed">
+        <p class="text-gray-alpha-800 mt-3 text-xs leading-relaxed">
           {project.description}
         </p>
 

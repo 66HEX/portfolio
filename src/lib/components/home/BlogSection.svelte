@@ -35,7 +35,7 @@
             <time datetime={post.date}>{post.date}</time>
           </div>
 
-          <h3 class="text-foreground truncate pb-2 text-sm leading-none font-medium">{post.title}</h3>
+          <h3 class="text-foreground truncate pb-3 text-sm leading-none font-medium">{post.title}</h3>
           <p class="text-gray-alpha-800 text-xs leading-relaxed">
             {post.description}
           </p>
