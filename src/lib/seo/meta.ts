@@ -74,7 +74,7 @@ function normalizeDateToIso(value?: string): string | undefined {
 export function buildSeoMeta(input: SeoInput) {
   const canonicalPath = input.path ?? input.currentUrl?.pathname ?? "/";
   const canonicalUrl = toAbsoluteUrl(canonicalPath, input.currentUrl);
-  const ogImageUrl = toAbsoluteUrl(seoConfig.defaultOgImage, input.currentUrl);
+  const ogImageUrl = toAbsoluteUrl(input.image ?? seoConfig.defaultOgImage, input.currentUrl);
   const imageAlt = input.imageAlt ?? seoConfig.defaultOgImageAlt;
   const robots = input.robots ?? "index,follow";
   const type = input.type ?? "website";
