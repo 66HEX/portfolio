@@ -13,9 +13,6 @@
   };
 
   type ThemePreference = "light" | "dark";
-  type DocumentWithViewTransition = Document & {
-    startViewTransition?: (callback: () => void) => void;
-  };
 
   const THEME_STORAGE_KEY = "theme-preference";
   const DARK_CLASS = "dark";
@@ -40,16 +37,7 @@
         }
       };
 
-      const canAnimateThemeChange =
-        typeof window !== "undefined" &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-        typeof (document as DocumentWithViewTransition).startViewTransition === "function";
-
-      if (canAnimateThemeChange) {
-        (document as DocumentWithViewTransition).startViewTransition?.(applyThemeToDom);
-      } else {
-        applyThemeToDom();
-      }
+      applyThemeToDom();
     }
 
     if (persist && typeof window !== "undefined") {
