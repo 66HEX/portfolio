@@ -413,12 +413,6 @@
           ></div>
         </div>
         <div class="bg-background pointer-events-none absolute inset-0 rounded-md mix-blend-color"></div>
-
-        {#if turnstileError.length > 0}
-          <p class="text-center text-[10px] leading-relaxed text-red-600" role="status" aria-live="polite">
-            {turnstileError}
-          </p>
-        {/if}
       </div>
 
       <div class="mt-1 flex flex-col gap-2">
