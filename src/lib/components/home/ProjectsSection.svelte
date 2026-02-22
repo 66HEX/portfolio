@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Link2 from "lucide-svelte/icons/link-2";
+  import IconLink from "$lib/components/icons/IconLink.svelte";
   import IconGithub from "$lib/components/icons/IconGithub.svelte";
   import Tooltip from "$lib/components/ui/Tooltip.svelte";
   import type { ProjectItem } from "$lib/content/homepage-content";
@@ -43,7 +43,7 @@
         <div class="bg-background input-highlight absolute! right-3 bottom-3 flex items-center gap-1 rounded-md p-1">
           <Tooltip content={ctaLabel} delay={120}>
             <IconLinkButton href={project.href} ariaLabel={`${ctaLabel}: ${project.title}`}>
-              <Link2 size={16} />
+              <IconLink size={16} />
             </IconLinkButton>
           </Tooltip>
 

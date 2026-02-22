@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ChevronDown from "lucide-svelte/icons/chevron-down";
+  import IconChevronDown from "$lib/components/icons/IconChevronDown.svelte";
   import { cubicInOut } from "svelte/easing";
   import { slide } from "svelte/transition";
   import type { TransitionConfig } from "svelte/transition";
@@ -53,7 +53,7 @@
                 to: isOpen ? 180 : 0,
               }}
             >
-              <ChevronDown size={14} strokeWidth={2.25} />
+              <IconChevronDown size={14} />
             </span>
           {/key}
         </Button>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { env as publicEnv } from "$env/dynamic/public";
-  import Send from "lucide-svelte/icons/send";
+  import IconSend from "$lib/components/icons/IconSend.svelte";
   import { onMount } from "svelte";
   import { toast } from "varsel";
   import type { HomepageContent } from "$lib/content/homepage-content";
@@ -402,7 +402,7 @@
 
       <div class="mt-1 flex flex-col gap-2">
         <Button type="submit" variant="primary" size="form" disabled={pending || turnstileToken.length === 0}>
-          <Send size={12} strokeWidth={2.25} />
+          <IconSend size={12} strokeWidth={2.25} />
           <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
         </Button>
 

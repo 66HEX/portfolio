@@ -1,8 +1,7 @@
 <script lang="ts">
-  import CircleCheck from "lucide-svelte/icons/circle-check";
-  import CircleX from "lucide-svelte/icons/circle-x";
-  import Info from "lucide-svelte/icons/info";
-  import X from "lucide-svelte/icons/x";
+  import IconCheck from "$lib/components/icons/IconCheck.svelte";
+  import IconClose from "$lib/components/icons/IconClose.svelte";
+  import IconInfo from "$lib/components/icons/IconInfo.svelte";
   import { toast as toastApi } from "varsel";
   import { cn } from "$lib/utils/cn";
 
@@ -42,7 +41,7 @@
     onclick={dismissToast}
     aria-label="Dismiss notification"
   >
-    <X size={14} strokeWidth={2.2} />
+    <IconClose size={14} strokeWidth={2.2} />
   </button>
 
   <div class="p-4 pr-9">
@@ -52,11 +51,11 @@
         aria-hidden="true"
       >
         {#if kind === "success"}
-          <CircleCheck size={16} strokeWidth={2} />
+          <IconCheck size={16} />
         {:else if kind === "error"}
-          <CircleX size={16} strokeWidth={2} />
+          <IconClose size={16} strokeWidth={2} />
         {:else}
-          <Info size={16} strokeWidth={2} />
+          <IconInfo size={16} strokeWidth={1.5} />
         {/if}
       </span>
 

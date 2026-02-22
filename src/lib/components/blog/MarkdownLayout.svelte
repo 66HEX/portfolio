@@ -31,7 +31,7 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
-  import ArrowLeft from "lucide-svelte/icons/arrow-left";
+  import IconArrowLeft from "$lib/components/icons/IconArrowLeft.svelte";
   import FooterSection from "$lib/components/home/FooterSection.svelte";
   import { homepageContent } from "$lib/content/homepage-content";
   import Separator from "../ui/Separator.svelte";
@@ -107,7 +107,7 @@
     class="text-foreground hover:text-gray-alpha-800 mb-3 inline-flex items-center gap-1.5 px-2 py-1.5 text-sm leading-none font-medium duration-150 ease-out"
     aria-label="Back to home"
   >
-    <ArrowLeft size={12} strokeWidth={2.25} />
+    <IconArrowLeft size={12} strokeWidth={2.25} />
     <span>Back to home</span>
   </a>
 

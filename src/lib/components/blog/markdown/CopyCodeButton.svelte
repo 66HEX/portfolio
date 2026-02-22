@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Check from "lucide-svelte/icons/check";
-  import Copy from "lucide-svelte/icons/copy";
+  import IconCheck from "$lib/components/icons/IconCheck.svelte";
+  import IconCopy from "$lib/components/icons/IconCopy.svelte";
   import { onDestroy } from "svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import { cn } from "$lib/utils/cn";
@@ -73,9 +73,9 @@
 >
   <span class="sr-only">{copied ? "Copied code" : "Copy code"}</span>
   <span class={cn("transition-transform duration-150 ease-out", copied && "scale-0")}>
-    <Copy aria-hidden="true" size={15} strokeWidth={2.25} />
+    <IconCopy aria-hidden="true" size={15} strokeWidth={2.25} />
   </span>
   <span class={cn("absolute transition-transform duration-150 ease-out", !copied && "scale-0")}>
-    <Check aria-hidden="true" size={15} strokeWidth={2.5} />
+    <IconCheck aria-hidden="true" size={15} />
   </span>
 </Button>

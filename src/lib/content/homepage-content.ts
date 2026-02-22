@@ -1,14 +1,14 @@
 import type { Component, ComponentType } from "svelte";
-import Clock3 from "lucide-svelte/icons/clock-3";
-import Code from "lucide-svelte/icons/code";
-import FileText from "lucide-svelte/icons/file-text";
-import Link2 from "lucide-svelte/icons/link-2";
-import Mail from "lucide-svelte/icons/mail";
-import MapPin from "lucide-svelte/icons/map-pin";
-import Phone from "lucide-svelte/icons/phone";
 import Icon21st from "$lib/components/icons/Icon21st.svelte";
+import IconClock from "$lib/components/icons/IconClock.svelte";
+import IconFile from "$lib/components/icons/IconFile.svelte";
 import IconGithub from "$lib/components/icons/IconGithub.svelte";
+import IconLink from "$lib/components/icons/IconLink.svelte";
 import IconLinkedin from "$lib/components/icons/IconLinkedin.svelte";
+import IconMail from "$lib/components/icons/IconMail.svelte";
+import IconPhone from "$lib/components/icons/IconPhone.svelte";
+import IconPin from "$lib/components/icons/IconPin.svelte";
+import IconUser from "$lib/components/icons/IconUser.svelte";
 import IconX from "$lib/components/icons/IconX.svelte";
 
 export type IconComponent = Component<Record<string, unknown>> | ComponentType;
@@ -148,7 +148,7 @@ const socialLinks: HomeSocialLink[] = [
     platform: "Resume",
     handle: "",
     href: "/resume.pdf",
-    icon: FileText,
+    icon: IconFile,
   },
 ];
 
@@ -166,14 +166,14 @@ export const homepageContent: HomepageContent = {
     timeZone: "Europe/Warsaw",
     timeFallbackText: "Warsaw time",
     left: [
-      { icon: Code, text: "Frontend Developer" },
-      { icon: MapPin, text: "Warsaw, Poland" },
-      { icon: Clock3, text: "Warsaw time", kind: "time" },
+      { icon: IconUser, text: "Frontend Developer" },
+      { icon: IconPin, text: "Warsaw, Poland" },
+      { icon: IconClock, text: "Warsaw time", kind: "time" },
     ],
     right: [
-      { icon: Phone, text: "+48 792 015 696" },
-      { icon: Mail, text: "hexthecoder@gmail.com" },
-      { icon: Link2, text: "madebyhex.com" },
+      { icon: IconPhone, text: "+48 792 015 696" },
+      { icon: IconMail, text: "hexthecoder@gmail.com" },
+      { icon: IconLink, text: "madebyhex.com" },
     ],
   },
   githubCard: {

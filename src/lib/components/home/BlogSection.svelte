@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ArrowRight from "lucide-svelte/icons/arrow-right";
+  import IconChevronRight from "$lib/components/icons/IconChevronRight.svelte";
   import { resolve } from "$app/paths";
   import Tooltip from "$lib/components/ui/Tooltip.svelte";
   import ContentCard from "../ui/ContentCard.svelte";
@@ -43,7 +43,7 @@
           <div class="bg-background input-highlight absolute! right-3 bottom-3 flex items-center gap-1 rounded-md p-1">
             <Tooltip content={readArticleLabel} delay={120}>
               <IconLinkButton {href} ariaLabel={`${readArticleLabel}: ${post.title}`} target="_self" rel="">
-                <ArrowRight size={16} />
+                <IconChevronRight size={16} />
               </IconLinkButton>
             </Tooltip>
           </div>
