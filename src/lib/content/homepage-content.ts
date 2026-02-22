@@ -263,7 +263,7 @@ export const homepageContent: HomepageContent = {
           "Smaller scopes usually take 2-4 weeks. Larger product initiatives are typically structured in monthly iterations.",
       },
       {
-        question: "Can you improve an existing codebase instead of building from scratch?",
+        question: "Can you improve an existing codebase?",
         answer:
           "Yes. I often join existing products to refactor UI architecture, improve performance, and tighten consistency.",
       },
