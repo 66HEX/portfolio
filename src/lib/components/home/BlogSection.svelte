@@ -25,13 +25,13 @@
 
 <SectionBlock {title}>
   {#if posts.length === 0}
-    <p class="text-gray-alpha-800 text-base">{emptyStateLabel}</p>
+    <p class="text-gray-alpha-800 text-base leading-none">{emptyStateLabel}</p>
   {:else}
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {#each posts as post (post.slug)}
         {@const href = resolve(`/blog/${post.slug}` as Parameters<typeof resolve>[0])}
         <ContentCard class="relative flex flex-col pb-14">
-          <div class="text-gray-alpha-800 mb-3 text-xs">
+          <div class="text-gray-alpha-800 mb-3 text-xs leading-none">
             <time datetime={post.date}>{post.date}</time>
           </div>
 

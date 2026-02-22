@@ -77,8 +77,8 @@
 
 <div class="relative my-4 h-12 w-full">
   <header class="ml-30 flex h-full flex-col items-start justify-start gap-2 sm:ml-38">
-    <p class="text-foreground text-lg font-medium">{name}</p>
-    <p class="text-gray-alpha-800 text-xs">{role}</p>
+    <p class="text-foreground text-lg leading-none font-medium">{name}</p>
+    <p class="text-gray-alpha-800 text-xs leading-none">{role}</p>
   </header>
   <div
     class="bg-background input-highlight absolute! top-0.5 right-0 flex items-center gap-1 rounded-full p-1 sm:right-32"

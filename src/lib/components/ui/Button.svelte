@@ -3,7 +3,7 @@
   import type { Snippet } from "svelte";
   import { cn } from "$lib/utils/cn";
 
-  const buttonVariants = cva("transition-shadow duration-150 ease-out outline-none", {
+  const buttonVariants = cva("transition-shadow duration-150 ease-out outline-none  leading-none", {
     variants: {
       variant: {
         primary: "btn-primary card-shadow disabled:cursor-not-allowed disabled:opacity-80",

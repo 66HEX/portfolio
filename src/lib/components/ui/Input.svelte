@@ -6,7 +6,7 @@
     variants: {
       variant: {
         field:
-          "text-foreground placeholder:text-gray-alpha-800 absolute inset-0 rounded-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+          "text-foreground placeholder:text-gray-alpha-800 leading-none absolute inset-0 rounded-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
         hidden: "pointer-events-none absolute h-0 w-0 opacity-0",
       },
       size: {

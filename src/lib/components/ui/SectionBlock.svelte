@@ -30,7 +30,7 @@
   {#if header}
     {@render header()}
   {:else if title}
-    <h2 id={sectionHeadingId} class={cn("text-foreground text-base font-medium", titleClass)}>{title}</h2>
+    <h2 id={sectionHeadingId} class={cn("text-foreground text-base leading-none font-medium", titleClass)}>{title}</h2>
   {/if}
 
   <InsetPanel class={panelClass}>
