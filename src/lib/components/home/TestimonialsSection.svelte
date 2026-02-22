@@ -15,12 +15,17 @@
       return [];
     }
 
+    const targetMinimum = rowItems.length === 2 && minimum < 4 ? 4 : minimum;
     const result = [...rowItems];
     let cursor = 0;
 
-    while (result.length < minimum) {
+    while (result.length < targetMinimum) {
       result.push(rowItems[cursor % rowItems.length]);
       cursor += 1;
+    }
+
+    if (rowItems.length > 1 && result[0] === result[result.length - 1]) {
+      result.push(rowItems[cursor % rowItems.length]);
     }
 
     return result;
