@@ -19,12 +19,12 @@
 </script>
 
 {#if isBlock(typeof className === "string" ? className : undefined, restProps["data-theme"])}
-  <code {...restProps} class={cn("block font-mono text-xs whitespace-pre", className)}>
+  <code {...restProps} class={cn("block font-mono text-sm whitespace-pre", className)}>
     {@render children?.()}
   </code>
 {:else}
   <div
-    class="input-highlight bg-background text-foreground inline-block w-fit rounded-sm px-1.5 py-1 text-[10px] leading-none font-medium whitespace-nowrap"
+    class="input-highlight bg-background text-foreground inline-block w-fit rounded-sm px-1.5 py-1 text-xs leading-none font-medium whitespace-nowrap"
   >
     <code {...restProps} class={cn("", className)}>
       {@render children?.()}

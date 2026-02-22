@@ -13,7 +13,7 @@
 
 <div class="input-highlight bg-background relative my-6 rounded-md">
   <div class="custom-scrollbar w-full overflow-x-auto rounded-md">
-    <table {...restProps} class={cn("w-full text-xs [&_code]:text-xs", className)}>
+    <table {...restProps} class={cn("w-full text-sm [&_code]:text-sm", className)}>
       {@render children?.()}
     </table>
   </div>

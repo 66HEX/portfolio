@@ -21,10 +21,10 @@
   <InsetPanel class="relative p-4">
     <div class="relative flex flex-col">
       <div class="flex flex-col gap-3">
-        <h3 class="text-foreground text-base leading-none font-medium">
+        <h3 class="text-foreground text-lg leading-none font-medium">
           {headline}
         </h3>
-        <p class="text-gray-alpha-800 max-w-xl text-xs leading-relaxed text-balance">
+        <p class="text-gray-alpha-800 max-w-xl text-sm leading-relaxed text-balance">
           {description}
         </p>
       </div>
@@ -43,7 +43,7 @@
           {/each}
         </div>
 
-        <p class="text-gray-alpha-800 mt-2 text-[10px] leading-none font-medium">
+        <p class="text-gray-alpha-800 mt-2 text-xs leading-none font-medium">
           © {year}
           {copyrightName}. {copyrightSuffix}
         </p>

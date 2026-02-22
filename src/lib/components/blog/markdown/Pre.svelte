@@ -26,8 +26,8 @@
   {...restProps}
   class={cn(
     unstyled
-      ? "group/pre relative font-mono text-xs"
-      : "group/pre input-highlight bg-gray-alpha-100 text-foreground relative mt-5 rounded-md p-3 text-xs",
+      ? "group/pre relative font-mono text-sm"
+      : "group/pre input-highlight bg-gray-alpha-100 text-foreground relative mt-5 rounded-md p-3 text-sm",
     className,
   )}
 >

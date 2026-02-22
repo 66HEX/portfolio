@@ -11,6 +11,6 @@
   const { children, class: className = "", ...restProps }: ComponentProps = $props();
 </script>
 
-<h3 {...restProps} class={cn("text-foreground mt-6 scroll-m-24 text-sm leading-none font-medium", className)}>
+<h3 {...restProps} class={cn("text-foreground mt-6 scroll-m-24 text-base leading-none font-medium", className)}>
   {@render children?.()}
 </h3>

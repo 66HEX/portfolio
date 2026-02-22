@@ -60,15 +60,15 @@
                 />
               </div>
               <div class="flex flex-col">
-                <p class="text-foreground text-sm leading-none font-medium">
+                <p class="text-foreground text-base leading-none font-medium">
                   {testimonial.name}
                 </p>
-                <p class="text-gray-alpha-800 mt-2 text-[10px] leading-none">
+                <p class="text-gray-alpha-800 mt-2 text-xs leading-none">
                   {testimonial.role}
                 </p>
               </div>
             </div>
-            <p class="text-gray-alpha-800 mt-3 text-xs leading-relaxed">
+            <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
               {testimonial.text}
             </p>
           </ContentCard>
@@ -93,15 +93,15 @@
                 />
               </div>
               <div class="flex flex-col">
-                <p class="text-foreground text-sm leading-none font-medium">
+                <p class="text-foreground text-base leading-none font-medium">
                   {testimonial.name}
                 </p>
-                <p class="text-gray-alpha-800 mt-2 text-[10px] leading-none">
+                <p class="text-gray-alpha-800 mt-2 text-xs leading-none">
                   {testimonial.role}
                 </p>
               </div>
             </div>
-            <p class="text-gray-alpha-800 mt-3 text-xs leading-relaxed">
+            <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
               {testimonial.text}
             </p>
           </ContentCard>

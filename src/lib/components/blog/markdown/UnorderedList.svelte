@@ -13,7 +13,7 @@
 
 <ul
   {...restProps}
-  class={cn("text-gray-alpha-800 mt-3 list-disc space-y-3 pl-5 text-xs leading-relaxed [&>li]:pl-1", className)}
+  class={cn("text-gray-alpha-800 mt-3 list-disc space-y-3 pl-5 text-sm leading-relaxed [&>li]:pl-1", className)}
 >
   {@render children?.()}
 </ul>

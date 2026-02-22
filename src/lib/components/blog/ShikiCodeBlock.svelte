@@ -12,7 +12,7 @@
 
 <div class="group/pre bg-background input-highlight relative mt-5 rounded-md">
   <div class="p-3">
-    <pre class="text-xs"><code data-language={lang}>{code}</code></pre>
+    <pre class="text-sm"><code data-language={lang}>{code}</code></pre>
   </div>
   {#if code}
     <div class="pointer-events-none absolute top-2 right-2">

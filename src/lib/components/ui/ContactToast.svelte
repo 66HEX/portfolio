@@ -62,10 +62,10 @@
 
       <div class="min-w-0">
         <span class="sr-only">{iconLabel} notification.</span>
-        <p class="text-foreground mb-1 text-sm leading-none font-medium">{title}</p>
+        <p class="text-foreground mb-1 text-base leading-none font-medium">{title}</p>
 
         {#if message.length > 0}
-          <p class="text-gray-alpha-800 text-xs leading-relaxed text-balance">{message}</p>
+          <p class="text-gray-alpha-800 text-sm leading-relaxed text-balance">{message}</p>
         {/if}
       </div>
     </div>

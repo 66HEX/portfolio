@@ -104,7 +104,7 @@
 <PageCard class="pt-6">
   <a
     href={resolve("/")}
-    class="text-foreground hover:text-gray-alpha-800 mb-3 inline-flex items-center gap-1.5 px-2 py-1.5 text-xs leading-none font-medium duration-150 ease-out"
+    class="text-foreground hover:text-gray-alpha-800 mb-3 inline-flex items-center gap-1.5 px-2 py-1.5 text-sm leading-none font-medium duration-150 ease-out"
     aria-label="Back to home"
   >
     <ArrowLeft size={12} strokeWidth={2.25} />
@@ -132,24 +132,24 @@
     {/if}
     {#each tags as tag, index (`${tag}-${index}`)}
       <span
-        class="bg-background input-highlight text-foreground rounded-sm px-1.5 py-1 text-[10px] leading-none font-medium"
+        class="bg-background input-highlight text-foreground rounded-sm px-1.5 py-1 text-xs leading-none font-medium"
       >
         {tag}
       </span>
     {/each}
   </div>
   <div class="mt-3">
-    <h1 class="text-foreground text-lg leading-none font-medium text-balance">
+    <h1 class="text-foreground text-lg leading-none font-medium">
       {title}
     </h1>
     {#if description}
-      <p class="text-gray-alpha-800 mt-3 text-xs leading-relaxed">
+      <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
         {description}
       </p>
     {/if}
   </div>
   <Separator class="my-4" />
-  <article data-doc-content class="text-gray-alpha-800 mt-3 w-full space-y-3 text-xs">
+  <article data-doc-content class="text-gray-alpha-800 mt-3 w-full space-y-3 text-sm">
     {@render children?.()}
   </article>
   <Separator class="my-4" />

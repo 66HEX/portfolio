@@ -41,7 +41,7 @@
         onclick={() => toggleItem(index)}
       >
         <Button type="button" variant="plain" size="full" aria-expanded={isOpen} aria-controls={`faq-answer-${index}`}>
-          <span class="text-foreground text-xs leading-none font-medium">
+          <span class="text-foreground text-sm leading-none font-medium">
             {item.question}
           </span>
           {#key `${index}-${isOpen ? "open" : "closed"}`}
@@ -70,7 +70,7 @@
             <div class="pb-1">
               <Separator class="my-3" />
 
-              <p class="text-gray-alpha-800 mr-3 text-xs leading-relaxed">
+              <p class="text-gray-alpha-800 mr-3 text-sm leading-relaxed">
                 {item.answer}
               </p>
             </div>

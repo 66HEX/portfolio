@@ -339,7 +339,7 @@
       />
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.nameLabel}</span>
+        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.nameLabel}</span>
         <div class="input-highlight bg-background h-7.5 rounded-sm">
           <Input
             type="text"
@@ -356,7 +356,7 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.emailLabel}</span>
+        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.emailLabel}</span>
         <div class="input-highlight bg-background h-7.5 rounded-sm">
           <Input
             type="email"
@@ -372,7 +372,7 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.subjectLabel}</span>
+        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.subjectLabel}</span>
         <div class="input-highlight bg-background h-7.5 rounded-sm">
           <Input
             type="text"
@@ -389,11 +389,11 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.messageLabel}</span>
+        <span class="text-gray-alpha-800 text-sm leading-none font-medium">{content.form.messageLabel}</span>
         <div class="input-highlight bg-background rounded-sm">
           <textarea
             name="message"
-            class="text-foreground placeholder:text-gray-alpha-800 block min-h-30 w-full rounded-sm px-2 py-1.5 text-xs leading-relaxed transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            class="text-foreground placeholder:text-gray-alpha-800 block min-h-30 w-full rounded-sm px-2 py-1.5 text-sm leading-relaxed transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"
@@ -421,7 +421,7 @@
           <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
         </Button>
 
-        <p class="text-gray-alpha-800 text-center text-[10px] text-balance">
+        <p class="text-gray-alpha-800 text-center text-xs text-balance">
           {content.form.privacyNote}
         </p>
       </div>

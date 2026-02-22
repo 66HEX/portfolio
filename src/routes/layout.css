@@ -505,7 +505,7 @@ input {
 .text-foreground {
   text-shadow: var(--text-primary-text-shadow);
   font-optical-sizing: none;
-  font-variation-settings: "opsz" 28;
+  font-variation-settings: "opsz" 25;
 }
 
 .text-gray-alpha-800 {

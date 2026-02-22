@@ -12,7 +12,7 @@
           "group bg-gray-alpha-100 text-foreground button-highlight relative cursor-pointer focus-visible:ring-1 focus-visible:ring-blue-500",
       },
       size: {
-        form: "inline-flex h-7 items-center justify-center gap-2 rounded-sm px-3 text-xs",
+        form: "inline-flex h-7 items-center justify-center gap-2 rounded-sm px-3 text-sm",
         full: "flex w-full items-center justify-between gap-3",
         icon: "flex size-6 items-center justify-center rounded-sm",
       },

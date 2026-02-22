@@ -53,7 +53,7 @@
           <IconBadge>
             <Icon size={14} class="text-foreground" strokeWidth={2.25} />
           </IconBadge>
-          <p class="text-foreground text-xs font-medium">
+          <p class="text-gray-alpha-800 text-xs font-medium">
             {item.text}
           </p>
         </div>
