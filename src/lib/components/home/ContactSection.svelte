@@ -45,6 +45,8 @@
 
   const TURNSTILE_SCRIPT_ID = "cf-turnstile-api-script";
   const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+  const TURNSTILE_LAZY_ROOT_MARGIN = "320px 0px";
+  const TURNSTILE_LAZY_ANCHOR_SELECTOR = "[data-turnstile-lazy-anchor]";
   const turnstileSiteKey = publicEnv.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
 
   let { content }: Props = $props();
@@ -64,6 +66,7 @@
   let turnstileWidgetId: string | null = null;
   let turnstileApi: TurnstileApi | null = null;
   let turnstileApiPromise: Promise<TurnstileApi> | null = null;
+  let turnstileInitStarted = false;
 
   type ToastKind = "success" | "error" | "info";
 
@@ -206,8 +209,15 @@
     }
 
     let active = true;
+    let observer: IntersectionObserver | null = null;
 
     const initTurnstile = async (): Promise<void> => {
+      if (turnstileInitStarted) {
+        return;
+      }
+
+      turnstileInitStarted = true;
+
       try {
         turnstileApi = await loadTurnstileApi();
         if (!active) {
@@ -215,15 +225,47 @@
         }
 
         renderTurnstileWidget();
+
+        // In case container ref was not ready in the same frame.
+        if (!turnstileWidgetId) {
+          requestAnimationFrame(() => {
+            if (!active) return;
+            renderTurnstileWidget();
+          });
+        }
       } catch {
         turnstileError = "Couldn't load anti-bot verification. Refresh and try again.";
       }
     };
 
-    void initTurnstile();
+    const requestTurnstileInit = (): void => {
+      void initTurnstile();
+    };
+
+    const lazyAnchor = document.querySelector<HTMLElement>(TURNSTILE_LAZY_ANCHOR_SELECTOR);
+
+    if (typeof IntersectionObserver === "undefined" || !lazyAnchor) {
+      requestTurnstileInit();
+    } else {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting || entry.intersectionRatio > 0)) {
+            return;
+          }
+
+          observer?.disconnect();
+          observer = null;
+          requestTurnstileInit();
+        },
+        { rootMargin: TURNSTILE_LAZY_ROOT_MARGIN },
+      );
+
+      observer.observe(lazyAnchor);
+    }
 
     return () => {
       active = false;
+      observer?.disconnect();
       if (turnstileApi && turnstileWidgetId) {
         turnstileApi.remove(turnstileWidgetId);
       }
@@ -312,7 +354,7 @@
 
 <SectionBlock title={content.title}>
   <ContentCard class="mx-auto w-full max-w-md">
-    <form class="flex flex-col gap-3" novalidate onsubmit={handleSubmit}>
+    <form class="flex flex-col gap-3" data-turnstile-lazy-anchor novalidate onsubmit={handleSubmit}>
       <Input
         type="text"
         name="website"
