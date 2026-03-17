@@ -51,7 +51,7 @@
   };
 
   const levelClasses = [
-    "bg-transparent",
+    "bg-background-muted",
     "bg-green-700/30",
     "bg-green-700/55",
     "bg-green-700/80",
@@ -244,7 +244,7 @@
   }
 </script>
 
-<div class={cn("w-full p-0", className)}>
+<div class={cn("w-full", className)}>
   <div class="custom-scrollbar overflow-x-auto pb-1" role="img" tabindex="-1" aria-label={graphAriaLabel}>
     <div class="">
       <div class="mb-2 grid items-center gap-1" style={`grid-template-columns: 2rem repeat(${weeks.length}, 0.75rem);`}>
