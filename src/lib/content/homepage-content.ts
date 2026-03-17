@@ -1,14 +1,14 @@
 import type { Component, ComponentType } from "svelte";
-import IconClock from "$lib/components/icons/IconClock.svelte";
-import IconFile from "$lib/components/icons/IconFile.svelte";
-import IconGithub from "$lib/components/icons/IconGithub.svelte";
-import IconLink from "$lib/components/icons/IconLink.svelte";
-import IconLinkedin from "$lib/components/icons/IconLinkedin.svelte";
-import IconMail from "$lib/components/icons/IconMail.svelte";
-import IconPhone from "$lib/components/icons/IconPhone.svelte";
-import IconPin from "$lib/components/icons/IconPin.svelte";
-import IconUser from "$lib/components/icons/IconUser.svelte";
-import IconX from "$lib/components/icons/IconX.svelte";
+import IconClock from "carbon-icons-svelte/lib/Time.svelte";
+import IconFile from "carbon-icons-svelte/lib/Document.svelte";
+import IconGithub from "carbon-icons-svelte/lib/LogoGithub.svelte";
+import IconLink from "carbon-icons-svelte/lib/Link.svelte";
+import IconLinkedin from "carbon-icons-svelte/lib/LogoLinkedin.svelte";
+import IconMail from "carbon-icons-svelte/lib/Email.svelte";
+import IconPhone from "carbon-icons-svelte/lib/Phone.svelte";
+import IconPin from "carbon-icons-svelte/lib/Location.svelte";
+import IconUser from "carbon-icons-svelte/lib/User.svelte";
+import IconX from "carbon-icons-svelte/lib/LogoX.svelte";
 
 export type IconComponent = Component<Record<string, unknown>> | ComponentType;
 

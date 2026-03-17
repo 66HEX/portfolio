@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
   import { cn } from "$lib/utils/cn";
-  import IconCheck from "$lib/components/icons/IconCheck.svelte";
-  import IconCopy from "$lib/components/icons/IconCopy.svelte";
+  import IconCheck from "carbon-icons-svelte/lib/Checkmark.svelte";
+  import IconCopy from "carbon-icons-svelte/lib/Copy.svelte";
 
   type Props = {
     code: string;
@@ -73,9 +73,9 @@
 >
   <span class="sr-only">{copied ? "Copied code" : "Copy code"}</span>
   <span class={cn("transition-transform duration-150 ease-out", copied && "scale-0 blur-[2px]")}>
-    <IconCopy aria-hidden="true" size={15} strokeWidth={2.25} />
+    <IconCopy aria-hidden="true" width={15} height={15} />
   </span>
   <span class={cn("absolute transition-transform duration-150 ease-out", !copied && "scale-0 blur-[2px]")}>
-    <IconCheck aria-hidden="true" size={15} />
+    <IconCheck aria-hidden="true" width={15} height={15} />
   </span>
 </button>

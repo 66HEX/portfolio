@@ -1,5 +1,5 @@
 <script lang="ts">
-  import IconChevronDown from "$lib/components/icons/IconChevronDown.svelte";
+  import IconChevronDown from "carbon-icons-svelte/lib/ChevronDown.svelte";
   import { slide } from "svelte/transition";
   import type { FaqItem } from "$lib/content/homepage-content";
   import Button from "../ui/Button.svelte";
@@ -44,7 +44,7 @@
             {item.question}
           </span>
           <span class="text-foreground-muted shrink-0 transition-transform duration-150" class:rotate-180={itemIsOpen}>
-            <IconChevronDown size={14} />
+            <IconChevronDown width={14} height={14} />
           </span>
         </Button>
 

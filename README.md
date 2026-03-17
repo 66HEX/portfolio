@@ -77,7 +77,7 @@
 
 - **Tailwind CSS v4**
 - **Design utilities:** `clsx`, `tailwind-merge`, `class-variance-authority`
-- **Icons:** `lucide-svelte` + custom social icons
+- **Icons:** `carbon`
 - **Toast notifications:** `varsel`
 
 ### Content & Markdown

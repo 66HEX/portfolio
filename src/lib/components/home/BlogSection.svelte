@@ -1,5 +1,5 @@
 <script lang="ts">
-  import IconChevronRight from "$lib/components/icons/IconChevronRight.svelte";
+  import IconChevronRight from "carbon-icons-svelte/lib/ChevronRight.svelte";
   import { resolve } from "$app/paths";
   import Tooltip from "$lib/components/ui/Tooltip.svelte";
   import ContentCard from "../ui/ContentCard.svelte";

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import IconCheck from "$lib/components/icons/IconCheck.svelte";
-  import IconClose from "$lib/components/icons/IconClose.svelte";
-  import IconInfo from "$lib/components/icons/IconInfo.svelte";
+  import IconCheck from "carbon-icons-svelte/lib/Checkmark.svelte";
+  import IconClose from "carbon-icons-svelte/lib/Close.svelte";
+  import IconInfo from "carbon-icons-svelte/lib/Information.svelte";
   import { toast as toastApi } from "varsel";
   import { cn } from "$lib/utils/cn";
 
@@ -41,7 +41,7 @@
     onclick={dismissToast}
     aria-label="Dismiss notification"
   >
-    <IconClose size={14} strokeWidth={2.2} />
+    <IconClose width={14} height={14} />
   </button>
 
   <div class="p-4 pr-9">
@@ -53,9 +53,9 @@
         {#if kind === "success"}
           <IconCheck size={16} />
         {:else if kind === "error"}
-          <IconClose size={16} strokeWidth={2} />
+          <IconClose size={16} />
         {:else}
-          <IconInfo size={16} strokeWidth={1.5} />
+          <IconInfo size={16} />
         {/if}
       </span>
 

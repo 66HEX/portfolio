@@ -1,6 +1,6 @@
 <script lang="ts">
   import { env as publicEnv } from "$env/dynamic/public";
-  import IconSend from "$lib/components/icons/IconSend.svelte";
+  import IconSend from "carbon-icons-svelte/lib/Send.svelte";
   import { onMount } from "svelte";
   import { toast } from "varsel";
   import type { HomepageContent } from "$lib/content/homepage-content";
@@ -441,7 +441,7 @@
 
       <div class="mt-1 flex flex-col gap-2">
         <Button type="submit" variant="primary" size="form" disabled={pending || turnstileToken.length === 0}>
-          <IconSend size={12} strokeWidth={2.25} />
+          <IconSend width={12} height={12} />
           <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
         </Button>
 

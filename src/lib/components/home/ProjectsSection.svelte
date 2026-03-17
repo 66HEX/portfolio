@@ -1,6 +1,6 @@
 <script lang="ts">
-  import IconLink from "$lib/components/icons/IconLink.svelte";
-  import IconGithub from "$lib/components/icons/IconGithub.svelte";
+  import IconLink from "carbon-icons-svelte/lib/Link.svelte";
+  import IconGithub from "carbon-icons-svelte/lib/LogoGithub.svelte";
   import Tooltip from "$lib/components/ui/Tooltip.svelte";
   import type { ProjectItem } from "$lib/content/homepage-content";
   import ContentCard from "../ui/ContentCard.svelte";
