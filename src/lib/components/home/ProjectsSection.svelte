@@ -18,14 +18,14 @@
 </script>
 
 <SectionBlock {title}>
-  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+  <div class="grid grid-cols-1 gap-3">
     {#each items as project (`project-${project.title}-${project.href}`)}
       <ContentCard class="relative flex flex-col pb-14">
-        <div class="bg-background-inset inset-shadow h-32 rounded-lg object-cover">
+        <div class="bg-background-inset inset-shadow h-96 rounded-md object-cover">
           <img
             src={project.image}
             alt={`${project.title} preview`}
-            class="h-full w-full rounded-lg object-cover"
+            class="h-full w-full rounded-md object-cover"
             loading="lazy"
             decoding="async"
             width="1280"

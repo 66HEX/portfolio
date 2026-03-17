@@ -10,7 +10,7 @@
 <div class="bg-background border-border relative h-38 w-full rounded-2xl border sm:h-54">
   <div class="bg-background-inset absolute inset-0 overflow-hidden rounded-2xl">
     <img
-      class="h-full w-full object-cover"
+      class="h-full w-full object-cover object-left"
       src="/images/ventura-light-hero.webp"
       alt="Ventura wallpaper background"
       width="2048"

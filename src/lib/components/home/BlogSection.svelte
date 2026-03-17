@@ -27,7 +27,7 @@
   {#if posts.length === 0}
     <p class="text-foreground-muted text-base leading-none">{emptyStateLabel}</p>
   {:else}
-    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-3">
       {#each posts as post (post.slug)}
         {@const href = resolve(`/blog/${post.slug}` as Parameters<typeof resolve>[0])}
         <ContentCard class="relative flex flex-col pb-14">
