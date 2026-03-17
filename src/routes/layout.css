@@ -26,6 +26,20 @@ html {
   text-box: trim-both cap alphabetic;
 }
 
+input,
+textarea,
+select,
+button,
+option {
+  field-sizing: content;
+  /* Keep global text-box trimming for layout, but disable it on form controls to avoid glyph clipping. */
+  text-box: normal;
+}
+
+input {
+  text-transform: none;
+}
+
 :root {
   --base-hue: 285;
 
