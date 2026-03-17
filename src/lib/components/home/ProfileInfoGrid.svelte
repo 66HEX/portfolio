@@ -46,14 +46,16 @@
 
 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
   {#each [profileInfo.left, profileInfo.right] as column, columnIndex (`profile-col-${columnIndex}`)}
-    <div class="bg-background input-highlight col-span-1 flex flex-col items-start gap-2 rounded-md p-3">
+    <div
+      class="bg-background-inset inset-shadow border-border col-span-1 flex flex-col items-start gap-2 rounded-2xl border p-3"
+    >
       {#each column as item, itemIndex (`profile-item-${columnIndex}-${itemIndex}-${item.text}`)}
         {@const Icon = item.icon}
         <div class="flex w-full items-center justify-start gap-2">
           <IconBadge>
             <Icon size={14} class="text-foreground" strokeWidth={2.25} />
           </IconBadge>
-          <p class="text-gray-alpha-800 text-xs leading-none font-medium">
+          <p class="text-foreground-muted text-xs leading-none font-medium">
             {item.text}
           </p>
         </div>

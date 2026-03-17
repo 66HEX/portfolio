@@ -5,4 +5,4 @@
   const { class: className = "", ...restProps }: ComponentProps = $props();
 </script>
 
-<hr {...restProps} class={cn("bg-background shadow-gray-alpha-100 my-8 h-px border-0 shadow-2xs", className)} />
+<hr {...restProps} class={cn("border-border my-12 h-px border-t", className)} />

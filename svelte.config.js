@@ -95,11 +95,9 @@ const tableCellFormatter = () => {
   };
 };
 
-const themes = {
-  dark: "github-dark",
-};
+const SHIKI_THEME = "github-light";
 const highlighter = await createHighlighter({
-  themes: Object.values(themes),
+  themes: [SHIKI_THEME],
   langs: ["svelte", "bash", "json", "typescript"],
 });
 
@@ -120,16 +118,16 @@ const config = {
 
       highlight: {
         highlighter: async (code, lang = "text") => {
-          const darkHtml = escapeSvelte(
+          const lightHtml = escapeSvelte(
             highlighter.codeToHtml(code, {
               lang,
-              theme: themes.dark,
+              theme: SHIKI_THEME,
             }),
           );
-          const htmlDarkProp = JSON.stringify(darkHtml);
+          const htmlLightProp = JSON.stringify(lightHtml);
           const langProp = JSON.stringify(lang);
           const rawProp = JSON.stringify(code);
-          return `<svelte:component this={Reflect.get(globalThis, "__MarkdownPre")} lang={${langProp}} htmlDark={${htmlDarkProp}} raw={${rawProp}} />`;
+          return `<svelte:component this={Reflect.get(globalThis, "__MarkdownPre")} lang={${langProp}} htmlLight={${htmlLightProp}} raw={${rawProp}} />`;
         },
       },
     }),

@@ -21,11 +21,11 @@
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
     {#each items as project (`project-${project.title}-${project.href}`)}
       <ContentCard class="relative flex flex-col pb-14">
-        <div class="input-highlight bg-background h-32 rounded-sm object-cover">
+        <div class="bg-background-inset inset-shadow h-32 rounded-lg object-cover">
           <img
             src={project.image}
             alt={`${project.title} preview`}
-            class="h-full w-full rounded-sm object-cover"
+            class="h-full w-full rounded-lg object-cover"
             loading="lazy"
             decoding="async"
             width="1280"
@@ -36,11 +36,11 @@
         <h3 class="text-foreground mt-3 text-base leading-none font-medium">
           {project.title}
         </h3>
-        <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
+        <p class="text-foreground-muted mt-3 text-sm leading-relaxed">
           {project.description}
         </p>
 
-        <div class="bg-background input-highlight absolute! right-3 bottom-3 flex items-center gap-1 rounded-md p-1">
+        <div class="absolute right-3 bottom-3 flex items-center gap-1">
           <Tooltip content={ctaLabel} delay={120}>
             <IconLinkButton href={project.href} ariaLabel={`${ctaLabel}: ${project.title}`}>
               <IconLink size={16} />

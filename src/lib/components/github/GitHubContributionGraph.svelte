@@ -51,7 +51,7 @@
   };
 
   const levelClasses = [
-    "bg-gray-alpha-100",
+    "bg-transparent",
     "bg-green-700/30",
     "bg-green-700/55",
     "bg-green-700/80",
@@ -250,14 +250,14 @@
       <div class="mb-2 grid items-center gap-1" style={`grid-template-columns: 2rem repeat(${weeks.length}, 0.75rem);`}>
         <div></div>
         {#each monthLabels as label, index (`month-${index}-${label}`)}
-          <div class="text-gray-alpha-800 text-xs leading-none">{label}</div>
+          <div class="text-foreground-muted text-xs leading-none">{label}</div>
         {/each}
       </div>
 
       <div class="grid gap-1" style={`grid-template-columns: 2rem repeat(${weeks.length}, 0.75rem);`}>
         <div class="grid grid-rows-7 gap-1">
           {#each dayLabels as label, index (`weekday-${index}-${label}`)}
-            <div class="text-gray-alpha-800 flex h-3 items-center text-xs leading-none">
+            <div class="text-foreground-muted flex h-3 items-center text-xs leading-none">
               {label}
             </div>
           {/each}
@@ -269,7 +269,7 @@
               <Tooltip content={day.tooltip} delay={120} class="size-3 shrink-0">
                 <span
                   class={cn(
-                    "border-gray-alpha-100/30 size-full rounded-xs border transition-colors duration-150",
+                    "border-border size-full rounded-xs border transition-colors duration-150",
                     levelClasses[day.level],
                     day.inRange ? "" : "opacity-40",
                   )}
@@ -284,16 +284,16 @@
   </div>
 
   <div class="mt-3 flex items-center justify-between gap-3">
-    <p class="text-gray-alpha-800 text-xs font-medium text-balance">
+    <p class="text-foreground-muted text-xs font-medium text-balance">
       {totalContributions}
       {text.summaryMiddleLabel}
       {normalizedDays}
       {text.summaryDaysLabel}
     </p>
-    <div class="text-gray-alpha-800 flex items-center gap-1 text-xs leading-none">
+    <div class="text-foreground-muted flex items-center gap-1 text-xs leading-none">
       <span>{text.legendLessLabel}</span>
       {#each legendLevels as level (`legend-${level}`)}
-        <span class={cn("border-gray-alpha-100/30 size-3 rounded-xs border", levelClasses[level])}></span>
+        <span class={cn("border-border size-3 rounded-xs border", levelClasses[level])}></span>
       {/each}
       <span>{text.legendMoreLabel}</span>
     </div>

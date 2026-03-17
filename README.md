@@ -31,8 +31,8 @@
 
 ### Homepage Sections
 
-- **Hero Banner:** Avatar + animated WebGL shader background.
-- **Social Row:** Social links + theme switch (light/dark).
+- **Hero Banner:** Avatar + optimized Ventura wallpaper background.
+- **Social Row:** Social links.
 - **Profile Info Grid:** Location/contact details with live timezone clock.
 - **GitHub Activity:** Contribution graph with API-backed data and local fallback.
 - **Projects Grid:** Project cards with live/demo + optional GitHub CTA.
@@ -86,27 +86,10 @@
 - **content-collections** (typed content indexing)
 - **shiki** (syntax highlighting pipeline)
 
-### Graphics
-
-- **three.js** + **@threlte/core** for the animated hero shader scene
-
 ### Deployment
 
 - **Adapter:** `@sveltejs/adapter-cloudflare`
 - **Runtime target:** Cloudflare Workers (`wrangler`)
-
-## Visual Direction
-
-This template follows a compact neumorphism/skeuomorphism visual language with:
-
-- OKLCH-based color tokens for light and dark themes
-- soft raised/inset surfaces (`card-highlight`, `input-highlight`, `btn-primary`, `btn-secondary`)
-- layered borders, highlights, and shadow stacks to simulate depth
-- animated background noise and shader-based hero texture for material feel
-
-All global visual tokens and effects are defined in:
-
-- `src/routes/layout.css`
 
 ## Content Management
 

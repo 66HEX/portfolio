@@ -30,14 +30,14 @@
 </script>
 
 <article
-  class="card-highlight card-shadow bg-toast relative w-[min(25rem,calc(100vw-1.25rem))] rounded-md select-none"
+  class="bg-background border-border relative w-[min(25rem,calc(100vw-1.25rem))] rounded-lg border shadow-md select-none"
   {role}
   aria-live={live}
   aria-atomic="true"
 >
   <button
     type="button"
-    class="text-gray-alpha-800 hover:text-foreground absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-sm transition-colors duration-100 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+    class="text-foreground-muted hover:text-foreground focus-visible:ring-accent absolute top-2 right-2 inline-flex h-6 w-6 items-center justify-center rounded-md transition-colors duration-100 ease-out outline-none focus-visible:ring-2"
     onclick={dismissToast}
     aria-label="Dismiss notification"
   >
@@ -64,7 +64,7 @@
         <p class="text-foreground mb-2 text-sm leading-none font-medium">{title}</p>
 
         {#if message.length > 0}
-          <p class="text-gray-alpha-800 text-xs leading-relaxed text-balance">{message}</p>
+          <p class="text-foreground-muted text-xs leading-relaxed text-balance">{message}</p>
         {/if}
       </div>
     </div>

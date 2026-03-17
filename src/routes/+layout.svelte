@@ -1,10 +1,10 @@
 <script lang="ts">
-  import "./layout.css";
   import "varsel/styles.css";
+  import "./layout.css";
   import { faviconLinks, seoConfig } from "$lib/seo/meta";
   import { VarselToaster } from "varsel";
-  import fontRegular from "$lib/assets/fonts/SFPro/SFPro-Regular-en.woff2";
-  import fontMonoRegular from "$lib/assets/fonts/SFMono/SFMono-Regular-en.woff2";
+  import fontRegular from "$lib/assets/fonts/aeonikpro.woff2";
+  import fontMonoRegular from "$lib/assets/fonts/aeonikmono.woff2";
 
   let { children } = $props();
 </script>
@@ -19,18 +19,8 @@
   <link rel="preload" href={fontMonoRegular} as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 
-<figure class="bg-noise" style="--pos: fixed; --z: 1;" aria-hidden="true">
-  <svg class="noise-filter-defs" aria-hidden="true" focusable="false">
-    <defs>
-      <filter id="noise-bg-fx">
-        <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" stitchTiles="stitch" />
-      </filter>
-    </defs>
-  </svg>
-</figure>
-
-<div class="mx-auto w-full max-w-3xl p-3">
-  <main id="main-content" class="mx-auto flex flex-col items-center justify-start gap-2 rounded-lg">
+<div class="mx-auto w-full max-w-3xl sm:p-3">
+  <main id="main-content" class="mx-auto flex flex-col items-center justify-start gap-2">
     {@render children()}
   </main>
 </div>

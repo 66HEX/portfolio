@@ -11,14 +11,7 @@
   } & SVGAttributes<SVGElement> = $props();
 </script>
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width={size}
-  height={size}
-  viewBox="0 0 18 18"
-  class={className}
-  {...props}
->
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 18 18" class={className} {...props}>
   <path
     d="M1.75,5.75l6.767,3.733c.301,.166,.665,.166,.966,0l6.767-3.733"
     fill="none"

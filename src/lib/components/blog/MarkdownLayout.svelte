@@ -104,14 +104,14 @@
 <PageCard class="pt-6">
   <a
     href={resolve("/")}
-    class="text-foreground hover:text-gray-alpha-800 mb-3 inline-flex items-center gap-1.5 px-2 py-1.5 text-sm leading-none font-medium duration-150 ease-out"
+    class="text-foreground-muted hover:text-foreground mb-3 inline-flex items-center gap-1.5 px-2 py-1.5 text-sm leading-none font-medium duration-150 ease-out"
     aria-label="Back to home"
   >
     <IconArrowLeft size={12} strokeWidth={2.25} />
     <span>Back to home</span>
   </a>
 
-  <div class="bg-background border-gray-alpha-100 input-highlight relative h-45 w-full rounded-md border">
+  <div class="bg-background-inset border-border inset-shadow relative h-45 w-full rounded-md border">
     <div class="absolute inset-0 overflow-hidden rounded-md">
       <img
         src={thumbnail}
@@ -126,16 +126,18 @@
     </div>
   </div>
 
-  <div class="text-gray-alpha-800 mt-4 flex flex-wrap items-center gap-2 text-xs">
+  <div class="text-foreground-muted mt-4 flex flex-wrap items-center gap-2 text-xs">
     {#if date}
       <time datetime={date}>{date}</time>
     {/if}
     {#each tags as tag, index (`${tag}-${index}`)}
-      <span
-        class="bg-background input-highlight text-foreground rounded-sm px-1.5 py-1 text-xs leading-none font-medium"
+      <div
+        class="inset-shadow border-border bg-background-inset text-foreground rounded-lg border p-0.5 py-2 text-xs font-medium whitespace-nowrap"
       >
-        {tag}
-      </span>
+        <span class="border-border bg-background rounded-md border px-1.5 py-0.5 leading-none font-medium shadow-md">
+          {tag}
+        </span>
+      </div>
     {/each}
   </div>
   <div class="mt-3">

@@ -27,12 +27,10 @@
     turnstileToken: string;
   };
 
-  type ThemePreference = "light" | "dark";
-
   type TurnstileRenderOptions = {
     sitekey: string;
     size: "flexible";
-    theme: ThemePreference;
+    theme: "light";
     action: string;
     callback: (token: string) => void;
     "expired-callback": () => void;
@@ -49,8 +47,6 @@
   const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
   const TURNSTILE_LAZY_ROOT_MARGIN = "320px 0px";
   const TURNSTILE_LAZY_ANCHOR_SELECTOR = "[data-turnstile-lazy-anchor]";
-  const TURNSTILE_THEME_CHANGE_EVENT = "themechange";
-  const DARK_CLASS = "dark";
   const turnstileSiteKey = publicEnv.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
 
   let { content }: Props = $props();
@@ -71,7 +67,6 @@
   let turnstileApi: TurnstileApi | null = null;
   let turnstileApiPromise: Promise<TurnstileApi> | null = null;
   let turnstileInitStarted = false;
-  let turnstileTheme = $state<ThemePreference>("light");
 
   type ToastKind = "success" | "error" | "info";
 
@@ -166,14 +161,6 @@
     return turnstileApiPromise;
   }
 
-  function readThemeFromDom(): ThemePreference {
-    if (typeof document === "undefined") {
-      return "light";
-    }
-
-    return document.documentElement.classList.contains(DARK_CLASS) ? "dark" : "light";
-  }
-
   function resetTurnstileWidget(): void {
     turnstileToken = "";
     if (turnstileApi && turnstileWidgetId) {
@@ -196,7 +183,7 @@
     turnstileWidgetId = turnstileApi.render(turnstileContainer, {
       sitekey: turnstileSiteKey,
       size: "flexible",
-      theme: turnstileTheme,
+      theme: "light",
       action: "contact_form",
       callback: (token: string) => {
         turnstileToken = token;
@@ -223,29 +210,6 @@
 
     let active = true;
     let observer: IntersectionObserver | null = null;
-
-    turnstileTheme = readThemeFromDom();
-
-    const handleThemeChange = (event: Event): void => {
-      const nextThemeFromEvent =
-        event instanceof CustomEvent && event.detail && typeof event.detail === "object" && "theme" in event.detail
-          ? event.detail.theme
-          : undefined;
-
-      const nextTheme =
-        nextThemeFromEvent === "light" || nextThemeFromEvent === "dark" ? nextThemeFromEvent : readThemeFromDom();
-
-      if (nextTheme === turnstileTheme) {
-        return;
-      }
-
-      turnstileTheme = nextTheme;
-      if (turnstileApi && turnstileContainer) {
-        renderTurnstileWidget();
-      }
-    };
-
-    window.addEventListener(TURNSTILE_THEME_CHANGE_EVENT, handleThemeChange);
 
     const initTurnstile = async (): Promise<void> => {
       if (turnstileInitStarted) {
@@ -302,7 +266,6 @@
     return () => {
       active = false;
       observer?.disconnect();
-      window.removeEventListener(TURNSTILE_THEME_CHANGE_EVENT, handleThemeChange);
       if (turnstileApi && turnstileWidgetId) {
         turnstileApi.remove(turnstileWidgetId);
       }
@@ -390,7 +353,7 @@
 </script>
 
 <SectionBlock title={content.title}>
-  <ContentCard class="mx-auto w-full max-w-md">
+  <ContentCard class="">
     <form class="flex flex-col gap-3" data-turnstile-lazy-anchor novalidate onsubmit={handleSubmit}>
       <Input
         type="text"
@@ -403,8 +366,8 @@
       />
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.nameLabel}</span>
-        <div class="input-highlight bg-background h-7.5 rounded-sm">
+        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.nameLabel}</span>
+        <div class="bg-background-inset inset-shadow border-border h-7.5 rounded-md border">
           <Input
             type="text"
             name="name"
@@ -420,8 +383,8 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.emailLabel}</span>
-        <div class="input-highlight bg-background h-7.5 rounded-sm">
+        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.emailLabel}</span>
+        <div class="bg-background-inset inset-shadow border-border h-7.5 rounded-md border">
           <Input
             type="email"
             name="email"
@@ -436,8 +399,8 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.subjectLabel}</span>
-        <div class="input-highlight bg-background h-7.5 rounded-sm">
+        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.subjectLabel}</span>
+        <div class="bg-background-inset inset-shadow border-border h-7.5 rounded-md border">
           <Input
             type="text"
             name="subject"
@@ -453,11 +416,11 @@
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-gray-alpha-800 text-xs leading-none font-medium">{content.form.messageLabel}</span>
-        <div class="input-highlight bg-background rounded-sm">
+        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.messageLabel}</span>
+        <div class="bg-background-inset inset-shadow border-border rounded-md border">
           <textarea
             name="message"
-            class="text-foreground placeholder:text-gray-alpha-800 block min-h-30 w-full rounded-sm px-2 py-1.5 text-sm leading-relaxed transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent block min-h-30 w-full rounded-sm px-2 py-1.5 text-sm leading-relaxed transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"
@@ -467,16 +430,13 @@
         </div>
       </label>
 
-      <div
-        class="btn-secondary relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-md hover:filter-none!"
-      >
-        <div class="relative h-15 w-full overflow-hidden rounded-md">
+      <div class="relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-md hover:filter-none!">
+        <div class="border-border relative h-15 w-full overflow-hidden rounded-lg border">
           <div
-            class="light:brightness-62 mt-1 flex h-full w-full scale-101 items-end justify-center dark:brightness-55 [&>*:first-child]:w-full"
+            class="mt-0.5 flex h-full w-full scale-101 items-end justify-center [&>*:first-child]:w-full"
             bind:this={turnstileContainer}
           ></div>
         </div>
-        <div class="bg-background pointer-events-none absolute inset-0 rounded-md mix-blend-color"></div>
       </div>
 
       <div class="mt-1 flex flex-col gap-2">
@@ -485,7 +445,7 @@
           <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
         </Button>
 
-        <p class="text-gray-alpha-800 text-center text-xs text-balance">
+        <p class="text-foreground-muted text-center text-xs text-balance">
           {content.form.privacyNote}
         </p>
       </div>

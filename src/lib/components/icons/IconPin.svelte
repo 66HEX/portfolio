@@ -11,14 +11,7 @@
   } & SVGAttributes<SVGElement> = $props();
 </script>
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width={size}
-  height={size}
-  viewBox="0 0 18 18"
-  class={className}
-  {...props}
->
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 18 18" class={className} {...props}>
   <circle
     cx="9"
     cy="5"

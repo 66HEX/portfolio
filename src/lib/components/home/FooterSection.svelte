@@ -24,7 +24,7 @@
         <h3 class="text-foreground text-lg leading-none font-medium">
           {headline}
         </h3>
-        <p class="text-gray-alpha-800 max-w-xl text-sm leading-relaxed text-balance">
+        <p class="text-foreground-muted max-w-xl text-sm leading-relaxed text-balance">
           {description}
         </p>
       </div>
@@ -32,7 +32,7 @@
       <div class="bg-card my-4 h-px"></div>
 
       <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-wrap items-center gap-1">
           {#each socialLinks as social (`footer-social-${social.platform}-${social.href}`)}
             {@const Icon = social.icon}
             <Tooltip content={`${social.platform} ${social.handle}`} delay={120}>
@@ -43,7 +43,7 @@
           {/each}
         </div>
 
-        <p class="text-gray-alpha-800 mt-2 text-xs leading-none font-medium">
+        <p class="text-foreground-muted mt-2 text-xs leading-none font-medium">
           © {year}
           {copyrightName}. {copyrightSuffix}
         </p>

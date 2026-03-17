@@ -11,6 +11,6 @@
   const { children, class: className = "", ...restProps }: ComponentProps = $props();
 </script>
 
-<thead {...restProps} class={cn("border-gray-alpha-100 overflow-hidden rounded-t-md border-b", className)}>
+<thead {...restProps} class={cn("border-border bg-background overflow-hidden rounded-t-lg border-b", className)}>
   {@render children?.()}
 </thead>

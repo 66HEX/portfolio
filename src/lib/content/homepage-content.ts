@@ -1,5 +1,4 @@
 import type { Component, ComponentType } from "svelte";
-import Icon21st from "$lib/components/icons/Icon21st.svelte";
 import IconClock from "$lib/components/icons/IconClock.svelte";
 import IconFile from "$lib/components/icons/IconFile.svelte";
 import IconGithub from "$lib/components/icons/IconGithub.svelte";
@@ -137,12 +136,6 @@ const socialLinks: HomeSocialLink[] = [
     handle: "@madebyhex",
     href: "https://x.com/madebyhex",
     icon: IconX,
-  },
-  {
-    platform: "21st Dev",
-    handle: "@66hex",
-    href: "https://21st.dev/66hex",
-    icon: Icon21st,
   },
   {
     platform: "Resume",

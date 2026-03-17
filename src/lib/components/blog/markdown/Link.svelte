@@ -12,11 +12,9 @@
 </script>
 
 <a
-  target="_blank"
-  rel="noreferrer noopener"
   {...restProps}
   class={cn(
-    "text-foreground hover:text-gray-alpha-800 rounded-sm text-sm underline decoration-dotted underline-offset-2 transition-[color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+    "text-foreground hover:text-foreground-muted text-sm font-medium tracking-normal underline decoration-dotted underline-offset-4 transition-[color] duration-150 ease-out",
     className,
   )}
 >

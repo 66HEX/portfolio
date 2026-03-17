@@ -21,12 +21,17 @@
   }: Props = $props();
 </script>
 
-<a
-  {href}
-  {target}
-  {rel}
-  aria-label={ariaLabel}
-  class={cn("card-shadow btn-secondary card-shadow flex size-6 items-center justify-center rounded-sm", className)}
->
-  {@render children?.()}
-</a>
+<div class="bg-background-inset inset-shadow border-border rounded-md border p-0.5">
+  <a
+    {href}
+    {target}
+    {rel}
+    aria-label={ariaLabel}
+    class={cn(
+      "bg-background border-border flex size-6 items-center justify-center rounded-sm border shadow-md",
+      className,
+    )}
+  >
+    {@render children?.()}
+  </a>
+</div>

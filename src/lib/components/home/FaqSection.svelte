@@ -35,7 +35,7 @@
     {#each items as item, index (`faq-${index}-${item.question}`)}
       {@const isOpen = openIndex === index}
       <ContentCard
-        class="cursor-pointer has-focus-visible:outline-2 has-focus-visible:outline-offset-1 has-focus-visible:outline-blue-500"
+        class="has-focus-visible:outline-accent cursor-pointer has-focus-visible:outline-2 has-focus-visible:outline-offset-1"
         onclick={() => toggleItem(index)}
       >
         <Button type="button" variant="plain" size="full" aria-expanded={isOpen} aria-controls={`faq-answer-${index}`}>
@@ -44,7 +44,7 @@
           </span>
           {#key `${index}-${isOpen ? "open" : "closed"}`}
             <span
-              class="text-gray-alpha-800 shrink-0"
+              class="text-foreground-muted shrink-0"
               style={`transform: rotate(${isOpen ? 180 : 0}deg);`}
               in:rotate={{
                 from: isOpen ? 0 : 180,
@@ -67,7 +67,7 @@
             <div class="pb-1">
               <Separator class="my-3" />
 
-              <p class="text-gray-alpha-800 mr-3 text-sm leading-relaxed">
+              <p class="text-foreground-muted mr-3 text-sm leading-relaxed">
                 {item.answer}
               </p>
             </div>

@@ -40,15 +40,19 @@
 </script>
 
 <SectionBlock {title} panelClass="relative p-0">
-  <div class="overflow-hidden rounded-lg px-0 py-3">
-    <div class="from-background absolute inset-y-0 left-0 z-10 w-5 rounded-l-lg bg-linear-to-r to-transparent"></div>
-    <div class="from-background absolute inset-y-0 right-0 z-10 w-5 rounded-r-lg bg-linear-to-l to-transparent"></div>
+  <div class="overflow-hidden rounded-2xl px-0 py-3">
+    <div
+      class="from-background-inset absolute inset-y-0 left-0 z-10 w-5 rounded-l-2xl bg-linear-to-r to-transparent"
+    ></div>
+    <div
+      class="from-background-inset absolute inset-y-0 right-0 z-10 w-5 rounded-r-2xl bg-linear-to-l to-transparent"
+    ></div>
     <div class="marquee-row">
       <div class="marquee-track marquee-left py-0.5">
         {#each firstTrack as testimonial, index (`first-${testimonial.name}-${index}`)}
           <ContentCard class="w-[min(20rem,calc(100vw-3.5rem))] flex-none">
             <div class="flex items-center gap-2">
-              <div class="input-highlight bg-background size-9 rounded-full">
+              <div class="border-border size-9 rounded-full border">
                 <img
                   src={testimonial.avatar}
                   alt={`${testimonial.name} avatar`}
@@ -63,12 +67,12 @@
                 <p class="text-foreground text-base leading-none font-medium">
                   {testimonial.name}
                 </p>
-                <p class="text-gray-alpha-800 mt-2 text-xs leading-none">
+                <p class="text-foreground-muted mt-2 text-xs leading-none">
                   {testimonial.role}
                 </p>
               </div>
             </div>
-            <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
+            <p class="text-foreground-muted mt-3 text-sm leading-relaxed">
               {testimonial.text}
             </p>
           </ContentCard>
@@ -81,7 +85,7 @@
         {#each secondTrack as testimonial, index (`second-${testimonial.name}-${index}`)}
           <ContentCard class="w-[min(20rem,calc(100vw-3.5rem))] flex-none">
             <div class="flex items-center gap-2">
-              <div class="input-highlight bg-background size-9 rounded-full">
+              <div class="border-border size-9 rounded-full border">
                 <img
                   src={testimonial.avatar}
                   alt={`${testimonial.name} avatar`}
@@ -96,12 +100,12 @@
                 <p class="text-foreground text-base leading-none font-medium">
                   {testimonial.name}
                 </p>
-                <p class="text-gray-alpha-800 mt-2 text-xs leading-none">
+                <p class="text-foreground-muted mt-2 text-xs leading-none">
                   {testimonial.role}
                 </p>
               </div>
             </div>
-            <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
+            <p class="text-foreground-muted mt-3 text-sm leading-relaxed">
               {testimonial.text}
             </p>
           </ContentCard>

@@ -90,7 +90,7 @@
 <InsetPanel>
   <GitHubContributionGraph {username} data={contributionData} text={graphText} />
   {#if !apiConfigured}
-    <p class="text-gray-alpha-800 mt-2 text-base">
+    <p class="text-foreground-muted mt-2 text-base">
       {missingTokenMessage}
     </p>
   {/if}

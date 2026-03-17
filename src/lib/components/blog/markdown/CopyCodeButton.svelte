@@ -1,9 +1,8 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
+  import { cn } from "$lib/utils/cn";
   import IconCheck from "$lib/components/icons/IconCheck.svelte";
   import IconCopy from "$lib/components/icons/IconCopy.svelte";
-  import { onDestroy } from "svelte";
-  import Button from "$lib/components/ui/Button.svelte";
-  import { cn } from "$lib/utils/cn";
 
   type Props = {
     code: string;
@@ -33,8 +32,8 @@
         copied = false;
         timeoutId = null;
       }, 2000);
-    } catch {
-      // Ignore clipboard errors in unsupported contexts.
+    } catch (error) {
+      console.error("Failed to copy code snippet", error);
     }
   }
 
@@ -59,12 +58,13 @@
   });
 </script>
 
-<Button
+<button
   type="button"
-  variant="highlight"
-  size="icon"
-  class={className}
-  onclick={(event: MouseEvent) => {
+  class={cn(
+    "group transition-scale inset-shadow border-border bg-background-inset text-foreground relative flex size-7 items-center justify-center rounded-sm border duration-150 ease-out active:scale-[0.95]",
+    className,
+  )}
+  onclick={(event) => {
     event.stopPropagation();
     event.preventDefault();
     handleCopy(code);
@@ -72,10 +72,10 @@
   aria-label={copied ? "Copied code" : "Copy code"}
 >
   <span class="sr-only">{copied ? "Copied code" : "Copy code"}</span>
-  <span class={cn("transition-transform duration-150 ease-out", copied && "scale-0")}>
+  <span class={cn("transition-transform duration-150 ease-out", copied && "scale-0 blur-[2px]")}>
     <IconCopy aria-hidden="true" size={15} strokeWidth={2.25} />
   </span>
-  <span class={cn("absolute transition-transform duration-150 ease-out", !copied && "scale-0")}>
+  <span class={cn("absolute transition-transform duration-150 ease-out", !copied && "scale-0 blur-[2px]")}>
     <IconCheck aria-hidden="true" size={15} />
   </span>
-</Button>
+</button>

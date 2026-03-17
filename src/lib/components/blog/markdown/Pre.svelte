@@ -22,35 +22,31 @@
   });
 </script>
 
-<div
-  {...restProps}
-  class={cn(
-    unstyled
-      ? "group/pre relative font-mono text-sm"
-      : "group/pre input-highlight bg-gray-alpha-100 text-foreground relative mt-5 rounded-md p-3 text-sm",
-    className,
-  )}
->
-  <div class="overflow-x-auto">
-    {@render children?.()}
-  </div>
-  {#if code}
-    <div class="pointer-events-none absolute top-2 right-2">
-      <CopyCodeButton {code} class="pointer-events-auto" />
+<div class="inset-shadow border-border bg-background-inset mt-8 rounded-lg border p-1">
+  <div
+    {...restProps}
+    class={cn(
+      unstyled
+        ? "group/pre relative font-mono text-base font-normal"
+        : "group/pre border-border bg-background text-foreground relative rounded-md border p-4 font-mono text-sm font-normal shadow-md",
+      className,
+    )}
+  >
+    <div class="overflow-x-auto">
+      {@render children?.()}
     </div>
-  {/if}
+    {#if code}
+      <div class="pointer-events-none absolute top-2 right-2">
+        <CopyCodeButton {code} class="pointer-events-auto" />
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
   :global(.shiki) {
     background-color: transparent !important;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
-    margin: 0;
-    padding: 0;
-  }
-
-  :global(.shiki code) {
-    font-family: var(--font-sfmono), monospace;
   }
 </style>

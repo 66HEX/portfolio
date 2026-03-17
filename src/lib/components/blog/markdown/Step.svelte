@@ -13,24 +13,28 @@
   }>();
 </script>
 
-<div class={cn("relative pb-6 pl-6", className)}>
+<div class={cn("relative pl-8", className)}>
   {#if title}
-    <div class="mb-2 flex h-6 items-center">
-      <span
-        class="bg-background text-foreground absolute -left-3 flex size-6 items-center justify-center rounded-full text-base [counter-increment:step] before:content-[counter(step)]"
-      >
-        <span class="input-highlight absolute! z-0 size-6 rounded-full"></span>
-      </span>
-      <h3 class="text-foreground relative z-10 text-base">
+    <div class="mb-4 flex h-10 items-center">
+      <div class="inset-shadow border-border bg-background-inset absolute -left-5 flex size-10 rounded-full border p-1">
+        <span
+          class="border-border bg-background text-foreground flex h-full w-full items-center justify-center rounded-full border text-xs font-medium shadow-md [counter-increment:step] before:content-[counter(step)]"
+        >
+        </span>
+      </div>
+      <h3 class="relative z-10 text-base leading-none font-medium tracking-tight">
         {title}
       </h3>
     </div>
   {:else}
-    <span
-      class="border-gray-alpha-100 bg-gray-alpha-100 text-foreground absolute top-1 -left-4 flex size-6 items-center justify-center rounded-full border text-base [counter-increment:step] before:content-[counter(step)]"
-    ></span>
+    <div class="inset-shadow border-border bg-background-inset absolute -left-5 flex size-10 rounded-full border p-1">
+      <span
+        class="border-border bg-background text-foreground flex h-full w-full items-center justify-center rounded-full border text-xs font-medium shadow-md [counter-increment:step] before:content-[counter(step)]"
+      >
+      </span>
+    </div>
   {/if}
-  <div class="text-gray-alpha-800 text-sm">
+  <div class={cn("text-foreground-muted text-sm leading-relaxed tracking-normal", !title && "pt-2")}>
     {@render children?.()}
   </div>
 </div>

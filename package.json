@@ -27,7 +27,6 @@
     "@sveltejs/kit": "^2.53.0",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "@tailwindcss/vite": "^4.2.0",
-    "@types/three": "^0.183.1",
     "eslint": "^10.0.1",
     "eslint-plugin-svelte": "^3.15.0",
     "globals": "^17.3.0",
@@ -46,11 +45,10 @@
     "wrangler": "^4.67.0"
   },
   "dependencies": {
-    "@threlte/core": "^8.4.0",
+    "carbon-icons-svelte": "^13.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.5.0",
-    "three": "^0.183.1",
     "varsel": "^0.5.4",
     "zod": "^4.3.6"
   }

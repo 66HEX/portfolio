@@ -44,7 +44,6 @@ export const seoConfig = {
   twitterHandle: "@madebyhex",
   defaultOgImage: "/og-image.jpg",
   defaultOgImageAlt: "Marek Jozwiak portfolio banner",
-  themeColorDark: "oklch(0.1648 0.0075 264.38)",
   themeColorLight: "oklch(0.712 0.0085 264.38)",
 };
 
