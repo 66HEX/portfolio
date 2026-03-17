@@ -12,7 +12,7 @@
   import { cn } from "$lib/utils/cn";
 
   const tooltipContentVariants = cva(
-    "pointer-events-none fixed z-200 rounded-sm bg-foreground px-2 py-1 text-xs whitespace-nowrap leading-none font-medium text-background shadow-lg",
+    "pointer-events-none fixed z-200 rounded-sm bg-foreground px-2 py-1 text-xs whitespace-nowrap leading-none font-medium text-background/80 shadow-lg",
   );
 
   const tooltipArrowVariants = cva("absolute h-0 w-0", {
