@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { TestimonialItem } from "$lib/content/homepage-content";
-  import ContentCard from "../ui/ContentCard.svelte";
+  import LandingContentCard from "./LandingContentCard.svelte";
   import SectionBlock from "../ui/SectionBlock.svelte";
 
   type Props = {
@@ -41,41 +41,20 @@
 
 <SectionBlock {title} panelClass="relative p-0">
   <div class="overflow-hidden rounded-2xl px-0 py-3">
-    <div
-      class="from-background-inset absolute inset-y-0 left-0 z-10 w-5 rounded-l-2xl bg-linear-to-r to-transparent"
-    ></div>
-    <div
-      class="from-background-inset absolute inset-y-0 right-0 z-10 w-5 rounded-r-2xl bg-linear-to-l to-transparent"
-    ></div>
+    <div class="from-background-inset absolute inset-y-0 left-0 z-10 w-5 rounded-l-2xl bg-linear-to-r to-transparent"></div>
+    <div class="from-background-inset absolute inset-y-0 right-0 z-10 w-5 rounded-r-2xl bg-linear-to-l to-transparent"></div>
     <div class="marquee-row">
       <div class="marquee-track marquee-left py-0.5">
         {#each firstTrack as testimonial, index (`first-${testimonial.name}-${index}`)}
-          <ContentCard class="w-[min(20rem,calc(100vw-3.5rem))] flex-none">
-            <div class="flex items-center gap-2">
-              <div class="border-border size-9 rounded-full border">
-                <img
-                  src={testimonial.avatar}
-                  alt={`${testimonial.name} avatar`}
-                  class="rounded-full object-cover"
-                  loading="lazy"
-                  width="36"
-                  height="36"
-                  decoding="async"
-                />
-              </div>
-              <div class="flex flex-col">
-                <p class="text-foreground text-base leading-none font-medium">
-                  {testimonial.name}
-                </p>
-                <p class="text-foreground-muted mt-2 text-xs leading-none">
-                  {testimonial.role}
-                </p>
-              </div>
-            </div>
-            <p class="text-foreground-muted mt-3 text-sm leading-relaxed">
-              {testimonial.text}
-            </p>
-          </ContentCard>
+          <LandingContentCard
+            card={{
+              variant: "testimonial",
+              name: testimonial.name,
+              role: testimonial.role,
+              text: testimonial.text,
+              avatar: testimonial.avatar,
+            }}
+          />
         {/each}
       </div>
     </div>
@@ -83,32 +62,15 @@
     <div class="marquee-row mt-2">
       <div class="marquee-track marquee-right py-0.5">
         {#each secondTrack as testimonial, index (`second-${testimonial.name}-${index}`)}
-          <ContentCard class="w-[min(20rem,calc(100vw-3.5rem))] flex-none">
-            <div class="flex items-center gap-2">
-              <div class="border-border size-9 rounded-full border">
-                <img
-                  src={testimonial.avatar}
-                  alt={`${testimonial.name} avatar`}
-                  class="rounded-full object-cover"
-                  loading="lazy"
-                  width="36"
-                  height="36"
-                  decoding="async"
-                />
-              </div>
-              <div class="flex flex-col">
-                <p class="text-foreground text-base leading-none font-medium">
-                  {testimonial.name}
-                </p>
-                <p class="text-foreground-muted mt-2 text-xs leading-none">
-                  {testimonial.role}
-                </p>
-              </div>
-            </div>
-            <p class="text-foreground-muted mt-3 text-sm leading-relaxed">
-              {testimonial.text}
-            </p>
-          </ContentCard>
+          <LandingContentCard
+            card={{
+              variant: "testimonial",
+              name: testimonial.name,
+              role: testimonial.role,
+              text: testimonial.text,
+              avatar: testimonial.avatar,
+            }}
+          />
         {/each}
       </div>
     </div>

@@ -2,11 +2,19 @@
   import { env as publicEnv } from "$env/dynamic/public";
   import IconSend from "carbon-icons-svelte/lib/Send.svelte";
   import { onMount } from "svelte";
-  import { toast } from "varsel";
   import type { HomepageContent } from "$lib/content/homepage-content";
-  import { contactFormSchema } from "$lib/validation/contact";
+  import { submitContactForm } from "$lib/features/contact/client/api";
+  import { showContactToast, showValidationToasts } from "$lib/features/contact/client/toast";
+  import {
+    loadTurnstileApi,
+    renderTurnstileWidget,
+    TURNSTILE_LAZY_ANCHOR_SELECTOR,
+    TURNSTILE_LAZY_ROOT_MARGIN,
+    type TurnstileApi,
+  } from "$lib/features/contact/client/turnstile";
+  import { collectValidationMessages } from "$lib/features/contact/client/validation";
+  import { createEmptyContactForm, type ContactPayload } from "$lib/features/contact/shared";
   import Button from "../ui/Button.svelte";
-  import ContactToast from "../ui/ContactToast.svelte";
   import ContentCard from "../ui/ContentCard.svelte";
   import Input from "../ui/Input.svelte";
   import SectionBlock from "../ui/SectionBlock.svelte";
@@ -15,89 +23,19 @@
     content: HomepageContent["contact"];
   };
 
-  type ContactForm = {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-    website: string;
-  };
-
-  type ContactPayload = ContactForm & {
-    turnstileToken: string;
-  };
-
-  type TurnstileRenderOptions = {
-    sitekey: string;
-    size: "flexible";
-    theme: "light";
-    action: string;
-    callback: (token: string) => void;
-    "expired-callback": () => void;
-    "timeout-callback": () => void;
-    "error-callback": () => void;
-  };
-  type TurnstileApi = {
-    render: (container: HTMLElement, options: TurnstileRenderOptions) => string;
-    reset: (widgetId?: string) => void;
-    remove: (widgetId: string) => void;
-  };
-
-  const TURNSTILE_SCRIPT_ID = "cf-turnstile-api-script";
-  const TURNSTILE_SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-  const TURNSTILE_LAZY_ROOT_MARGIN = "320px 0px";
-  const TURNSTILE_LAZY_ANCHOR_SELECTOR = "[data-turnstile-lazy-anchor]";
   const turnstileSiteKey = publicEnv.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
 
   let { content }: Props = $props();
 
   let pending = $state(false);
-  let form = $state<ContactForm>({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    website: "",
-  });
+  let form = $state(createEmptyContactForm());
   let turnstileToken = $state("");
   let turnstileError = $state("");
 
   let turnstileContainer: HTMLDivElement | null = null;
   let turnstileWidgetId: string | null = null;
   let turnstileApi: TurnstileApi | null = null;
-  let turnstileApiPromise: Promise<TurnstileApi> | null = null;
   let turnstileInitStarted = false;
-
-  type ToastKind = "success" | "error" | "info";
-
-  function collectValidationMessages(payload: ContactPayload): string[] {
-    const parsed = contactFormSchema.safeParse(payload);
-    if (parsed.success) {
-      return [];
-    }
-
-    const messages = parsed.error.issues.map((issue) => issue.message.trim()).filter((message) => message.length > 0);
-
-    return [...new Set(messages)];
-  }
-
-  function showContactToast(kind: ToastKind, title: string, message: string, duration = 5000): void {
-    toast.custom(ContactToast, {
-      duration,
-      position: "bottom-center",
-      componentProps: {
-        kind,
-        title,
-        message,
-      },
-    });
-  }
-
-  function showValidationToasts(messages: string[]): void {
-    for (const message of messages) {
-      showContactToast("error", content.form.validationErrorLabel, message, 6000);
-    }
-  }
 
   $effect(() => {
     const message = turnstileError.trim();
@@ -108,59 +46,6 @@
     showContactToast("error", content.form.errorLabel, message, 6500);
   });
 
-  function getTurnstileFromWindow(): TurnstileApi | undefined {
-    return (window as Window & { turnstile?: TurnstileApi }).turnstile;
-  }
-
-  function loadTurnstileApi(): Promise<TurnstileApi> {
-    if (typeof window === "undefined") {
-      return Promise.reject(new Error("Turnstile can only load in the browser."));
-    }
-
-    const existing = getTurnstileFromWindow();
-    if (existing) {
-      return Promise.resolve(existing);
-    }
-
-    if (turnstileApiPromise) {
-      return turnstileApiPromise;
-    }
-
-    turnstileApiPromise = new Promise((resolve, reject) => {
-      const resolveApiWithRetry = (remainingAttempts = 80): void => {
-        const instance = getTurnstileFromWindow();
-        if (instance) {
-          resolve(instance);
-          return;
-        }
-        if (remainingAttempts <= 0) {
-          reject(new Error("Turnstile API loaded without exposing window.turnstile."));
-          return;
-        }
-        window.setTimeout(() => resolveApiWithRetry(remainingAttempts - 1), 50);
-      };
-      const rejectApi = (): void => reject(new Error("Failed to load Turnstile API script."));
-
-      const existingScript = document.getElementById(TURNSTILE_SCRIPT_ID);
-      if (existingScript instanceof HTMLScriptElement) {
-        resolveApiWithRetry();
-        existingScript.addEventListener("error", rejectApi, { once: true });
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.id = TURNSTILE_SCRIPT_ID;
-      script.src = TURNSTILE_SCRIPT_SRC;
-      script.async = true;
-      script.defer = true;
-      script.addEventListener("load", () => resolveApiWithRetry(), { once: true });
-      script.addEventListener("error", rejectApi, { once: true });
-      document.head.append(script);
-    });
-
-    return turnstileApiPromise;
-  }
-
   function resetTurnstileWidget(): void {
     turnstileToken = "";
     if (turnstileApi && turnstileWidgetId) {
@@ -168,7 +53,7 @@
     }
   }
 
-  function renderTurnstileWidget(): void {
+  function mountTurnstileWidget(): void {
     if (!turnstileApi || !turnstileContainer || turnstileSiteKey.length === 0) {
       return;
     }
@@ -180,22 +65,15 @@
 
     turnstileToken = "";
     turnstileError = "";
-    turnstileWidgetId = turnstileApi.render(turnstileContainer, {
-      sitekey: turnstileSiteKey,
-      size: "flexible",
-      theme: "light",
-      action: "contact_form",
-      callback: (token: string) => {
+    turnstileWidgetId = renderTurnstileWidget(turnstileApi, turnstileContainer, turnstileSiteKey, {
+      onToken: (token: string) => {
         turnstileToken = token;
         turnstileError = "";
       },
-      "expired-callback": () => {
+      onReset: () => {
         resetTurnstileWidget();
       },
-      "timeout-callback": () => {
-        resetTurnstileWidget();
-      },
-      "error-callback": () => {
+      onError: () => {
         turnstileToken = "";
         turnstileError = "Verification failed. Please retry the challenge.";
       },
@@ -224,13 +102,13 @@
           return;
         }
 
-        renderTurnstileWidget();
+        mountTurnstileWidget();
 
         // In case container ref was not ready in the same frame.
         if (!turnstileWidgetId) {
           requestAnimationFrame(() => {
             if (!active) return;
-            renderTurnstileWidget();
+            mountTurnstileWidget();
           });
         }
       } catch {
@@ -280,7 +158,7 @@
       return;
     }
 
-    const payload = {
+    const payload: ContactPayload = {
       name: form.name.trim(),
       email: form.email.trim(),
       subject: form.subject.trim(),
@@ -291,61 +169,27 @@
 
     const validationMessages = collectValidationMessages(payload);
     if (validationMessages.length > 0) {
-      showValidationToasts(validationMessages);
+      showValidationToasts(validationMessages, content.form.validationErrorLabel);
       return;
     }
 
     pending = true;
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        let errorMessage = content.form.errorLabel;
-        let validationErrors: string[] = [];
-
-        try {
-          const errorBody = (await response.json()) as { message?: string; errors?: string[] };
-          if (Array.isArray(errorBody.errors) && errorBody.errors.length > 0) {
-            validationErrors = [
-              ...new Set(errorBody.errors.map((item) => item.trim()).filter((item) => item.length > 0)),
-            ];
-          } else if (typeof errorBody.message === "string" && errorBody.message.length > 0) {
-            errorMessage = errorBody.message;
-          }
-        } catch {
-          // Keep fallback message.
-        }
-
-        if (validationErrors.length > 0) {
-          showValidationToasts(validationErrors);
+      const result = await submitContactForm(payload, content.form.errorLabel);
+      if (!result.ok) {
+        if (result.validationErrors.length > 0) {
+          showValidationToasts(result.validationErrors, content.form.validationErrorLabel);
         } else {
-          showContactToast("error", content.form.errorLabel, errorMessage, 6500);
+          showContactToast("error", content.form.errorLabel, result.message, 6500);
         }
-
         resetTurnstileWidget();
         return;
       }
 
       showContactToast("success", content.form.submitLabel, content.form.successLabel, 5000);
       resetTurnstileWidget();
-
-      form = {
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        website: "",
-      };
-    } catch {
-      showContactToast("error", content.form.errorLabel, content.form.errorLabel, 6500);
-      resetTurnstileWidget();
+      form = createEmptyContactForm();
     } finally {
       pending = false;
     }
