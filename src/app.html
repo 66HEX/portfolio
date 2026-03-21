@@ -3,6 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (() => {
+        document.documentElement.classList.add("js");
+        const storageKey = "theme";
+        const legacyStorageKey = "docs-theme";
+        const storedTheme = localStorage.getItem(storageKey);
+        const legacyStoredTheme = localStorage.getItem(legacyStorageKey);
+        const resolvedTheme = storedTheme ?? legacyStoredTheme;
+
+        if (!storedTheme && (legacyStoredTheme === "light" || legacyStoredTheme === "dark")) {
+          localStorage.setItem(storageKey, legacyStoredTheme);
+          localStorage.removeItem(legacyStorageKey);
+        }
+
+        const isDark =
+          resolvedTheme === "dark" ||
+          (resolvedTheme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+      })();
+    </script>
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">
