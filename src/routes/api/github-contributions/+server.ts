@@ -1,6 +1,6 @@
 import { env } from "$env/dynamic/private";
 import { json } from "@sveltejs/kit";
-import { GITHUB_USERNAME, getGitHubContributions } from "$lib/server/github-contributions";
+import { GITHUB_USERNAME, getGitHubContributions } from "$lib/features/github/server/contributions";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ fetch, setHeaders, platform }) => {

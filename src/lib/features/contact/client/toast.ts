@@ -1,5 +1,5 @@
 import { toast } from "varsel";
-import ContactToast from "$lib/components/ui/ContactToast.svelte";
+import ContactToast from "$lib/features/contact/components/ContactToast.svelte";
 
 export type ToastKind = "success" | "error" | "info";
 

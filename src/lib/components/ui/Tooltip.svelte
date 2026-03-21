@@ -12,7 +12,7 @@
   import { cn } from "$lib/utils/cn";
 
   const tooltipContentVariants = cva(
-    "pointer-events-none fixed z-200 rounded-sm bg-foreground px-2 py-1 text-xs whitespace-nowrap leading-none font-medium text-background/80 shadow-lg",
+    "pointer-events-none fixed z-200 rounded-xs bg-foreground px-2 py-1 text-xs whitespace-nowrap leading-none font-medium text-background/80 shadow-lg",
   );
 
   const tooltipArrowVariants = cva("absolute h-0 w-0", {
@@ -59,7 +59,6 @@
 
   let isOpen = $state(false);
   let isPointerInside = $state(false);
-  let isFocusInside = $state(false);
   let triggerRef: HTMLDivElement | undefined = $state();
   let tooltipRef: HTMLDivElement | undefined = $state();
   let tooltipStyle = $state("");
@@ -141,7 +140,7 @@
     }
 
     closeTimeout = setTimeout(() => {
-      if (!isPointerInside && !isFocusInside) {
+      if (!isPointerInside) {
         closeNow();
       }
       closeTimeout = undefined;
@@ -159,30 +158,7 @@
 
   function onPointerLeave() {
     isPointerInside = false;
-    if (!isFocusInside) {
-      scheduleClose();
-    }
-  }
-
-  function onFocusIn() {
-    if (!isTooltipEnabled) {
-      return;
-    }
-
-    isFocusInside = true;
-    scheduleOpen();
-  }
-
-  function onFocusOut(event: FocusEvent) {
-    const currentTarget = event.currentTarget as HTMLElement | null;
-    const next = event.relatedTarget as Node | null;
-    if (currentTarget && next && currentTarget.contains(next)) {
-      return;
-    }
-    isFocusInside = false;
-    if (!isPointerInside) {
-      scheduleClose();
-    }
+    scheduleClose();
   }
 
   function portal(node: HTMLElement) {
@@ -289,8 +265,6 @@
   role="presentation"
   onpointerenter={onPointerEnter}
   onpointerleave={onPointerLeave}
-  onfocusin={onFocusIn}
-  onfocusout={onFocusOut}
   aria-describedby={isTooltipEnabled && isOpen ? tooltipId : undefined}
 >
   {@render children?.()}

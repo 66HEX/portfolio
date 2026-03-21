@@ -1,19 +1,18 @@
 <script lang="ts">
   import { page } from "$app/state";
   import Separator from "$lib/components/ui/Separator.svelte";
-  import HeroBanner from "$lib/components/home/HeroBanner.svelte";
-  import SocialLinksRow from "$lib/components/home/SocialLinksRow.svelte";
-  import ProfileInfoGrid from "$lib/components/home/ProfileInfoGrid.svelte";
-  import GitHubActivityCard from "$lib/components/home/GitHubActivityCard.svelte";
-  import ProjectsSection from "$lib/components/home/ProjectsSection.svelte";
-  import BlogSection from "$lib/components/home/BlogSection.svelte";
-  import TestimonialsSection from "$lib/components/home/TestimonialsSection.svelte";
-  import FaqSection from "$lib/components/home/FaqSection.svelte";
-  import ContactSection from "$lib/components/home/ContactSection.svelte";
-  import FooterSection from "$lib/components/home/FooterSection.svelte";
+  import HeroBanner from "$lib/components/home/hero/HeroBanner.svelte";
+  import SocialLinksRow from "$lib/components/home/hero/SocialLinksRow.svelte";
+  import GitHubActivityCard from "$lib/features/github/components/GitHubActivityCard.svelte";
+  import ProjectsSection from "$lib/components/home/sections/ProjectsSection.svelte";
+  import BlogSection from "$lib/components/home/sections/BlogSection.svelte";
+  import TestimonialsSection from "$lib/components/home/sections/TestimonialsSection.svelte";
+  import ContactSection from "$lib/components/home/sections/ContactSection.svelte";
+  import FooterSection from "$lib/components/home/sections/FooterSection.svelte";
   import { homepageContent } from "$lib/content/homepage-content";
   import { buildPersonJsonLd, buildSeoMeta, buildWebsiteJsonLd, toJsonLdScript } from "$lib/seo/meta";
-  import PageCard from "$lib/components/ui/PageCard.svelte";
+  import AboutSection from "$lib/components/home/sections/AboutSection.svelte";
+  import Menubar from "$lib/components/layout/Menubar.svelte";
 
   type GitHubContribution = {
     date: string;
@@ -27,7 +26,6 @@
       description: string;
       date: string;
       tags: string[];
-      thumbnail: string;
       published: boolean;
     }[];
     githubUsername: string;
@@ -44,24 +42,14 @@
 
   const homeSeo = $derived(
     buildSeoMeta({
-      title: "Marek Jozwiak | Frontend Developer",
-      description:
-        "Portfolio of Marek Jozwiak - frontend developer focused on product interfaces, front-end architecture, and performance-first SvelteKit development.",
+      title: homepageContent.seo.title,
+      description: homepageContent.seo.description,
       path: page.url.pathname,
       currentUrl: page.url,
       image: homepageContent.hero.avatarSrc,
-      imageAlt: "Open Graph Image for Marek Jozwiak's Portfolio",
+      imageAlt: homepageContent.seo.imageAlt,
       type: "website",
-      keywords: [
-        "Marek Jozwiak",
-        "Design Engineer",
-        "Front-end Developer",
-        "SvelteKit",
-        "UI Engineering",
-        "Product Design",
-        "Web Performance",
-        "Portfolio",
-      ],
+      keywords: homepageContent.seo.keywords,
     }),
   );
 
@@ -85,15 +73,23 @@
   {@html personJsonLdScript}
 </svelte:head>
 
-<PageCard>
-  <h1 class="sr-only">Marek Jozwiak - Frontend Developer portfolio</h1>
-  <HeroBanner avatarSrc={homepageContent.hero.avatarSrc} avatarAlt={homepageContent.hero.avatarAlt} />
+<div class="w-full">
+  <h1 class="sr-only">{homepageContent.header.h1}</h1>
+  <Menubar />
+  <HeroBanner
+    avatarSrc={homepageContent.hero.avatarSrc}
+    avatarAlt={homepageContent.hero.avatarAlt}
+    backgroundSrc={homepageContent.hero.backgroundSrc}
+    backgroundDarkSrc={homepageContent.hero.backgroundDarkSrc}
+    backgroundAlt={homepageContent.hero.backgroundAlt}
+  />
   <SocialLinksRow
     name={homepageContent.socialRow.name}
     role={homepageContent.socialRow.role}
     links={homepageContent.socialRow.links}
   />
-  <ProfileInfoGrid content={homepageContent.profileInfo} />
+  <Separator class="my-4" />
+  <AboutSection content={homepageContent.about} />
   <Separator class="my-4" />
   <GitHubActivityCard
     username={githubUsername}
@@ -102,6 +98,9 @@
     missingTokenMessage={homepageContent.githubCard.missingTokenMessage}
     graphText={homepageContent.githubCard.graphText}
   />
+  <Separator class="my-4" />
+  <TestimonialsSection title={homepageContent.testimonials.title} items={homepageContent.testimonials.items} />
+
   <Separator class="my-4" />
   <ProjectsSection
     title={homepageContent.projects.title}
@@ -117,10 +116,6 @@
     readArticleLabel={homepageContent.blog.readArticleLabel}
   />
   <Separator class="my-4" />
-  <TestimonialsSection title={homepageContent.testimonials.title} items={homepageContent.testimonials.items} />
-  <Separator class="my-4" />
-  <FaqSection title={homepageContent.faq.title} items={homepageContent.faq.items} />
-  <Separator class="my-4" />
   <ContactSection content={homepageContent.contact} />
   <Separator class="my-4" />
   <FooterSection
@@ -130,4 +125,4 @@
     copyrightName={homepageContent.footer.copyrightName}
     copyrightSuffix={homepageContent.footer.copyrightSuffix}
   />
-</PageCard>
+</div>

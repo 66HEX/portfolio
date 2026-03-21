@@ -12,9 +12,9 @@
           "group bg-gray-alpha-100 text-foreground button-highlight relative cursor-pointer focus-visible:ring-1 focus-visible:ring-accent",
       },
       size: {
-        form: "inline-flex h-7 items-center justify-center gap-2 rounded-md px-3 text-sm",
+        form: "inline-flex h-7.5 items-center justify-center gap-2 rounded-sm px-3 text-sm",
         full: "flex w-full items-center justify-between gap-3",
-        icon: "flex size-6 items-center justify-center rounded-md",
+        icon: "flex size-6 items-center justify-center rounded-sm",
       },
     },
   });

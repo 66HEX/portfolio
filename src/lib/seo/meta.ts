@@ -1,3 +1,5 @@
+import { homepageContent } from "$lib/content/homepage-content";
+
 export type LinkTag = {
   rel: string;
   href: string;
@@ -38,12 +40,6 @@ type BlogPostingJsonLdInput = {
 };
 
 export const seoConfig = {
-  siteName: "Marek Jozwiak",
-  siteUrl: "https://madebyhex.com",
-  locale: "en_US",
-  twitterHandle: "@madebyhex",
-  defaultOgImage: "/og-image.jpg",
-  defaultOgImageAlt: "Marek Jozwiak portfolio banner",
   themeColorLight: "oklch(0.712 0.0085 264.38)",
 };
 
@@ -54,7 +50,7 @@ function toAbsoluteUrl(value: string, currentUrl?: URL): string {
     return value;
   }
 
-  const base = currentUrl?.origin ?? seoConfig.siteUrl;
+  const base = currentUrl?.origin ?? homepageContent.site.siteUrl;
   const normalizedPath = value.startsWith("/") ? value : `/${value}`;
   return new URL(normalizedPath, base).toString();
 }
@@ -73,8 +69,8 @@ function normalizeDateToIso(value?: string): string | undefined {
 export function buildSeoMeta(input: SeoInput) {
   const canonicalPath = input.path ?? input.currentUrl?.pathname ?? "/";
   const canonicalUrl = toAbsoluteUrl(canonicalPath, input.currentUrl);
-  const ogImageUrl = toAbsoluteUrl(input.image ?? seoConfig.defaultOgImage, input.currentUrl);
-  const imageAlt = input.imageAlt ?? seoConfig.defaultOgImageAlt;
+  const ogImageUrl = toAbsoluteUrl(input.image ?? homepageContent.site.defaultOgImage, input.currentUrl);
+  const imageAlt = input.imageAlt ?? homepageContent.site.defaultOgImageAlt;
   const robots = input.robots ?? "index,follow";
   const type = input.type ?? "website";
   const keywords = input.keywords?.filter(Boolean) ?? [];
@@ -88,8 +84,8 @@ export function buildSeoMeta(input: SeoInput) {
     { name: "description", content: input.description },
     { name: "robots", content: robots },
     { property: "og:type", content: type },
-    { property: "og:site_name", content: seoConfig.siteName },
-    { property: "og:locale", content: seoConfig.locale },
+    { property: "og:site_name", content: homepageContent.site.siteName },
+    { property: "og:locale", content: homepageContent.site.locale },
     { property: "og:title", content: input.title },
     { property: "og:description", content: input.description },
     { property: "og:url", content: canonicalUrl },
@@ -100,8 +96,8 @@ export function buildSeoMeta(input: SeoInput) {
     { name: "twitter:description", content: input.description },
     { name: "twitter:image", content: ogImageUrl },
     { name: "twitter:image:alt", content: imageAlt },
-    { name: "twitter:site", content: seoConfig.twitterHandle },
-    { name: "twitter:creator", content: seoConfig.twitterHandle },
+    { name: "twitter:site", content: homepageContent.site.twitterHandle },
+    { name: "twitter:creator", content: homepageContent.site.twitterHandle },
   ];
 
   if (keywords.length > 0) {
@@ -141,7 +137,7 @@ export function buildWebsiteJsonLd(currentUrl?: URL) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: seoConfig.siteName,
+    name: homepageContent.site.siteName,
     url: toAbsoluteUrl("/", currentUrl),
     inLanguage: "en",
   };
@@ -151,16 +147,11 @@ export function buildPersonJsonLd(currentUrl?: URL) {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: seoConfig.siteName,
+    name: homepageContent.site.siteName,
     url: toAbsoluteUrl("/", currentUrl),
-    image: toAbsoluteUrl(seoConfig.defaultOgImage, currentUrl),
-    jobTitle: "Frontend Developer",
-    sameAs: [
-      "https://github.com/66HEX",
-      "https://www.linkedin.com/in/marek-j%C3%B3%C5%BAwiak-29958132a/",
-      "https://x.com/madebyhex",
-      "https://21st.dev/66hex",
-    ],
+    image: toAbsoluteUrl(homepageContent.site.defaultOgImage, currentUrl),
+    jobTitle: homepageContent.site.jobTitle,
+    sameAs: homepageContent.site.sameAsLinks,
   };
 }
 
@@ -179,11 +170,11 @@ export function buildBlogPostingJsonLd(input: BlogPostingJsonLdInput) {
     mainEntityOfPage: input.canonicalUrl,
     author: {
       "@type": "Person",
-      name: seoConfig.siteName,
+      name: homepageContent.site.siteName,
     },
     publisher: {
       "@type": "Person",
-      name: seoConfig.siteName,
+      name: homepageContent.site.siteName,
     },
     keywords: input.tags?.join(", "),
   };

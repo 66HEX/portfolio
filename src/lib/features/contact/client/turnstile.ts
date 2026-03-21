@@ -1,9 +1,11 @@
 import { TURNSTILE_ACTION } from "../shared";
 
+export type TurnstileTheme = "light" | "dark";
+
 export type TurnstileRenderOptions = {
   sitekey: string;
   size: "flexible";
-  theme: "light";
+  theme: TurnstileTheme;
   action: string;
   callback: (token: string) => void;
   "expired-callback": () => void;
@@ -88,11 +90,12 @@ export function renderTurnstileWidget(
     onReset: () => void;
     onError: () => void;
   },
+  theme: TurnstileTheme,
 ): string {
   return api.render(container, {
     sitekey: siteKey,
     size: "flexible",
-    theme: "light",
+    theme,
     action: TURNSTILE_ACTION,
     callback: handlers.onToken,
     "expired-callback": handlers.onReset,

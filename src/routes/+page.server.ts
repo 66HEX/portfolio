@@ -1,6 +1,6 @@
 import { env } from "$env/dynamic/private";
-import { getRecentBlogPosts } from "$lib/blog/posts";
-import { GITHUB_USERNAME, getGitHubContributions } from "$lib/server/github-contributions";
+import { getRecentBlogPosts } from "$lib/features/blog/server/posts";
+import { GITHUB_USERNAME, getGitHubContributions } from "$lib/features/github/server/contributions";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch, setHeaders, platform }) => {
