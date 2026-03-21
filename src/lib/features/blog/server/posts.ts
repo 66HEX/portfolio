@@ -8,7 +8,6 @@ export type BlogPostMeta = {
   description: string;
   date: string;
   tags: string[];
-  thumbnail: string;
   published: boolean;
 };
 
@@ -19,7 +18,6 @@ function toBlogPostMeta(post: CollectionBlogPost): BlogPostMeta {
     description: post.description,
     date: post.date,
     tags: post.tags,
-    thumbnail: post.thumbnail,
     published: post.published,
   };
 }

@@ -22,13 +22,13 @@
   });
 </script>
 
-<div class="inset-shadow border-border bg-background-inset mt-8 rounded-lg border p-1">
+<div class="inset-shadow bg-background-inset rounded-lg p-1.5">
   <div
     {...restProps}
     class={cn(
       unstyled
         ? "group/pre relative font-mono text-base font-normal"
-        : "group/pre border-border bg-background text-foreground relative rounded-md border p-4 font-mono text-sm font-normal shadow-md",
+        : "group/pre card bg-background text-foreground relative rounded-md p-4 font-mono text-xs font-normal",
       className,
     )}
   >
@@ -46,7 +46,7 @@
 <style>
   :global(.shiki) {
     background-color: transparent !important;
-    font-size: 14px;
+    font-size: 0.79rem;
     font-weight: 400;
   }
 </style>

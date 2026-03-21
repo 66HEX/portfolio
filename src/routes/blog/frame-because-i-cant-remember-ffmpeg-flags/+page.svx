@@ -6,7 +6,6 @@ tags:
   - rust
   - tauri
   - ffmpeg
-thumbnail: "/images/works/frame.webp"
 published: true
 layout: docs
 ---

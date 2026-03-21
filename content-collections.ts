@@ -10,7 +10,6 @@ const posts = defineCollection({
     description: z.string().default("No description provided."),
     date: z.string().default("1970-01-01"),
     tags: z.array(z.string()).default([]),
-    thumbnail: z.string().default("/og-image.jpg"),
     published: z.boolean().default(true),
     content: z.string(),
   }),

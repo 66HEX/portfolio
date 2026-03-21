@@ -11,9 +11,12 @@
   const { children, class: className = "", ...restProps }: ComponentProps = $props();
 </script>
 
-<li
+<ol
   {...restProps}
-  class={cn("text-foreground-muted text-sm leading-relaxed font-normal tracking-normal text-pretty", className)}
+  class={cn(
+    "text-foreground-muted mt-6 list-decimal space-y-2 pl-6 text-sm font-normal tracking-normal text-pretty [&>li]:pl-1",
+    className,
+  )}
 >
   {@render children?.()}
-</li>
+</ol>

@@ -3,8 +3,7 @@
   import "./layout.css";
   import { faviconLinks, seoConfig } from "$lib/seo/meta";
   import { VarselToaster } from "varsel";
-  import fontRegular from "$lib/assets/fonts/aeonikpro.woff2";
-  import fontMonoRegular from "$lib/assets/fonts/aeonikmono.woff2";
+  import CommandPalette from "$lib/features/blog/components/search/CommandPalette.svelte";
 
   let { children } = $props();
 </script>
@@ -15,14 +14,18 @@
   {/each}
   <meta name="theme-color" content={seoConfig.themeColorLight} />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="preload" href={fontRegular} as="font" type="font/woff2" crossorigin="anonymous" />
-  <link rel="preload" href={fontMonoRegular} as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="/fonts/FKGroteskNeue.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="/fonts/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 
-<div class="mx-auto w-full max-w-3xl sm:p-3">
-  <main id="main-content" class="mx-auto flex flex-col items-center justify-start gap-2">
+<div class="border-border mx-auto max-w-4xl overflow-hidden sm:border-x">
+  <main
+    id="main-content"
+    class="border-border mx-auto flex w-full max-w-3xl flex-col items-center justify-start gap-2 border-dashed sm:border-x"
+  >
     {@render children()}
   </main>
 </div>
 
 <VarselToaster position="bottom-center" offset={12} visibleToasts={3} />
+<CommandPalette />

@@ -1,0 +1,117 @@
+---
+title: "MotionGPU: a WebGPU renderer I built because Three.js was too much"
+description: "Why I wrote a minimal, predictable WebGPU fragment shader framework."
+date: "2026-03-17"
+tags:
+  - webgpu
+  - svelte
+  - graphics
+  - wgsl
+published: true
+layout: docs
+---
+
+# The problem with reaching for Three.js
+
+Every time I needed a fullscreen shader effect - a noise field, a post-processing pass, a generative background - I ended up pulling in Three.js. A 600kB dependency for a quad and a fragment shader. Scene graph, cameras, lights, materials, loaders: none of it relevant, all of it present.
+
+The frustration was not with Three.js itself. It is an excellent library for what it does. The problem was that what it does is far more than what I needed, and the API reflects that scope. Setting up a basic WebGL/WebGPU fragment workflow in Three.js means navigating abstractions built for 3D scenes - `PlaneGeometry`, `ShaderMaterial`, `OrthographicCamera` - when the actual requirement is: run this WGSL function on every pixel, give me time and resolution as uniforms, let me chain some post-process passes.
+
+I wanted something that did exactly that and nothing else.
+
+## What I built
+
+MotionGPU is a framework-agnostic WebGPU core with a Svelte 5 adapter, built specifically for fullscreen fragment shader workflows. The entire mental model fits in one paragraph:
+
+You define an immutable material with `defineMaterial()`. A `<FragCanvas>` component resolves it into a deterministic pipeline signature. If the signature changes, the renderer rebuilds from scratch. If it does not, only uniform buffers and texture bindings are updated - no recompilation. Every frame: scheduler tasks run, uniforms and textures are resolved, the base fullscreen pass executes, post-process passes run through the render graph, the result is presented to the canvas.
+
+That is the whole thing.
+
+## Deterministic rebuilds
+
+The single most important design decision is how renderer rebuilds are triggered. In most WebGPU/WebGL wrappers, the rebuild boundary is fuzzy - things recompile when you might not expect them to, or do not recompile when they should.
+
+MotionGPU keys every rebuild off a **pipeline signature**: a deterministic string derived from the compiled shader source, the uniform layout, and the texture bindings. The signature does not include live values. Changing a uniform value does not rebuild the pipeline - it writes a dirty range to the GPU buffer. Changing `clearColor` does not rebuild - it applies next frame. Changing the shader source does rebuild, because the signature changed.
+
+This makes the rebuild boundary explicit and testable. You can look at your material definition and know exactly when the pipeline will be recreated.
+
+The same principle applies to failure recovery. When renderer creation fails - missing WebGPU support, WGSL syntax error, device lost - the runtime retries with exponential backoff: 250ms, 500ms, 1000ms, up to an 8000ms cap. The backoff resets when the signature changes, so fixing a shader error and hot-reloading immediately triggers a fresh attempt.
+
+## The material system
+
+A material in MotionGPU is defined once and treated as immutable:
+
+```ts
+const material = defineMaterial({
+  fragment: `
+    fn frag(uv: vec2f) -> vec4f {
+      return vec4f(uv, sin(time) * 0.5 + 0.5, 1.0);
+    }
+  `,
+  uniforms: {
+    time: 0.0,
+    resolution: [0, 0],
+  },
+  textures: {
+    noise: { url: '/textures/noise.png' },
+  },
+});
+```
+
+The fragment function contract is strict: `fn frag(uv: vec2f) -> vec4f`. That signature is enforced at runtime. So is the requirement that all uniform and texture keys are valid WGSL identifiers. Setting an unknown uniform key throws immediately - there is no silent fallback.
+
+The preprocessor handles `#include` and `#define` expansion before compilation, and maintains a line mapping so that WGSL compiler errors point back to original source positions, not the expanded output.
+
+## Scheduling
+
+The frame scheduler is a DAG-based execution engine. Every `useFrame` callback is a task with a key, a stage assignment, dependency edges (`before` / `after`), and an invalidation policy. Stages are ordered groups of tasks with their own dependency constraints.
+
+The scheduler resolves execution order via topological sort. Cycles throw. Missing references throw. The resolved order is accessible via `getSchedule()` for debugging.
+
+Render modes are first-class:
+
+- `always` - continuous render loop
+- `on-demand` - renders only when invalidated
+- `manual` - renders only on explicit `advance()` calls
+
+There is no hidden "render on change" behavior. If you want a frame to render, something in the scheduler must gate it. This makes the system predictable in ways that matter for production use: no surprise renders, no invisible invalidation chains.
+
+## The render graph
+
+Post-processing is handled through a slot-based render graph. The built-in slots are `source` (current scene surface), `target` (ping-pong companion), and `canvas` (the visible output). You can also declare named off-screen render targets.
+
+Without any passes, the base shader renders directly to `canvas`. When passes are added, `planRenderGraph()` validates the sequence, resolves clear and preserve flags, and produces an immutable execution plan before any GPU work happens.
+
+Validation catches things like writing to `canvas` mid-chain, reading a `target` slot before it has been written, or declaring a `needsSwap` on a non-source-to-target pass. After all passes execute, if the final output is not `canvas`, the renderer blits the resolved surface automatically.
+
+Three built-in pass types cover the common cases. Custom passes follow the same interface.
+
+## Diagnostics
+
+Every failure - WebGPU unavailable, adapter lost, WGSL syntax error, uniform type mismatch - is normalized into a `MotionGPUErrorReport`:
+
+```ts
+{
+  title: string;       // "WGSL compilation failed"
+  message: string;     // Primary error message
+  hint: string;        // Suggested fix
+  details: string[];   // Additional compiler output
+  stack: string[];     // Stack trace
+  phase: 'initialization' | 'render';
+  source: {            // Present for shader compile errors
+    line: number;
+    column?: number;
+    snippet: Array<{ number: number; code: string; highlight: boolean }>;
+  } | null;
+}
+```
+
+The default error overlay displays this automatically and is opt-out. You can disable it with `showErrorOverlay={false}`, handle reports only via `onError`, or replace the overlay entirely with `errorRenderer` while keeping the same report shape.
+
+## Scope
+
+MotionGPU is not a 3D engine. It does not have a scene graph, cameras, lights, or mesh primitives. It targets one specific workflow: fullscreen fragment shaders with a composable post-processing pipeline.
+
+That constraint is intentional. A tightly scoped tool can have a simpler API, clearer failure modes, and a smaller surface area for bugs. If you need a scene graph, Three.js is the right tool. If you need a fullscreen fragment renderer with predictable behavior and explicit state management, this might be worth a look.
+
+The code is on GitHub. Framework adapters for React and Vue are on the roadmap - the core is already framework-agnostic.

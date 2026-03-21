@@ -1,5 +1,5 @@
-import { getAllBlogPosts } from "$lib/blog/posts";
-import { seoConfig } from "$lib/seo/meta";
+import { getAllBlogPosts } from "$lib/features/blog/server/posts";
+import { homepageContent } from "$lib/content/homepage-content";
 import type { RequestHandler } from "./$types";
 
 type SitemapUrl = {
@@ -8,7 +8,7 @@ type SitemapUrl = {
 };
 
 function toAbsoluteUrl(pathname: string): string {
-  return new URL(pathname, seoConfig.siteUrl).toString();
+  return new URL(pathname, homepageContent.site.siteUrl).toString();
 }
 
 function normalizeDate(date: string | undefined): string | undefined {
@@ -39,6 +39,9 @@ export const GET: RequestHandler = async ({ setHeaders }) => {
   const urls: SitemapUrl[] = [
     {
       loc: toAbsoluteUrl("/"),
+    },
+    {
+      loc: toAbsoluteUrl("/llms.txt"),
     },
     ...posts.map((post) => ({
       loc: toAbsoluteUrl(`/blog/${post.slug}`),

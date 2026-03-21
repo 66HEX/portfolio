@@ -23,17 +23,14 @@
     {@render children?.()}
   </code>
 {:else}
-  <div
-    class="inset-shadow border-border bg-background-inset text-foreground relative inline-block w-fit rounded-sm border px-px py-0.5 font-mono text-sm font-medium whitespace-nowrap"
+  <span
+    class="inset-shadow bg-background-inset text-foreground relative inline-block w-fit rounded-sm px-0.75 py-1 font-mono text-xs font-medium whitespace-nowrap"
   >
     <code
       {...restProps}
-      class={cn(
-        "border-border bg-background rounded-[calc(var(--radius-base)*1.5)] border px-1.5 py-0.5 shadow-md",
-        className,
-      )}
+      class={cn("card bg-background rounded-[calc(var(--radius-base)*1.5)] px-1.5 py-0.5", className)}
     >
       {@render children?.()}
     </code>
-  </div>
+  </span>
 {/if}

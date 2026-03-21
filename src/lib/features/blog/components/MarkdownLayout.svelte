@@ -32,10 +32,9 @@
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
   import IconArrowLeft from "carbon-icons-svelte/lib/ArrowLeft.svelte";
-  import FooterSection from "$lib/components/home/FooterSection.svelte";
+  import FooterSection from "$lib/components/home/sections/FooterSection.svelte";
   import { homepageContent } from "$lib/content/homepage-content";
-  import Separator from "../ui/Separator.svelte";
-  import PageCard from "../ui/PageCard.svelte";
+  import Separator from "$lib/components/ui/Separator.svelte";
   import { buildBlogPostingJsonLd, buildSeoMeta, toJsonLdScript } from "$lib/seo/meta";
 
   type Props = {
@@ -44,17 +43,22 @@
     description?: string;
     date?: string;
     tags?: string[];
-    thumbnail?: string;
   };
 
-  let {
-    children,
-    title = "Blog post",
-    description = "",
-    date = "",
-    tags = [],
-    thumbnail = "/og-image.jpg",
-  }: Props = $props();
+  let { children, title = "Blog post", description = "", date = "", tags = [] }: Props = $props();
+
+  const ogImagePath = $derived.by(() => {
+    const normalizedPath = page.url.pathname.replace(/\/+$/, "");
+    if (normalizedPath === "" || normalizedPath === "/blog") {
+      return "/blog/og/index";
+    }
+
+    if (normalizedPath.startsWith("/blog/")) {
+      return `/blog/og/${normalizedPath.slice("/blog/".length)}`;
+    }
+
+    return "/blog/og/index";
+  });
 
   const articleSeo = $derived(
     buildSeoMeta({
@@ -62,8 +66,7 @@
       description: description || "Technical notes and workflow insights on frontend development and SvelteKit.",
       path: page.url.pathname,
       currentUrl: page.url,
-      image: thumbnail,
-      imageAlt: `${title} thumbnail`,
+      image: ogImagePath,
       type: "article",
       publishedTime: date,
       modifiedTime: date,
@@ -97,61 +100,51 @@
       <meta property={tag.property} content={tag.content} />
     {/if}
   {/each}
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html blogPostingJsonLdScript}
 </svelte:head>
 
-<PageCard class="pt-6">
-  <a
-    href={resolve("/")}
-    class="text-foreground-muted hover:text-foreground mb-3 inline-flex items-center gap-1.5 px-2 py-1.5 text-sm leading-none font-medium duration-150 ease-out"
-    aria-label="Back to home"
-  >
-    <IconArrowLeft width={12} height={12} />
-    <span>Back to home</span>
-  </a>
-
-  <div class="bg-background-inset border-border inset-shadow relative h-45 w-full rounded-md border">
-    <div class="absolute inset-0 overflow-hidden rounded-md">
-      <img
-        src={thumbnail}
-        alt={`${title} thumbnail`}
-        class="h-full w-full object-cover"
-        width="1280"
-        height="720"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
+<div class="w-full">
+  <div class="p-4">
+    <a
+      href={resolve("/")}
+      class="text-foreground-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs leading-none font-medium duration-150 ease-out"
+      aria-label="Back to home"
+    >
+      <IconArrowLeft width={12} height={12} />
+      <span>Back to home</span>
+    </a>
+    <Separator class="my-4" />
+    <div class="text-foreground-muted flex flex-wrap items-center gap-2 pt-4 text-xs">
+      {#if date}
+        <time datetime={date}>{date}</time>
+      {/if}
+    </div>
+    <div class="mt-3">
+      <h1 class="text-foreground text-xl leading-none font-medium">
+        {title}
+      </h1>
+      {#if description}
+        <p class="text-foreground-muted mt-1 text-sm">
+          {description}
+        </p>
+      {/if}
+      {#each tags as tag, index (`${tag}-${index}`)}
+        <div
+          class="inset-shadow bg-background-inset text-foreground relative mt-3 mr-1 inline-block w-fit rounded-sm px-0.75 py-1 font-mono text-xs font-medium whitespace-nowrap"
+        >
+          <code class="bg-background card rounded-[calc(var(--radius-base)*1.5)] px-1.5 py-0.5">
+            {tag}
+          </code>
+        </div>
+      {/each}
     </div>
   </div>
-
-  <div class="text-foreground-muted mt-4 flex flex-wrap items-center gap-2 text-xs">
-    {#if date}
-      <time datetime={date}>{date}</time>
-    {/if}
-    {#each tags as tag, index (`${tag}-${index}`)}
-      <div
-        class="inset-shadow border-border bg-background-inset text-foreground rounded-lg border p-0.5 py-2 text-xs font-medium whitespace-nowrap"
-      >
-        <span class="border-border bg-background rounded-md border px-1.5 py-0.5 leading-none font-medium shadow-md">
-          {tag}
-        </span>
-      </div>
-    {/each}
-  </div>
-  <div class="mt-3">
-    <h1 class="text-foreground text-lg leading-none font-medium">
-      {title}
-    </h1>
-    {#if description}
-      <p class="text-gray-alpha-800 mt-3 text-sm leading-relaxed">
-        {description}
-      </p>
-    {/if}
-  </div>
-  <Separator class="my-4" />
-  <article data-doc-content class="text-gray-alpha-800 mt-3 w-full space-y-3 text-sm">
+  <Separator class="mb-4" />
+  <article data-doc-content class="text-foreground-muted mt-3 w-full space-y-3 p-4 text-sm">
     {@render children?.()}
   </article>
   <Separator class="my-4" />
@@ -162,4 +155,4 @@
     copyrightName={homepageContent.footer.copyrightName}
     copyrightSuffix={homepageContent.footer.copyrightSuffix}
   />
-</PageCard>
+</div>

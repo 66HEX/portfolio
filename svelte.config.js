@@ -95,13 +95,19 @@ const tableCellFormatter = () => {
   };
 };
 
-const SHIKI_THEME = "github-light";
+const SHIKI_THEMES = {
+  light: "github-light",
+  dark: "github-dark",
+};
+
 const highlighter = await createHighlighter({
-  themes: [SHIKI_THEME],
+  themes: Object.values(SHIKI_THEMES),
   langs: ["svelte", "bash", "json", "typescript"],
 });
 
-const markdownLayout = fileURLToPath(new URL("./src/lib/components/blog/MarkdownLayout.svelte", import.meta.url));
+const markdownLayout = fileURLToPath(
+  new URL("./src/lib/features/blog/components/MarkdownLayout.svelte", import.meta.url),
+);
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -113,6 +119,7 @@ const config = {
       extensions: [".svx"],
       layout: {
         docs: markdownLayout,
+        _: markdownLayout,
       },
       rehypePlugins: [tableCellFormatter],
 
@@ -121,13 +128,20 @@ const config = {
           const lightHtml = escapeSvelte(
             highlighter.codeToHtml(code, {
               lang,
-              theme: SHIKI_THEME,
+              theme: SHIKI_THEMES.light,
+            }),
+          );
+          const darkHtml = escapeSvelte(
+            highlighter.codeToHtml(code, {
+              lang,
+              theme: SHIKI_THEMES.dark,
             }),
           );
           const htmlLightProp = JSON.stringify(lightHtml);
+          const htmlDarkProp = JSON.stringify(darkHtml);
           const langProp = JSON.stringify(lang);
           const rawProp = JSON.stringify(code);
-          return `<svelte:component this={Reflect.get(globalThis, "__MarkdownPre")} lang={${langProp}} htmlLight={${htmlLightProp}} raw={${rawProp}} />`;
+          return `<svelte:component this={Reflect.get(globalThis, "__MarkdownPre")} lang={${langProp}} htmlLight={${htmlLightProp}} htmlDark={${htmlDarkProp}} raw={${rawProp}} />`;
         },
       },
     }),
