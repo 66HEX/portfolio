@@ -134,7 +134,7 @@
       {/if}
       {#each tags as tag, index (`${tag}-${index}`)}
         <div
-          class="inset-shadow bg-background-inset text-foreground relative mt-3 mr-1 inline-block w-fit rounded-sm px-0.75 py-1 font-mono text-xs font-medium whitespace-nowrap"
+          class="inset-shadow bg-background-inset text-foreground relative mt-3 mr-1 inline-flex w-fit rounded-sm p-0.75 font-mono text-xs font-medium whitespace-nowrap"
         >
           <code class="bg-background card rounded-[calc(var(--radius-base)*1.5)] px-1.5 py-0.5">
             {tag}
