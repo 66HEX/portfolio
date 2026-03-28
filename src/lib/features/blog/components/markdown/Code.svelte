@@ -28,7 +28,7 @@
   >
     <code
       {...restProps}
-      class={cn("card bg-background rounded-[calc(var(--radius-base)*1.5)] px-1.5 py-0.5", className)}
+      class={cn("card bg-background rounded-[calc(var(--radius-base)*1.25)] px-1.5 py-0.5", className)}
     >
       {@render children?.()}
     </code>
