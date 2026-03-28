@@ -14,7 +14,8 @@
   {/each}
   <meta name="theme-color" content={seoConfig.themeColorLight} />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="preload" href="/fonts/FKGroteskNeue.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="/fonts/APK-Galeria-Regular.woff" as="font" type="font/woff" crossorigin="anonymous" />
+  <link rel="preload" href="/fonts/APK-Galeria-Medium.woff" as="font" type="font/woff" crossorigin="anonymous" />
   <link rel="preload" href="/fonts/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 

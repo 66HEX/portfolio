@@ -3,9 +3,17 @@
 @variant dark (&:where(.dark, .dark *));
 
 @font-face {
-  font-family: "FK Grotesk Neue";
-  src: url("/fonts/FKGroteskNeue.woff2") format("woff2");
-  font-weight: 200 800;
+  font-family: "APK Galeria";
+  src: url("/fonts/APK-Galeria-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "APK Galeria";
+  src: url("/fonts/APK-Galeria-Medium.woff") format("woff");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -37,6 +45,43 @@ html {
   --accent-secondary: oklch(0.5096 0.151959 44.4414);
   --border: oklch(0.4224 0.0013 var(--base-hue) / 0.1);
   --highlight: oklch(0.4224 0.0013 var(--base-hue));
+}
+
+.dark {
+  --background-inset: oklch(0.1822 0.0044 var(--base-hue));
+  --background: oklch(0.2178 0.0056 var(--base-hue));
+  --background-muted: oklch(0.261 0.007 var(--base-hue));
+  --foreground: oklch(1 0 0);
+  --foreground-muted: oklch(0.6699 0.0081 var(--base-hue));
+  --accent: oklch(0.6996 0.181959 44.4414);
+  --accent-secondary: oklch(0.5096 0.131959 44.4414);
+  --border: oklch(0.928 0.013 var(--base-hue) / 0.05);
+  --highlight: oklch(0.928 0.013 var(--base-hue));
+}
+
+@theme inline {
+  --font-sans: "APK Galeria";
+  --font-mono: "Berkeley Mono";
+
+  --color-background-inset: var(--background-inset);
+  --color-background: var(--background);
+  --color-background-muted: var(--background-muted);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-fixed-light: var(--fixed-light);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-border: var(--border);
+
+  --radius-xs: calc(var(--radius-base) * 1);
+  --radius-sm: calc(var(--radius-base) * 2);
+  --radius-md: calc(var(--radius-base) * 3);
+  --radius-lg: calc(var(--radius-base) * 4);
+  --radius-xl: calc(var(--radius-base) * 6);
+  --radius-2xl: calc(var(--radius-base) * 8);
+  --radius-3xl: calc(var(--radius-base) * 12);
+  --radius-4xl: calc(var(--radius-base) * 16);
+  --radius-full: 9999px;
 
   --shadow-xs: 0px 1px 1px -0.5px rgba(0, 0, 0, 0.06);
   --shadow-sm: 0px 1px 1px -0.5px rgba(0, 0, 0, 0.06), 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06);
@@ -53,58 +98,6 @@ html {
     0px 1px 1px -0.5px rgba(0, 0, 0, 0.06), 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
     0px 6px 6px -3px rgba(0, 0, 0, 0.06), 0px 12px 12px -6px rgba(0, 0, 0, 0.06),
     0px 24px 24px -12px rgba(0, 0, 0, 0.06), 0px 48px 48px -24px rgba(0, 0, 0, 0.06);
-}
-
-.dark {
-  --background-inset: oklch(0.1822 0.0044 var(--base-hue));
-  --background: oklch(0.2178 0.0056 var(--base-hue));
-  --background-muted: oklch(0.261 0.007 var(--base-hue));
-  --foreground: oklch(1 0 0);
-  --foreground-muted: oklch(0.6699 0.0081 var(--base-hue));
-  --accent: oklch(0.6996 0.181959 44.4414);
-  --accent-secondary: oklch(0.5096 0.131959 44.4414);
-  --border: oklch(0.928 0.013 var(--base-hue) / 0.05);
-  --highlight: oklch(0.928 0.013 var(--base-hue));
-}
-
-@theme inline {
-  --font-sans: "FK Grotesk Neue";
-  --font-mono: "Berkeley Mono";
-
-  --color-background-inset: var(--background-inset);
-  --color-background: var(--background);
-  --color-background-muted: var(--background-muted);
-  --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-fixed-light: var(--fixed-light);
-  --color-accent: var(--accent);
-  --color-accent-secondary: var(--accent-secondary);
-  --color-border: var(--border);
-
-  --font-weight-light: 250;
-  --font-weight-normal: 350;
-  --font-weight-medium: 450;
-  --font-weight-semibold: 550;
-  --font-weight-bold: 650;
-  --font-weight-extrabold: 750;
-  --font-weight-black: 850;
-
-  --radius-xs: calc(var(--radius-base) * 1);
-  --radius-sm: calc(var(--radius-base) * 2);
-  --radius-md: calc(var(--radius-base) * 3);
-  --radius-lg: calc(var(--radius-base) * 4);
-  --radius-xl: calc(var(--radius-base) * 6);
-  --radius-2xl: calc(var(--radius-base) * 8);
-  --radius-3xl: calc(var(--radius-base) * 12);
-  --radius-4xl: calc(var(--radius-base) * 16);
-  --radius-full: 9999px;
-
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
 }
 
 @layer base {

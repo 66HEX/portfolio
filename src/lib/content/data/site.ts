@@ -2,12 +2,12 @@ import type { HomepageContent } from "../types";
 
 export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
   site: {
-    siteName: "Marek Jozwiak",
+    siteName: "Marek Jóźwiak",
     siteUrl: "https://madebyhex.com",
     locale: "en_US",
     twitterHandle: "@madebyhex",
     defaultOgImage: "/og-image.jpg",
-    defaultOgImageAlt: "Marek Jozwiak portfolio banner",
+    defaultOgImageAlt: "Marek Jóźwiak portfolio banner",
     jobTitle: "Creative Developer",
     sameAsLinks: [
       "https://github.com/66HEX",
@@ -18,10 +18,10 @@ export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
   seo: {
     title: "Marek Jóźwiak | Creative Developer",
     description:
-      "Portfolio of Marek Jozwiak - Creative developer focused on product interfaces, front-end architecture, and performance-first SvelteKit development.",
-    imageAlt: "Open Graph Image for Marek Jozwiak's Portfolio",
+      "Portfolio of Marek Jóźwiak - Creative developer focused on product interfaces, front-end architecture, and performance-first SvelteKit development.",
+    imageAlt: "Open Graph Image for Marek Jóźwiak's Portfolio",
     keywords: [
-      "Marek Jozwiak",
+      "Marek Jóźwiak",
       "Design Engineer",
       "Front-end Developer",
       "SvelteKit",
@@ -32,6 +32,6 @@ export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
     ],
   },
   header: {
-    h1: "Marek Jozwiak - Creative Developer portfolio",
+    h1: "Marek Jóźwiak - Creative Developer portfolio",
   },
 };
