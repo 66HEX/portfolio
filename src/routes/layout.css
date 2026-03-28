@@ -53,8 +53,6 @@ html {
   --background-muted: oklch(0.261 0.007 var(--base-hue));
   --foreground: oklch(1 0 0);
   --foreground-muted: oklch(0.6699 0.0081 var(--base-hue));
-  --accent: oklch(0.6996 0.181959 44.4414);
-  --accent-secondary: oklch(0.5096 0.131959 44.4414);
   --border: oklch(0.928 0.013 var(--base-hue) / 0.05);
   --highlight: oklch(0.928 0.013 var(--base-hue));
 }
