@@ -8,7 +8,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "highlight", text: "Creative Developer" },
         {
           type: "text",
-          text: " with 2+ years of experience, known for passion for design and strong attention to small details.",
+          text: " with 2,5+ years of experience, known for passion for design and strong attention to small details.",
         },
       ],
     },
@@ -20,6 +20,8 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "highlight", text: "React" },
         { type: "text", text: ", " },
         { type: "highlight", text: "Typescript" },
+        { type: "text", text: ", " },
+        { type: "highlight", text: "Rust" },
         { type: "text", text: ", and " },
         { type: "highlight", text: "modern shading languages" },
         { type: "text", text: "; building high-quality web applications." },
@@ -29,7 +31,18 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
       content: [
         { type: "text", text: "Creator of " },
         { type: "link", text: "Motion Core", href: "https://motion-core.dev/" },
-        { type: "text", text: " - motion component library for Svelte." },
+        {
+          type: "text",
+          text: " - a Svelte 5 motion component library built on Three.js and GSAP, following a shadcn-inspired copy-paste architecture with a Rust-based CLI.",
+        },
+      ],
+      nestedList: [
+        {
+          content: [
+            { type: "highlight", text: "300+ stars" },
+            { type: "text", text: " on GitHub" },
+          ],
+        },
       ],
     },
     {
@@ -38,7 +51,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Motion GPU", href: "https://motion-gpu.dev/" },
         {
           type: "text",
-          text: " - a minimalist WebGPU framework with a Svelte 5 adapter, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
+          text: " - a minimalist WebGPU framework with a Svelte 5 and React 19 adapters, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
         },
       ],
       nestedList: [
