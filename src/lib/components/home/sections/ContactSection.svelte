@@ -1,6 +1,6 @@
 <script lang="ts">
   import { env as publicEnv } from "$env/dynamic/public";
-  import IconSend from "carbon-icons-svelte/lib/Send.svelte";
+  import IconSendAlt from "carbon-icons-svelte/lib/SendAlt.svelte";
   import { onMount } from "svelte";
   import type { HomepageContent } from "$lib/content/homepage-content";
   import { submitContactForm } from "$lib/features/contact/client/api";
@@ -306,7 +306,7 @@
         <div class="bg-background-inset inset-shadow rounded-sm">
           <textarea
             name="message"
-            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent block min-h-30 w-full rounded-xs px-2 py-1.5 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
+            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent block min-h-30 w-full rounded-sm px-2 py-1.5 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"
@@ -328,7 +328,7 @@
 
       <div class="mt-1 flex flex-col gap-2">
         <Button type="submit" variant="primary" size="form" disabled={pending || turnstileToken.length === 0}>
-          <IconSend width={12} height={12} />
+          <IconSendAlt size={16} />
           <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
         </Button>
 
