@@ -3,6 +3,8 @@ import satoriStandalone, { init as initSatoriWasm } from "satori/standalone";
 import { html } from "satori-html";
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
 import type { RequestHandler } from "./$types";
+import apkGaleriaRegularDataUri from "$lib/assets/fonts/APK-Galeria-Regular.woff?inline";
+import apkGaleriaMediumDataUri from "$lib/assets/fonts/APK-Galeria-Medium.woff?inline";
 import { brandLogoRaw } from "$lib";
 import { getBlogPostBySlug } from "$lib/features/blog/server/posts";
 
@@ -17,32 +19,25 @@ const clampText = (value: string, maxLength: number) => {
   return `${text.slice(0, maxLength - 1).trimEnd()}…`;
 };
 
-const fontDataByOrigin = new Map<string, Promise<[ArrayBuffer, ArrayBuffer]>>();
+const dataUriToArrayBuffer = (dataUri: string) => {
+  const base64 = dataUri.slice(dataUri.indexOf(",") + 1);
 
-const fetchFontArrayBuffer = async (origin: string, path: string) => {
-  const response = await fetch(new URL(path, origin));
-  if (!response.ok) {
-    throw new Error(`Failed to load font ${path}: ${response.status}`);
-  }
-  return response.arrayBuffer();
-};
-
-const getFontData = (origin: string) => {
-  const cached = fontDataByOrigin.get(origin);
-  if (cached) {
-    return cached;
+  if (typeof Buffer !== "undefined") {
+    const bytes = Buffer.from(base64, "base64");
+    return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
   }
 
-  const promise = Promise.all([
-    fetchFontArrayBuffer(origin, "/fonts/APK-Galeria-Regular.woff"),
-    fetchFontArrayBuffer(origin, "/fonts/APK-Galeria-Medium.woff"),
-  ]).catch((error: unknown) => {
-    fontDataByOrigin.delete(origin);
-    throw error;
-  });
-  fontDataByOrigin.set(origin, promise);
-  return promise;
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes.buffer;
 };
+const fontDataPromise = Promise.all([
+  Promise.resolve(dataUriToArrayBuffer(apkGaleriaRegularDataUri)),
+  Promise.resolve(dataUriToArrayBuffer(apkGaleriaMediumDataUri)),
+]);
 
 type ResvgWasmState = {
   promise?: Promise<void>;
@@ -71,7 +66,7 @@ if (!ogWasmState.__blogOgSatoriWasmState) {
   ogWasmState.__blogOgSatoriWasmState = {};
 }
 
-const ensureResvgWasm = (origin: string) => {
+const ensureResvgWasm = (origin: string, fetcher: typeof fetch) => {
   const state = ogWasmState.__blogOgResvgWasmState as ResvgWasmState;
   if (state.initialized) {
     return Promise.resolve();
@@ -81,7 +76,7 @@ const ensureResvgWasm = (origin: string) => {
     const precompiledWasmModule = ogWasmState.__blogOgResvgWasmModule;
     const loadWasm = precompiledWasmModule
       ? Promise.resolve(precompiledWasmModule)
-      : fetch(new URL("/resvg-index_bg.wasm", origin)).then((response) => {
+      : fetcher("/resvg-index_bg.wasm").then((response) => {
           if (!response.ok) {
             throw new Error(`Failed to load resvg wasm: ${response.status}`);
           }
@@ -177,7 +172,7 @@ const toCategoryTitle = (value: string) => {
   return normalized.replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-export const GET: RequestHandler = async ({ params, url }) => {
+export const GET: RequestHandler = async ({ params, url, fetch }) => {
   const rawSlug = (params.slug ?? "").replace(/^\/+|\/+$/g, "");
   const slug = rawSlug === "" || rawSlug === "index" || rawSlug === "blog" ? "" : rawSlug;
 
@@ -192,8 +187,8 @@ export const GET: RequestHandler = async ({ params, url }) => {
     metadata.description || "Technical notes and workflow insights on frontend development and SvelteKit.",
     MAX_DESCRIPTION_LENGTH,
   );
-  const [apkGaleriaRegular, apkGaleriaMedium] = await getFontData(url.origin);
-  await ensureResvgWasm(url.origin);
+  const [apkGaleriaRegular, apkGaleriaMedium] = await fontDataPromise;
+  await ensureResvgWasm(url.origin, fetch);
   const useStandaloneSatori = Boolean(ogWasmState.__blogOgYogaWasmModule);
   if (useStandaloneSatori) {
     await ensureSatoriWasm();
