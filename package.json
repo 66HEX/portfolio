@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && node ./scripts/patch-cloudflare-worker-wasm.mjs",
+    "build": "vite build",
     "preview": "wrangler dev",
     "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types",
@@ -45,12 +45,10 @@
     "wrangler": "^4.67.0"
   },
   "dependencies": {
-    "@resvg/resvg-wasm": "^2.6.2",
+    "@takumi-rs/image-response": "1.0.0-rc.12",
     "carbon-icons-svelte": "^13.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "satori": "^0.25.0",
-    "satori-html": "^0.3.2",
     "tailwind-merge": "^3.5.0",
     "varsel": "^0.5.4",
     "zod": "^4.3.6"

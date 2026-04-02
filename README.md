@@ -87,7 +87,7 @@
 - **mdsvex** (`.svx` routes)
 - **content-collections** (typed content indexing)
 - **shiki** (syntax highlighting pipeline)
-- **satori + @resvg/resvg-wasm** (dynamic Open Graph image rendering)
+- **@takumi-rs/image-response (Takumi)** (dynamic Open Graph image rendering)
 
 ### Deployment
 
