@@ -39,8 +39,18 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "300+ stars" },
+            { type: "highlight", text: "350+ stars" },
             { type: "text", text: " on GitHub" },
+          ],
+        },
+        {
+          content: [
+            { type: "text", text: "Included in " },
+            {
+              type: "link",
+              text: "Svelte Libraries, Tools & Components (Feb 2026)",
+              href: "https://svelte.dev/blog/whats-new-in-svelte-february-2026",
+            },
           ],
         },
       ],
@@ -75,8 +85,18 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "650+ stars" },
+            { type: "highlight", text: "700+ stars" },
             { type: "text", text: " on GitHub" },
+          ],
+        },
+        {
+          content: [
+            { type: "text", text: "Included in " },
+            {
+              type: "link",
+              text: "Svelte Community Showcase (Feb 2026)",
+              href: "https://svelte.dev/blog/whats-new-in-svelte-february-2026",
+            },
           ],
         },
       ],
