@@ -284,7 +284,7 @@
   {#if showVerticalTrack}
     <div
       class={cn(
-        "absolute top-0 right-0 w-2.5 p-px transition-opacity duration-300",
+        "absolute top-0 right-0 w-2.5 p-px transition-opacity duration-300 ease-out",
         isScrolling || (isDragging && dragAxis === "vertical") || isHoveringVerticalTrack ? "opacity-100" : "opacity-0",
       )}
       style:bottom={showHorizontalTrack ? `${SCROLLBAR_THICKNESS}px` : "0px"}
@@ -301,7 +301,7 @@
         aria-valuenow={viewport?.scrollTop ?? 0}
         tabindex="0"
         class={cn(
-          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 relative rounded-full transition-colors duration-150",
+          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 relative rounded-full transition-colors duration-150 ease-out",
           isDragging && dragAxis === "vertical" && "bg-foreground/50",
         )}
         style:height={`${verticalThumbSize}px`}
@@ -315,7 +315,7 @@
   {#if showHorizontalTrack}
     <div
       class={cn(
-        "absolute bottom-0 left-0 h-2.5 p-px transition-opacity duration-300",
+        "absolute bottom-0 left-0 h-2.5 p-px transition-opacity duration-300 ease-out",
         isScrolling || (isDragging && dragAxis === "horizontal") || isHoveringHorizontalTrack
           ? "opacity-100"
           : "opacity-0",
@@ -334,7 +334,7 @@
         aria-valuenow={viewport?.scrollLeft ?? 0}
         tabindex="0"
         class={cn(
-          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 relative h-full rounded-full transition-colors duration-150",
+          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 relative h-full rounded-full transition-colors duration-150 ease-out",
           isDragging && dragAxis === "horizontal" && "bg-foreground/50",
         )}
         style:width={`${horizontalThumbSize}px`}

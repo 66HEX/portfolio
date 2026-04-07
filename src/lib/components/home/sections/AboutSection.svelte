@@ -22,7 +22,7 @@
         href={node.href}
         target="_blank"
         rel="external noreferrer"
-        class="text-foreground font-medium underline decoration-dotted underline-offset-2 transition-opacity hover:opacity-80"
+        class="text-foreground font-medium underline decoration-dotted underline-offset-2 transition-opacity duration-150 ease-out hover:opacity-80"
       >
         {node.text}
       </a>
@@ -31,7 +31,7 @@
         href={resolve(node.href as "/")}
         target="_blank"
         rel="noreferrer"
-        class="text-foreground font-medium underline decoration-dotted underline-offset-2 transition-opacity hover:opacity-80"
+        class="text-foreground font-medium underline decoration-dotted underline-offset-2 transition-opacity duration-150 ease-out hover:opacity-80"
       >
         {node.text}
       </a>
