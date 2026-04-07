@@ -36,7 +36,7 @@
 - **GitHub Activity:** Contribution graph with API-backed data and local fallback.
 - **Projects Grid:** Project cards with live/demo + optional GitHub CTA.
 - **Blog Section:** Auto-list of newest published posts.
-- **Testimonials Marquee:** Dual animated testimonial tracks.
+- **X (Twitter) Marquee:** Dual animated tweet tracks fetched from the X syndication API.
 - **Contact Section:** Client-side + server-side validated form with toast feedback.
 - **Footer:** Social links + copyright line.
 
@@ -47,7 +47,7 @@
 - **Custom markdown component system:** headings, lists, tables, callouts, code blocks, step blocks.
 - **Code blocks with copy action:** integrated copy-to-clipboard button.
 - **Article SEO support:** canonical, OG/Twitter tags, JSON-LD `BlogPosting`.
-- **Dynamic OG image endpoint:** `/blog/og/<slug>` rendered via Satori + Resvg.
+- **Dynamic OG image endpoint:** `/blog/og/<slug>` rendered via Takumi + Resvg.
 - **Raw markdown endpoint:** `/blog/raw/<slug>` for LLM/crawler-friendly source content.
 
 ### API & Backend Logic
@@ -62,6 +62,10 @@
   - token-aware GraphQL fetch
   - in-memory cache + in-flight dedupe
   - timeout-guarded network requests
+- **X (Twitter) tweet fetching (`src/lib/features/tweets/server/fetch-tweet.ts`):**
+  - uses the public X syndication API (no OAuth required)
+  - token generation ported from `vercel/react-tweet`
+  - tweet IDs configured in `src/lib/content/data/testimonials.ts`
 - **Sitemap route (`/sitemap.xml`)** generated from published posts.
 - **Robots route (`/robots.txt`)** generated dynamically from `siteUrl`.
 - **LLMs route (`/llms.txt`)** with grouped links to `/blog/raw/<slug>`.
@@ -106,7 +110,7 @@ The homepage content is modularized for better maintainability. You can find all
 - `about.ts`: Narrative and highlights about you.
 - `github.ts`: GitHub activity card text + GitHub username used by API fetch.
 - `projects.ts`: Your featured works.
-- `testimonials.ts`: Client/colleague feedback.
+- `testimonials.ts`: Tweet IDs for the X marquee section and section title.
 - `blog.ts`: Blog section labels.
 - `contact.ts`: Contact form copy.
 - `footer.ts`: Footer specific links and copyright.
