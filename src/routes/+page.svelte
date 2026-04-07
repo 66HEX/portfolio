@@ -19,6 +19,8 @@
     count: number;
   };
 
+  import type { TweetData } from "$lib/content/types";
+
   type RouteData = {
     recentBlogPosts: {
       slug: string;
@@ -31,6 +33,7 @@
     githubUsername: string;
     githubContributions: GitHubContribution[] | null;
     githubApiConfigured: boolean;
+    tweets: TweetData[];
   };
 
   let { data }: { data: RouteData } = $props();
@@ -39,6 +42,7 @@
   const githubContributions = $derived(data.githubContributions ?? undefined);
   const githubApiConfigured = $derived(data.githubApiConfigured);
   const recentBlogPosts = $derived(data.recentBlogPosts);
+  const tweets = $derived(data.tweets);
 
   const homeSeo = $derived(
     buildSeoMeta({
@@ -99,7 +103,7 @@
     graphText={homepageContent.githubCard.graphText}
   />
   <Separator class="my-4" />
-  <TestimonialsSection title={homepageContent.testimonials.title} items={homepageContent.testimonials.items} />
+  <TestimonialsSection title={homepageContent.testimonials.title} items={tweets} />
 
   <Separator class="my-4" />
   <ProjectsSection

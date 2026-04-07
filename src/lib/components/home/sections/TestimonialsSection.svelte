@@ -1,16 +1,16 @@
 <script lang="ts">
-  import type { TestimonialItem } from "$lib/content/homepage-content";
+  import type { TweetData } from "$lib/content/types";
   import LandingContentCard from "../cards/LandingContentCard.svelte";
   import SectionBlock from "../../layout/SectionBlock.svelte";
 
   type Props = {
     title: string;
-    items: TestimonialItem[];
+    items: TweetData[];
   };
 
   let { title, items }: Props = $props();
 
-  function ensureMinimumItems(rowItems: TestimonialItem[], minimum = 3): TestimonialItem[] {
+  function ensureMinimumItems(rowItems: TweetData[], minimum = 3): TweetData[] {
     if (rowItems.length === 0) {
       return [];
     }
@@ -45,14 +45,16 @@
     <div class="from-background-inset absolute inset-y-1 right-0 z-10 w-5 bg-linear-to-l to-transparent"></div>
     <div class="marquee-row">
       <div class="marquee-track marquee-left">
-        {#each firstTrack as testimonial, index (`first-${testimonial.name}-${index}`)}
+        {#each firstTrack as tweet, index (`first-${tweet.id_str}-${index}`)}
           <LandingContentCard
             card={{
-              variant: "testimonial",
-              name: testimonial.name,
-              role: testimonial.role,
-              text: testimonial.text,
-              avatar: testimonial.avatar,
+              variant: "tweet",
+              name: tweet.user.name,
+              handle: tweet.user.screen_name,
+              text: tweet.text,
+              avatar: tweet.user.profile_image_url_https,
+              verified: tweet.user.is_blue_verified || tweet.user.verified,
+              tweetUrl: `https://x.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
             }}
           />
         {/each}
@@ -61,14 +63,16 @@
 
     <div class="marquee-row mt-4">
       <div class="marquee-track marquee-right">
-        {#each secondTrack as testimonial, index (`second-${testimonial.name}-${index}`)}
+        {#each secondTrack as tweet, index (`second-${tweet.id_str}-${index}`)}
           <LandingContentCard
             card={{
-              variant: "testimonial",
-              name: testimonial.name,
-              role: testimonial.role,
-              text: testimonial.text,
-              avatar: testimonial.avatar,
+              variant: "tweet",
+              name: tweet.user.name,
+              handle: tweet.user.screen_name,
+              text: tweet.text,
+              avatar: tweet.user.profile_image_url_https,
+              verified: tweet.user.is_blue_verified || tweet.user.verified,
+              tweetUrl: `https://x.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
             }}
           />
         {/each}

@@ -17,11 +17,17 @@ export type ProjectItem = {
   githubHref?: string;
 };
 
-export type TestimonialItem = {
-  name: string;
-  role: string;
+export type TweetData = {
+  id_str: string;
   text: string;
-  avatar: string;
+  user: {
+    id_str: string;
+    name: string;
+    screen_name: string;
+    profile_image_url_https: string;
+    verified: boolean;
+    is_blue_verified: boolean;
+  };
 };
 
 export type AboutTextNode = {
@@ -111,7 +117,7 @@ export type HomepageContent = {
   };
   testimonials: {
     title: string;
-    items: TestimonialItem[];
+    tweetIds: string[];
   };
   contact: {
     title: string;
