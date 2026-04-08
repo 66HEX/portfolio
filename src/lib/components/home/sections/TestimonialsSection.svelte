@@ -87,9 +87,10 @@
   }
 
   .marquee-track {
+    --marquee-gap: 1rem;
     display: flex;
     width: max-content;
-    gap: 1rem;
+    gap: var(--marquee-gap);
     will-change: transform;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -110,13 +111,13 @@
     }
 
     to {
-      transform: translateX(calc(-50% - 0.375rem));
+      transform: translateX(calc(-50% - var(--marquee-gap) / 2));
     }
   }
 
   @keyframes marquee-right {
     from {
-      transform: translateX(calc(-50% - 0.375rem));
+      transform: translateX(calc(-50% - var(--marquee-gap) / 2));
     }
 
     to {
