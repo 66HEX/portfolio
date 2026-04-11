@@ -317,9 +317,9 @@
       </label>
 
       <div class="card relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-sm">
-        <div class="relative h-15 w-full overflow-hidden">
+        <div class="turnstile-clip relative h-15 w-full overflow-hidden">
           <div
-            class="mt-2.5 flex h-full w-full scale-101 items-end justify-center brightness-90 [&>*:first-child]:w-full"
+            class="turnstile-layer mt-2.5 flex h-full w-full items-end justify-center brightness-90 [&>*:first-child]:w-full"
             bind:this={turnstileContainer}
           ></div>
           <div class="bg-foreground dark:bg-background pointer-events-none absolute inset-0 mix-blend-color"></div>
@@ -339,3 +339,20 @@
     </form>
   </ContentCard>
 </SectionBlock>
+
+<style>
+  .turnstile-clip {
+    overflow: hidden;
+    overflow: clip;
+    clip-path: inset(0 round var(--radius-sm));
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    isolation: isolate;
+    contain: paint;
+  }
+
+  .turnstile-layer {
+    backface-visibility: hidden;
+    transform: translateZ(0) scale(1.01);
+    transform-origin: center bottom;
+  }
+</style>
