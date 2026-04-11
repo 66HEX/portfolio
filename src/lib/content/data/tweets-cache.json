@@ -687,7 +687,7 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1930543961111658496/qM1vTkCt_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2042247979457753088/n4TMbb7z_normal.jpg"
     },
     "edit_control": {
       "edit_tweet_ids": [
@@ -1248,8 +1248,8 @@
     "parent": {
       "lang": "en",
       "reply_count": 16,
-      "retweet_count": 11,
-      "favorite_count": 348,
+      "retweet_count": 10,
+      "favorite_count": 346,
       "possibly_sensitive": false,
       "created_at": "2025-11-15T15:59:38.000Z",
       "display_text_range": [

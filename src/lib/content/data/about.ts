@@ -61,7 +61,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Motion GPU", href: "https://motion-gpu.dev/" },
         {
           type: "text",
-          text: " - a minimalist WebGPU framework with a Svelte 5 and React 19 adapters, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
+          text: " - a minimalist WebGPU framework with a Svelte, React 18/19 and Vue 3 adapters, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
         },
       ],
       nestedList: [
