@@ -39,7 +39,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "350+ stars" },
+            { type: "highlight", text: "450+ stars" },
             { type: "text", text: " on GitHub" },
           ],
         },

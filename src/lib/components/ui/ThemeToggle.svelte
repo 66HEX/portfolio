@@ -26,10 +26,20 @@
     title={ariaLabel}
   >
     <span class="sr-only">{ariaLabel}</span>
-    <span class={cn("transition-transform duration-150 ease-out", isDark && "scale-0 blur-[2px]")}>
+    <span
+      class={cn(
+        "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
+        !themeStore.isDark ? "blur-0 scale-100 opacity-100" : " scale-[0.25] opacity-0 blur-xs",
+      )}
+    >
       <Sun size={16} />
     </span>
-    <span class={cn("absolute transition-transform duration-150 ease-out", !isDark && "scale-0 blur-[2px]")}>
+    <span
+      class={cn(
+        "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
+        !themeStore.isDark ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
+      )}
+    >
       <Moon size={16} />
     </span>
   </button>

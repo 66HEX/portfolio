@@ -50,7 +50,7 @@
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
-      "reply_count": 2,
+      "reply_count": 4,
       "retweet_count": 4,
       "favorite_count": 156,
       "possibly_sensitive": false,
@@ -95,7 +95,7 @@
         "is_blue_verified": true,
         "profile_image_shape": "Circle",
         "verified": false,
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1976744862226530306/RE-wyFNt_normal.jpg"
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
       },
       "edit_control": {
         "edit_tweet_ids": [
@@ -305,7 +305,7 @@
         "is_blue_verified": true,
         "profile_image_shape": "Circle",
         "verified": false,
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1976744862226530306/RE-wyFNt_normal.jpg"
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
       },
       "edit_control": {
         "edit_tweet_ids": [
@@ -461,8 +461,8 @@
     "text": "@madebyhex I love what you’re building man",
     "user": {
       "id_str": "1344002339309547527",
-      "name": "Biney",
-      "screen_name": "liambiney",
+      "name": "Honcho",
+      "screen_name": "liamhoncho",
       "is_blue_verified": false,
       "profile_image_shape": "Circle",
       "verified": false,
@@ -515,7 +515,7 @@
         "is_blue_verified": true,
         "profile_image_shape": "Circle",
         "verified": false,
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1976744862226530306/RE-wyFNt_normal.jpg"
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
       },
       "edit_control": {
         "edit_tweet_ids": [
@@ -687,7 +687,7 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2042247979457753088/n4TMbb7z_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2043955160460718080/7uWTCaiV_normal.jpg"
     },
     "edit_control": {
       "edit_tweet_ids": [
@@ -746,7 +746,7 @@
         "is_blue_verified": true,
         "profile_image_shape": "Circle",
         "verified": false,
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1976744862226530306/RE-wyFNt_normal.jpg"
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
       },
       "edit_control": {
         "edit_tweet_ids": [
@@ -1082,7 +1082,7 @@
         "is_blue_verified": true,
         "profile_image_shape": "Circle",
         "verified": false,
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1976744862226530306/RE-wyFNt_normal.jpg"
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
       },
       "edit_control": {
         "edit_tweet_ids": [
@@ -1248,7 +1248,7 @@
     "parent": {
       "lang": "en",
       "reply_count": 16,
-      "retweet_count": 10,
+      "retweet_count": 11,
       "favorite_count": 346,
       "possibly_sensitive": false,
       "created_at": "2025-11-15T15:59:38.000Z",
@@ -1292,7 +1292,7 @@
         "is_blue_verified": true,
         "profile_image_shape": "Circle",
         "verified": false,
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1976744862226530306/RE-wyFNt_normal.jpg"
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
       },
       "edit_control": {
         "edit_tweet_ids": [

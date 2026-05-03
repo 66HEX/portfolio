@@ -1,5 +1,5 @@
 ---
-title: "MotionGPU: a WebGPU renderer I built because Three.js was too much"
+title: "Motion GPU: a WebGPU renderer I built because Three.js was too much"
 description: "Why I wrote a minimal, predictable WebGPU fragment shader framework."
 date: "2026-03-17"
 tags:
@@ -21,7 +21,7 @@ I wanted something that did exactly that and nothing else.
 
 ## What I built
 
-MotionGPU is a framework-agnostic WebGPU core with a Svelte 5 adapter, built specifically for fullscreen fragment shader workflows. The entire mental model fits in one paragraph:
+Motion GPU is a framework-agnostic WebGPU core with a Svelte 5 adapter, built specifically for fullscreen fragment shader workflows. The entire mental model fits in one paragraph:
 
 You define an immutable material with `defineMaterial()`. A `<FragCanvas>` component resolves it into a deterministic pipeline signature. If the signature changes, the renderer rebuilds from scratch. If it does not, only uniform buffers and texture bindings are updated - no recompilation. Every frame: scheduler tasks run, uniforms and textures are resolved, the base fullscreen pass executes, post-process passes run through the render graph, the result is presented to the canvas.
 
@@ -31,7 +31,7 @@ That is the whole thing.
 
 The single most important design decision is how renderer rebuilds are triggered. In most WebGPU/WebGL wrappers, the rebuild boundary is fuzzy - things recompile when you might not expect them to, or do not recompile when they should.
 
-MotionGPU keys every rebuild off a **pipeline signature**: a deterministic string derived from the compiled shader source, the uniform layout, and the texture bindings. The signature does not include live values. Changing a uniform value does not rebuild the pipeline - it writes a dirty range to the GPU buffer. Changing `clearColor` does not rebuild - it applies next frame. Changing the shader source does rebuild, because the signature changed.
+Motion GPU keys every rebuild off a **pipeline signature**: a deterministic string derived from the compiled shader source, the uniform layout, and the texture bindings. The signature does not include live values. Changing a uniform value does not rebuild the pipeline - it writes a dirty range to the GPU buffer. Changing `clearColor` does not rebuild - it applies next frame. Changing the shader source does rebuild, because the signature changed.
 
 This makes the rebuild boundary explicit and testable. You can look at your material definition and know exactly when the pipeline will be recreated.
 
@@ -39,7 +39,7 @@ The same principle applies to failure recovery. When renderer creation fails - m
 
 ## The material system
 
-A material in MotionGPU is defined once and treated as immutable:
+A material in Motion GPU is defined once and treated as immutable:
 
 ```ts
 const material = defineMaterial({
@@ -110,7 +110,7 @@ The default error overlay displays this automatically and is opt-out. You can di
 
 ## Scope
 
-MotionGPU is not a 3D engine. It does not have a scene graph, cameras, lights, or mesh primitives. It targets one specific workflow: fullscreen fragment shaders with a composable post-processing pipeline.
+Motion GPU is not a 3D engine. It does not have a scene graph, cameras, lights, or mesh primitives. It targets one specific workflow: fullscreen fragment shaders with a composable post-processing pipeline.
 
 That constraint is intentional. A tightly scoped tool can have a simpler API, clearer failure modes, and a smaller surface area for bugs. If you need a scene graph, Three.js is the right tool. If you need a fullscreen fragment renderer with predictable behavior and explicit state management, this might be worth a look.
 
