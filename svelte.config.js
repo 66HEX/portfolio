@@ -3,6 +3,7 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { escapeSvelte, mdsvex } from "mdsvex";
 import { createHighlighter } from "shiki";
 import { fileURLToPath } from "node:url";
+import rehypeSlug from "rehype-slug";
 
 const tableCellFormatter = () => {
   return (tree) => {
@@ -121,7 +122,7 @@ const config = {
         docs: markdownLayout,
         _: markdownLayout,
       },
-      rehypePlugins: [tableCellFormatter],
+      rehypePlugins: [tableCellFormatter, rehypeSlug],
 
       highlight: {
         highlighter: async (code, lang = "text") => {

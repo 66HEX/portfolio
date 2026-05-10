@@ -5,7 +5,7 @@
     "in_reply_to_status_id_str": "2036942917336449151",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-03-26T10:41:21.000Z",
     "display_text_range": [
       11,
@@ -36,7 +36,7 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2036093327662309377/cog1wOXv_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2053393993988472832/ZY9oP1pV_normal.jpg"
     },
     "edit_control": {
       "edit_tweet_ids": [
@@ -46,7 +46,7 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 1,
+    "conversation_count": 0,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
@@ -225,7 +225,7 @@
     "in_reply_to_status_id_str": "2030611938535706979",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-03-08T12:04:44.000Z",
     "display_text_range": [
       11,
@@ -266,7 +266,7 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 1,
+    "conversation_count": 0,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
@@ -435,7 +435,7 @@
     "in_reply_to_status_id_str": "2030449722477994210",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-03-08T17:20:20.000Z",
     "display_text_range": [
       11,
@@ -656,7 +656,7 @@
     "in_reply_to_status_id_str": "2022746392759074841",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-02-14T23:21:41.000Z",
     "display_text_range": [
       11,
@@ -697,13 +697,13 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 1,
+    "conversation_count": 0,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
-      "reply_count": 1,
+      "reply_count": 0,
       "retweet_count": 0,
-      "favorite_count": 2,
+      "favorite_count": 0,
       "possibly_sensitive": false,
       "created_at": "2026-02-14T18:54:55.000Z",
       "display_text_range": [
@@ -1212,7 +1212,7 @@
     "in_reply_to_status_id_str": "1989724986030883241",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 7,
+    "favorite_count": 0,
     "created_at": "2025-11-15T16:13:03.000Z",
     "display_text_range": [
       14,
@@ -1247,9 +1247,9 @@
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
-      "reply_count": 16,
-      "retweet_count": 11,
-      "favorite_count": 346,
+      "reply_count": 0,
+      "retweet_count": 0,
+      "favorite_count": 0,
       "possibly_sensitive": false,
       "created_at": "2025-11-15T15:59:38.000Z",
       "display_text_range": [

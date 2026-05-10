@@ -71,14 +71,14 @@
     <CardHeading title={card.title} description={card.description} class="mt-3" />
 
     <div class="absolute right-3 bottom-3 flex items-center gap-1">
-      <Tooltip content={card.ctaLabel} delay={120}>
+      <Tooltip content={card.ctaLabel}>
         <IconLinkButton href={card.href} ariaLabel={`${card.ctaLabel}: ${card.title}`}>
           <IconLink size={16} />
         </IconLinkButton>
       </Tooltip>
 
       {#if card.githubHref}
-        <Tooltip content={card.githubCtaLabel} delay={120}>
+        <Tooltip content={card.githubCtaLabel}>
           <IconLinkButton href={card.githubHref} ariaLabel={`${card.githubCtaLabel}: ${card.title}`}>
             <IconGithub width={16} height={16} />
           </IconLinkButton>
@@ -92,7 +92,7 @@
 
     <CardHeading title={card.title} description={card.description} class="mt-3" titleClass="truncate" />
 
-    <Tooltip class="absolute right-3 bottom-3" content={card.ctaLabel} delay={120}>
+    <Tooltip class="absolute right-3 bottom-3" content={card.ctaLabel}>
       <IconLinkButton href={card.href} ariaLabel={`${card.ctaLabel}: ${card.title}`} target="_self" rel="">
         <IconChevronRight size={16} />
       </IconLinkButton>

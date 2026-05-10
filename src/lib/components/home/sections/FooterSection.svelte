@@ -35,7 +35,7 @@
         <div class="flex flex-wrap items-center gap-1">
           {#each socialLinks as social (`footer-social-${social.platform}-${social.href}`)}
             {@const Icon = social.icon}
-            <Tooltip content={`${social.platform} ${social.handle}`} delay={120}>
+            <Tooltip content={`${social.platform} ${social.handle}`}>
               <IconLinkButton href={social.href} ariaLabel={`${social.platform} ${social.handle}`}>
                 <Icon size={16} />
               </IconLinkButton>
