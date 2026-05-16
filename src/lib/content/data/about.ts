@@ -33,13 +33,13 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Motion Core", href: "https://motion-core.dev/" },
         {
           type: "text",
-          text: " - a Svelte 5 motion component library built on Three.js and GSAP, following a shadcn-inspired copy-paste architecture with a Rust-based CLI.",
+          text: " - a Svelte 5 motion component library built on OGL and GSAP, following a shadcn-inspired copy-paste architecture with a Rust-based CLI.",
         },
       ],
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "450+ stars" },
+            { type: "highlight", text: "500+ stars" },
             { type: "text", text: " on GitHub" },
           ],
         },
@@ -85,7 +85,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "700+ stars" },
+            { type: "highlight", text: "750+ stars" },
             { type: "text", text: " on GitHub" },
           ],
         },

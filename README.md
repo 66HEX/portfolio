@@ -186,12 +186,12 @@ Turnstile setup:
 Before first deploy, authenticate Wrangler and set Worker environment values in Cloudflare:
 
 ```bash
-bunx wrangler login
-bunx wrangler secret put RESEND_API_KEY
-bunx wrangler secret put CONTACT_TO_EMAIL
-bunx wrangler secret put CONTACT_FROM_EMAIL
-bunx wrangler secret put TURNSTILE_SECRET_KEY
-bunx wrangler secret put GITHUB_TOKEN
+pnpm exec wrangler login
+pnpm exec wrangler secret put RESEND_API_KEY
+pnpm exec wrangler secret put CONTACT_TO_EMAIL
+pnpm exec wrangler secret put CONTACT_FROM_EMAIL
+pnpm exec wrangler secret put TURNSTILE_SECRET_KEY
+pnpm exec wrangler secret put GITHUB_TOKEN
 ```
 
 `PUBLIC_TURNSTILE_SITE_KEY` can be set in Cloudflare Dashboard as a regular variable for the Worker.
@@ -200,30 +200,30 @@ bunx wrangler secret put GITHUB_TOKEN
 
 ### Prerequisites
 
-- **Bun** (recommended)
-- or a Node.js environment capable of running this SvelteKit setup
+- **Node.js**
+- **pnpm** (the repository pins the supported version in `package.json`)
 
 ### Setup
 
 ```bash
 git clone https://github.com/66HEX/portfolio
 cd portfolio
-bun install
+pnpm install
 cp .env.example .env.local
 ```
 
 ### Run locally
 
 ```bash
-bun run dev
+pnpm run dev
 ```
 
 ### Quality checks
 
 ```bash
-bun run check
-bun run lint
-bun run format:check
+pnpm run check
+pnpm run lint
+pnpm run format:check
 ```
 
 ## Build & Deploy
@@ -231,19 +231,19 @@ bun run format:check
 ### Build
 
 ```bash
-bun run build
+pnpm run build
 ```
 
 ### Local worker preview
 
 ```bash
-bun run preview
+pnpm run preview
 ```
 
 ### Deploy to Cloudflare
 
 ```bash
-bun run deploy
+pnpm run deploy
 ```
 
 Cloudflare configuration lives in:

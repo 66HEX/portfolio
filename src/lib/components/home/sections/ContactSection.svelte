@@ -345,6 +345,7 @@
     overflow: hidden;
     overflow: clip;
     clip-path: inset(0 round var(--radius-sm));
+    mask-image: radial-gradient(white, black);
     -webkit-mask-image: -webkit-radial-gradient(white, black);
     isolation: isolate;
     contain: paint;
