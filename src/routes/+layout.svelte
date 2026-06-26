@@ -25,6 +25,15 @@
     {@render children()}
   </main>
 </div>
+<figure
+  class="pointer-events-none fixed inset-0 z-10 opacity-10 mix-blend-screen filter-[url('#noise-bg-fx')_grayscale(100%)]"
+>
+  <svg>
+    <filter id="noise-bg-fx">
+      <feTurbulence baseFrequency="0.8" />
+    </filter>
+  </svg>
+</figure>
 
 <VarselToaster position="bottom-center" offset={12} visibleToasts={3} />
 <CommandPalette />
