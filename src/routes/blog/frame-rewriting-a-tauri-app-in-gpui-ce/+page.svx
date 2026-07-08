@@ -1,0 +1,108 @@
+---
+title: "Frame: rewriting a Tauri app in GPUI-CE"
+description: "Why I moved Frame from a Tauri/Svelte shell to a Rust-native GPUI-CE desktop app."
+date: "2026-07-08"
+tags:
+  - rust
+  - gpui
+  - ffmpeg
+  - desktop
+published: true
+layout: docs
+---
+
+# The rewrite I did not plan to do
+
+Frame started as a small Tauri app because I wanted a nicer way to run FFmpeg without memorizing flags. It was supposed to be a weekend project. Then people actually started using it, opening issues, sending feedback, and starring the repository. By the time it passed 1.2k stars on GitHub, the thing I built for myself had become a real open source app with expectations around it.
+
+That version worked. It had a Svelte interface, a Rust backend, a queue, presets, subtitles, metadata, image workflows, and eventually a fairly serious preview surface.
+
+The problem was not that Tauri was bad. For many desktop apps, Tauri is a very reasonable choice. The problem was that Frame was slowly becoming less like a web app in a native shell and more like a native media tool that happened to have a webview attached to it.
+
+That boundary started to matter, technically and mentally.
+
+Every new feature had to cross the frontend/backend line. In practice, Frame communicated through a websocket bridge. The UI had its own model of what containers, codecs, pixel formats, subtitle modes, and output formats were valid. The Rust side had another model because it was ultimately responsible for generating the FFmpeg command and refusing invalid conversions. Preview state lived in the frontend, process control lived in Rust, and the two sides had to stay synchronized constantly.
+
+At small scale, that is fine. At Frame's scale, it started to feel like I was building the same application twice.
+
+There was also another issue: I was burned out on it. Frame had grown past the fun weekend-project phase, but my brain still associated the codebase with all the small compromises I made while moving fast. The rewrite gave me a mental reset. It made the project feel new again, which matters more than I used to admit, especially with ADHD.
+
+## Why GPUI-CE
+
+The rewrite was not about chasing a framework. I wanted four practical things:
+
+1. Keep the application state, conversion logic, and UI in one language.
+2. Make Rust the primary application layer instead of only the backend.
+3. Reduce the amount of glue between the interface and the FFmpeg runtime.
+4. Stop depending on whatever webview engine happened to exist on the user's platform.
+
+The last point became more important over time. Tauri uses the system webview: WebKit on Linux, WebView2 on Windows, and WKWebView on macOS. That sounds lightweight, and it is, but it also means the app inherits different rendering behavior, media behavior, platform bugs, and edge cases on every OS.
+
+I tried to move toward Tauri CEF because a bundled Chromium runtime would theoretically make things more predictable. In practice, my attempts still felt too unstable and too unpredictable for Frame. I did not want the core experience of a media tool to depend on which webview implementation happened to behave that week.
+
+GPUI-CE was interesting because it gave me a native Rust UI model without moving the app into a completely different product shape. I could keep the same core workflows - workspace, file queue, preview, settings, logs, updates - but stop treating the UI as a separate web application.
+
+It also felt surprisingly approachable from a web frontend background. If you spend a lot of time building interfaces with `div`s and Tailwind-style utility classes, GPUI's styling and element model are quick to pick up. It is native Rust UI, but the way you compose boxes, spacing, colors, borders, and interaction states does not feel completely alien.
+
+The 0.30.0 release is the result of that migration. The old `src-tauri` backend, SvelteKit frontend, stores, routes, services, i18n system, web preview pipeline, and JavaScript build tooling were removed. In their place, Frame became a Rust workspace:
+
+- `frame-app` owns the GPUI-CE shell, panels, controls, previews, queue state, notifications, persistence, and platform integration.
+- `frame-core` owns FFmpeg argument generation, media probing, compatibility rules, filter construction, validation, and preview planning.
+- `frame-updater` owns the signed update manifest flow, asset verification, and install helper.
+- `tooling/xtask` owns development, bundling, runtime setup, and release workflow generation.
+
+That split matters more than the UI framework itself. The app is native now, but the important part is that conversion rules and conversion behavior are no longer scattered across a frontend/backend contract.
+
+## The real hard part was preview
+
+A media converter without preview is easier. Frame is not that.
+
+Before the rewrite, the preview surface had already gone through several iterations. There was a DOM media version, then a Pixi/WebGPU renderer, then overlay and crop tooling, trim timelines, zooming, image support, and subtitle handling. It was useful, but it was also fundamentally a simulation of the output.
+
+That became the real problem.
+
+Pixi could show the source and I could manually mirror operations like crop, trim, rotate, flip, scaling, and overlays. But every one of those operations had to be synchronized with the FFmpeg settings by hand. Some operations were incomplete. Subtitles were the obvious example: the preview could not honestly show the same subtitle burn-in path that FFmpeg would use during export.
+
+At some point, "preview" stopped meaning "show the media in a canvas" and started meaning "show what FFmpeg is actually going to produce."
+
+There was a short GStreamer experiment during the GPUI work, but it was never shipped. It was useful because it pushed me toward the architecture I actually wanted: FFmpeg-backed previews. Frame is already an FFmpeg application. If FFmpeg is the source of truth for conversion, it should also be the source of truth for preview frames.
+
+The GPUI app now renders previews through a Rust preview engine that can derive FFmpeg preview plans, extract frames, stage overlay edits, handle crop and trim state, play audio, and reconfigure previews in place when settings change.
+
+This was less convenient than using browser media elements, but it removed a class of mismatches. Preview is now closer to the thing that will actually be exported.
+
+## What changed technically
+
+The biggest change is that Frame's model is now Rust-first.
+
+`frame-core` contains the media rules and the command-building logic. That means the same compatibility model can drive UI availability, validation, FFmpeg argument generation, and tests. If a container does not support a codec, or an encoder does not support a pixel format, that should be caught before a task enters the queue.
+
+The queue and runtime also moved into native Rust state. Importing files, probing sources, starting conversions, parsing FFmpeg progress, pausing, resuming, cancelling, copying logs, and sending completion notifications all live in the same application runtime. There is still separation between modules, but it is no longer separation across a websocket bridge.
+
+The packaging story changed too. Frame now has Rust-based release tooling for macOS, Windows, and Linux bundles. Release builds include FFmpeg and FFprobe, detect bundled encoder capabilities at startup, and use a signed-manifest updater with Ed25519 signatures and SHA-256 asset verification.
+
+That sounds like plumbing, because it is. But for a desktop app, plumbing is product work. A converter that cannot be installed, updated, or trusted to ship the same runtime across platforms is not finished.
+
+## What I gave up
+
+The rewrite removed things I liked.
+
+The old app had a Real-ESRGAN upscaling path. That production path is gone in the GPUI version. The simple reason is that almost nobody used it, and it added a lot of runtime weight and maintenance surface for a feature that did not justify its cost.
+
+Internationalization is gone too. I liked the idea, but I could not verify the translations properly. Automated translation without enough product context produced copy that was sometimes inaccurate or just wrong, and shipping text I could not confidently review felt worse than shipping only English.
+
+I also gave up a lot of web ecosystem convenience. Svelte is fast to build with. CSS is still the most flexible layout and styling system I know. Browser devtools are excellent. Recreating polished controls, scroll surfaces, text inputs, select menus, color pickers, focus rings, keyboard behavior, and accessible metadata in GPUI took real time.
+
+## The version that shipped
+
+The 0.30.0 release was not just "the same app in another UI toolkit." It was a distribution migration.
+
+Frame moved from a Tauri/Svelte application to a Rust-native GPUI-CE application. It gained a dedicated conversion core, a native preview engine, a signed updater, a new packaging pipeline, real media conversion tests, stricter clippy policy, and platform-specific release artifacts.
+
+It also became simpler in the way I care about most: the core mental model is now closer to the product.
+
+Frame is a Rust app that controls FFmpeg. The UI is Rust. The queue is Rust. The validation is Rust. The preview planning is Rust. The updater is Rust. The escape hatches are fewer, but the shape of the code matches the shape of the tool.
+
+That was the point of the rewrite.
+
+The code is on [GitHub](https://github.com/66HEX/frame), licensed under GPLv3.
