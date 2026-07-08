@@ -79,24 +79,14 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Frame", href: "https://framegui.app/" },
         {
           type: "text",
-          text: " - a native FFmpeg GUI (Rust + Tauri v2) with Real-ESRGAN integration for AI upscaling.",
+          text: " - a Rust-native FFmpeg desktop app built with GPUI-CE, with granular video, audio, image, subtitle, and metadata workflows.",
         },
       ],
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "750+ stars" },
-            { type: "text", text: " on GitHub" },
-          ],
-        },
-        {
-          content: [
-            { type: "text", text: "Included in " },
-            {
-              type: "link",
-              text: "Svelte Community Showcase (Feb 2026)",
-              href: "https://svelte.dev/blog/whats-new-in-svelte-february-2026",
-            },
+            { type: "highlight", text: "1200+ stars" },
+            { type: "link", text: " on GitHub", href: "https://github.com/66HEX/frame" },
           ],
         },
       ],

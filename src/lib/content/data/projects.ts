@@ -21,7 +21,7 @@ export const projectsData: { title: string; ctaLabel: string; githubCtaLabel: st
     },
     {
       title: "Frame",
-      description: "Aesthetically pleasing media converter.",
+      description: "Aesthetic media converter.",
       image: "/images/works/frame.webp",
       href: "https://framegui.app/",
       githubHref: "https://github.com/66HEX/frame/",
