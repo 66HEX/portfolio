@@ -44,7 +44,7 @@ export const parseCssColor = (value: string): [number, number, number] | null =>
     const parserCanvas = document.createElement("canvas");
     parserCanvas.width = 1;
     parserCanvas.height = 1;
-    cssColorContext = parserCanvas.getContext("2d");
+    cssColorContext = parserCanvas.getContext("2d", { willReadFrequently: true });
   }
   if (!cssColorContext) return null;
 
