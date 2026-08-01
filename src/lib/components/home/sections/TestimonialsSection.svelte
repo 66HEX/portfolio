@@ -119,7 +119,7 @@
         {#each firstTrack as tweet, index (`first-${tweet.id_str}-${index}`)}
           {@const itemId = `first-${tweet.id_str}-${index}`}
           <div
-            class="w-[min(20rem,calc(100vw-3.5rem))] flex-none"
+            class="flex-none"
             data-marquee-item={itemId}
             aria-hidden={isItemHidden(itemId) ? "true" : undefined}
           >
@@ -145,7 +145,7 @@
         {#each secondTrack as tweet, index (`second-${tweet.id_str}-${index}`)}
           {@const itemId = `second-${tweet.id_str}-${index}`}
           <div
-            class="w-[min(20rem,calc(100vw-3.5rem))] flex-none"
+            class="flex-none"
             data-marquee-item={itemId}
             aria-hidden={isItemHidden(itemId) ? "true" : undefined}
           >
