@@ -63,7 +63,7 @@
         {#each state.weeks as week, weekIndex (week[0]?.key ?? `week-${weekIndex}`)}
           <div class="grid grid-rows-7 gap-1">
             {#each week as day (day.key)}
-              <Tooltip content={day.tooltip} class="size-3 shrink-0">
+              <Tooltip content={day.tooltip} class="hit-target-gap-1 size-3 shrink-0">
                 <span
                   class={cn(
                     "size-full rounded-[3px] transition-colors duration-150",

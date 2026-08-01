@@ -58,36 +58,36 @@
   });
 </script>
 
-<div class="bg-background-inset card-outer rounded-sm p-1 size-8">
-    <button
-      type="button"
+<div class="bg-background-inset card-outer size-8 rounded-sm p-1">
+  <button
+    type="button"
+    class={cn(
+      "hit-target group transition-scale card bg-background text-foreground relative flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] duration-150 ease-out active:scale-[0.95]",
+      className,
+    )}
+    onclick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      handleCopy(code);
+    }}
+    aria-label={copied ? "Copied code" : "Copy code"}
+  >
+    <span class="sr-only">{copied ? "Copied code" : "Copy code"}</span>
+    <span
       class={cn(
-        "group transition-scale card bg-background text-foreground relative flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] duration-150 ease-out active:scale-[0.95]",
-        className,
+        "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
+        copied ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
       )}
-      onclick={(event) => {
-        event.stopPropagation();
-        event.preventDefault();
-        handleCopy(code);
-      }}
-      aria-label={copied ? "Copied code" : "Copy code"}
     >
-      <span class="sr-only">{copied ? "Copied code" : "Copy code"}</span>
-      <span
-        class={cn(
-          "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
-          copied ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
-        )}
-      >
-        <IconRenderer icon={IconCopy} size={16} />
-      </span>
-      <span
-        class={cn(
-          "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
-          copied ? "blur-0 scale-100 opacity-100" : " scale-[0.25] opacity-0 blur-xs",
-        )}
-      >
-        <IconRenderer icon={IconCheck} size={16} />
-      </span>
-    </button>
+      <IconRenderer icon={IconCopy} size={16} />
+    </span>
+    <span
+      class={cn(
+        "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
+        copied ? "blur-0 scale-100 opacity-100" : " scale-[0.25] opacity-0 blur-xs",
+      )}
+    >
+      <IconRenderer icon={IconCheck} size={16} />
+    </span>
+  </button>
 </div>

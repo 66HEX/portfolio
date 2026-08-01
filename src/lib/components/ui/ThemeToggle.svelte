@@ -19,7 +19,7 @@
     <button
       type="button"
       class={cn(
-        "group transition-scale text-foreground bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] duration-150 ease-out active:scale-[0.95]",
+        "hit-target group transition-scale text-foreground bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] duration-150 ease-out active:scale-[0.95]",
         className,
       )}
       onclick={themeStore.toggle}

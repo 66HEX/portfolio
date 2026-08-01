@@ -142,7 +142,7 @@
         rel="noopener noreferrer"
         tabindex={tweetLinkTabIndex}
         aria-label={`View testimonial by ${card.name} on X`}
-        class="text-foreground-muted hover:text-foreground shrink-0 transition-colors duration-150 ease-out"
+        class="hit-target text-foreground-muted hover:text-foreground shrink-0 transition-colors duration-150 ease-out"
       >
         <svg width="16" height="16" viewBox="0 0 1200 1227" aria-hidden="true" fill="currentColor">
           <path

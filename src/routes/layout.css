@@ -150,6 +150,45 @@ html {
     0 1px 6px -4px #000;
 }
 
+/*
+ * Increase pointer targets without changing the controls' visual dimensions.
+ * Keep the compact variant within the 36px rhythm used by adjacent icon groups
+ * so neighbouring targets meet at their edges instead of overlapping.
+ */
+.hit-target,
+.hit-target-compact {
+  --hit-target-inline-size: 2.75rem;
+  --hit-target-block-size: 2.75rem;
+
+  position: relative;
+}
+
+.hit-target-compact {
+  --hit-target-inline-size: 2.25rem;
+  --hit-target-block-size: 2.5rem;
+}
+
+.hit-target::before,
+.hit-target-compact::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  inline-size: max(100%, var(--hit-target-inline-size));
+  block-size: max(100%, var(--hit-target-block-size));
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.hit-target-gap-1 {
+  position: relative;
+}
+
+.hit-target-gap-1::before {
+  position: absolute;
+  inset: -0.125rem;
+  content: "";
+}
+
 .btn-primary {
   position: relative;
   appearance: none;

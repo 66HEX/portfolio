@@ -37,7 +37,7 @@
   <div class="card-outer bg-background-inset absolute top-2 right-2 flex items-center justify-center rounded-sm p-1">
     <button
       type="button"
-      class="text-foreground-muted hover:text-foreground focus-visible:ring-accent rounded-sm transition-colors duration-150 ease-out outline-none focus-visible:ring-2"
+      class="hit-target text-foreground-muted hover:text-foreground focus-visible:ring-accent rounded-sm transition-colors duration-150 ease-out outline-none focus-visible:ring-2"
       onclick={dismissToast}
       aria-label="Dismiss notification"
     >
