@@ -1,10 +1,8 @@
 <script lang="ts">
-  import "varsel/styles.css";
   import "./layout.css";
   import apkAvionicaUrl from "$lib/assets/fonts/APK-Avionica.woff2?url";
   import apkGaleriaRegularUrl from "$lib/assets/fonts/APK-Galeria-Regular.woff2?url";
   import { faviconLinks, seoConfig } from "$lib/seo/meta";
-  import { VarselToaster } from "varsel";
 
   let { children } = $props();
 </script>
@@ -27,5 +25,3 @@
     {@render children()}
   </main>
 </div>
-
-<VarselToaster position="bottom-center" offset={12} visibleToasts={3} />

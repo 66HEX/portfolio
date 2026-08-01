@@ -141,6 +141,8 @@ export type HomepageContent = {
       messageLabel: string;
       submitLabel: string;
       sendingLabel: string;
+      sentLabel: string;
+      retryLabel: string;
       successLabel: string;
       errorLabel: string;
       validationErrorLabel: string;

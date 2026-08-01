@@ -38,7 +38,7 @@
 - **Projects Grid:** Project cards with live/demo + optional GitHub CTA.
 - **Blog Section:** Auto-list of newest published posts.
 - **X (Twitter) Marquee:** Dual animated tweet tracks fetched from the X syndication API.
-- **Contact Section:** Client-side + server-side validated form with toast feedback.
+- **Contact Section:** Client-side + server-side validated form with accessible inline feedback.
 - **Footer:** Social links + copyright line.
 
 ### Blog Engine
@@ -85,7 +85,6 @@
 - **Tailwind CSS v4**
 - **Design utilities:** `clsx`, `tailwind-merge`, `class-variance-authority`
 - **Icons:** `Nucleo`
-- **Toast notifications:** `varsel`
 
 ### Content & Markdown
 

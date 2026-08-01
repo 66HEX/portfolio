@@ -10,6 +10,8 @@ export const contactData: Pick<HomepageContent, "contact"> = {
       messageLabel: "Message",
       submitLabel: "Send message",
       sendingLabel: "Sending...",
+      sentLabel: "Message sent",
+      retryLabel: "Try again",
       successLabel: "Message sent successfully. Thanks for reaching out.",
       errorLabel: "Couldn't send the message right now. Try again in a moment.",
       validationErrorLabel: "Please fill all fields with valid details before sending.",

@@ -1,11 +1,10 @@
 <script lang="ts">
   import { env as publicEnv } from "$env/dynamic/public";
   import IconRenderer from "$lib/content/IconRenderer.svelte";
-  import { IconSend, IconWarningCircle } from "$lib/content/icons";
+  import { IconCheck, IconClose, IconSend, IconWarningCircle } from "$lib/content/icons";
   import { onMount } from "svelte";
   import type { HomepageContent } from "$lib/content/homepage-content";
   import { submitContactForm } from "$lib/features/contact/client/api";
-  import { showContactToast } from "$lib/features/contact/client/toast";
   import {
     loadTurnstileApi,
     renderTurnstileWidget,
@@ -32,6 +31,8 @@
     content: HomepageContent["contact"];
   };
 
+  type SubmitFeedback = "idle" | "success" | "error";
+
   const turnstileSiteKey = publicEnv.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? "";
 
   let { content }: Props = $props();
@@ -41,21 +42,45 @@
   let turnstileToken = $state("");
   let turnstileError = $state("");
   let fieldErrors = $state<ContactFieldErrors>({});
+  let submitFeedback = $state<SubmitFeedback>("idle");
+  let successAnnouncement = $state("");
+  let errorAnnouncement = $state("");
 
   let turnstileContainer: HTMLDivElement | null = null;
   let turnstileWidgetId: string | null = null;
   let turnstileApi: TurnstileApi | null = null;
   let turnstileInitStarted = false;
   let mountedTurnstileTheme: TurnstileTheme | null = null;
+  let feedbackResetTimer: ReturnType<typeof setTimeout> | undefined;
 
-  $effect(() => {
-    const message = turnstileError.trim();
-    if (message.length === 0) {
-      return;
+  function clearSubmitFeedback(): void {
+    if (feedbackResetTimer) {
+      clearTimeout(feedbackResetTimer);
+      feedbackResetTimer = undefined;
     }
+    submitFeedback = "idle";
+    successAnnouncement = "";
+    errorAnnouncement = "";
+  }
 
-    showContactToast("error", content.form.errorLabel, message, 6500);
-  });
+  function showSubmitError(message: string): void {
+    clearSubmitFeedback();
+    submitFeedback = "error";
+    errorAnnouncement = message;
+  }
+
+  function showSubmitSuccess(): void {
+    clearSubmitFeedback();
+    submitFeedback = "success";
+    successAnnouncement = content.form.successLabel;
+    feedbackResetTimer = setTimeout(clearSubmitFeedback, 5000);
+  }
+
+  function setTurnstileError(message: string): void {
+    turnstileToken = "";
+    turnstileError = message;
+    showSubmitError(message);
+  }
 
   function resetTurnstileWidget(): void {
     turnstileToken = "";
@@ -66,6 +91,9 @@
 
   function clearFieldError(field: ContactField): void {
     delete fieldErrors[field];
+    if (submitFeedback === "error") {
+      clearSubmitFeedback();
+    }
   }
 
   function clearValidationErrors(): void {
@@ -75,12 +103,7 @@
   function applyValidationErrors(errors: ContactFieldErrors, formMessages: string[]): void {
     fieldErrors = { ...errors };
     const firstFieldError = contactFieldNames.map((field) => errors[field]).find(Boolean);
-    showContactToast(
-      "error",
-      content.form.validationErrorLabel,
-      firstFieldError ?? formMessages[0] ?? "",
-      6500,
-    );
+    showSubmitError(firstFieldError ?? formMessages[0] ?? content.form.validationErrorLabel);
 
     const firstInvalidField = contactFieldNames.find((field) => Boolean(errors[field]));
     if (firstInvalidField) {
@@ -110,13 +133,15 @@
         onToken: (token: string) => {
           turnstileToken = token;
           turnstileError = "";
+          if (submitFeedback === "error") {
+            clearSubmitFeedback();
+          }
         },
         onReset: () => {
           resetTurnstileWidget();
         },
         onError: () => {
-          turnstileToken = "";
-          turnstileError = "Verification failed. Please retry the challenge.";
+          setTurnstileError("Verification failed. Please retry the challenge.");
         },
       },
       theme,
@@ -133,7 +158,7 @@
 
   onMount(() => {
     if (turnstileSiteKey.length === 0) {
-      turnstileError = "Anti-bot verification is not configured.";
+      setTurnstileError("Anti-bot verification is not configured.");
       return;
     }
 
@@ -177,7 +202,7 @@
           });
         }
       } catch {
-        turnstileError = "Couldn't load anti-bot verification. Refresh and try again.";
+        setTurnstileError("Couldn't load anti-bot verification. Refresh and try again.");
       }
     };
 
@@ -225,6 +250,9 @@
       }
       turnstileWidgetId = null;
       mountedTurnstileTheme = null;
+      if (feedbackResetTimer) {
+        clearTimeout(feedbackResetTimer);
+      }
     };
   });
 
@@ -259,13 +287,13 @@
         if (Object.keys(result.fieldErrors).length > 0 || result.validationErrors.length > 0) {
           applyValidationErrors(result.fieldErrors, result.validationErrors);
         } else {
-          showContactToast("error", content.form.errorLabel, result.message, 6500);
+          showSubmitError(result.message);
         }
         resetTurnstileWidget();
         return;
       }
 
-      showContactToast("success", content.form.submitLabel, content.form.successLabel, 5000);
+      showSubmitSuccess();
       resetTurnstileWidget();
       form = createEmptyContactForm();
       clearValidationErrors();
@@ -281,9 +309,7 @@
       content={message}
       side="left"
       delay={0}
-      class={placement === "top"
-        ? "absolute top-1 right-1 z-10"
-        : "absolute top-1/2 right-1 z-10 -translate-y-1/2"}
+      class={placement === "top" ? "absolute top-1 right-1 z-10" : "absolute top-1/2 right-1 z-10 -translate-y-1/2"}
     >
       <button
         type="button"
@@ -321,7 +347,7 @@
             autocomplete="name"
             variant="field"
             size="field"
-            class="aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 pr-9"
+            class="pr-9 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
             placeholder="Jane Smith"
             minlength="2"
             maxlength="80"
@@ -350,7 +376,7 @@
             autocomplete="email"
             variant="field"
             size="field"
-            class="aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 pr-9"
+            class="pr-9 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
             placeholder="jane@company.com"
             maxlength="160"
             required
@@ -377,7 +403,7 @@
             name="subject"
             variant="field"
             size="field"
-            class="aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 pr-9"
+            class="pr-9 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
             placeholder="New landing page for SaaS product"
             minlength="3"
             maxlength="140"
@@ -402,7 +428,7 @@
           <textarea
             id="contact-message"
             name="message"
-            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
+            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"
@@ -420,6 +446,7 @@
       </div>
 
       <div class="card relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-sm">
+        {@render fieldErrorIndicator(turnstileError || undefined, "top")}
         <div class="turnstile-clip relative h-15 w-full overflow-hidden">
           <div
             class="turnstile-layer mt-2.5 flex h-full w-full items-end justify-center brightness-90 [&>*:first-child]:w-full"
@@ -432,10 +459,24 @@
       <div class="mt-1 flex flex-col gap-2">
         <Button type="submit" variant="primary" size="form" disabled={pending || turnstileToken.length === 0}>
           <span class="send-icon" aria-hidden="true">
-            <IconRenderer icon={IconSend} size={16} />
+            <IconRenderer
+              icon={submitFeedback === "success" ? IconCheck : submitFeedback === "error" ? IconClose : IconSend}
+              size={16}
+            />
           </span>
-          <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
+          <span>
+            {pending
+              ? content.form.sendingLabel
+              : submitFeedback === "success"
+                ? content.form.sentLabel
+                : submitFeedback === "error"
+                  ? content.form.retryLabel
+                  : content.form.submitLabel}
+          </span>
         </Button>
+
+        <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{successAnnouncement}</p>
+        <p class="sr-only" role="alert" aria-live="assertive" aria-atomic="true">{errorAnnouncement}</p>
 
         <p class="text-foreground-muted text-center text-xs text-balance">
           {content.form.privacyNote}
