@@ -82,9 +82,9 @@
 <div class="w-full">
   <h1 class="sr-only">{homepageContent.header.h1}</h1>
   <HeroSection hero={homepageContent.hero} profile={homepageContent.profile} />
-  <Separator class="my-4" />
+  <Separator />
   <AboutSection content={homepageContent.about} />
-  <Separator class="my-4" />
+  <Separator />
   <GitHubActivityCard
     username={githubUsername}
     contributions={githubContributions}
@@ -92,28 +92,28 @@
     missingTokenMessage={homepageContent.githubCard.missingTokenMessage}
     graphText={homepageContent.githubCard.graphText}
   />
-  <Separator class="my-4" />
+  <Separator />
   <ExperienceSection content={homepageContent.experience} />
-  <Separator class="my-4" />
+  <Separator />
   <TestimonialsSection title={homepageContent.testimonials.title} items={tweets} />
 
-  <Separator class="my-4" />
+  <Separator />
   <ProjectsSection
     title={homepageContent.projects.title}
     ctaLabel={homepageContent.projects.ctaLabel}
     githubCtaLabel={homepageContent.projects.githubCtaLabel}
     items={homepageContent.projects.items}
   />
-  <Separator class="my-4" />
+  <Separator />
   <BlogSection
     posts={recentBlogPosts}
     title={homepageContent.blog.title}
     emptyStateLabel={homepageContent.blog.emptyStateLabel}
     readArticleLabel={homepageContent.blog.readArticleLabel}
   />
-  <Separator class="my-4" />
+  <Separator />
   <ContactSection content={homepageContent.contact} />
-  <Separator class="my-4" />
+  <Separator />
   <FooterSection
     headline={homepageContent.footer.headline}
     description={homepageContent.footer.description}
