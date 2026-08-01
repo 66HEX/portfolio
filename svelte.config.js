@@ -130,12 +130,14 @@ const config = {
             highlighter.codeToHtml(code, {
               lang,
               theme: SHIKI_THEMES.light,
+              tabindex: false,
             }),
           );
           const darkHtml = escapeSvelte(
             highlighter.codeToHtml(code, {
               lang,
               theme: SHIKI_THEMES.dark,
+              tabindex: false,
             }),
           );
           const htmlLightProp = JSON.stringify(lightHtml);

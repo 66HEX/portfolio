@@ -67,7 +67,7 @@
 
     {#if id}
       <div
-        class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-visible:opacity-100"
+        class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-within:opacity-100"
       >
         <button
           type="button"
