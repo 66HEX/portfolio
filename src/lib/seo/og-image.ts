@@ -1,5 +1,5 @@
 import ImageResponse from "@takumi-rs/image-response";
-import apkAvionicaDataUri from "$lib/assets/fonts/APK-Avionica.woff?inline";
+import apkAvionicaDataUri from "$lib/assets/fonts/APK-Avionica.woff2?inline";
 import apkGaleriaMediumDataUri from "$lib/assets/fonts/APK-Galeria-Medium.woff2?inline";
 import apkGaleriaRegularDataUri from "$lib/assets/fonts/APK-Galeria-Regular.woff2?inline";
 import { brandLogoRaw } from "$lib";
