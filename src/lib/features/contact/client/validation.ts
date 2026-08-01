@@ -1,11 +1,15 @@
 import { contactFormSchema } from "$lib/validation/contact";
-import { uniqueNonEmptyMessages, type ContactPayload } from "../shared";
+import {
+  groupContactValidationIssues,
+  type ContactPayload,
+  type ContactValidationErrors,
+} from "../shared";
 
-export function collectValidationMessages(payload: ContactPayload): string[] {
+export function validateContactPayload(payload: ContactPayload): ContactValidationErrors {
   const parsed = contactFormSchema.safeParse(payload);
   if (parsed.success) {
-    return [];
+    return { fieldErrors: {}, formErrors: [] };
   }
 
-  return uniqueNonEmptyMessages(parsed.error.issues.map((issue) => issue.message));
+  return groupContactValidationIssues(parsed.error.issues);
 }

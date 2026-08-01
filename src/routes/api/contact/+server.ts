@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import { contactFormSchema } from "$lib/validation/contact";
-import { TURNSTILE_ACTION, uniqueNonEmptyMessages } from "$lib/features/contact/shared";
+import { groupContactValidationIssues, TURNSTILE_ACTION } from "$lib/features/contact/shared";
 import { resolvePrivateValue } from "$lib/features/contact/server/env";
 import { sendContactEmail } from "$lib/features/contact/server/email";
 import { extractWebsiteField } from "$lib/features/contact/server/honeypot";
@@ -25,13 +25,15 @@ export const POST: RequestHandler = async ({ request, fetch, platform, getClient
 
   const parsed = contactFormSchema.safeParse(body);
   if (!parsed.success) {
-    const errors = uniqueNonEmptyMessages(parsed.error.issues.map((issue) => issue.message));
+    const validation = groupContactValidationIssues(parsed.error.issues);
+    const firstFieldError = Object.values(validation.fieldErrors)[0];
 
     return json(
       {
         success: false,
-        message: errors[0] ?? "Invalid contact form values.",
-        errors,
+        message: firstFieldError ?? validation.formErrors[0] ?? "Invalid contact form values.",
+        errors: validation.formErrors,
+        fieldErrors: validation.fieldErrors,
       },
       { status: 400 },
     );

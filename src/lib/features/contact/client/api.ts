@@ -1,8 +1,14 @@
-import { uniqueNonEmptyMessages, type ContactPayload } from "../shared";
+import {
+  contactFieldNames,
+  uniqueNonEmptyMessages,
+  type ContactFieldErrors,
+  type ContactPayload,
+} from "../shared";
 
 type ContactApiErrorBody = {
   message?: string;
   errors?: string[];
+  fieldErrors?: unknown;
 };
 
 export type SubmitContactFormResult =
@@ -11,7 +17,21 @@ export type SubmitContactFormResult =
       ok: false;
       message: string;
       validationErrors: string[];
+      fieldErrors: ContactFieldErrors;
     };
+
+function parseFieldErrors(value: unknown): ContactFieldErrors {
+  if (!value || typeof value !== "object") return {};
+
+  const source = value as Record<string, unknown>;
+  return Object.fromEntries(
+    contactFieldNames.flatMap((field) =>
+      typeof source[field] === "string" && source[field].trim().length > 0
+        ? [[field, source[field].trim()]]
+        : [],
+    ),
+  );
+}
 
 export async function submitContactForm(
   payload: ContactPayload,
@@ -33,12 +53,15 @@ export async function submitContactForm(
 
     let message = fallbackErrorMessage;
     let validationErrors: string[] = [];
+    let fieldErrors: ContactFieldErrors = {};
 
     try {
       const errorBody = (await response.json()) as ContactApiErrorBody;
       if (Array.isArray(errorBody.errors) && errorBody.errors.length > 0) {
         validationErrors = uniqueNonEmptyMessages(errorBody.errors);
-      } else if (typeof errorBody.message === "string" && errorBody.message.length > 0) {
+      }
+      fieldErrors = parseFieldErrors(errorBody.fieldErrors);
+      if (typeof errorBody.message === "string" && errorBody.message.length > 0) {
         message = errorBody.message;
       }
     } catch {
@@ -49,12 +72,14 @@ export async function submitContactForm(
       ok: false,
       message,
       validationErrors,
+      fieldErrors,
     };
   } catch {
     return {
       ok: false,
       message: fallbackErrorMessage,
       validationErrors: [],
+      fieldErrors: {},
     };
   }
 }

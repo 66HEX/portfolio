@@ -95,6 +95,16 @@ export const IconInfo = uiIcon([
   },
 ]);
 
+export const IconWarningCircle = uiIcon([
+  { type: "circle", cx: "9", cy: "9", r: "7.25", stroke: true },
+  { type: "line", x1: "9", y1: "5.25", x2: "9", y2: "10.25", stroke: true },
+  {
+    type: "path",
+    d: "M9 13.75C8.448 13.75 8 13.302 8 12.75C8 12.198 8.448 11.75 9 11.75C9.552 11.75 10 12.198 10 12.75C10 13.302 9.552 13.75 9 13.75Z",
+    fill: "currentColor",
+  },
+]);
+
 export const IconLink = uiIcon([
   {
     type: "path",

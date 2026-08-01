@@ -161,6 +161,14 @@
     scheduleClose();
   }
 
+  function onFocusIn() {
+    scheduleOpen();
+  }
+
+  function onFocusOut() {
+    scheduleClose();
+  }
+
   function portal(node: HTMLElement) {
     document.body.appendChild(node);
     return {
@@ -265,6 +273,8 @@
   role="presentation"
   onpointerenter={onPointerEnter}
   onpointerleave={onPointerLeave}
+  onfocusin={onFocusIn}
+  onfocusout={onFocusOut}
   aria-describedby={isTooltipEnabled && isOpen ? tooltipId : undefined}
 >
   {@render children?.()}

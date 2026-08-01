@@ -1,11 +1,11 @@
 <script lang="ts">
   import { env as publicEnv } from "$env/dynamic/public";
   import IconRenderer from "$lib/content/IconRenderer.svelte";
-  import { IconSend } from "$lib/content/icons";
+  import { IconSend, IconWarningCircle } from "$lib/content/icons";
   import { onMount } from "svelte";
   import type { HomepageContent } from "$lib/content/homepage-content";
   import { submitContactForm } from "$lib/features/contact/client/api";
-  import { showContactToast, showValidationToasts } from "$lib/features/contact/client/toast";
+  import { showContactToast } from "$lib/features/contact/client/toast";
   import {
     loadTurnstileApi,
     renderTurnstileWidget,
@@ -14,12 +14,19 @@
     type TurnstileApi,
     type TurnstileTheme,
   } from "$lib/features/contact/client/turnstile";
-  import { collectValidationMessages } from "$lib/features/contact/client/validation";
-  import { createEmptyContactForm, type ContactPayload } from "$lib/features/contact/shared";
+  import { validateContactPayload } from "$lib/features/contact/client/validation";
+  import {
+    contactFieldNames,
+    createEmptyContactForm,
+    type ContactField,
+    type ContactFieldErrors,
+    type ContactPayload,
+  } from "$lib/features/contact/shared";
   import Button from "../../ui/Button.svelte";
   import ContentCard from "../../layout/ContentCard.svelte";
   import Input from "../../ui/Input.svelte";
   import SectionBlock from "../../layout/SectionBlock.svelte";
+  import Tooltip from "../../ui/Tooltip.svelte";
 
   type Props = {
     content: HomepageContent["contact"];
@@ -33,6 +40,7 @@
   let form = $state(createEmptyContactForm());
   let turnstileToken = $state("");
   let turnstileError = $state("");
+  let fieldErrors = $state<ContactFieldErrors>({});
 
   let turnstileContainer: HTMLDivElement | null = null;
   let turnstileWidgetId: string | null = null;
@@ -53,6 +61,32 @@
     turnstileToken = "";
     if (turnstileApi && turnstileWidgetId) {
       turnstileApi.reset(turnstileWidgetId);
+    }
+  }
+
+  function clearFieldError(field: ContactField): void {
+    delete fieldErrors[field];
+  }
+
+  function clearValidationErrors(): void {
+    fieldErrors = {};
+  }
+
+  function applyValidationErrors(errors: ContactFieldErrors, formMessages: string[]): void {
+    fieldErrors = { ...errors };
+    const firstFieldError = contactFieldNames.map((field) => errors[field]).find(Boolean);
+    showContactToast(
+      "error",
+      content.form.validationErrorLabel,
+      firstFieldError ?? formMessages[0] ?? "",
+      6500,
+    );
+
+    const firstInvalidField = contactFieldNames.find((field) => Boolean(errors[field]));
+    if (firstInvalidField) {
+      requestAnimationFrame(() => {
+        document.getElementById(`contact-${firstInvalidField}`)?.focus();
+      });
     }
   }
 
@@ -210,9 +244,10 @@
       turnstileToken,
     };
 
-    const validationMessages = collectValidationMessages(payload);
-    if (validationMessages.length > 0) {
-      showValidationToasts(validationMessages, content.form.validationErrorLabel);
+    clearValidationErrors();
+    const validation = validateContactPayload(payload);
+    if (Object.keys(validation.fieldErrors).length > 0 || validation.formErrors.length > 0) {
+      applyValidationErrors(validation.fieldErrors, validation.formErrors);
       return;
     }
 
@@ -221,8 +256,8 @@
     try {
       const result = await submitContactForm(payload, content.form.errorLabel);
       if (!result.ok) {
-        if (result.validationErrors.length > 0) {
-          showValidationToasts(result.validationErrors, content.form.validationErrorLabel);
+        if (Object.keys(result.fieldErrors).length > 0 || result.validationErrors.length > 0) {
+          applyValidationErrors(result.fieldErrors, result.validationErrors);
         } else {
           showContactToast("error", content.form.errorLabel, result.message, 6500);
         }
@@ -233,11 +268,33 @@
       showContactToast("success", content.form.submitLabel, content.form.successLabel, 5000);
       resetTurnstileWidget();
       form = createEmptyContactForm();
+      clearValidationErrors();
     } finally {
       pending = false;
     }
   }
 </script>
+
+{#snippet fieldErrorIndicator(message: string | undefined, placement: "center" | "top")}
+  {#if message}
+    <Tooltip
+      content={message}
+      side="left"
+      delay={0}
+      class={placement === "top"
+        ? "absolute top-1 right-1 z-10"
+        : "absolute top-1/2 right-1 z-10 -translate-y-1/2"}
+    >
+      <button
+        type="button"
+        class="hit-target-compact flex size-6 items-center justify-center rounded-xs bg-red-600/10 text-red-700 transition-colors duration-150 ease-out hover:bg-red-600/15 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/15"
+        aria-label={`Error: ${message}`}
+      >
+        <IconRenderer icon={IconWarningCircle} size={16} />
+      </button>
+    </Tooltip>
+  {/if}
+{/snippet}
 
 <SectionBlock title={content.title}>
   <ContentCard class="">
@@ -252,70 +309,115 @@
         aria-hidden="true"
       />
 
-      <label class="flex flex-col gap-2">
-        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.nameLabel}</span>
+      <div class="flex flex-col gap-2">
+        <label for="contact-name" class="text-foreground-muted text-xs leading-none font-medium">
+          {content.form.nameLabel}
+        </label>
         <div class="bg-background-inset inset-shadow h-8 rounded-sm">
           <Input
+            id="contact-name"
             type="text"
             name="name"
+            autocomplete="name"
             variant="field"
             size="field"
+            class="aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 pr-9"
             placeholder="Jane Smith"
             minlength="2"
             maxlength="80"
             required
+            aria-invalid={Boolean(fieldErrors.name)}
+            aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
+            oninput={() => clearFieldError("name")}
             bind:value={form.name}
           />
+          {@render fieldErrorIndicator(fieldErrors.name, "center")}
         </div>
-      </label>
+        {#if fieldErrors.name}
+          <p id="contact-name-error" class="sr-only">{fieldErrors.name}</p>
+        {/if}
+      </div>
 
-      <label class="flex flex-col gap-2">
-        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.emailLabel}</span>
+      <div class="flex flex-col gap-2">
+        <label for="contact-email" class="text-foreground-muted text-xs leading-none font-medium">
+          {content.form.emailLabel}
+        </label>
         <div class="bg-background-inset inset-shadow h-8 rounded-sm">
           <Input
+            id="contact-email"
             type="email"
             name="email"
+            autocomplete="email"
             variant="field"
             size="field"
+            class="aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 pr-9"
             placeholder="jane@company.com"
             maxlength="160"
             required
+            aria-invalid={Boolean(fieldErrors.email)}
+            aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
+            oninput={() => clearFieldError("email")}
             bind:value={form.email}
           />
+          {@render fieldErrorIndicator(fieldErrors.email, "center")}
         </div>
-      </label>
+        {#if fieldErrors.email}
+          <p id="contact-email-error" class="sr-only">{fieldErrors.email}</p>
+        {/if}
+      </div>
 
-      <label class="flex flex-col gap-2">
-        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.subjectLabel}</span>
+      <div class="flex flex-col gap-2">
+        <label for="contact-subject" class="text-foreground-muted text-xs leading-none font-medium">
+          {content.form.subjectLabel}
+        </label>
         <div class="bg-background-inset inset-shadow h-8 rounded-sm">
           <Input
+            id="contact-subject"
             type="text"
             name="subject"
             variant="field"
             size="field"
+            class="aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 pr-9"
             placeholder="New landing page for SaaS product"
             minlength="3"
             maxlength="140"
             required
+            aria-invalid={Boolean(fieldErrors.subject)}
+            aria-describedby={fieldErrors.subject ? "contact-subject-error" : undefined}
+            oninput={() => clearFieldError("subject")}
             bind:value={form.subject}
           />
+          {@render fieldErrorIndicator(fieldErrors.subject, "center")}
         </div>
-      </label>
+        {#if fieldErrors.subject}
+          <p id="contact-subject-error" class="sr-only">{fieldErrors.subject}</p>
+        {/if}
+      </div>
 
-      <label class="flex flex-col gap-2">
-        <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.messageLabel}</span>
+      <div class="flex flex-col gap-2">
+        <label for="contact-message" class="text-foreground-muted text-xs leading-none font-medium">
+          {content.form.messageLabel}
+        </label>
         <div class="bg-background-inset inset-shadow rounded-sm">
           <textarea
+            id="contact-message"
             name="message"
-            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent block min-h-30 w-full rounded-sm px-2 py-1.5 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
+            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400 block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"
             required
+            aria-invalid={Boolean(fieldErrors.message)}
+            aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
+            oninput={() => clearFieldError("message")}
             bind:value={form.message}
           ></textarea>
+          {@render fieldErrorIndicator(fieldErrors.message, "top")}
         </div>
-      </label>
+        {#if fieldErrors.message}
+          <p id="contact-message-error" class="sr-only">{fieldErrors.message}</p>
+        {/if}
+      </div>
 
       <div class="card relative z-20 mt-1 flex flex-col items-center gap-2 overflow-hidden rounded-sm">
         <div class="turnstile-clip relative h-15 w-full overflow-hidden">
