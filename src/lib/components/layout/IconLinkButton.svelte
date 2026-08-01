@@ -22,7 +22,7 @@
   }: Props = $props();
 </script>
 
-<div class="bg-background-inset inset-shadow size-8 rounded-sm p-1">
+<div class="bg-background-inset inset-shadow rounded-sm p-1">
   {#if href.startsWith("http") || href.startsWith("mailto")}
     <a
       {href}
