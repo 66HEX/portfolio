@@ -1,14 +1,12 @@
 <script lang="ts">
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
   import type { HomepageContent } from "$lib/content/homepage-content";
-  import { themeStore } from "$lib/stores/theme.svelte";
 
   type Props = {
     content: HomepageContent["experience"];
   };
 
   let { content }: Props = $props();
-  const isDark = $derived(themeStore.isDark);
 </script>
 
 <SectionBlock title={content.title}>
@@ -25,19 +23,38 @@
           <div
             class="bg-background card flex size-6 items-center justify-center overflow-hidden rounded-[calc(var(--radius-base)*1.25)] p-1"
           >
-            <img
-              src={isDark && item.darkLogoSrc ? item.darkLogoSrc : item.logoSrc}
-              alt=""
-              class="size-full object-contain"
-              width="24"
-              height="24"
-              loading="lazy"
-            />
+            {#if item.darkLogoSrc}
+              <img
+                src={item.logoSrc}
+                alt=""
+                class="block size-full object-contain dark:hidden"
+                width="24"
+                height="24"
+                loading="lazy"
+              />
+              <img
+                src={item.darkLogoSrc}
+                alt=""
+                class="hidden size-full object-contain dark:block"
+                width="24"
+                height="24"
+                loading="lazy"
+              />
+            {:else}
+              <img
+                src={item.logoSrc}
+                alt=""
+                class="block size-full object-contain"
+                width="24"
+                height="24"
+                loading="lazy"
+              />
+            {/if}
           </div>
         </div>
 
         <div class="min-w-0">
-          <div class="flex flex-col gap-1 mt-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+          <div class="mt-2 flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
             <a
               href={item.companyHref}
               target="_blank"
