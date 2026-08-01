@@ -125,7 +125,7 @@
       {/if}
     </div>
     <div class="mt-3">
-      <h1 class="text-foreground text-xl leading-none font-medium">
+      <h1 class="text-foreground text-xl leading-none font-display">
         {title}
       </h1>
       {#if description}

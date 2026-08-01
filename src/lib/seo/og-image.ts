@@ -1,4 +1,5 @@
 import ImageResponse from "@takumi-rs/image-response";
+import apkAvionicaDataUri from "$lib/assets/fonts/APK-Avionica.woff?inline";
 import apkGaleriaMediumDataUri from "$lib/assets/fonts/APK-Galeria-Medium.woff2?inline";
 import apkGaleriaRegularDataUri from "$lib/assets/fonts/APK-Galeria-Regular.woff2?inline";
 import { brandLogoRaw } from "$lib";
@@ -56,6 +57,7 @@ const dataUriToArrayBuffer = (dataUri: string) => {
 const fontDataPromise = Promise.all([
   Promise.resolve(dataUriToArrayBuffer(apkGaleriaRegularDataUri)),
   Promise.resolve(dataUriToArrayBuffer(apkGaleriaMediumDataUri)),
+  Promise.resolve(dataUriToArrayBuffer(apkAvionicaDataUri)),
 ]);
 
 const takumiFontLoaders = [
@@ -72,6 +74,13 @@ const takumiFontLoaders = [
     weight: 500,
     style: "normal" as const,
     data: async () => (await fontDataPromise)[1],
+  },
+  {
+    key: "apk-avionica",
+    name: "APK Avionica",
+    weight: 400,
+    style: "normal" as const,
+    data: async () => (await fontDataPromise)[2],
   },
 ];
 
@@ -220,8 +229,9 @@ const createComponent = ({
               display: "flex",
               maxWidth: OG_WIDTH - OG_GRID_INSET * 2,
               color: colors.foreground,
+              fontFamily: "APK Avionica, APK Galeria, sans-serif",
               fontSize: titleFontSize,
-              fontWeight: 500,
+              fontWeight: 400,
               letterSpacing: "-0.025em",
               lineHeight: titleLineHeight,
               textAlign: "left",
