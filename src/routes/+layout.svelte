@@ -1,6 +1,8 @@
 <script lang="ts">
   import "varsel/styles.css";
   import "./layout.css";
+  import apkAvionicaUrl from "$lib/assets/fonts/APK-Avionica.woff?url";
+  import apkGaleriaRegularUrl from "$lib/assets/fonts/APK-Galeria-Regular.woff2?url";
   import { faviconLinks, seoConfig } from "$lib/seo/meta";
   import { VarselToaster } from "varsel";
 
@@ -13,7 +15,8 @@
   {/each}
   <meta name="theme-color" content={seoConfig.themeColorLight} />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="preload" href="/fonts/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href={apkGaleriaRegularUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href={apkAvionicaUrl} as="font" type="font/woff" crossorigin="anonymous" />
 </svelte:head>
 
 <div class="border-border mx-auto max-w-4xl overflow-hidden sm:border-x">
