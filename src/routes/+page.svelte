@@ -1,8 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import Separator from "$lib/components/ui/Separator.svelte";
-  import HeroBanner from "$lib/components/home/hero/HeroBanner.svelte";
-  import SocialLinksRow from "$lib/components/home/hero/SocialLinksRow.svelte";
+  import HeroSection from "$lib/components/home/sections/HeroSection.svelte";
   import GitHubActivityCard from "$lib/features/github/components/GitHubActivityCard.svelte";
   import ProjectsSection from "$lib/components/home/sections/ProjectsSection.svelte";
   import BlogSection from "$lib/components/home/sections/BlogSection.svelte";
@@ -12,7 +11,6 @@
   import { homepageContent } from "$lib/content/homepage-content";
   import { buildPersonJsonLd, buildSeoMeta, buildWebsiteJsonLd, toJsonLdScript } from "$lib/seo/meta";
   import AboutSection from "$lib/components/home/sections/AboutSection.svelte";
-  import Menubar from "$lib/components/layout/Menubar.svelte";
 
   type GitHubContribution = {
     date: string;
@@ -79,19 +77,7 @@
 
 <div class="w-full">
   <h1 class="sr-only">{homepageContent.header.h1}</h1>
-  <Menubar />
-  <HeroBanner
-    avatarSrc={homepageContent.hero.avatarSrc}
-    avatarAlt={homepageContent.hero.avatarAlt}
-    backgroundSrc={homepageContent.hero.backgroundSrc}
-    backgroundDarkSrc={homepageContent.hero.backgroundDarkSrc}
-    backgroundAlt={homepageContent.hero.backgroundAlt}
-  />
-  <SocialLinksRow
-    name={homepageContent.socialRow.name}
-    role={homepageContent.socialRow.role}
-    links={homepageContent.socialRow.links}
-  />
+  <HeroSection hero={homepageContent.hero} profile={homepageContent.profile} />
   <Separator class="my-4" />
   <AboutSection content={homepageContent.about} />
   <Separator class="my-4" />

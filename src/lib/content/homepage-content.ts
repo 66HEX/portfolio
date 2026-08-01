@@ -1,5 +1,4 @@
 import type { HomepageContent } from "./types";
-import { socialLinks } from "./data/socials";
 import { aboutData } from "./data/about";
 import { projectsData } from "./data/projects";
 import { testimonialsData } from "./data/testimonials";
@@ -14,10 +13,9 @@ export const homepageContent: HomepageContent = {
   ...siteData,
   ...heroData,
   about: aboutData,
-  socialRow: {
+  profile: {
     name: siteData.site.siteName,
     role: siteData.site.jobTitle,
-    links: socialLinks,
   },
   ...githubData,
   projects: projectsData,

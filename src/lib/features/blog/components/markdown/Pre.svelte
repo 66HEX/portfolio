@@ -22,7 +22,7 @@
   });
 </script>
 
-<div class="inset-shadow bg-background-inset rounded-lg p-1.5">
+<div class="card-outer bg-background-inset rounded-lg p-1.5">
   <div
     {...restProps}
     class={cn(

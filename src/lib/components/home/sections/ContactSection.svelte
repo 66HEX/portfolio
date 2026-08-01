@@ -1,6 +1,7 @@
 <script lang="ts">
   import { env as publicEnv } from "$env/dynamic/public";
-  import IconSendAlt from "carbon-icons-svelte/lib/SendAlt.svelte";
+  import IconRenderer from "$lib/content/IconRenderer.svelte";
+  import { IconSend } from "$lib/content/icons";
   import { onMount } from "svelte";
   import type { HomepageContent } from "$lib/content/homepage-content";
   import { submitContactForm } from "$lib/features/contact/client/api";
@@ -253,7 +254,7 @@
 
       <label class="flex flex-col gap-2">
         <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.nameLabel}</span>
-        <div class="bg-background-inset inset-shadow h-7.5 rounded-sm">
+        <div class="bg-background-inset inset-shadow h-8 rounded-sm">
           <Input
             type="text"
             name="name"
@@ -270,7 +271,7 @@
 
       <label class="flex flex-col gap-2">
         <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.emailLabel}</span>
-        <div class="bg-background-inset inset-shadow h-7.5 rounded-sm">
+        <div class="bg-background-inset inset-shadow h-8 rounded-sm">
           <Input
             type="email"
             name="email"
@@ -286,7 +287,7 @@
 
       <label class="flex flex-col gap-2">
         <span class="text-foreground-muted text-xs leading-none font-medium">{content.form.subjectLabel}</span>
-        <div class="bg-background-inset inset-shadow h-7.5 rounded-sm">
+        <div class="bg-background-inset inset-shadow h-8 rounded-sm">
           <Input
             type="text"
             name="subject"
@@ -328,7 +329,9 @@
 
       <div class="mt-1 flex flex-col gap-2">
         <Button type="submit" variant="primary" size="form" disabled={pending || turnstileToken.length === 0}>
-          <IconSendAlt size={16} />
+          <span class="send-icon" aria-hidden="true">
+            <IconRenderer icon={IconSend} size={16} />
+          </span>
           <span>{pending ? content.form.sendingLabel : content.form.submitLabel}</span>
         </Button>
 
@@ -341,6 +344,11 @@
 </SectionBlock>
 
 <style>
+  .send-icon {
+    display: inline-flex;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5));
+  }
+
   .turnstile-clip {
     overflow: hidden;
     overflow: clip;

@@ -24,13 +24,7 @@
     tooltipOnLabel: "on",
   };
 
-  const levelClasses = [
-    "bg-background-muted",
-    "bg-green-600/30",
-    "bg-green-600/55",
-    "bg-green-600/80",
-    "bg-green-500",
-  ] as const;
+  const levelClasses = ["bg-background-muted", "bg-accent/10", "bg-accent/35", "bg-accent/60", "bg-accent/80"] as const;
 
   let { username = "github", days = 364, data, text = defaultText, class: className = "" }: Props = $props();
 
@@ -41,7 +35,7 @@
 
 <div class={cn("bg-background card w-full rounded-md p-4", className)}>
   <div
-    class="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    class="[scrollbar-width:none] overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     role="img"
     tabindex="-1"
     aria-label={state.graphAriaLabel}

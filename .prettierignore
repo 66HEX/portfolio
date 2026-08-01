@@ -4,3 +4,4 @@ build
 dist
 coverage
 bun.lock
+src/lib/content/data/tweets-cache.json

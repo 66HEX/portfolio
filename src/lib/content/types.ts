@@ -1,12 +1,10 @@
-import type { Component, ComponentType } from "svelte";
-
-export type IconComponent = Component<Record<string, unknown>> | ComponentType;
+import type { IconData } from "./icons";
 
 export type HomeSocialLink = {
   platform: string;
   handle: string;
   href: string;
-  icon: IconComponent;
+  icon: IconData;
 };
 
 export type ProjectItem = {
@@ -76,18 +74,14 @@ export type HomepageContent = {
   hero: {
     avatarSrc: string;
     avatarAlt: string;
-    backgroundSrc: string;
-    backgroundDarkSrc: string;
-    backgroundAlt: string;
   };
   about: {
     title: string;
     items: AboutListItem[];
   };
-  socialRow: {
+  profile: {
     name: string;
     role: string;
-    links: HomeSocialLink[];
   };
   githubCard: {
     username: string;

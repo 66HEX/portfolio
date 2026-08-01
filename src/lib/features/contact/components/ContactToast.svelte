@@ -1,7 +1,6 @@
 <script lang="ts">
-  import IconCheck from "carbon-icons-svelte/lib/Checkmark.svelte";
-  import IconClose from "carbon-icons-svelte/lib/Close.svelte";
-  import IconInfo from "carbon-icons-svelte/lib/Information.svelte";
+  import IconRenderer from "$lib/content/IconRenderer.svelte";
+  import { IconCheck, IconClose, IconInfo } from "$lib/content/icons";
   import { toast as toastApi } from "varsel";
   import { cn } from "$lib/utils/cn";
 
@@ -35,14 +34,14 @@
   aria-live={live}
   aria-atomic="true"
 >
-  <div class="inset-shadow bg-background-inset absolute top-2 right-2 flex items-center justify-center rounded-sm p-1">
+  <div class="card-outer bg-background-inset absolute top-2 right-2 flex items-center justify-center rounded-sm p-1">
     <button
       type="button"
       class="text-foreground-muted hover:text-foreground focus-visible:ring-accent rounded-sm transition-colors duration-150 ease-out outline-none focus-visible:ring-2"
       onclick={dismissToast}
       aria-label="Dismiss notification"
     >
-      <IconClose size={20} />
+      <IconRenderer icon={IconClose} size={20} />
     </button>
   </div>
 
@@ -53,11 +52,11 @@
         aria-hidden="true"
       >
         {#if kind === "success"}
-          <IconCheck size={20} />
+          <IconRenderer icon={IconCheck} size={20} />
         {:else if kind === "error"}
-          <IconClose size={20} />
+          <IconRenderer icon={IconClose} size={20} />
         {:else}
-          <IconInfo size={20} />
+          <IconRenderer icon={IconInfo} size={20} />
         {/if}
       </span>
 

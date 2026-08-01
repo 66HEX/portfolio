@@ -33,7 +33,7 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2053393993988472832/ZY9oP1pV_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2083104687117750272/E1imAccB_normal.jpg"
     },
     "edit_control": {
       "edit_tweet_ids": [
@@ -664,7 +664,7 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2043955160460718080/7uWTCaiV_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2081705621846441984/1ZbameRf_normal.jpg"
     },
     "edit_control": {
       "edit_tweet_ids": [
@@ -1208,7 +1208,7 @@
     "conversation_count": 0,
     "news_action_type": "conversation",
     "parent": {
-      "favorite_count": 344,
+      "favorite_count": 342,
       "lang": "en",
       "possibly_sensitive": false,
       "reply_count": 16,

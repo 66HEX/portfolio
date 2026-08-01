@@ -18,9 +18,7 @@ export type TweetData = {
 const TWEET_ID = /^[0-9]+$/;
 
 function getToken(id: string): string {
-  return ((Number(id) / 1e15) * Math.PI)
-    .toString(6 ** 2)
-    .replace(/(0+|\.)/g, "");
+  return ((Number(id) / 1e15) * Math.PI).toString(6 ** 2).replace(/(0+|\.)/g, "");
 }
 
 export async function fetchTweet(id: string): Promise<TweetData | null> {

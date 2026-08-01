@@ -3,8 +3,8 @@
   import type { Snippet } from "svelte";
   import { cn } from "$lib/utils/cn";
 
-  import Copy from "carbon-icons-svelte/lib/Copy.svelte";
-  import Checkmark from "carbon-icons-svelte/lib/Checkmark.svelte";
+  import IconRenderer from "$lib/content/IconRenderer.svelte";
+  import { IconCheck, IconCopy } from "$lib/content/icons";
 
   type ComponentProps = {
     id?: string;
@@ -67,7 +67,7 @@
 
     {#if id}
       <div
-        class="inset-shadow flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-visible:opacity-100"
+        class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-visible:opacity-100"
       >
         <button
           type="button"
@@ -83,7 +83,7 @@
               copied ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
             )}
           >
-            <Copy class="size-3" />
+            <IconRenderer icon={IconCopy} class="size-3" />
           </span>
 
           <span
@@ -92,7 +92,7 @@
               copied ? "blur-0 scale-100 opacity-100" : "scale-[0.25] opacity-0 blur-xs",
             )}
           >
-            <Checkmark class="size-3" />
+            <IconRenderer icon={IconCheck} class="size-3" />
           </span>
         </button>
       </div>

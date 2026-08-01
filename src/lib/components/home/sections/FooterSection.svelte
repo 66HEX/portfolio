@@ -3,6 +3,7 @@
   import Tooltip from "$lib/components/ui/Tooltip.svelte";
   import IconLinkButton from "../../layout/IconLinkButton.svelte";
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
+  import IconRenderer from "$lib/content/IconRenderer.svelte";
 
   const year = new Date().getFullYear();
 
@@ -18,7 +19,7 @@
 </script>
 
 <SectionBlock>
-  <footer class="inset-shadow w-full rounded-lg p-1.5">
+  <footer class="card-outer w-full rounded-lg p-1.5">
     <div class="bg-background card relative flex flex-col rounded-md p-4">
       <div class="flex flex-col gap-1">
         <h3 class="text-foreground text-lg leading-none font-medium">
@@ -34,10 +35,9 @@
       <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div class="flex flex-wrap items-center gap-1">
           {#each socialLinks as social (`footer-social-${social.platform}-${social.href}`)}
-            {@const Icon = social.icon}
             <Tooltip content={`${social.platform} ${social.handle}`}>
               <IconLinkButton href={social.href} ariaLabel={`${social.platform} ${social.handle}`}>
-                <Icon size={16} />
+                <IconRenderer icon={social.icon} size={16} />
               </IconLinkButton>
             </Tooltip>
           {/each}

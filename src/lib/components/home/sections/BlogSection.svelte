@@ -1,5 +1,5 @@
 <script lang="ts">
-  import LandingContentCard from "../cards/LandingContentCard.svelte";
+  import LandingContentCard from "../../layout/LandingContentCard.svelte";
   import CardGrid from "../../layout/CardGrid.svelte";
   import SectionBlock from "../../layout/SectionBlock.svelte";
 

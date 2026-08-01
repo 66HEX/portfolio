@@ -22,7 +22,7 @@
   }: Props = $props();
 </script>
 
-<div class="bg-background-inset inset-shadow rounded-sm p-1">
+<div class="bg-background-inset inset-shadow rounded-sm p-1 size-8">
   {#if href.startsWith("http") || href.startsWith("mailto")}
     <a
       {href}
@@ -30,7 +30,7 @@
       rel="external {rel}"
       aria-label={ariaLabel}
       class={cn(
-        "bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)]",
+        "bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out active:scale-[0.95]",
         className,
       )}
     >
@@ -43,7 +43,7 @@
       {rel}
       aria-label={ariaLabel}
       class={cn(
-        "bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)]",
+        "bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out active:scale-[0.95]",
         className,
       )}
     >

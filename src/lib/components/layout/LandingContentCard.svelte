@@ -1,12 +1,11 @@
 <script lang="ts">
-  import IconChevronRight from "carbon-icons-svelte/lib/ChevronRight.svelte";
-  import IconGithub from "carbon-icons-svelte/lib/LogoGithub.svelte";
-  import IconLink from "carbon-icons-svelte/lib/Link.svelte";
+  import IconRenderer from "$lib/content/IconRenderer.svelte";
+  import { IconChevronRight, IconGitHub, IconLink } from "$lib/content/icons";
   import Tooltip from "$lib/components/ui/Tooltip.svelte";
   import { cn } from "$lib/utils/cn";
-  import CardHeading from "../../layout/CardHeading.svelte";
-  import ContentCard from "../../layout/ContentCard.svelte";
-  import IconLinkButton from "../../layout/IconLinkButton.svelte";
+  import CardHeading from "./CardHeading.svelte";
+  import ContentCard from "./ContentCard.svelte";
+  import IconLinkButton from "./IconLinkButton.svelte";
 
   export type ProjectLandingCard = {
     variant: "project";
@@ -73,14 +72,14 @@
     <div class="absolute right-3 bottom-3 flex items-center gap-1">
       <Tooltip content={card.ctaLabel}>
         <IconLinkButton href={card.href} ariaLabel={`${card.ctaLabel}: ${card.title}`}>
-          <IconLink size={16} />
+          <IconRenderer icon={IconLink} size={16} />
         </IconLinkButton>
       </Tooltip>
 
       {#if card.githubHref}
         <Tooltip content={card.githubCtaLabel}>
           <IconLinkButton href={card.githubHref} ariaLabel={`${card.githubCtaLabel}: ${card.title}`}>
-            <IconGithub width={16} height={16} />
+            <IconRenderer icon={IconGitHub} size={16} />
           </IconLinkButton>
         </Tooltip>
       {/if}
@@ -94,7 +93,7 @@
 
     <Tooltip class="absolute right-3 bottom-3" content={card.ctaLabel}>
       <IconLinkButton href={card.href} ariaLabel={`${card.ctaLabel}: ${card.title}`} target="_self" rel="">
-        <IconChevronRight size={16} />
+        <IconRenderer icon={IconChevronRight} size={16} />
       </IconLinkButton>
     </Tooltip>
   {:else}

@@ -31,7 +31,8 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
-  import IconArrowLeft from "carbon-icons-svelte/lib/ArrowLeft.svelte";
+  import IconRenderer from "$lib/content/IconRenderer.svelte";
+  import { IconArrowLeft } from "$lib/content/icons";
   import FooterSection from "$lib/components/home/sections/FooterSection.svelte";
   import { homepageContent } from "$lib/content/homepage-content";
   import Separator from "$lib/components/ui/Separator.svelte";
@@ -114,7 +115,7 @@
       class="text-foreground-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs leading-none font-medium duration-150 ease-out"
       aria-label="Back to home"
     >
-      <IconArrowLeft width={12} height={12} />
+      <IconRenderer icon={IconArrowLeft} size={12} />
       <span>Back to home</span>
     </a>
     <Separator class="my-4" />
@@ -134,9 +135,9 @@
       {/if}
       {#each tags as tag, index (`${tag}-${index}`)}
         <div
-          class="inset-shadow bg-background-inset text-foreground relative mt-3 mr-1 inline-flex w-fit rounded-sm p-0.75 font-mono text-xs font-medium whitespace-nowrap"
+          class="card-outer bg-background-inset text-foreground relative mt-3 mr-1 inline-flex w-fit rounded-sm p-1 font-mono text-xs font-medium whitespace-nowrap"
         >
-          <code class="bg-background card rounded-[calc(var(--radius-base)*1.5)] px-1.5 py-0.5">
+          <code class="bg-background card rounded-[calc(var(--radius-base)*1.25)] px-1.5 py-0.5">
             {tag}
           </code>
         </div>

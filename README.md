@@ -30,7 +30,7 @@
 
 ### Homepage Sections
 
-- **Hero Banner:** Avatar + optimized Ventura wallpaper background.
+- **Hero Banner:** Avatar + shader background.
 - **Social Row:** Social links.
 - **About Section:** Structured narrative blocks with optional nested highlights.
 - **GitHub Activity:** Contribution graph with API-backed data and local fallback.
@@ -83,7 +83,7 @@
 
 - **Tailwind CSS v4**
 - **Design utilities:** `clsx`, `tailwind-merge`, `class-variance-authority`
-- **Icons:** `carbon`
+- **Icons:** `Nucleo`
 - **Toast notifications:** `varsel`
 
 ### Content & Markdown

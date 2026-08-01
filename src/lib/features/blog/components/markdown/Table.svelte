@@ -11,8 +11,8 @@
   const { children, class: className = "", ...restProps }: ComponentProps = $props();
 </script>
 
-<div class="inset-shadow border-border bg-background-inset my-8 rounded-md border p-1">
-  <div class="border-border bg-background relative rounded-sm border shadow-md">
+<div class="card-outer bg-background-inset my-8 rounded-md p-1.5">
+  <div class="card bg-background relative rounded-sm">
     <div class="w-full overflow-x-auto rounded-sm">
       <table {...restProps} class={cn("w-full text-sm [&_code]:text-xs", className)}>
         {@render children?.()}

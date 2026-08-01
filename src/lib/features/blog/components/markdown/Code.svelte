@@ -24,7 +24,7 @@
   </code>
 {:else}
   <span
-    class="inset-shadow bg-background-inset text-foreground relative inline-flex w-fit rounded-sm p-0.75 font-mono text-xs font-medium whitespace-nowrap"
+    class="card-outer bg-background-inset text-foreground relative inline-flex w-fit rounded-sm p-1 font-mono text-xs font-medium whitespace-nowrap"
   >
     <code
       {...restProps}

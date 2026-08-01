@@ -88,7 +88,7 @@
 </script>
 
 <SectionBlock>
-  <div class="inset-shadow bg-background-inset rounded-lg p-1.5">
+  <div class="card-outer bg-background-inset rounded-lg p-1.5">
     <GitHubContributionGraph {username} data={contributionData} text={graphText} />
     {#if !apiConfigured}
       <p class="text-foreground-muted mt-2 text-base">

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { TweetData } from "$lib/content/types";
-  import LandingContentCard from "../cards/LandingContentCard.svelte";
+  import LandingContentCard from "../../layout/LandingContentCard.svelte";
   import SectionBlock from "../../layout/SectionBlock.svelte";
 
   type Props = {

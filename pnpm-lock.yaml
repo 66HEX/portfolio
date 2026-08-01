@@ -10,15 +10,15 @@ importers:
       "@takumi-rs/image-response":
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12(react@19.2.6)
-      carbon-icons-svelte:
-        specifier: ^13.9.0
-        version: 13.11.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      ogl:
+        specifier: ^1.0.11
+        version: 1.0.11
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1682,10 +1682,6 @@ packages:
       { integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA== }
     engines: { node: ">=16" }
 
-  carbon-icons-svelte@13.11.0:
-    resolution:
-      { integrity: sha512-4G+5PjpmNkGfNhXccVc1w4igNeY4NpR0Iomg4vBq6BN08teLp4nEuK7/e2Blpy2cK/O6LAsTH6CVqTvVMYqH7w== }
-
   ccount@2.0.1:
     resolution:
       { integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg== }
@@ -2299,6 +2295,10 @@ packages:
   obug@2.1.1:
     resolution:
       { integrity: sha512-uTqF9MuPraAQ+IsnPf366RG4cP9RtUi7MLO1N3KEc+wb0a6yKpeL0lmk2IB1jY5KHPAlTc6T/JRdC/YqxHNwkQ== }
+
+  ogl@1.0.11:
+    resolution:
+      { integrity: sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA== }
 
   oniguruma-parser@0.12.2:
     resolution:
@@ -3899,8 +3899,6 @@ snapshots:
 
   camelcase@8.0.0: {}
 
-  carbon-icons-svelte@13.11.0: {}
-
   ccount@2.0.1: {}
 
   character-entities-html4@2.1.0: {}
@@ -4453,6 +4451,8 @@ snapshots:
   natural-compare@1.4.0: {}
 
   obug@2.1.1: {}
+
+  ogl@1.0.11: {}
 
   oniguruma-parser@0.12.2: {}
 

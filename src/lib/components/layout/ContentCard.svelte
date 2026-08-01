@@ -11,8 +11,8 @@
   let { children, class: className = "", ...restProps }: Props = $props();
 </script>
 
-<div class="bg-background-inset inset-shadow rounded-lg p-1.5">
-  <article {...restProps} class={cn("bg-background  card h-full  rounded-md p-4", className)}>
+<div class="bg-background-inset card-outer rounded-lg p-1.5">
+  <article {...restProps} class={cn("bg-background card h-full rounded-md p-4", className)}>
     {@render children?.()}
   </article>
 </div>

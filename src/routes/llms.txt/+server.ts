@@ -62,7 +62,7 @@ const buildSection = (title: string, items: string[]) => {
 
 export const GET: RequestHandler = () => {
   const canonicalOrigin = new URL(homepageContent.site.siteUrl).origin;
-  const githubLink = homepageContent.socialRow.links.find((link) => link.platform.toLowerCase() === "github")?.href;
+  const githubLink = homepageContent.footer.socialLinks.find((link) => link.platform.toLowerCase() === "github")?.href;
   const optionalLinks = githubLink ? [`- [GitHub](${githubLink}): Source code, issues, and discussions.`] : [];
 
   const blogs = dedupeBlogs(
