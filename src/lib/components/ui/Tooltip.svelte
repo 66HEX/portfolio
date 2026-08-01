@@ -5,8 +5,9 @@
 
 <script lang="ts">
   import { cva, type VariantProps } from "class-variance-authority";
+  import { cubicOut } from "svelte/easing";
   import { onMount } from "svelte";
-  import { scale } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import type { Snippet } from "svelte";
   import { tick } from "svelte";
   import { cn } from "$lib/utils/cn";
@@ -63,6 +64,23 @@
   let tooltipRef: HTMLDivElement | undefined = $state();
   let tooltipStyle = $state("");
   let isTooltipEnabled = $state(true);
+  let prefersReducedMotion = $state(false);
+
+  const tooltipTransition = $derived.by(() => {
+    if (prefersReducedMotion) {
+      return { duration: 0, x: 0, y: 0 };
+    }
+
+    const distance = 5;
+    const offset = {
+      top: { x: 0, y: distance },
+      right: { x: -distance, y: 0 },
+      bottom: { x: 0, y: -distance },
+      left: { x: distance, y: 0 },
+    }[side];
+
+    return { ...offset, duration: 150, easing: cubicOut };
+  });
 
   let openTimeout: ReturnType<typeof setTimeout> | undefined;
   let closeTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -241,6 +259,7 @@
 
   onMount(() => {
     const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updateAvailability = () => {
       isTooltipEnabled = mediaQuery.matches;
       if (!isTooltipEnabled) {
@@ -249,12 +268,18 @@
         closeNow();
       }
     };
+    const updateMotionPreference = () => {
+      prefersReducedMotion = reducedMotionQuery.matches;
+    };
 
     updateAvailability();
+    updateMotionPreference();
     mediaQuery.addEventListener("change", updateAvailability);
+    reducedMotionQuery.addEventListener("change", updateMotionPreference);
 
     return () => {
       mediaQuery.removeEventListener("change", updateAvailability);
+      reducedMotionQuery.removeEventListener("change", updateMotionPreference);
     };
   });
 
@@ -287,7 +312,7 @@
       role="tooltip"
       class={cn(tooltipContentVariants(), tooltipClass)}
       style={tooltipStyle}
-      transition:scale={{ duration: 150, start: 0.9 }}
+      transition:fly={tooltipTransition}
     >
       {#if tooltip}
         {@render tooltip()}
