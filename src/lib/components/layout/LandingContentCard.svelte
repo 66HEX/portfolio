@@ -12,6 +12,7 @@
     title: string;
     description: string;
     image: string;
+    imageSrcset: string;
     href: string;
     ctaLabel: string;
     githubHref?: string;
@@ -59,12 +60,14 @@
     <div class="h-52 overflow-hidden rounded-sm sm:h-100">
       <img
         src={card.image}
+        srcset={card.imageSrcset}
+        sizes="(min-width: 48rem) 704px, calc(100vw - 4rem)"
         alt={`${card.title} preview`}
         class="h-full w-full origin-center object-cover"
         loading="lazy"
         decoding="async"
-        width="1280"
-        height="720"
+        width="1440"
+        height="960"
       />
     </div>
 

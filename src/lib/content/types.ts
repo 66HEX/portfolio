@@ -11,6 +11,7 @@ export type ProjectItem = {
   title: string;
   description: string;
   image: string;
+  imageSrcset: string;
   href: string;
   githubHref?: string;
 };

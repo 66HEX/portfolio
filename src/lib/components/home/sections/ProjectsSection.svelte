@@ -23,6 +23,7 @@
           title: project.title,
           description: project.description,
           image: project.image,
+          imageSrcset: project.imageSrcset,
           href: project.href,
           ctaLabel,
           githubHref: project.githubHref,
