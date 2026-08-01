@@ -20,11 +20,11 @@
 >
 > - `src/lib/content/data/` (individual section files)
 > - `src/routes/blog/` (sample posts)
-> - `resume.tex` and `static/resume.pdf` (if you keep resume links)
+> - `resume/resume.tex` and `static/resume.pdf` (if you keep resume links)
 >
 > Quick audit command:
 >
-> - `rg -n "Marek|66HEX|madebyhex" src static resume.tex`
+> - `rg -n "Marek|66HEX|madebyhex" src static resume/resume.tex`
 
 ## Features
 
