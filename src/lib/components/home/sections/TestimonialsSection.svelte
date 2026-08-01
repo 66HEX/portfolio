@@ -118,11 +118,7 @@
       <div class="marquee-track marquee-left">
         {#each firstTrack as tweet, index (`first-${tweet.id_str}-${index}`)}
           {@const itemId = `first-${tweet.id_str}-${index}`}
-          <div
-            class="flex-none"
-            data-marquee-item={itemId}
-            aria-hidden={isItemHidden(itemId) ? "true" : undefined}
-          >
+          <div class="flex-none" data-marquee-item={itemId} aria-hidden={isItemHidden(itemId) ? "true" : undefined}>
             <LandingContentCard
               tweetLinkTabIndex={isItemHidden(itemId) ? -1 : 0}
               card={{
@@ -144,11 +140,7 @@
       <div class="marquee-track marquee-right">
         {#each secondTrack as tweet, index (`second-${tweet.id_str}-${index}`)}
           {@const itemId = `second-${tweet.id_str}-${index}`}
-          <div
-            class="flex-none"
-            data-marquee-item={itemId}
-            aria-hidden={isItemHidden(itemId) ? "true" : undefined}
-          >
+          <div class="flex-none" data-marquee-item={itemId} aria-hidden={isItemHidden(itemId) ? "true" : undefined}>
             <LandingContentCard
               tweetLinkTabIndex={isItemHidden(itemId) ? -1 : 0}
               card={{

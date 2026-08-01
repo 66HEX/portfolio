@@ -22,7 +22,7 @@
         >
         </span>
       </div>
-      <h3 class="relative z-10 text-base text-foreground leading-none font-medium tracking-tight">
+      <h3 class="text-foreground relative z-10 text-base leading-none font-medium tracking-tight">
         {title}
       </h3>
     </div>

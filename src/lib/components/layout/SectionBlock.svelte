@@ -28,7 +28,7 @@
   {#if header}
     {@render header()}
   {:else if title}
-    <h2 id={sectionHeadingId} class={cn("text-foreground text-lg leading-none font-display", titleClass)}>{title}</h2>
+    <h2 id={sectionHeadingId} class={cn("text-foreground font-display text-lg leading-none", titleClass)}>{title}</h2>
   {/if}
 
   {@render children?.()}

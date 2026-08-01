@@ -43,9 +43,7 @@
       />
     </div>
 
-    <div
-      class="bg-background-inset card-outer absolute bottom-0 left-4 z-5 size-32 translate-y-1/2 rounded-full p-1.5"
-    >
+    <div class="bg-background-inset card-outer absolute bottom-0 left-4 z-5 size-32 translate-y-1/2 rounded-full p-1.5">
       <img
         class="card rounded-full object-cover"
         src={hero.avatarSrc}
@@ -61,7 +59,7 @@
 
 <div class="relative mb-8 flex w-full items-center justify-between gap-4 pr-4 pl-42">
   <header class="flex min-w-0 flex-col items-start justify-start gap-1">
-    <p class="text-foreground text-lg leading-none font-display">{profile.name}</p>
+    <p class="text-foreground font-display text-lg leading-none">{profile.name}</p>
     <p class="text-foreground-muted text-xs leading-none">{profile.role}</p>
   </header>
 

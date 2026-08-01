@@ -65,11 +65,7 @@
             {#each week as day (day.key)}
               <Tooltip content={day.tooltip} class="hit-target-gap-1 size-3 shrink-0">
                 <span
-                  class={cn(
-                    "size-full rounded-[3px]",
-                    levelClasses[day.level],
-                    day.inRange ? "" : "opacity-40",
-                  )}
+                  class={cn("size-full rounded-[3px]", levelClasses[day.level], day.inRange ? "" : "opacity-40")}
                   aria-hidden="true"
                 ></span>
               </Tooltip>
