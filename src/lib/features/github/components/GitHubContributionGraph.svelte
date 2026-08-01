@@ -35,7 +35,7 @@
 
 <div class={cn("bg-background card w-full rounded-md p-4", className)}>
   <div
-    class="scrollbar-none overscroll-none overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    class="-my-0.5 scrollbar-none overflow-x-auto overscroll-none py-0.5 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     role="img"
     tabindex="-1"
     aria-label={state.graphAriaLabel}
