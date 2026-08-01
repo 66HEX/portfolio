@@ -72,7 +72,7 @@
         <button
           type="button"
           class={cn(
-            "hit-target bg-background text-foreground card relative inline-flex size-5 shrink-0 items-center justify-center rounded-xs transition-[scale] duration-150 ease-out active:scale-[0.95]",
+            "hit-target bg-background text-foreground card relative inline-flex size-5 shrink-0 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out active:scale-[0.95]",
           )}
           onclick={copyHeadingUrl}
           aria-label={copied ? "Copied heading link" : "Copy heading link"}
