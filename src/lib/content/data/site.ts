@@ -6,7 +6,7 @@ export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
     siteUrl: "https://madebyhex.com",
     locale: "en_US",
     twitterHandle: "@madebyhex",
-    defaultOgImage: "/og-image.jpg",
+    defaultOgImage: "/og",
     defaultOgImageAlt: "Marek Jóźwiak portfolio banner",
     jobTitle: "Creative Developer",
     sameAsLinks: [

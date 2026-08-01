@@ -49,7 +49,7 @@
       description: homepageContent.seo.description,
       path: page.url.pathname,
       currentUrl: page.url,
-      image: homepageContent.hero.avatarSrc,
+      image: homepageContent.site.defaultOgImage,
       imageAlt: homepageContent.seo.imageAlt,
       type: "website",
       keywords: homepageContent.seo.keywords,
@@ -70,6 +70,9 @@
       <meta property={tag.property} content={tag.content} />
     {/if}
   {/each}
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html websiteJsonLdScript}
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
