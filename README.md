@@ -34,6 +34,7 @@
 - **Social Row:** Social links.
 - **About Section:** Structured narrative blocks with optional nested highlights.
 - **GitHub Activity:** Contribution graph with API-backed data and local fallback.
+- **Experience Section:** Work history with company logos, role details, highlights, and technology tags.
 - **Projects Grid:** Project cards with live/demo + optional GitHub CTA.
 - **Blog Section:** Auto-list of newest published posts.
 - **X (Twitter) Marquee:** Dual animated tweet tracks fetched from the X syndication API.
@@ -109,6 +110,7 @@ The homepage content is modularized for better maintainability. You can find all
 - `socials.ts`: Social media links used across the site.
 - `about.ts`: Narrative and highlights about you.
 - `github.ts`: GitHub activity card text + GitHub username used by API fetch.
+- `experience.ts`: Professional experience, company links and logos, role details, highlights, and technologies.
 - `projects.ts`: Your featured works.
 - `testimonials.ts`: Tweet IDs for the X marquee section and section title.
 - `blog.ts`: Blog section labels.
