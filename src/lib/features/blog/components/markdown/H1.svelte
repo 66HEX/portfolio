@@ -66,7 +66,7 @@
     </span>
 
     {#if id}
-      <div
+      <span
         class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-within:opacity-100"
       >
         <button
@@ -95,7 +95,7 @@
             <IconRenderer icon={IconCheck} class="size-3" />
           </span>
         </button>
-      </div>
+      </span>
     {/if}
   </span>
 </h1>
