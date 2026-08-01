@@ -15,6 +15,20 @@ export type ProjectItem = {
   githubHref?: string;
 };
 
+export type ExperienceItem = {
+  company: string;
+  companyHref: string;
+  logoSrc: string;
+  darkLogoSrc?: string;
+  role: string;
+  period: string;
+  employmentType: string;
+  workMode: string;
+  location: string;
+  technologies: string[];
+  highlights: string[];
+};
+
 export type TweetData = {
   id_str: string;
   text: string;
@@ -97,6 +111,10 @@ export type HomepageContent = {
       contributionPluralLabel: string;
       tooltipOnLabel: string;
     };
+  };
+  experience: {
+    title: string;
+    items: ExperienceItem[];
   };
   projects: {
     title: string;

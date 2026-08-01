@@ -8,6 +8,7 @@ import { githubData } from "./data/github";
 import { blogData } from "./data/blog";
 import { contactData } from "./data/contact";
 import { footerData } from "./data/footer";
+import { experienceData } from "./data/experience";
 
 export const homepageContent: HomepageContent = {
   ...siteData,
@@ -18,6 +19,7 @@ export const homepageContent: HomepageContent = {
     role: siteData.site.jobTitle,
   },
   ...githubData,
+  experience: experienceData,
   projects: projectsData,
   ...blogData,
   testimonials: testimonialsData,

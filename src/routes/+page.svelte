@@ -11,6 +11,7 @@
   import { homepageContent } from "$lib/content/homepage-content";
   import { buildPersonJsonLd, buildSeoMeta, buildWebsiteJsonLd, toJsonLdScript } from "$lib/seo/meta";
   import AboutSection from "$lib/components/home/sections/AboutSection.svelte";
+  import ExperienceSection from "$lib/components/home/sections/ExperienceSection.svelte";
 
   type GitHubContribution = {
     date: string;
@@ -88,6 +89,8 @@
     missingTokenMessage={homepageContent.githubCard.missingTokenMessage}
     graphText={homepageContent.githubCard.graphText}
   />
+  <Separator class="my-4" />
+  <ExperienceSection content={homepageContent.experience} />
   <Separator class="my-4" />
   <TestimonialsSection title={homepageContent.testimonials.title} items={tweets} />
 
