@@ -42,9 +42,10 @@
   type Props = {
     card: LandingContentCardData;
     class?: string;
+    tweetLinkTabIndex?: 0 | -1;
   };
 
-  let { card, class: className = "" }: Props = $props();
+  let { card, class: className = "", tweetLinkTabIndex = 0 }: Props = $props();
 </script>
 
 <ContentCard
@@ -139,7 +140,8 @@
         href={card.tweetUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="View on X"
+        tabindex={tweetLinkTabIndex}
+        aria-label={`View testimonial by ${card.name} on X`}
         class="text-foreground-muted hover:text-foreground shrink-0 transition-colors duration-150 ease-out"
       >
         <svg width="16" height="16" viewBox="0 0 1200 1227" aria-hidden="true" fill="currentColor">
