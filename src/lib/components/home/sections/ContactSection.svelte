@@ -313,7 +313,7 @@
     >
       <button
         type="button"
-        class="error-indicator-trigger hit-target-compact flex size-6 items-center justify-center rounded-xs bg-red-600/10 text-red-700 transition-colors duration-150 ease-out hover:bg-red-600/15 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/15"
+        class="error-indicator-trigger hit-target-compact bg-warning/10 text-warning hover:bg-warning/15 flex size-6 items-center justify-center rounded-xs transition-colors duration-150 ease-out"
         aria-label={`Error: ${message}`}
       >
         <IconRenderer icon={IconWarningCircle} size={16} />
@@ -347,7 +347,7 @@
             autocomplete="name"
             variant="field"
             size="field"
-            class="pr-9 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
+            class="aria-invalid:ring-warning pr-9"
             placeholder="Jane Smith"
             minlength="2"
             maxlength="80"
@@ -376,7 +376,7 @@
             autocomplete="email"
             variant="field"
             size="field"
-            class="pr-9 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
+            class="aria-invalid:ring-warning pr-9"
             placeholder="jane@company.com"
             maxlength="160"
             required
@@ -403,7 +403,7 @@
             name="subject"
             variant="field"
             size="field"
-            class="pr-9 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
+            class="aria-invalid:ring-warning pr-9"
             placeholder="New landing page for SaaS product"
             minlength="3"
             maxlength="140"
@@ -428,7 +428,7 @@
           <textarea
             id="contact-message"
             name="message"
-            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 aria-invalid:ring-red-600 dark:aria-invalid:ring-red-400"
+            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent aria-invalid:ring-warning block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"
