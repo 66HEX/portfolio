@@ -39,9 +39,7 @@
   const firstTrack = $derived([...firstRow, ...firstRow]);
   const secondTrack = $derived([...secondRow, ...secondRow]);
 
-  let observerReady = $state(false);
   let focusWithin = $state(false);
-  let visibleItems = $state<Record<string, boolean>>({});
 
   const observeMarqueeItems: Attachment<HTMLDivElement> = (viewport) => {
     if (typeof IntersectionObserver === "undefined") {
@@ -59,22 +57,29 @@
       observer = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            const itemId = (entry.target as HTMLElement).dataset.marqueeItem;
-            if (!itemId) continue;
+            const item = entry.target as HTMLElement;
+            const link = item.querySelector<HTMLAnchorElement>("a[href]");
+            const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.75;
 
-            visibleItems[itemId] = entry.isIntersecting && entry.intersectionRatio >= 0.98;
+            if (isVisible) {
+              item.removeAttribute("aria-hidden");
+            } else {
+              item.setAttribute("aria-hidden", "true");
+            }
+            if (link) link.tabIndex = isVisible ? 0 : -1;
           }
-
-          observerReady = true;
         },
         {
           root: viewport,
           rootMargin: "0px -20px",
-          threshold: [0, 0.98, 1],
+          threshold: 0.75,
         },
       );
 
       for (const item of items) {
+        item.setAttribute("aria-hidden", "true");
+        const link = item.querySelector<HTMLAnchorElement>("a[href]");
+        if (link) link.tabIndex = -1;
         observer.observe(item);
       }
     });
@@ -84,10 +89,6 @@
       observer?.disconnect();
     };
   };
-
-  function isItemHidden(itemId: string): boolean {
-    return observerReady && !visibleItems[itemId];
-  }
 
   function handleFocusOut(event: FocusEvent): void {
     const viewport = event.currentTarget as HTMLDivElement;
@@ -118,9 +119,8 @@
       <div class="marquee-track marquee-left">
         {#each firstTrack as tweet, index (`first-${tweet.id_str}-${index}`)}
           {@const itemId = `first-${tweet.id_str}-${index}`}
-          <div class="flex-none" data-marquee-item={itemId} aria-hidden={isItemHidden(itemId) ? "true" : undefined}>
+          <div class="flex-none" data-marquee-item={itemId}>
             <LandingContentCard
-              tweetLinkTabIndex={isItemHidden(itemId) ? -1 : 0}
               card={{
                 variant: "tweet",
                 name: tweet.user.name,
@@ -140,9 +140,8 @@
       <div class="marquee-track marquee-right">
         {#each secondTrack as tweet, index (`second-${tweet.id_str}-${index}`)}
           {@const itemId = `second-${tweet.id_str}-${index}`}
-          <div class="flex-none" data-marquee-item={itemId} aria-hidden={isItemHidden(itemId) ? "true" : undefined}>
+          <div class="flex-none" data-marquee-item={itemId}>
             <LandingContentCard
-              tweetLinkTabIndex={isItemHidden(itemId) ? -1 : 0}
               card={{
                 variant: "tweet",
                 name: tweet.user.name,
@@ -170,6 +169,7 @@
     display: flex;
     width: max-content;
     gap: var(--marquee-gap);
+    backface-visibility: hidden;
     will-change: transform;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -190,21 +190,21 @@
 
   @keyframes marquee-left {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
 
     to {
-      transform: translateX(calc(-50% - var(--marquee-gap) / 2));
+      transform: translate3d(calc(-50% - var(--marquee-gap) / 2), 0, 0);
     }
   }
 
   @keyframes marquee-right {
     from {
-      transform: translateX(calc(-50% - var(--marquee-gap) / 2));
+      transform: translate3d(calc(-50% - var(--marquee-gap) / 2), 0, 0);
     }
 
     to {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 

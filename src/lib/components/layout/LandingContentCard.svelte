@@ -108,7 +108,7 @@
             src={card.avatar}
             alt={`${card.name} avatar`}
             class="rounded-full object-cover"
-            loading="lazy"
+            loading="eager"
             width="36"
             height="36"
             decoding="async"
