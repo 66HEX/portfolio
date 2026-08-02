@@ -214,7 +214,7 @@
       uBlur: { value: 1 },
     };
 
-    $effect(() => {
+    const syncUniforms = () => {
       applyColor(localUniforms.uColor.value, color, [1, 1, 1]);
       applyColor(localUniforms.uBackgroundColor.value, backgroundColor, [23 / 255, 24 / 255, 26 / 255]);
       localUniforms.uSpeed.value = speed;
@@ -223,7 +223,9 @@
       localUniforms.uRefraction.value = refraction;
       localUniforms.uChromaticAberration.value = chromaticAberration;
       localUniforms.uBlur.value = blur;
-    });
+    };
+
+    syncUniforms();
 
     const program = new Program(gl, {
       vertex: vertexShader,
@@ -236,9 +238,13 @@
     const mesh = new Mesh(gl, { geometry, program });
     mesh.setParent(scene);
 
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let prefersReducedMotion = reducedMotionQuery.matches;
+    let destroyed = false;
     let raf = 0;
     let previous = 0;
-    const tick = (now: number) => {
+
+    const renderFrame = (now: number, advanceTime: boolean) => {
       const w = Math.max(1, targetCanvas.clientWidth);
       const h = Math.max(1, targetCanvas.clientHeight);
       const bufW = Math.round(w * renderer.dpr);
@@ -252,18 +258,74 @@
         localUniforms.uResolution.value.set(w, h);
       }
 
-      const delta = previous ? (now - previous) / 1000 : 0;
-      previous = now;
-      localUniforms.uTime.value += delta;
+      if (advanceTime) {
+        const delta = previous ? (now - previous) / 1000 : 0;
+        previous = now;
+        localUniforms.uTime.value += delta;
+      }
 
       renderer.render({ scene, camera });
+    };
+
+    const stopAnimation = () => {
+      if (raf) {
+        window.cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      previous = 0;
+    };
+
+    const tick = (now: number) => {
+      raf = 0;
+      if (destroyed || prefersReducedMotion) return;
+
+      renderFrame(now, true);
       raf = window.requestAnimationFrame(tick);
     };
 
-    raf = window.requestAnimationFrame(tick);
+    const startAnimation = () => {
+      if (destroyed || prefersReducedMotion || raf) return;
+      previous = 0;
+      raf = window.requestAnimationFrame(tick);
+    };
+
+    const renderStaticFrame = () => {
+      stopAnimation();
+      renderFrame(0, false);
+    };
+
+    const handleMotionPreferenceChange = () => {
+      prefersReducedMotion = reducedMotionQuery.matches;
+      if (prefersReducedMotion) {
+        renderStaticFrame();
+      } else {
+        startAnimation();
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (prefersReducedMotion) renderStaticFrame();
+    });
+
+    $effect(() => {
+      syncUniforms();
+      if (prefersReducedMotion && !destroyed) renderStaticFrame();
+    });
+
+    reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);
+    resizeObserver.observe(targetCanvas);
+
+    if (prefersReducedMotion) {
+      renderStaticFrame();
+    } else {
+      startAnimation();
+    }
 
     return () => {
-      window.cancelAnimationFrame(raf);
+      destroyed = true;
+      stopAnimation();
+      reducedMotionQuery.removeEventListener("change", handleMotionPreferenceChange);
+      resizeObserver.disconnect();
       mesh.setParent(null);
       geometry.remove();
       program.remove();
