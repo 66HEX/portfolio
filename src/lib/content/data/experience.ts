@@ -24,7 +24,7 @@ export const experienceData: HomepageContent["experience"] = {
       companyHref: "https://www.shadcnblocks.com/",
       logoSrc: "/images/experience/shadcnblocks.svg",
       darkLogoSrc: "/images/experience/shadcnblocks-dark.svg",
-      role: "Creative Frontend Developer",
+      role: "Creative Developer",
       period: "Sep 2025 - Dec 2025",
       employmentType: "Contract",
       workMode: "Remote",
