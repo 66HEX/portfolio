@@ -22,7 +22,7 @@
   <footer class="card-outer w-full rounded-lg p-1.5">
     <div class="bg-background card relative flex flex-col rounded-md p-4">
       <div class="flex flex-col gap-1">
-        <h2 class="text-foreground text-lg leading-none font-medium">
+        <h2 class="text-foreground text-lg leading-none font-display">
           {headline}
         </h2>
         <p class="text-foreground-muted max-w-xl text-sm text-balance">
