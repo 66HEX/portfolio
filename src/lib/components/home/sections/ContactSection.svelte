@@ -313,7 +313,7 @@
     >
       <button
         type="button"
-        class="hit-target-compact flex size-6 items-center justify-center rounded-xs bg-red-600/10 text-red-700 transition-colors duration-150 ease-out hover:bg-red-600/15 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/15"
+        class="error-indicator-trigger hit-target-compact flex size-6 items-center justify-center rounded-xs bg-red-600/10 text-red-700 transition-colors duration-150 ease-out hover:bg-red-600/15 dark:bg-red-400/10 dark:text-red-300 dark:hover:bg-red-400/15"
         aria-label={`Error: ${message}`}
       >
         <IconRenderer icon={IconWarningCircle} size={16} />
@@ -487,6 +487,49 @@
 </SectionBlock>
 
 <style>
+  .error-indicator-trigger {
+    --shake-distance: 3px;
+    --shake-overshoot: 2px;
+    --shake-duration-a: 80ms;
+    --shake-duration-b: 60ms;
+    --shake-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+    animation: error-indicator-shake calc(var(--shake-duration-a) * 2 + var(--shake-duration-b) * 2) linear;
+  }
+
+  @keyframes error-indicator-shake {
+    0% {
+      transform: translateX(0);
+      animation-timing-function: var(--shake-ease);
+    }
+
+    28.57% {
+      transform: translateX(var(--shake-distance));
+      animation-timing-function: var(--shake-ease);
+    }
+
+    57.14% {
+      transform: translateX(calc(var(--shake-distance) * -1));
+      animation-timing-function: var(--shake-ease);
+    }
+
+    78.57% {
+      transform: translateX(var(--shake-overshoot));
+      animation-timing-function: var(--shake-ease);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .error-indicator-trigger {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+
   .send-icon {
     display: inline-flex;
     filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5));
