@@ -22,7 +22,7 @@
         href={node.href}
         target="_blank"
         rel="external noreferrer"
-        class="text-foreground font-medium underline decoration-dotted underline-offset-2 transition-opacity duration-150 ease-out hover:opacity-80"
+        class="text-foreground focus-visible:ring-accent focus-visible:ring-offset-background rounded-xs font-medium underline decoration-dotted underline-offset-2 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         {node.text}
       </a>
@@ -31,7 +31,7 @@
         href={resolve(node.href as "/")}
         target="_blank"
         rel="noreferrer"
-        class="text-foreground font-medium underline decoration-dotted underline-offset-2 transition-opacity duration-150 ease-out hover:opacity-80"
+        class="text-foreground focus-visible:ring-accent focus-visible:ring-offset-background rounded-xs font-medium underline decoration-dotted underline-offset-2 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         {node.text}
       </a>

@@ -313,7 +313,7 @@
     >
       <button
         type="button"
-        class="error-indicator-trigger hit-target-compact bg-warning/10 text-warning hover:bg-warning/15 flex size-6 items-center justify-center rounded-xs transition-colors duration-150 ease-out"
+        class="error-indicator-trigger hit-target-compact bg-warning/10 text-warning hover:bg-warning/15 focus-visible:ring-accent focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-xs transition-[background-color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
         aria-label={`Error: ${message}`}
       >
         <IconRenderer icon={IconWarningCircle} size={16} />
@@ -428,7 +428,7 @@
           <textarea
             id="contact-message"
             name="message"
-            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent aria-invalid:ring-warning block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2"
+            class="text-foreground placeholder:text-foreground-muted focus-visible:ring-accent aria-invalid:ring-warning focus-visible:ring-offset-background block min-h-30 w-full rounded-sm py-1.5 pr-9 pl-2 text-sm transition-shadow duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
             placeholder="Briefly describe your project, scope, and timeline."
             minlength="20"
             maxlength="3000"

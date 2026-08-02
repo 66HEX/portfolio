@@ -128,19 +128,6 @@ html {
     @apply bg-background-inset text-foreground font-sans antialiased;
   }
 
-  * {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    transition:
-      outline-color 0.15s ease-out,
-      outline-offset 0.15s ease-out;
-  }
-
-  *:focus-visible {
-    outline-color: var(--color-accent);
-    outline-offset: 2px;
-  }
-
   ::selection {
     background-color: var(--color-accent);
     color: var(--color-foreground);
@@ -226,11 +213,15 @@ html {
   text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
   transition:
     filter 150ms ease-out,
-    outline-color 150ms ease-out;
+    box-shadow 150ms ease-out;
   background:
     radial-gradient(ellipse at center top, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0)),
     linear-gradient(180deg, var(--accent), var(--accent-secondary));
   box-shadow:
+    var(--tw-inset-shadow),
+    var(--tw-inset-ring-shadow),
+    var(--tw-ring-offset-shadow),
+    var(--tw-ring-shadow),
     inset 0 1px 0 rgb(255 255 255 / 0.22),
     var(--shadow-md);
 
@@ -273,7 +264,7 @@ html {
   text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
   transition:
     filter 150ms ease-out,
-    outline-color 150ms ease-out;
+    box-shadow 150ms ease-out;
   background:
     radial-gradient(ellipse at center top, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0)),
     linear-gradient(
@@ -282,6 +273,10 @@ html {
       color-mix(in oklab, var(--accent-secondary) 90%, var(--background-inset) 10%)
     );
   box-shadow:
+    var(--tw-inset-shadow),
+    var(--tw-inset-ring-shadow),
+    var(--tw-ring-offset-shadow),
+    var(--tw-ring-shadow),
     inset 0 1px 0 rgb(255 255 255 / 0.22),
     var(--shadow-md);
 

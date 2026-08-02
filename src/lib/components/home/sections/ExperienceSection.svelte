@@ -59,7 +59,7 @@
               href={item.companyHref}
               target="_blank"
               rel="external noreferrer noopener"
-              class="text-foreground w-fit text-base leading-none font-medium underline decoration-dotted underline-offset-3 transition-opacity duration-150 ease-out hover:opacity-80"
+              class="text-foreground focus-visible:ring-accent focus-visible:ring-offset-background w-fit rounded-xs text-base leading-none font-medium underline decoration-dotted underline-offset-3 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
             >
               {item.company}
             </a>

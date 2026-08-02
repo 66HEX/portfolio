@@ -284,7 +284,7 @@
   {#if showVerticalTrack}
     <div
       class={cn(
-        "absolute top-0 right-0 w-2.5 p-px transition-opacity duration-300 ease-out",
+        "absolute top-0 right-0 w-2.5 p-px transition-opacity duration-300 ease-out motion-reduce:transition-none",
         isScrolling || (isDragging && dragAxis === "vertical") || isHoveringVerticalTrack ? "opacity-100" : "opacity-0",
       )}
       style:bottom={showHorizontalTrack ? `${SCROLLBAR_THICKNESS}px` : "0px"}
@@ -301,7 +301,7 @@
         aria-valuenow={viewport?.scrollTop ?? 0}
         tabindex="0"
         class={cn(
-          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 relative rounded-full transition-colors duration-150 ease-out",
+          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 focus-visible:ring-accent focus-visible:ring-offset-background relative rounded-full transition-[background-color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none",
           isDragging && dragAxis === "vertical" && "bg-foreground/50",
         )}
         style:height={`${verticalThumbSize}px`}
@@ -315,7 +315,7 @@
   {#if showHorizontalTrack}
     <div
       class={cn(
-        "absolute bottom-0 left-0 h-2.5 p-px transition-opacity duration-300 ease-out",
+        "absolute bottom-0 left-0 h-2.5 p-px transition-opacity duration-300 ease-out motion-reduce:transition-none",
         isScrolling || (isDragging && dragAxis === "horizontal") || isHoveringHorizontalTrack
           ? "opacity-100"
           : "opacity-0",
@@ -334,7 +334,7 @@
         aria-valuenow={viewport?.scrollLeft ?? 0}
         tabindex="0"
         class={cn(
-          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 relative h-full rounded-full transition-colors duration-150 ease-out",
+          "bg-foreground/10 hover:bg-foreground/30 active:bg-foreground/50 focus-visible:ring-accent focus-visible:ring-offset-background relative h-full rounded-full transition-[background-color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none",
           isDragging && dragAxis === "horizontal" && "bg-foreground/50",
         )}
         style:width={`${horizontalThumbSize}px`}

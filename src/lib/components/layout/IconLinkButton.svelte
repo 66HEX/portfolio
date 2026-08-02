@@ -30,7 +30,7 @@
       rel="external {rel}"
       aria-label={ariaLabel}
       class={cn(
-        "hit-target-compact bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out active:scale-[0.95]",
+        "hit-target-compact bg-background card focus-visible:ring-accent focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
         className,
       )}
     >
@@ -43,7 +43,7 @@
       {rel}
       aria-label={ariaLabel}
       class={cn(
-        "hit-target-compact bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out active:scale-[0.95]",
+        "hit-target-compact bg-background card focus-visible:ring-accent focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
         className,
       )}
     >

@@ -112,7 +112,7 @@
   <div class="p-4">
     <a
       href={resolve("/")}
-      class="text-foreground-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs leading-none font-medium duration-150 ease-out"
+      class="text-foreground-muted hover:text-foreground focus-visible:ring-accent focus-visible:ring-offset-background inline-flex items-center gap-1.5 rounded-xs text-xs leading-none font-medium transition-[color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
       aria-label="Back to home"
     >
       <IconRenderer icon={IconArrowLeft} size={12} />

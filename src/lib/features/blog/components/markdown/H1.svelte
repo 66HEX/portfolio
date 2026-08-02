@@ -67,19 +67,19 @@
 
     {#if id}
       <span
-        class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-within:opacity-100"
+        class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-within:opacity-100 motion-reduce:transition-none"
       >
         <button
           type="button"
           class={cn(
-            "hit-target bg-background text-foreground card relative inline-flex size-5 shrink-0 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out active:scale-[0.95]",
+            "hit-target bg-background text-foreground card focus-visible:ring-accent focus-visible:ring-offset-background relative inline-flex size-5 shrink-0 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
           )}
           onclick={copyHeadingUrl}
           aria-label={copied ? "Copied heading link" : "Copy heading link"}
         >
           <span
             class={cn(
-              "absolute inline-flex items-center justify-center transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
+              "absolute inline-flex items-center justify-center transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale] motion-reduce:transition-none motion-reduce:will-change-auto",
               copied ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
             )}
           >
@@ -88,7 +88,7 @@
 
           <span
             class={cn(
-              "absolute inline-flex items-center justify-center transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
+              "absolute inline-flex items-center justify-center transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale] motion-reduce:transition-none motion-reduce:will-change-auto",
               copied ? "blur-0 scale-100 opacity-100" : "scale-[0.25] opacity-0 blur-xs",
             )}
           >
