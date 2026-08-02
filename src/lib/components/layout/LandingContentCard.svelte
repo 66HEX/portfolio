@@ -52,7 +52,7 @@
 <ContentCard
   class={cn(
     "relative flex flex-col",
-    card.variant === "tweet" ? "w-[min(20rem,calc(100vw-3.5rem))] flex-none" : "pb-12",
+    card.variant === "tweet" ? "w-[min(21rem,calc(100vw-2.5rem))] flex-none" : "pb-12",
     className,
   )}
 >
