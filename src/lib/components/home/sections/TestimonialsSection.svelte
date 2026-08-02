@@ -59,7 +59,7 @@
           for (const entry of entries) {
             const item = entry.target as HTMLElement;
             const link = item.querySelector<HTMLAnchorElement>("a[href]");
-            const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.75;
+            const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.98;
 
             if (isVisible) {
               item.removeAttribute("aria-hidden");
@@ -72,7 +72,7 @@
         {
           root: viewport,
           rootMargin: "0px -20px",
-          threshold: 0.75,
+          threshold: 0.98,
         },
       );
 
@@ -102,7 +102,7 @@
 
 <SectionBlock {title}>
   <div
-    class="relative overflow-hidden"
+    class="relative overflow-clip"
     data-testimonials-viewport
     data-focus-within={focusWithin}
     onfocusin={() => (focusWithin = true)}
@@ -121,6 +121,7 @@
           {@const itemId = `first-${tweet.id_str}-${index}`}
           <div class="flex-none" data-marquee-item={itemId}>
             <LandingContentCard
+              tweetLinkTabIndex={-1}
               card={{
                 variant: "tweet",
                 name: tweet.user.name,
@@ -142,6 +143,7 @@
           {@const itemId = `second-${tweet.id_str}-${index}`}
           <div class="flex-none" data-marquee-item={itemId}>
             <LandingContentCard
+              tweetLinkTabIndex={-1}
               card={{
                 variant: "tweet",
                 name: tweet.user.name,
