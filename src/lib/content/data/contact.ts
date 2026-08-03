@@ -9,7 +9,7 @@ export const contactData: Pick<HomepageContent, "contact"> = {
       subjectLabel: "Subject",
       messageLabel: "Message",
       submitLabel: "Send message",
-      sendingLabel: "Sending...",
+      sendingLabel: "Sending…",
       sentLabel: "Message sent",
       retryLabel: "Try again",
       successLabel: "Message sent successfully. Thanks for reaching out.",
