@@ -10,7 +10,7 @@ published: true
 layout: docs
 ---
 
-# Core problem
+## Core problem
 
 It started with frustration. Every time I needed to quickly convert a file, I ended up on Stack Overflow looking for the same FFmpeg flag I found a week ago. I ended up spending weeks writing my own solution, which is probably the most programmer-like thing you can say.
 

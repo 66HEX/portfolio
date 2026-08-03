@@ -11,7 +11,7 @@ published: true
 layout: docs
 ---
 
-# The rewrite I did not plan to do
+## The rewrite I did not plan to do
 
 Frame started as a small Tauri app because I wanted a nicer way to run FFmpeg without memorizing flags. It was supposed to be a weekend project. Then people actually started using it, opening issues, sending feedback, and starring the repository. By the time it passed 1.2k stars on GitHub, the thing I built for myself had become a real open source app with expectations around it.
 

@@ -11,7 +11,7 @@ published: true
 layout: docs
 ---
 
-# The problem with reaching for Three.js
+## The problem with reaching for Three.js
 
 Every time I needed a fullscreen shader effect - a noise field, a post-processing pass, a generative background - I ended up pulling in Three.js. A 600kB dependency for a quad and a fragment shader. Scene graph, cameras, lights, materials, loaders: none of it relevant, all of it present.
 
