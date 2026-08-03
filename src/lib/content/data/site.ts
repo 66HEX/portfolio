@@ -1,6 +1,6 @@
 import type { HomepageContent } from "../types";
 
-export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
+export const siteData: Pick<HomepageContent, "site" | "seo"> = {
   site: {
     siteName: "Marek Jóźwiak",
     siteUrl: "https://madebyhex.com",
@@ -30,8 +30,5 @@ export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
       "Web Performance",
       "Portfolio",
     ],
-  },
-  header: {
-    h1: "Marek Jóźwiak—Creative Developer portfolio",
   },
 };

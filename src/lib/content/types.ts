@@ -83,9 +83,6 @@ export type HomepageContent = {
     imageAlt: string;
     keywords: string[];
   };
-  header: {
-    h1: string;
-  };
   hero: {
     avatarSrc: string;
     avatarAlt: string;
