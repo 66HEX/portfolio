@@ -5,26 +5,28 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
   items: [
     {
       content: [
-        { type: "highlight", text: "Creative Developer" },
+        { type: "highlight", text: "Creative developer" },
         {
           type: "text",
-          text: " with 2,5+ years of experience, known for passion for design and strong attention to small details.",
+          text: " with 2.5+ years of experience and a strong eye for detail.",
         },
       ],
     },
     {
       content: [
-        { type: "text", text: "Skilled in " },
+        { type: "text", text: "I build polished web applications with " },
         { type: "highlight", text: "Svelte" },
         { type: "text", text: ", " },
         { type: "highlight", text: "React" },
         { type: "text", text: ", " },
-        { type: "highlight", text: "Typescript" },
+        { type: "highlight", text: "TypeScript" },
         { type: "text", text: ", " },
         { type: "highlight", text: "Rust" },
+        { type: "text", text: ", " },
+        { type: "highlight", text: "WGSL" },
         { type: "text", text: ", and " },
-        { type: "highlight", text: "modern shading languages" },
-        { type: "text", text: "; building high-quality web applications." },
+        { type: "highlight", text: "GLSL" },
+        { type: "text", text: "." },
       ],
     },
     {
