@@ -31,15 +31,39 @@
   const state = new ContributionGraphState(() => ({ username, days, text, data }));
 
   const legendLevels: ContributionLevel[] = [0, 1, 2, 3, 4];
+
+  function handleGraphKeydown(event: KeyboardEvent) {
+    const graph = event.currentTarget as HTMLDivElement;
+
+    switch (event.key) {
+      case "ArrowLeft":
+        graph.scrollLeft -= 48;
+        break;
+      case "ArrowRight":
+        graph.scrollLeft += 48;
+        break;
+      case "Home":
+        graph.scrollLeft = 0;
+        break;
+      case "End":
+        graph.scrollLeft = graph.scrollWidth;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+  }
 </script>
 
 <div class={cn("bg-background card w-full rounded-md p-4", className)}>
-  <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+  <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
   <div
     class="focus-visible:ring-accent focus-visible:ring-offset-background -my-0.5 scrollbar-none overflow-x-auto overscroll-none rounded-xs py-0.5 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     role="region"
     tabindex="0"
     aria-label={state.graphAriaLabel}
+    onkeydown={handleGraphKeydown}
   >
     <div aria-hidden="true">
       <div
