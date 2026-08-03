@@ -311,13 +311,16 @@
       delay={0}
       class={placement === "top" ? "absolute top-1 right-1 z-10" : "absolute top-1/2 right-1 z-10 -translate-y-1/2"}
     >
-      <button
-        type="button"
-        class="error-indicator-trigger hit-target-compact bg-warning/10 text-warning hover:bg-warning/15 focus-visible:ring-warning focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-xs transition-[background-color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
-        aria-label={`Error: ${message}`}
-      >
-        <IconRenderer icon={IconWarningCircle} size={16} />
-      </button>
+      {#snippet children({ describedBy })}
+        <button
+          type="button"
+          class="error-indicator-trigger hit-target-compact bg-warning/10 text-warning hover:bg-warning/15 focus-visible:ring-warning focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-xs transition-[background-color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
+          aria-label="Validation error"
+          aria-describedby={describedBy}
+        >
+          <IconRenderer icon={IconWarningCircle} size={16} />
+        </button>
+      {/snippet}
     </Tooltip>
   {/if}
 {/snippet}

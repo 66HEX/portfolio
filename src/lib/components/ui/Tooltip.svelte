@@ -34,8 +34,12 @@
 
   type Side = NonNullable<VariantProps<typeof tooltipArrowVariants>["side"]>;
 
+  type TriggerDescription = {
+    describedBy: string | undefined;
+  };
+
   type Props = {
-    children?: Snippet;
+    children?: Snippet<[TriggerDescription]>;
     tooltip?: Snippet;
     content?: string;
     side?: Side;
@@ -86,6 +90,8 @@
   let closeTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const tooltipId = `tooltip-${Math.random().toString(36).slice(2, 10)}`;
+  const popupId = `${tooltipId}-popup`;
+  const describedBy = $derived(content ? tooltipId : isOpen ? popupId : undefined);
 
   function clearOpenTimeout() {
     if (openTimeout) {
@@ -300,15 +306,18 @@
   onpointerleave={onPointerLeave}
   onfocusin={onFocusIn}
   onfocusout={onFocusOut}
-  aria-describedby={isTooltipEnabled && isOpen ? tooltipId : undefined}
 >
-  {@render children?.()}
+  {@render children?.({ describedBy })}
+
+  {#if content}
+    <span id={tooltipId} class="sr-only">{content}</span>
+  {/if}
 
   {#if isTooltipEnabled && isOpen && (content || tooltip)}
     <div
       bind:this={tooltipRef}
       use:portal
-      id={tooltipId}
+      id={popupId}
       role="tooltip"
       class={cn(tooltipContentVariants(), tooltipClass)}
       style={tooltipStyle}

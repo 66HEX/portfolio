@@ -75,16 +75,24 @@
 
     <div class="absolute right-3 bottom-3 flex items-center gap-1">
       <Tooltip content={card.ctaLabel}>
-        <IconLinkButton href={card.href} ariaLabel={`${card.ctaLabel}: ${card.title}`}>
-          <IconRenderer icon={IconLink} size={16} />
-        </IconLinkButton>
+        {#snippet children({ describedBy })}
+          <IconLinkButton href={card.href} ariaLabel={card.title} ariaDescribedBy={describedBy}>
+            <IconRenderer icon={IconLink} size={16} />
+          </IconLinkButton>
+        {/snippet}
       </Tooltip>
 
       {#if card.githubHref}
         <Tooltip content={card.githubCtaLabel}>
-          <IconLinkButton href={card.githubHref} ariaLabel={`${card.githubCtaLabel}: ${card.title}`}>
-            <IconRenderer icon={IconGitHub} size={16} />
-          </IconLinkButton>
+          {#snippet children({ describedBy })}
+            <IconLinkButton
+              href={card.githubHref!}
+              ariaLabel={`${card.title} on GitHub`}
+              ariaDescribedBy={describedBy}
+            >
+              <IconRenderer icon={IconGitHub} size={16} />
+            </IconLinkButton>
+          {/snippet}
         </Tooltip>
       {/if}
     </div>
@@ -96,9 +104,17 @@
     <CardHeading title={card.title} description={card.description} class="mt-3" titleClass="truncate" />
 
     <Tooltip class="absolute right-3 bottom-3" content={card.ctaLabel}>
-      <IconLinkButton href={card.href} ariaLabel={`${card.ctaLabel}: ${card.title}`} target="_self" rel="">
-        <IconRenderer icon={IconChevronRight} size={16} />
-      </IconLinkButton>
+      {#snippet children({ describedBy })}
+        <IconLinkButton
+          href={card.href}
+          ariaLabel={card.title}
+          ariaDescribedBy={describedBy}
+          target="_self"
+          rel=""
+        >
+          <IconRenderer icon={IconChevronRight} size={16} />
+        </IconLinkButton>
+      {/snippet}
     </Tooltip>
   {:else}
     <div class="flex items-start justify-between gap-2">

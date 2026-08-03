@@ -6,6 +6,7 @@
   type Props = {
     href: string;
     ariaLabel: string;
+    ariaDescribedBy?: string;
     target?: string;
     rel?: string;
     children?: Snippet;
@@ -15,6 +16,7 @@
   let {
     href,
     ariaLabel,
+    ariaDescribedBy,
     target = "_blank",
     rel = "external noreferrer noopener",
     children,
@@ -29,6 +31,7 @@
       {target}
       rel="external {rel}"
       aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
       class={cn(
         "hit-target-compact bg-background card focus-visible:ring-accent focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
         className,
@@ -42,6 +45,7 @@
       {target}
       {rel}
       aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
       class={cn(
         "hit-target-compact bg-background card focus-visible:ring-accent focus-visible:ring-offset-background flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
         className,
