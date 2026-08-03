@@ -80,7 +80,6 @@
 </svelte:head>
 
 <div class="w-full">
-  <h1 class="sr-only">{homepageContent.header.h1}</h1>
   <HeroSection hero={homepageContent.hero} profile={homepageContent.profile} />
   <Separator />
   <AboutSection content={homepageContent.about} />

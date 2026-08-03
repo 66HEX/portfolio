@@ -59,7 +59,7 @@
 
 <div class="relative mb-8 flex w-full items-center justify-between gap-4 pr-4 pl-42">
   <header class="flex min-w-0 flex-col items-start justify-start gap-1">
-    <p class="text-foreground font-display text-lg leading-none">{profile.name}</p>
+    <h1 class="text-foreground font-display text-lg leading-none">{profile.name}</h1>
     <p class="text-foreground-muted text-xs leading-none">{profile.role}</p>
   </header>
 
