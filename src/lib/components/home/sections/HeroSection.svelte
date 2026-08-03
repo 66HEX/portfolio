@@ -32,13 +32,13 @@
 
 <SectionBlock>
   <div class="bg-background-inset card-outer relative h-54 w-full rounded-lg">
-    <div class="card absolute inset-1.5 overflow-hidden rounded-md">
+    <div class="card absolute inset-1.5 shader-clip">
       <LiquidMetal
         color={liquidMetalColors.accent}
         backgroundColor={liquidMetalColors.background}
         chromaticAberration={0}
         scale={1}
-        class="h-full w-full"
+        class="h-full w-full rounded-md"
         blur={0.5}
       />
     </div>
@@ -65,3 +65,13 @@
 
   <ThemeToggle class="size-6" />
 </div>
+
+<style>
+    .shader-clip {
+      overflow: clip;
+      clip-path: inset(0 round var(--radius-md));
+      mask-image: radial-gradient(white, black);
+      isolation: isolate;
+      contain: paint;
+    }
+</style>
