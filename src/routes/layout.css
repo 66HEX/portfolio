@@ -66,6 +66,8 @@ html {
   --foreground-muted: oklch(0.5493 0.0081 var(--base-hue));
   --accent: oklch(0.6996 0.201959 44.4414);
   --accent-secondary: oklch(0.5096 0.151959 44.4414);
+  /* Official Twitter/X blue, reserved for verified-account badges. */
+  --verified: #1d9bf0;
   --warning: oklch(0.668 0.18 27.518);
   --border: oklch(0 0.0013 var(--base-hue) / 0.06);
   --highlight: oklch(0 0.0013 var(--base-hue) / 0);
@@ -97,6 +99,7 @@ html {
   --color-fixed-light: var(--fixed-light);
   --color-accent: var(--accent);
   --color-accent-secondary: var(--accent-secondary);
+  --color-verified: var(--verified);
   --color-warning: var(--warning);
   --color-border: var(--border);
 

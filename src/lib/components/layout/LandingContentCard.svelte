@@ -135,7 +135,7 @@
             <p class="text-foreground truncate text-base leading-none font-medium">{card.name}</p>
             {#if card.verified}
               <svg
-                class="shrink-0 text-[#1d9bf0]"
+                class="text-verified shrink-0"
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
