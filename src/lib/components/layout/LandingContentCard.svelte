@@ -85,11 +85,7 @@
       {#if card.githubHref}
         <Tooltip content={card.githubCtaLabel}>
           {#snippet children({ describedBy })}
-            <IconLinkButton
-              href={card.githubHref!}
-              ariaLabel={`${card.title} on GitHub`}
-              ariaDescribedBy={describedBy}
-            >
+            <IconLinkButton href={card.githubHref!} ariaLabel={`${card.title} on GitHub`} ariaDescribedBy={describedBy}>
               <IconRenderer icon={IconGitHub} size={16} />
             </IconLinkButton>
           {/snippet}
@@ -105,13 +101,7 @@
 
     <Tooltip class="absolute right-3 bottom-3" content={card.ctaLabel}>
       {#snippet children({ describedBy })}
-        <IconLinkButton
-          href={card.href}
-          ariaLabel={card.title}
-          ariaDescribedBy={describedBy}
-          target="_self"
-          rel=""
-        >
+        <IconLinkButton href={card.href} ariaLabel={card.title} ariaDescribedBy={describedBy} target="_self" rel="">
           <IconRenderer icon={IconChevronRight} size={16} />
         </IconLinkButton>
       {/snippet}
