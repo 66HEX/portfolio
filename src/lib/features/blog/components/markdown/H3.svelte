@@ -70,12 +70,12 @@
 
     {#if id}
       <span
-        class="card-outer flex items-center rounded-sm p-1 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 focus-within:opacity-100 motion-reduce:transition-none"
+        class="card-outer focus-ring-shell flex items-center rounded-sm p-1 opacity-0 transition-[opacity,box-shadow] duration-150 ease-out group-hover:opacity-100 focus-within:opacity-100 motion-reduce:transition-none"
       >
         <button
           type="button"
           class={cn(
-            "hit-target bg-background text-foreground card focus-visible:ring-accent focus-visible:ring-offset-background relative inline-flex size-5 shrink-0 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
+            "hit-target bg-background text-foreground card relative inline-flex size-5 shrink-0 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out outline-none active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
           )}
           onclick={copyHeadingUrl}
           aria-label={copied ? "Copied heading link" : "Copy heading link"}

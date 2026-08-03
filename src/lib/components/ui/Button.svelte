@@ -8,7 +8,7 @@
     {
       variants: {
         variant: {
-          primary: "btn-primary card-shadow disabled:cursor-not-allowed disabled:opacity-80",
+          primary: "btn-primary disabled:cursor-not-allowed disabled:opacity-80",
         },
         size: {
           form: "inline-flex h-8 items-center justify-center gap-2 rounded-sm px-3 text-sm",

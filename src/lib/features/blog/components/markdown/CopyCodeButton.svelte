@@ -58,11 +58,11 @@
   });
 </script>
 
-<div class="bg-background-inset card-outer size-8 rounded-sm p-1">
+<div class="bg-background-inset card-outer focus-ring-shell size-8 rounded-sm p-1">
   <button
     type="button"
     class={cn(
-      "hit-target group card bg-background text-foreground focus-visible:ring-accent focus-visible:ring-offset-background relative flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
+      "hit-target group card bg-background text-foreground relative flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out outline-none active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
       className,
     )}
     onclick={(event) => {
