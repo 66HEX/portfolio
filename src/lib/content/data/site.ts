@@ -18,7 +18,7 @@ export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
   seo: {
     title: "Marek Jóźwiak | Creative Developer",
     description:
-      "Portfolio of Marek Jóźwiak - Creative developer focused on product interfaces, front-end architecture, and performance-first SvelteKit development.",
+      "Portfolio of Marek Jóźwiak—creative developer focused on product interfaces, front-end architecture, and performance-first SvelteKit development.",
     imageAlt: "Open Graph Image for Marek Jóźwiak's Portfolio",
     keywords: [
       "Marek Jóźwiak",
@@ -32,6 +32,6 @@ export const siteData: Pick<HomepageContent, "site" | "seo" | "header"> = {
     ],
   },
   header: {
-    h1: "Marek Jóźwiak - Creative Developer portfolio",
+    h1: "Marek Jóźwiak—Creative Developer portfolio",
   },
 };

@@ -40,7 +40,7 @@ The last point became more important over time. Tauri uses the system webview: W
 
 I tried to move toward Tauri CEF because a bundled Chromium runtime would theoretically make things more predictable. In practice, my attempts still felt too unstable and too unpredictable for Frame. I did not want the core experience of a media tool to depend on which webview implementation happened to behave that week.
 
-GPUI-CE was interesting because it gave me a native Rust UI model without moving the app into a completely different product shape. I could keep the same core workflows - workspace, file queue, preview, settings, logs, updates - but stop treating the UI as a separate web application.
+GPUI-CE was interesting because it gave me a native Rust UI model without moving the app into a completely different product shape. I could keep the same core workflows—workspace, file queue, preview, settings, logs, updates—but stop treating the UI as a separate web application.
 
 It also felt surprisingly approachable from a web frontend background. If you spend a lot of time building interfaces with `div`s and Tailwind-style utility classes, GPUI's styling and element model are quick to pick up. It is native Rust UI, but the way you compose boxes, spacing, colors, borders, and interaction states does not feel completely alien.
 

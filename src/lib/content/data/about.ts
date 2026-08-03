@@ -35,7 +35,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Motion Core", href: "https://motion-core.dev/" },
         {
           type: "text",
-          text: " - a Svelte 5 motion component library built on OGL and GSAP, following a shadcn-inspired copy-paste architecture with a Rust-based CLI.",
+          text: "—a Svelte 5 motion component library built on OGL and GSAP, following a shadcn-inspired copy-paste architecture with a Rust-based CLI.",
         },
       ],
       nestedList: [
@@ -63,7 +63,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Motion GPU", href: "https://motion-gpu.dev/" },
         {
           type: "text",
-          text: " - a minimalist WebGPU framework with a Svelte, React 18/19 and Vue 3 adapters, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
+          text: "—a minimalist WebGPU framework with Svelte, React 18/19, and Vue 3 adapters, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
         },
       ],
       nestedList: [
@@ -81,7 +81,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "link", text: "Frame", href: "https://framegui.app/" },
         {
           type: "text",
-          text: " - a Rust-native FFmpeg desktop app built with GPUI-CE, with granular video, audio, image, subtitle, and metadata workflows.",
+          text: "—a Rust-native FFmpeg desktop app built with GPUI-CE, with granular video, audio, image, subtitle, and metadata workflows.",
         },
       ],
       nestedList: [
