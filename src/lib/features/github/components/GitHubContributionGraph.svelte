@@ -34,13 +34,14 @@
 </script>
 
 <div class={cn("bg-background card w-full rounded-md p-4", className)}>
+  <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
   <div
-    class="-my-0.5 scrollbar-none overflow-x-auto overscroll-none py-0.5 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-    role="img"
-    tabindex="-1"
+    class="focus-visible:ring-accent focus-visible:ring-offset-background -my-0.5 scrollbar-none overflow-x-auto overscroll-none rounded-xs py-0.5 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    role="region"
+    tabindex="0"
     aria-label={state.graphAriaLabel}
   >
-    <div class="">
+    <div aria-hidden="true">
       <div
         class="mb-2 grid items-center gap-1"
         style={`grid-template-columns: 2rem repeat(${state.weeks.length}, 0.75rem);`}
