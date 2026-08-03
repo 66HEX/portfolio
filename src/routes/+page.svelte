@@ -103,13 +103,14 @@
     githubCtaLabel={homepageContent.projects.githubCtaLabel}
     items={homepageContent.projects.items}
   />
-  <Separator />
-  <BlogSection
-    posts={recentBlogPosts}
-    title={homepageContent.blog.title}
-    emptyStateLabel={homepageContent.blog.emptyStateLabel}
-    readArticleLabel={homepageContent.blog.readArticleLabel}
-  />
+  {#if recentBlogPosts.length > 0}
+    <Separator />
+    <BlogSection
+      posts={recentBlogPosts}
+      title={homepageContent.blog.title}
+      readArticleLabel={homepageContent.blog.readArticleLabel}
+    />
+  {/if}
   <Separator />
   <ContactSection content={homepageContent.contact} />
   <Separator />

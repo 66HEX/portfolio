@@ -125,7 +125,6 @@ export type HomepageContent = {
   };
   blog: {
     title: string;
-    emptyStateLabel: string;
     readArticleLabel: string;
   };
   testimonials: {
