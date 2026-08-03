@@ -9,7 +9,6 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import type { Snippet } from "svelte";
-  import { tick } from "svelte";
   import { cn } from "$lib/utils/cn";
 
   const tooltipContentVariants = cva(
@@ -64,9 +63,7 @@
 
   let isOpen = $state(false);
   let isPointerInside = $state(false);
-  let triggerRef: HTMLDivElement | undefined = $state();
-  let tooltipRef: HTMLDivElement | undefined = $state();
-  let tooltipStyle = $state("");
+  let triggerRef: HTMLDivElement | undefined;
   let isTooltipEnabled = $state(true);
   let prefersReducedMotion = $state(false);
 
@@ -193,21 +190,22 @@
     scheduleClose();
   }
 
-  function portal(node: HTMLElement) {
-    document.body.appendChild(node);
-    return {
-      destroy() {
-        node.remove();
-      },
+  function attachTrigger(node: HTMLDivElement) {
+    triggerRef = node;
+
+    return () => {
+      if (triggerRef === node) {
+        triggerRef = undefined;
+      }
     };
   }
 
-  function updateTooltipPosition() {
-    if (!isOpen || !triggerRef || !tooltipRef) return;
+  function positionTooltip(node: HTMLDivElement) {
+    if (!triggerRef) return;
 
     const triggerRect = triggerRef.getBoundingClientRect();
-    const tooltipWidth = tooltipRef.offsetWidth;
-    const tooltipHeight = tooltipRef.offsetHeight;
+    const tooltipWidth = node.offsetWidth;
+    const tooltipHeight = node.offsetHeight;
     const offset = 8;
     const viewportPadding = 8;
 
@@ -240,28 +238,28 @@
     top = Math.min(Math.max(viewportPadding, top), Math.max(viewportPadding, maxTop));
     left = Math.min(Math.max(viewportPadding, left), Math.max(viewportPadding, maxLeft));
 
-    tooltipStyle = `top: ${Math.round(top)}px; left: ${Math.round(left)}px;`;
+    node.style.top = `${Math.round(top)}px`;
+    node.style.left = `${Math.round(left)}px`;
   }
 
-  $effect(() => {
-    if (!isOpen) return;
+  function attachTooltip(node: HTMLDivElement) {
+    document.body.appendChild(node);
+    const updatePosition = () => positionTooltip(node);
+    const animationFrame = requestAnimationFrame(updatePosition);
+    const resizeObserver = new ResizeObserver(updatePosition);
 
-    void tick().then(() => {
-      updateTooltipPosition();
-    });
-
-    const handleViewportChange = () => {
-      updateTooltipPosition();
-    };
-
-    window.addEventListener("resize", handleViewportChange);
-    window.addEventListener("scroll", handleViewportChange, true);
+    resizeObserver.observe(node);
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
 
     return () => {
-      window.removeEventListener("resize", handleViewportChange);
-      window.removeEventListener("scroll", handleViewportChange, true);
+      cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+      node.remove();
     };
-  });
+  }
 
   onMount(() => {
     const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -286,20 +284,17 @@
     return () => {
       mediaQuery.removeEventListener("change", updateAvailability);
       reducedMotionQuery.removeEventListener("change", updateMotionPreference);
-    };
-  });
-
-  $effect(() => {
-    return () => {
       clearOpenTimeout();
       clearCloseTimeout();
-      closeNow();
+      if (isOpen) {
+        activeTooltipCount = Math.max(0, activeTooltipCount - 1);
+      }
     };
   });
 </script>
 
 <div
-  bind:this={triggerRef}
+  {@attach attachTrigger}
   class={cn("relative inline-flex", className)}
   role="presentation"
   onpointerenter={onPointerEnter}
@@ -315,12 +310,10 @@
 
   {#if isTooltipEnabled && isOpen && (content || tooltip)}
     <div
-      bind:this={tooltipRef}
-      use:portal
+      {@attach attachTooltip}
       id={popupId}
       role="tooltip"
       class={cn(tooltipContentVariants(), tooltipClass)}
-      style={tooltipStyle}
       transition:fly={tooltipTransition}
     >
       {#if tooltip}
