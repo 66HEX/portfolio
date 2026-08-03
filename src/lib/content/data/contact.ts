@@ -15,7 +15,7 @@ export const contactData: Pick<HomepageContent, "contact"> = {
       successLabel: "Message sent successfully. Thanks for reaching out.",
       errorLabel: "Couldn't send the message right now. Try again in a moment.",
       validationErrorLabel: "Please fill all fields with valid details before sending.",
-      privacyNote: "By sending this form, you agree to be contacted back about your inquiry.",
+      privacyNote: "By sending this form, you agree that I may contact you about your inquiry.",
     },
   },
 };
