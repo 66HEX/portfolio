@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stopka Gmail — Marek Jóźwiak</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 32px 20px;
+        background: #f7f7f8;
+        color: #2a292d;
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          avenir next,
+          avenir,
+          segoe ui,
+          helvetica neue,
+          Adwaita Sans,
+          Cantarell,
+          Ubuntu,
+          roboto,
+          noto,
+          helvetica,
+          arial,
+          sans-serif;
+      }
+
+      main {
+        width: min(100%, 560px);
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      .instruction {
+        margin: 8px 0 24px;
+        color: #68666c;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .preview {
+        overflow-x: auto;
+        padding: 32px 24px;
+        background: #ffffff;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      button {
+        min-height: 44px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: 8px;
+        background: #ff601a;
+        color: #ffffff;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #e65318;
+      }
+
+      button:focus-visible {
+        outline: 3px solid #2a292d;
+        outline-offset: 3px;
+      }
+
+      #copy-status {
+        min-height: 21px;
+        margin: 0;
+        color: #68666c;
+        font-size: 14px;
+        line-height: 21px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Stopka Gmail</h1>
+      <p class="instruction">Kliknij przycisk, a następnie wklej stopkę bezpośrednio w ustawieniach Gmaila.</p>
+
+      <div class="preview">
+        <div id="signature">
+          <table
+            role="presentation"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            style="border-collapse: collapse; color: #2a292d"
+          >
+            <tr>
+              <td style="padding: 0 16px 0 0; vertical-align: middle">
+                <a href="https://madebyhex.com/" style="text-decoration: none">
+                  <img
+                    src="https://madebyhex.com/images/avatar.webp"
+                    width="64"
+                    height="64"
+                    alt="Marek Jóźwiak"
+                    style="
+                      display: block;
+                      width: 64px;
+                      height: 64px;
+                      border: 1px solid #e3e2e4;
+                      border-radius: 50%;
+                      object-fit: cover;
+                    "
+                  />
+                </a>
+              </td>
+
+              <td style="padding: 0 0 0 0px; vertical-align: middle">
+                <div
+                  style="
+                    color: #2a292d;
+                    font-size: 18px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    letter-spacing: -0.7px;
+                    white-space: nowrap;
+                  "
+                >
+                  Marek Jóźwiak
+                </div>
+                <div style="margin-top: 2px; color: #77757a; font-size: 12px; line-height: 17px; white-space: nowrap">
+                  Creative Developer
+                </div>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top: 8px">
+                  <tr>
+                    <td style="vertical-align: middle">
+                      <a
+                        href="https://madebyhex.com/"
+                        style="
+                          color: #4f4d53;
+                          font-size: 12px;
+                          font-weight: 500;
+                          line-height: 17px;
+                          text-decoration: none;
+                          border-bottom: 1px dotted #aaa8ad;
+                        "
+                        >madebyhex.com</a
+                      >
+                    </td>
+                    <td width="18" style="width: 18px"></td>
+                    <td style="vertical-align: middle">
+                      <a href="https://github.com/66HEX" title="GitHub" style="display: block; text-decoration: none">
+                        <img
+                          src="static/email/github.png"
+                          data-email-src="https://madebyhex.com/email/github.png"
+                          width="17"
+                          height="17"
+                          alt="GitHub"
+                          style="display: block; width: 17px; height: 17px; border: 0"
+                        />
+                      </a>
+                    </td>
+                    <td width="12" style="width: 12px"></td>
+                    <td style="vertical-align: middle">
+                      <a
+                        href="https://www.linkedin.com/in/marek-j%C3%B3%C5%BAwiak-29958132a/"
+                        title="LinkedIn"
+                        style="display: block; text-decoration: none"
+                      >
+                        <img
+                          src="static/email/linkedin.png"
+                          data-email-src="https://madebyhex.com/email/linkedin.png"
+                          width="17"
+                          height="17"
+                          alt="LinkedIn"
+                          style="display: block; width: 17px; height: 17px; border: 0"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="copy-signature" type="button">Kopiuj stopkę</button>
+        <p id="copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <script>
+      const copyButton = document.querySelector("#copy-signature");
+      const signature = document.querySelector("#signature");
+      const copyStatus = document.querySelector("#copy-status");
+
+      function copyWithFallback(html, text) {
+        const handleCopy = (event) => {
+          event.preventDefault();
+          event.clipboardData.setData("text/html", html);
+          event.clipboardData.setData("text/plain", text);
+        };
+
+        document.addEventListener("copy", handleCopy, { once: true });
+        return document.execCommand("copy");
+      }
+
+      copyButton.addEventListener("click", async () => {
+        const emailSignature = signature.cloneNode(true);
+
+        emailSignature.querySelectorAll("[data-email-src]").forEach((image) => {
+          image.src = image.dataset.emailSrc;
+          image.removeAttribute("data-email-src");
+        });
+
+        const html = emailSignature.innerHTML.trim();
+        const text = signature.innerText.trim();
+        let copied = false;
+
+        try {
+          if (navigator.clipboard?.write && window.ClipboardItem) {
+            const item = new ClipboardItem({
+              "text/html": new Blob([html], { type: "text/html" }),
+              "text/plain": new Blob([text], { type: "text/plain" }),
+            });
+
+            await navigator.clipboard.write([item]);
+            copied = true;
+          } else {
+            copied = copyWithFallback(html, text);
+          }
+        } catch {
+          copied = copyWithFallback(html, text);
+        }
+
+        copyStatus.textContent = copied
+          ? "Skopiowano. Wklej teraz w Gmailu."
+          : "Nie udało się skopiować. Spróbuj ponownie.";
+      });
+    </script>
+  </body>
+</html>
