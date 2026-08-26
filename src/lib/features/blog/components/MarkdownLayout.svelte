@@ -145,7 +145,7 @@
     </div>
   </div>
   <Separator class="mb-4" />
-  <article data-doc-content class="text-foreground-muted mt-3 w-full space-y-3 p-4 text-sm">
+  <article data-doc-content class="text-foreground-muted mt-3 w-full space-y-3 p-4 text-sm [&>h2:first-child]:mt-0">
     {@render children?.()}
   </article>
   <Separator class="my-4" />

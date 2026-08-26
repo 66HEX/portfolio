@@ -14,7 +14,7 @@
 <tr
   {...restProps}
   class={cn(
-    "text-sm font-normal transition-[background-color] duration-150 ease-out [&_code]:text-sm [&strong]:text-base",
+    "text-sm font-normal transition-[background-color] duration-150 ease-out [&_code]:text-sm [&_strong]:text-base",
     className,
   )}
 >

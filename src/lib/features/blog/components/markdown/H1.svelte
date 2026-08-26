@@ -58,7 +58,10 @@
 <h1
   {id}
   {...restProps}
-  class={cn("group text-foreground w-fit scroll-m-24 text-xl font-medium tracking-tight [&_code]:text-lg", className)}
+  class={cn(
+    "group text-foreground mt-10 w-fit scroll-m-24 text-xl font-medium tracking-tight [&_code]:text-lg",
+    className,
+  )}
 >
   <span class="inline-flex items-center gap-2 align-baseline leading-none">
     <span class="min-w-0 [&_a]:text-xl">

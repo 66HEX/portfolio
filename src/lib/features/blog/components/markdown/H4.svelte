@@ -59,7 +59,7 @@
   {id}
   {...restProps}
   class={cn(
-    "group text-foreground mt-8 w-fit scroll-m-24 text-base font-medium tracking-tight [&_code]:text-sm",
+    "group text-foreground mt-6 w-fit scroll-m-24 text-base font-medium tracking-tight [&_code]:text-sm",
     className,
   )}
 >
