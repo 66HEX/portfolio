@@ -12,4 +12,10 @@
     "enabled": true,
     "head_sampling_rate": 1,
   },
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "madebyhex.com", "custom_domain": true },
+    { "pattern": "www.madebyhex.com", "custom_domain": true },
+  ],
 }
