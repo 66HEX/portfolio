@@ -109,7 +109,7 @@
   {:else}
     <div class="flex items-start justify-between gap-2">
       <div class="flex min-w-0 items-center gap-2">
-        <div class="border-border size-9 shrink-0 rounded-full border">
+        <div class="guide size-9 shrink-0 rounded-full border bg-transparent!">
           <img
             src={card.avatar}
             alt={`${card.name} avatar`}

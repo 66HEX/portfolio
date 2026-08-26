@@ -17,10 +17,10 @@
   <link rel="preload" href={apkAvionicaUrl} as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 
-<div class="border-border mx-auto max-w-4xl overflow-hidden sm:border-x">
+<div class="guide mx-auto max-w-4xl overflow-hidden bg-transparent! sm:border-x">
   <main
     id="main-content"
-    class="border-border mx-auto flex w-full max-w-3xl flex-col items-center justify-start gap-2 border-dashed sm:border-x"
+    class="guide mx-auto flex w-full max-w-3xl flex-col items-center justify-start gap-2 border-dashed bg-transparent! sm:border-x"
   >
     {@render children()}
   </main>

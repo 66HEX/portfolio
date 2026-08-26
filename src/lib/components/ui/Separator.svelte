@@ -3,7 +3,7 @@
   let { class: className = "" } = $props();
 </script>
 
-<div data-separator class={cn(className)}></div>
+<div data-separator class={cn("before:guide", className)}></div>
 
 <style>
   [data-separator] {
@@ -19,6 +19,6 @@
     left: 50%;
     transform: translateX(-50%);
     width: 120%;
-    border-top: 1px dashed var(--color-border);
+    border-top: 1px dashed var(--guide-ink);
   }
 </style>

@@ -8,6 +8,11 @@
   }>();
 </script>
 
-<div class={cn("border-border relative mb-12 ml-4 space-y-10 border-l [counter-reset:step]", className)}>
+<div
+  class={cn(
+    "before:guide relative mb-12 ml-4 space-y-10 [counter-reset:step] before:absolute before:inset-y-0 before:left-0 before:w-px before:content-['']",
+    className,
+  )}
+>
   {@render children?.()}
 </div>

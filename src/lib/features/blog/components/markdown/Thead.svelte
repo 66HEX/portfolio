@@ -14,7 +14,7 @@
 <thead
   {...restProps}
   class={cn(
-    "bg-background after:bg-border dark:after:bg-background-inset dark:after:shadow-border relative overflow-hidden rounded-t-lg after:absolute after:inset-x-0 after:bottom-0 after:h-px after:shadow-2xs after:shadow-white after:content-['']",
+    "bg-background after:guide-duotone relative overflow-hidden rounded-t-lg after:absolute after:inset-x-0 after:bottom-0 after:h-px after:content-['']",
     className,
   )}
 >

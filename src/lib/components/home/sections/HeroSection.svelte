@@ -31,18 +31,19 @@
 </script>
 
 <SectionBlock>
-  <div class="bg-background-inset card-outer relative h-54 w-full rounded-lg">
-    <div class="card absolute inset-1.5 shader-clip">
-      <LiquidMetal
-        color={liquidMetalColors.accent}
-        backgroundColor={liquidMetalColors.background}
-        chromaticAberration={0}
-        scale={1}
-        class="h-full w-full rounded-md"
-        blur={0.5}
-      />
+  <div class="relative h-54 w-full">
+    <div class="bg-background-inset card-outer absolute inset-0 rounded-lg">
+      <div class="card shader-clip absolute inset-1.5">
+        <LiquidMetal
+          color={liquidMetalColors.accent}
+          backgroundColor={liquidMetalColors.background}
+          chromaticAberration={0}
+          scale={1}
+          class="h-full w-full rounded-md"
+          blur={0.5}
+        />
+      </div>
     </div>
-
     <div class="bg-background-inset card-outer absolute bottom-0 left-4 z-5 size-32 translate-y-1/2 rounded-full p-1.5">
       <img
         class="card rounded-full object-cover"
@@ -67,11 +68,11 @@
 </div>
 
 <style>
-    .shader-clip {
-      overflow: clip;
-      clip-path: inset(0 round var(--radius-md));
-      mask-image: radial-gradient(white, black);
-      isolation: isolate;
-      contain: paint;
-    }
+  .shader-clip {
+    overflow: clip;
+    clip-path: inset(0 round var(--radius-md));
+    mask-image: radial-gradient(white, black);
+    isolation: isolate;
+    contain: paint;
+  }
 </style>

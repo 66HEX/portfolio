@@ -69,8 +69,12 @@ html {
   /* Official Twitter/X blue, reserved for verified-account badges. */
   --verified: #1d9bf0;
   --warning: oklch(0.668 0.18 27.518);
-  --border: oklch(0 0.0013 var(--base-hue) / 0.06);
-  --highlight: oklch(0 0.0013 var(--base-hue) / 0);
+
+  --shadow-color: oklch(0 0.0013 var(--base-hue));
+  --shadow-highlight-color: oklch(1 0.013 var(--base-hue));
+  --guide-ink: oklch(from var(--shadow-color) l c h / 0.06);
+  --guide-duotone-ink: oklch(from var(--shadow-color) l c h / 0.06);
+  --guide-duotone-glint: var(--shadow-highlight-color);
 }
 
 .dark {
@@ -82,8 +86,9 @@ html {
   --accent: oklch(0.6996 0.181959 44.4414);
   --accent-secondary: oklch(0.5096 0.131959 44.4414);
   --warning: oklch(0.708 0.18 19.571);
-  --border: oklch(1 0.013 var(--base-hue) / 0.08);
-  --highlight: oklch(1 0.013 var(--base-hue) / 0.08);
+  --guide-ink: oklch(from var(--shadow-highlight-color) l c h / 0.08);
+  --guide-duotone-ink: var(--shadow-color);
+  --guide-duotone-glint: oklch(from var(--shadow-highlight-color) l c h / 0.08);
 }
 
 @theme inline {
@@ -101,7 +106,6 @@ html {
   --color-accent-secondary: var(--accent-secondary);
   --color-verified: var(--verified);
   --color-warning: var(--warning);
-  --color-border: var(--border);
 
   --radius-xs: calc(var(--radius-base) * 1);
   --radius-sm: calc(var(--radius-base) * 2);
@@ -113,17 +117,90 @@ html {
   --radius-4xl: calc(var(--radius-base) * 16);
   --radius-full: 9999px;
 
-  --shadow-sm: 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 0px 6px 6px -3px rgba(0, 0, 0, 0.06);
+  --shadow-inset:
+    0px 1px 3px 0px oklch(from var(--shadow-color) l c h / 0.051) inset,
+    0px 5px 5px -1px oklch(from var(--shadow-color) l c h / 0.051) inset,
+    0px 11px 6px -2px oklch(from var(--shadow-color) l c h / 0.031) inset,
+    0px 19px 8px -3px oklch(from var(--shadow-color) l c h / 0.012) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039) inset;
+
+  --shadow-highlight-inset:
+    0px 1px 3px 0px oklch(from var(--shadow-color) l c h / 0.051) inset,
+    0px 5px 5px -1px oklch(from var(--shadow-color) l c h / 0.051) inset,
+    0px 11px 6px -2px oklch(from var(--shadow-color) l c h / 0.031) inset,
+    0px 19px 8px -3px oklch(from var(--shadow-color) l c h / 0.012) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px -1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039) inset;
+
+  --shadow-2xs:
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.075),
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071);
+
+  --shadow-xs:
+    0px 1px 1px -0.5px oklch(from var(--shadow-color) l c h / 0.188),
+    0px 2px 2px -1px oklch(from var(--shadow-color) l c h / 0.039),
+    0px 4px 4px -2px oklch(from var(--shadow-color) l c h / 0.02),
+    0px 8px 4px -3px oklch(from var(--shadow-color) l c h / 0.012),
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071),
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039),
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset;
+
+  --shadow-sm:
+    0px 1px 2px -0.5px oklch(from var(--shadow-color) l c h / 0.188),
+    0px 3px 3px -1px oklch(from var(--shadow-color) l c h / 0.039),
+    0px 6px 5px -2px oklch(from var(--shadow-color) l c h / 0.02),
+    0px 15px 6px -3px oklch(from var(--shadow-color) l c h / 0.012),
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071),
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039),
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset;
+
+  --shadow-md:
+    0px 1px 3px 0px oklch(from var(--shadow-color) l c h / 0.051),
+    0px 5px 5px -1px oklch(from var(--shadow-color) l c h / 0.051),
+    0px 11px 6px -2px oklch(from var(--shadow-color) l c h / 0.031),
+    0px 19px 8px -3px oklch(from var(--shadow-color) l c h / 0.012),
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071),
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039);
+
   --shadow-lg:
-    0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 0px 6px 6px -3px rgba(0, 0, 0, 0.06), 0px 12px 12px -6px rgba(0, 0, 0, 0.06);
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.102),
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.102),
+    0px 2px 5px -1px oklch(from var(--shadow-color) l c h / 0.059),
+    0px 8px 12px -1px oklch(from var(--shadow-color) l c h / 0.051),
+    0px 22px 16px -2px oklch(from var(--shadow-color) l c h / 0.039),
+    0px 32px 18px -2px oklch(from var(--shadow-color) l c h / 0.012);
+
   --shadow-xl:
-    0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 0px 6px 6px -3px rgba(0, 0, 0, 0.06),
-    0px 12px 12px -6px rgba(0, 0, 0, 0.06), 0px 24px 24px -12px rgba(0, 0, 0, 0.06);
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.102),
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.102),
+    0px 4px 8px -1px oklch(from var(--shadow-color) l c h / 0.059),
+    0px 15px 15px -1px oklch(from var(--shadow-color) l c h / 0.051),
+    0px 33px 20px -2px oklch(from var(--shadow-color) l c h / 0.039),
+    0px 58px 23px -2px oklch(from var(--shadow-color) l c h / 0.012);
+
   --shadow-2xl:
-    0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 0px 6px 6px -3px rgba(0, 0, 0, 0.06),
-    0px 12px 12px -6px rgba(0, 0, 0, 0.06), 0px 24px 24px -12px rgba(0, 0, 0, 0.06),
-    0px 48px 48px -24px rgba(0, 0, 0, 0.06);
+    0px 13px 29px 0px oklch(from var(--shadow-color) l c h / 0.071),
+    0px 53px 53px 0px oklch(from var(--shadow-color) l c h / 0.059),
+    0px 119px 71px 0px oklch(from var(--shadow-color) l c h / 0.031),
+    0px 211px 85px 0px oklch(from var(--shadow-color) l c h / 0.012),
+    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.102),
+    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.102),
+    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
+    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset;
 }
 
 @layer base {
@@ -137,51 +214,38 @@ html {
   }
 }
 
+@utility guide {
+  border-color: var(--guide-ink);
+  background-color: var(--guide-ink);
+  background-clip: padding-box;
+}
+
+@utility guide-duotone {
+  background-color: var(--guide-duotone-ink);
+  box-shadow: 0 1px var(--guide-duotone-glint);
+}
+
 @utility card-outer {
   position: relative;
   isolation: isolate;
-  --tw-inset-shadow:
-    inset 0px 1px 1px -1px rgba(0, 0, 0, 0.06),
-    inset 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
-    inset 0px 6px 6px -3px rgba(0, 0, 0, 0.06),
-    inset 0 0 0 1px var(--border);
+  overflow: hidden;
   box-shadow:
-    var(--tw-inset-shadow),
-    var(--tw-inset-ring-shadow),
-    var(--tw-ring-offset-shadow),
-    var(--tw-ring-shadow),
-    var(--tw-shadow);
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--shadow-inset);
 }
 
 @utility inset-shadow {
   position: relative;
   isolation: isolate;
-  --tw-inset-shadow:
-    inset 0px 1px 1px -1px rgba(0, 0, 0, 0.06),
-    inset 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
-    inset 0px 6px 6px -3px rgba(0, 0, 0, 0.06),
-    inset 0 -1px var(--highlight),
-    inset 0 0 0 1px var(--border);
   box-shadow:
-    var(--tw-inset-shadow),
-    var(--tw-inset-ring-shadow),
-    var(--tw-ring-offset-shadow),
-    var(--tw-ring-shadow),
-    var(--tw-shadow);
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--shadow-highlight-inset);
 }
 
 @utility card {
-  --tw-shadow:
-    0 -1px var(--highlight),
-    0 4px 8px rgba(0, 0, 0, 0.06),
-    0 0 0 1px var(--border),
-    0 1px 6px -4px #000;
   box-shadow:
-    var(--tw-inset-shadow),
-    var(--tw-inset-ring-shadow),
-    var(--tw-ring-offset-shadow),
-    var(--tw-ring-shadow),
-    var(--tw-shadow);
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--shadow-md);
 }
 
 @utility focus-ring-shell {
@@ -194,11 +258,8 @@ html {
     --tw-ring-shadow: 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     outline: 2px solid transparent;
     box-shadow:
-      var(--tw-inset-shadow),
-      var(--tw-inset-ring-shadow),
-      var(--tw-ring-offset-shadow),
-      var(--tw-ring-shadow),
-      var(--tw-shadow);
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+      var(--shadow-highlight-inset);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -263,10 +324,7 @@ html {
     radial-gradient(ellipse at center top, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0)),
     linear-gradient(180deg, var(--accent), var(--accent-secondary));
   box-shadow:
-    var(--tw-inset-shadow),
-    var(--tw-inset-ring-shadow),
-    var(--tw-ring-offset-shadow),
-    var(--tw-ring-shadow),
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
     var(--tw-shadow);
 
   &::after {
@@ -319,10 +377,7 @@ html {
       color-mix(in oklab, var(--accent-secondary) 90%, var(--background-inset) 10%)
     );
   box-shadow:
-    var(--tw-inset-shadow),
-    var(--tw-inset-ring-shadow),
-    var(--tw-ring-offset-shadow),
-    var(--tw-ring-shadow),
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
     var(--tw-shadow);
 
   &::after {

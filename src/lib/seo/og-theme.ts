@@ -6,7 +6,7 @@ type OgThemeColors = {
   foreground: string;
   foregroundMuted: string;
   accent: string;
-  border: string;
+  shadowHighlight: string;
 };
 
 function extractCustomProperties(selector: string): Map<string, string> {
@@ -113,5 +113,5 @@ export const ogThemeColors: OgThemeColors = {
   foreground: resolveCustomProperty("--foreground", darkThemeProperties),
   foregroundMuted: resolveCustomProperty("--foreground-muted", darkThemeProperties),
   accent: resolveCustomProperty("--accent", darkThemeProperties),
-  border: resolveCustomProperty("--border", darkThemeProperties),
+  shadowHighlight: resolveCustomProperty("--shadow-highlight-color", darkThemeProperties),
 };

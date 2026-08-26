@@ -14,11 +14,11 @@
     {#each content.items as item, index (`${item.company}-${item.period}`)}
       <li class="relative grid grid-cols-[2rem_minmax(0,1fr)] gap-3">
         {#if index < content.items.length - 1}
-          <div class="bg-border absolute top-8 -bottom-6 left-[calc(1rem-0.5px)] w-px" aria-hidden="true"></div>
+          <div class="guide absolute top-8 -bottom-6 left-[calc(1rem-0.5px)] w-px" aria-hidden="true"></div>
         {/if}
 
         <div
-          class="bg-background-inset inset-shadow relative z-10 flex size-8 items-center justify-center rounded-sm p-1"
+          class="bg-background-inset card-outer relative z-10 flex size-8 items-center justify-center rounded-sm p-1"
         >
           <div
             class="bg-background card flex size-6 items-center justify-center overflow-hidden rounded-[calc(var(--radius-base)*1.25)] p-1"
