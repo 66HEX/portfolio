@@ -1,8 +1,5 @@
 export type ColorRepresentation =
-  | string
-  | number
-  | readonly [number, number, number]
-  | { r: number; g: number; b: number };
+  string | number | readonly [number, number, number] | { r: number; g: number; b: number };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 

@@ -1,9 +1,4 @@
-import {
-  contactFieldNames,
-  uniqueNonEmptyMessages,
-  type ContactFieldErrors,
-  type ContactPayload,
-} from "../shared";
+import { contactFieldNames, uniqueNonEmptyMessages, type ContactFieldErrors, type ContactPayload } from "../shared";
 
 type ContactApiErrorBody = {
   message?: string;
@@ -26,9 +21,7 @@ function parseFieldErrors(value: unknown): ContactFieldErrors {
   const source = value as Record<string, unknown>;
   return Object.fromEntries(
     contactFieldNames.flatMap((field) =>
-      typeof source[field] === "string" && source[field].trim().length > 0
-        ? [[field, source[field].trim()]]
-        : [],
+      typeof source[field] === "string" && source[field].trim().length > 0 ? [[field, source[field].trim()]] : [],
     ),
   );
 }
