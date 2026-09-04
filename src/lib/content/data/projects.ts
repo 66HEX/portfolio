@@ -15,13 +15,13 @@ export const projectsData: { title: string; ctaLabel: string; githubCtaLabel: st
       githubHref: "https://github.com/motion-core/motion-core",
     },
     {
-      title: "Motion GPU",
-      description: "Minimal WebGPU framework.",
-      image: "/images/works/motiongpu.webp",
+      title: "Spektral",
+      description: "Minimalist WebGPU framework.",
+      image: "/images/works/spektral.webp",
       imageSrcset:
-        "/images/works/motiongpu-480.webp 480w, /images/works/motiongpu-768.webp 768w, /images/works/motiongpu.webp 1440w",
-      href: "https://motion-gpu.dev/",
-      githubHref: "https://github.com/motion-core/motion-gpu",
+        "/images/works/spektral-480.webp 480w, /images/works/spektral-768.webp 768w, /images/works/spektral.webp 1440w",
+      href: "https://spektral.madebyhex.com/",
+      githubHref: "https://github.com/kaltwrk/spektral",
     },
     {
       title: "Frame",

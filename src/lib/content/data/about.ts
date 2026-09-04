@@ -60,7 +60,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
     {
       content: [
         { type: "text", text: "Creator of " },
-        { type: "link", text: "Motion GPU", href: "https://motion-gpu.dev/" },
+        { type: "link", text: "Spektral (prev. Motion GPU)", href: "https://spektral.madebyhex.com/" },
         {
           type: "text",
           text: "—a minimalist WebGPU framework with Svelte, React 18/19, and Vue 3 adapters, emphasizing a predictable pipeline and clear boundaries for renderer re-rendering.",
