@@ -33,7 +33,7 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2093742126786060288/X7uPAYPK_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2097957694552608768/QVEBVtgR_normal.jpg"
     },
     "edit_control": {
       "edit_tweet_ids": [
@@ -1195,7 +1195,19 @@
       "is_blue_verified": true,
       "profile_image_shape": "Circle",
       "verified": false,
-      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1908492682470780928/0DQPZ7YR_normal.jpg"
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1908492682470780928/0DQPZ7YR_normal.jpg",
+      "highlighted_label": {
+        "badge": {
+          "url": "https://pbs.twimg.com/profile_images/1988658290218164226/NWAKaLGw_bigger.jpg"
+        },
+        "description": "Mixedbread",
+        "url": {
+          "url": "https://twitter.com/mixedbreadai",
+          "url_type": "DeepLink"
+        },
+        "user_label_display_type": "Badge",
+        "user_label_type": "BusinessLabel"
+      }
     },
     "edit_control": {
       "edit_tweet_ids": [
