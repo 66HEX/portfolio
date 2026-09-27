@@ -479,7 +479,7 @@
           </div>
 
           <div class="mt-1 flex flex-col gap-2">
-            <Button type="submit" size="lg" class="w-full" disabled={pending}>
+            <Button type="submit" size="lg" class="w-full text-sm" disabled={pending}>
               <span class="inline-flex" aria-hidden="true">
                 <IconRenderer
                   icon={submitFeedback === "success" ? IconCheck : submitFeedback === "error" ? IconClose : IconSend}

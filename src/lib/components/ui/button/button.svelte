@@ -10,7 +10,7 @@
         default:
           "isolate text-primary-foreground hover:saturate-200 bg-linear-to-b from-primary to-primary-to ring-1 ring-[color-mix(in_oklch,var(--primary),black_10%)] shadow-md",
         outline:
-          "shadow-xs dark:bg-input/30 hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
+          "shadow-xs bg-card dark:bg-input/30 hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:

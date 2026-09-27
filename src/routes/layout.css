@@ -18,7 +18,7 @@
 }
 
 :root {
-  --background: lab(98.26% 0 0);
+  --background: lab(96.26% 0 0);
   --foreground: lab(2.51107% 0.242703 -0.886115);
   --card: #fff;
   --card-foreground: lab(2.51107% 0.242703 -0.886115);
