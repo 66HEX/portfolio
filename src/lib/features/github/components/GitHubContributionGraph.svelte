@@ -64,6 +64,7 @@
     orientation="horizontal"
     bind:viewportRef={graph}
     focusableWhenScrollable
+    fadeHorizontalEdges
     class="w-full pb-3"
     onkeydown={handleGraphKeydown}
     viewportProps={{

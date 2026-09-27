@@ -29,6 +29,7 @@
     <ScrollArea
       orientation="horizontal"
       focusableWhenScrollable
+      fadeHorizontalEdges
       class="min-w-0"
       viewportProps={{
         role: "region",
