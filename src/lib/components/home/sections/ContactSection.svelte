@@ -317,7 +317,9 @@
             class={`text-destructive absolute right-1 z-10 [--hit-area-height:32px] [--hit-area-width:32px] ${placement === "top" ? "top-1" : "top-1/2 -translate-y-1/2"}`}
             aria-label="Validation error"
           >
-            <IconRenderer icon={IconWarningCircle} size={16} />
+            <span class="error-indicator-icon inline-flex" aria-hidden="true">
+              <IconRenderer icon={IconWarningCircle} size={16} />
+            </span>
           </Button>
         {/snippet}
       </Tooltip.Trigger>
@@ -516,6 +518,44 @@
 </SectionBlock>
 
 <style>
+  @media (prefers-reduced-motion: no-preference) {
+    .error-indicator-icon {
+      --shake-distance: 3px;
+      --shake-overshoot: 2px;
+      --shake-duration-a: 80ms;
+      --shake-duration-b: 60ms;
+      --shake-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+      animation: error-indicator-shake calc(var(--shake-duration-a) * 2 + var(--shake-duration-b) * 2) linear;
+    }
+  }
+
+  @keyframes error-indicator-shake {
+    0% {
+      transform: translateX(0);
+      animation-timing-function: var(--shake-ease);
+    }
+
+    28.57% {
+      transform: translateX(var(--shake-distance));
+      animation-timing-function: var(--shake-ease);
+    }
+
+    57.14% {
+      transform: translateX(calc(var(--shake-distance) * -1));
+      animation-timing-function: var(--shake-ease);
+    }
+
+    78.57% {
+      transform: translateX(var(--shake-overshoot));
+      animation-timing-function: var(--shake-ease);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
   .turnstile-clip {
     overflow: hidden;
     overflow: clip;
