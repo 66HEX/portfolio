@@ -4,11 +4,11 @@
   import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
 
   export const buttonVariants = tv({
-    base: "focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 rounded-md bg-clip-padding text-xs/relaxed font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:scale-[0.96] [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-[color,background-color,box-shadow,transform,scale,filter] outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    base: "hit-area relative touch-manipulation focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 rounded-md bg-clip-padding text-xs/relaxed font-medium focus-visible:ring-3 aria-invalid:ring-3 active:not-aria-[haspopup]:scale-[0.96] [&_svg:not([class*='size-'])]:size-4 group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap transition-[color,background-color,box-shadow,transform,scale,filter] outline-none select-none disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none disabled:after:content-none aria-disabled:after:content-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
     variants: {
       variant: {
         default:
-          "relative isolate overflow-hidden text-primary-foreground bg-linear-to-b from-primary to-primary-to ring-1 ring-[color-mix(in_oklch,var(--primary),black_10%)] shadow-md",
+          "isolate text-primary-foreground bg-linear-to-b from-primary to-primary-to ring-1 ring-[color-mix(in_oklch,var(--primary),black_10%)] shadow-md",
         outline:
           "shadow-xs dark:bg-input/30 hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:

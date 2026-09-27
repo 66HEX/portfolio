@@ -4,6 +4,19 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Keep compact controls visually unchanged. Dense contexts can cap either axis. */
+@utility hit-area {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, var(--hit-area-width, 44px));
+    height: max(100%, var(--hit-area-height, 44px));
+    translate: -50% -50%;
+  }
+}
+
 :root {
   --background: lab(98.26% 0 0);
   --foreground: lab(2.51107% 0.242703 -0.886115);

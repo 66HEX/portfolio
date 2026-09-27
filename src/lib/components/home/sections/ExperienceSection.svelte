@@ -56,7 +56,7 @@
               href={item.companyHref}
               target="_blank"
               rel="external noreferrer noopener"
-              class="text-foreground focus-visible:ring-ring/50 focus-visible:ring-offset-background w-fit rounded-xs text-base leading-none font-medium tracking-tight underline decoration-dotted underline-offset-3 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-offset-2 motion-reduce:transition-none"
+              class="hit-area text-foreground focus-visible:ring-ring/50 focus-visible:ring-offset-background relative w-fit touch-manipulation rounded-xs text-base leading-none font-medium tracking-tight underline decoration-dotted underline-offset-3 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-offset-2 motion-reduce:transition-none"
             >
               {item.company}
             </a>
@@ -75,7 +75,7 @@
             </p>
           </div>
 
-          <ul class="text-muted-foreground mt-3 list-disc space-y-2 pl-5 text-sm text-pretty leading-relaxed">
+          <ul class="text-muted-foreground mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-pretty">
             {#each item.highlights as highlight (`${item.company}-${highlight}`)}
               <li>{highlight}</li>
             {/each}

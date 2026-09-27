@@ -314,7 +314,7 @@
             {...props}
             variant="ghost"
             size="icon-sm"
-            class={`text-destructive absolute right-1 z-10 ${placement === "top" ? "top-1" : "top-1/2 -translate-y-1/2"}`}
+            class={`text-destructive absolute right-1 z-10 [--hit-area-height:32px] [--hit-area-width:32px] ${placement === "top" ? "top-1" : "top-1/2 -translate-y-1/2"}`}
             aria-label="Validation error"
           >
             <IconRenderer icon={IconWarningCircle} size={16} />

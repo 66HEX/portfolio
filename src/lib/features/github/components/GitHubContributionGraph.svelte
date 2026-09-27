@@ -101,11 +101,12 @@
             <div class="grid grid-rows-7 gap-1">
               {#each week as day (day.key)}
                 <Tooltip.Root>
+                  <!-- Each cell owns half of the 0.25rem gap, including its corners. -->
                   <Tooltip.Trigger
                     tabindex={-1}
                     aria-hidden="true"
                     class={cn(
-                      "block size-3 shrink-0 rounded-[3px]",
+                      "relative block size-3 shrink-0 rounded-[3px] after:absolute after:-inset-0.5 after:content-['']",
                       levelClasses[day.level],
                       day.inRange ? "" : "opacity-40",
                     )}
