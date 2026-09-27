@@ -29,10 +29,7 @@ export function getAllBlogPosts(): BlogPostMeta[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getBlogPostBySlug(slug: string): BlogPostMeta | undefined {
-  return getAllBlogPosts().find((post) => post.slug === slug);
-}
-
-export function getRecentBlogPosts(limit = 3): BlogPostMeta[] {
-  return getAllBlogPosts().slice(0, limit);
+export function getBlogPostBySlug(slug: string, includeDrafts = false): BlogPostMeta | undefined {
+  const post = allPosts.find((post) => post.slug === slug && (post.published || includeDrafts));
+  return post ? toBlogPostMeta(post) : undefined;
 }

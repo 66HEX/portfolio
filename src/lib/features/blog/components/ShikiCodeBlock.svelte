@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "./code-block.css";
   import Pre from "./markdown/Pre.svelte";
 
   type Props = {
@@ -25,17 +26,3 @@
     </div>
   {/if}
 </Pre>
-
-<style>
-  .shiki-dark {
-    display: none;
-  }
-
-  :global(html.dark) .shiki-light {
-    display: none;
-  }
-
-  :global(html.dark) .shiki-dark {
-    display: block;
-  }
-</style>

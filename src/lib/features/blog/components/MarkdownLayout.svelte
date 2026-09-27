@@ -1,8 +1,4 @@
 <script module lang="ts">
-  import MarkdownPre from "./markdown/MarkdownPre.svelte";
-
-  Reflect.set(globalThis, "__MarkdownPre", MarkdownPre);
-
   export { default as blockquote } from "./markdown/Blockquote.svelte";
   export { default as code } from "./markdown/Code.svelte";
   export { default as hr } from "./markdown/Divider.svelte";
@@ -10,6 +6,9 @@
   export { default as h2 } from "./markdown/H2.svelte";
   export { default as h3 } from "./markdown/H3.svelte";
   export { default as h4 } from "./markdown/H4.svelte";
+  export { default as h5 } from "./markdown/H5.svelte";
+  export { default as h6 } from "./markdown/H6.svelte";
+  export { default as img } from "./markdown/Image.svelte";
   export { default as a } from "./markdown/Link.svelte";
   export { default as li } from "./markdown/ListItem.svelte";
   export { default as ol } from "./markdown/OrderedList.svelte";
@@ -29,13 +28,16 @@
 </script>
 
 <script lang="ts">
+  import { Badge } from "$lib/components/ui/badge";
+  import { Button } from "$lib/components/ui/button";
+  import * as Tooltip from "$lib/components/ui/tooltip";
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
-  import IconRenderer from "$lib/content/IconRenderer.svelte";
-  import { IconArrowLeft } from "$lib/content/icons";
+  import IconRenderer from "$lib/components/icons/IconRenderer.svelte";
+  import { IconArrowLeft } from "$lib/components/icons/data";
   import FooterSection from "$lib/components/home/sections/FooterSection.svelte";
-  import { homepageContent } from "$lib/content/homepage-content";
-  import Separator from "$lib/components/ui/Separator.svelte";
+  import { footerData } from "$portfolio/sections/footer";
+  import SectionSeparator from "$lib/components/layout/SectionSeparator.svelte";
   import { buildBlogPostingJsonLd, buildSeoMeta, toJsonLdScript } from "$lib/seo/meta";
 
   type Props = {
@@ -44,9 +46,10 @@
     description?: string;
     date?: string;
     tags?: string[];
+    published?: boolean;
   };
 
-  let { children, title = "Blog post", description = "", date = "", tags = [] }: Props = $props();
+  let { children, title = "Blog post", description = "", date = "", tags = [], published = false }: Props = $props();
 
   const ogImagePath = $derived.by(() => {
     const normalizedPath = page.url.pathname.replace(/\/+$/, "");
@@ -69,6 +72,7 @@
       currentUrl: page.url,
       image: ogImagePath,
       type: "article",
+      robots: published ? "index,follow" : "noindex,nofollow",
       publishedTime: date,
       modifiedTime: date,
       tags,
@@ -110,50 +114,40 @@
 
 <div class="w-full">
   <div class="p-4">
-    <a
-      href={resolve("/")}
-      class="text-foreground-muted hover:text-foreground focus-visible:ring-accent focus-visible:ring-offset-background inline-flex items-center gap-1.5 rounded-xs text-xs leading-none font-medium transition-[color,box-shadow] duration-150 ease-out outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
-      aria-label="Back to home"
-    >
+    <Button href={resolve("/")} variant="ghost" size="sm" aria-label="Back to home">
       <IconRenderer icon={IconArrowLeft} size={12} />
       <span>Back to home</span>
-    </a>
-    <Separator class="my-4" />
-    <div class="text-foreground-muted flex flex-wrap items-center gap-2 pt-4 text-xs">
+    </Button>
+    <SectionSeparator class="my-4" />
+    <div class="text-muted-foreground flex flex-wrap items-center gap-2 text-xs">
       {#if date}
         <time datetime={date}>{date}</time>
       {/if}
     </div>
+    {#if !published}<Badge variant="secondary" class="mt-3">Draft preview</Badge>{/if}
     <div class="mt-3">
-      <h1 class="text-foreground font-display text-xl leading-none">
+      <h1 class="text-foreground font-display text-xl leading-none font-medium tracking-tight">
         {title}
       </h1>
       {#if description}
-        <p class="text-foreground-muted mt-1 text-sm">
+        <p class="text-muted-foreground mt-2 text-sm">
           {description}
         </p>
       {/if}
       {#each tags as tag, index (`${tag}-${index}`)}
-        <div
-          class="card-outer bg-background-inset text-foreground relative mt-3 mr-1 inline-flex w-fit rounded-sm p-1 font-mono text-xs font-medium whitespace-nowrap"
-        >
-          <code class="bg-background card rounded-[calc(var(--radius-base)*1.25)] px-1.5 py-0.5">
-            {tag}
-          </code>
-        </div>
+        <Badge variant="secondary" class="mt-3 mr-1 font-mono">{tag}</Badge>
       {/each}
     </div>
   </div>
-  <Separator class="mb-4" />
-  <article data-doc-content class="text-foreground-muted mt-3 w-full space-y-3 p-4 text-sm [&>h2:first-child]:mt-0">
-    {@render children?.()}
+  <SectionSeparator class="mb-4" />
+  <article
+    data-doc-content
+    class="text-muted-foreground mt-3 w-full space-y-3 p-4 text-sm [&>[data-heading]:first-child]:mt-0"
+  >
+    <Tooltip.Provider delayDuration={350} skipDelayDuration={100}>
+      {@render children?.()}
+    </Tooltip.Provider>
   </article>
-  <Separator class="my-4" />
-  <FooterSection
-    headline={homepageContent.footer.headline}
-    description={homepageContent.footer.description}
-    socialLinks={homepageContent.footer.socialLinks}
-    copyrightName={homepageContent.footer.copyrightName}
-    copyrightSuffix={homepageContent.footer.copyrightSuffix}
-  />
+  <SectionSeparator class="my-4" />
+  <FooterSection content={footerData.footer} />
 </div>

@@ -1,4 +1,4 @@
-import { homepageContent } from "$lib/content/homepage-content";
+import { homepageContent } from "$lib/homepage";
 import { getAllBlogPosts } from "$lib/features/blog/server/posts";
 import type { RequestHandler } from "./$types";
 

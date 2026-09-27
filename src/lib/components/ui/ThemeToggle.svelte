@@ -1,48 +1,30 @@
 <script lang="ts">
-  import { cn } from "$lib/utils/cn";
   import { themeStore } from "$lib/stores/theme.svelte";
-  import Tooltip from "$lib/components/ui/Tooltip.svelte";
-  import IconRenderer from "$lib/content/IconRenderer.svelte";
-  import { IconMoon, IconSun } from "$lib/content/icons";
+  import { Button } from "$lib/components/ui/button";
+  import * as Tooltip from "$lib/components/ui/tooltip";
+  import IconRenderer from "$lib/components/icons/IconRenderer.svelte";
+  import { IconMoon, IconSun } from "$lib/components/icons/data";
 
-  type Props = {
-    class?: string;
-  };
-
-  let { class: className = "" }: Props = $props();
+  let { class: className }: { class?: string } = $props();
   const isDark = $derived(themeStore.isDark);
   const ariaLabel = $derived(isDark ? "Switch to light mode" : "Switch to dark mode");
 </script>
 
-<Tooltip content={ariaLabel}>
-  <div class="bg-background-inset card-outer focus-ring-shell rounded-sm p-1">
-    <button
-      type="button"
-      class={cn(
-        "hit-target group text-foreground bg-background card flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out outline-none active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
-        className,
-      )}
-      onclick={themeStore.toggle}
-      aria-label={ariaLabel}
-      aria-pressed={isDark}
-    >
-      <span class="sr-only">{ariaLabel}</span>
-      <span
-        class={cn(
-          "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale] motion-reduce:transition-none motion-reduce:will-change-auto",
-          !themeStore.isDark ? "blur-0 scale-100 opacity-100" : " scale-[0.25] opacity-0 blur-xs",
-        )}
+<Tooltip.Root>
+  <Tooltip.Trigger>
+    {#snippet child({ props })}
+      <Button
+        {...props}
+        variant="outline"
+        size="icon"
+        class={className}
+        onclick={themeStore.toggle}
+        aria-label={ariaLabel}
+        aria-pressed={isDark}
       >
-        <IconRenderer icon={IconSun} size={16} />
-      </span>
-      <span
-        class={cn(
-          "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale] motion-reduce:transition-none motion-reduce:will-change-auto",
-          !themeStore.isDark ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
-        )}
-      >
-        <IconRenderer icon={IconMoon} size={16} />
-      </span>
-    </button>
-  </div>
-</Tooltip>
+        <IconRenderer icon={isDark ? IconMoon : IconSun} size={16} />
+      </Button>
+    {/snippet}
+  </Tooltip.Trigger>
+  <Tooltip.Content sideOffset={6}>{ariaLabel}</Tooltip.Content>
+</Tooltip.Root>

@@ -16,10 +16,12 @@
 </script>
 
 <script lang="ts">
-  import type { HomepageContent } from "$lib/content/homepage-content";
+  import type { HomepageContent } from "$lib/homepage";
   import { onMount } from "svelte";
   import GitHubContributionGraph from "./GitHubContributionGraph.svelte";
+  import * as Card from "$lib/components/ui/card";
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
+  import CardWrapper from "$lib/components/layout/CardWrapper.svelte";
 
   type GitHubContribution = {
     date: string;
@@ -88,12 +90,18 @@
 </script>
 
 <SectionBlock>
-  <div class="card-outer bg-background-inset rounded-lg p-1.5">
-    <GitHubContributionGraph {username} data={contributionData} text={graphText} />
-    {#if !apiConfigured}
-      <p class="text-foreground-muted mt-2 text-base">
-        {missingTokenMessage}
-      </p>
-    {/if}
-  </div>
+  <CardWrapper>
+    <Card.Root
+      class="has-[[data-scrollable]:focus-visible]:ring-ring/50 transition-shadow has-[[data-scrollable]:focus-visible]:ring-[3px] has-[[data-scrollable]:focus-visible]:outline-1"
+    >
+      <Card.Content>
+        <GitHubContributionGraph {username} data={contributionData} text={graphText} />
+        {#if !apiConfigured}
+          <p class="text-muted-foreground mt-2 text-base">
+            {missingTokenMessage}
+          </p>
+        {/if}
+      </Card.Content>
+    </Card.Root>
+  </CardWrapper>
 </SectionBlock>

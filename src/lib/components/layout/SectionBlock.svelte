@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { cn } from "$lib/utils/cn";
+  import { cn } from "$lib/utils";
+  import SectionSeparator from "./SectionSeparator.svelte";
 
   type Props = {
     title?: string;
@@ -21,15 +22,31 @@
       .replace(/^-+|-+$/g, "");
   }
 
-  const sectionHeadingId = $derived(title ? `section-${slugifyTitle(title) || "content"}` : undefined);
+  const sectionHeadingId = $derived(!header && title ? `section-${slugifyTitle(title) || "content"}` : undefined);
 </script>
 
-<section class={cn("flex w-full flex-col gap-4 p-4", className)} aria-labelledby={sectionHeadingId}>
-  {#if header}
-    {@render header()}
-  {:else if title}
-    <h2 id={sectionHeadingId} class={cn("text-foreground font-display text-lg leading-none", titleClass)}>{title}</h2>
+<section
+  class={cn("w-full", className)}
+  aria-labelledby={sectionHeadingId}
+  aria-label={header && title ? title : undefined}
+>
+  {#if header || title}
+    <header class="flex flex-col gap-4 p-4">
+      {#if header}
+        {@render header()}
+      {:else}
+        <h2
+          id={sectionHeadingId}
+          class={cn("text-foreground font-display text-lg leading-none font-medium tracking-tight", titleClass)}
+        >
+          {title}
+        </h2>
+      {/if}
+    </header>
+    <SectionSeparator />
   {/if}
 
-  {@render children?.()}
+  <div class="flex w-full flex-col gap-4 p-4">
+    {@render children?.()}
+  </div>
 </section>

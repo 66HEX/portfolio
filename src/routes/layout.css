@@ -1,48 +1,217 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@font-face {
-  font-family: "APK Avionica";
-  src: url("../lib/assets/fonts/APK-Avionica.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+:root {
+  --background: lab(98.26% 0 0);
+  --foreground: lab(2.51107% 0.242703 -0.886115);
+  --card: #fff;
+  --card-foreground: lab(2.51107% 0.242703 -0.886115);
+  --popover: #fff;
+  --popover-foreground: lab(2.51107% 0.242703 -0.886115);
+  --border: var(--foreground);
+  --border-subtle: color-mix(in oklab, var(--border) 10%, transparent);
+  --input: lab(90.6853% 0.399232 -1.45452);
+  --ring: lab(32.4486% 49.2217 -84.6695);
+  --primary: lab(63% 38.3129 -81.9673);
+  --primary-to: lab(53% 38.3129 -81.9673);
+  --primary-foreground: #fff;
+  --secondary: color-mix(in oklab, lab(2.75381% 0 0) 10%, transparent);
+  --secondary-foreground: lab(2.75381% 0 0);
+  --muted: color-mix(in oklab, lab(2.75381% 0 0) 5%, transparent);
+  --muted-foreground: lab(35.1166% 1.78212 -6.1173);
+  --accent: lab(96.1634% 0.0993311 -0.364041);
+  --accent-foreground: lab(15.7305% 0.613764 -2.16959);
+  --destructive: lab(48.4493% 77.4328 61.5452);
+  --chart-1: #8d9778;
+  --chart-2: lab(48.496% 0 0);
+  --chart-3: lab(34.924% 0 0);
+  --chart-4: lab(27.036% 0 0);
+  --chart-5: lab(15.204% 0 -0.00000596046);
+  --sidebar: lab(98.26% 0 0);
+  --sidebar-foreground: lab(2.75381% 0 0);
+  --sidebar-primary: lab(7.78201% -0.0000149012 0);
+  --sidebar-primary-foreground: lab(98.26% 0 0);
+  --sidebar-accent: lab(96.52% -0.0000298023 0.0000119209);
+  --sidebar-accent-foreground: lab(7.78201% -0.0000149012 0);
+  --sidebar-border: lab(90.952% 0 -0.0000119209);
+  --sidebar-ring: lab(66.128% -0.0000298023 0.0000119209);
+  --radius: 0.625rem;
+
+  --shadow-dark: var(--border);
+  --shadow-light: var(--card);
 }
 
-@font-face {
-  font-family: "APK Galeria";
-  src: url("../lib/assets/fonts/APK-Galeria-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+.dark {
+  --background: lab(7.51107% 0.242703 -0.886115);
+  --foreground: #fff;
+  --card: color-mix(in oklab, lab(22.7305% 0.613764 -2.16959) 65%, #000);
+  --card-foreground: #fff;
+  --popover: lab(2.51107% 0.242703 -0.886115);
+  --popover-foreground: #fff;
+  --border-subtle: color-mix(in oklab, var(--border) 7.5%, transparent);
+  --input: lab(25.7305% 0.613764 -2.16959);
+  --ring: lab(59.866% 22.4834 -64.4485);
+  --primary: lab(53% 38.3129 -81.9673);
+  --primary-to: lab(43% 38.3129 -81.9673);
+  --primary-foreground: #fff;
+  --secondary: lab(15.7305% 0.613764 -2.16959);
+  --secondary-foreground: #fff;
+  --muted: lab(15.7305% 0.613764 -2.16959);
+  --muted-foreground: lab(65.6464% 1.53497 -5.42429);
+  --accent: lab(15.7305% 0.613764 -2.16959);
+  --accent-foreground: #fff;
+  --destructive: lab(70.4273% 87.2623 53.7441);
+  --destructive-foreground: #fff;
+  --chart-1: #8d9778;
+  --chart-2: lab(70.5521% -66.5147 45.8073);
+  --chart-3: lab(76.3898% 14.5258 98.4589);
+  --chart-4: lab(52.0183% 66.11 -78.2316);
+  --chart-5: lab(56.9303% 76.8162 -8.07021);
+  --sidebar: lab(7.78201% -0.0000149012 0);
+  --sidebar-foreground: lab(98.26% 0 0);
+  --sidebar-primary: lab(36.9089% 35.0961 -85.6872);
+  --sidebar-primary-foreground: lab(98.26% 0 0);
+  --sidebar-accent: lab(15.204% 0 -0.00000596046);
+  --sidebar-accent-foreground: lab(98.26% 0 0);
+  --sidebar-border: lab(100% 0 0/0.1);
+  --sidebar-ring: lab(48.496% 0 0);
+  --shadow-dark: lab(0% 0 0);
+  --shadow-light: var(--border);
 }
 
-@font-face {
-  font-family: "APK Galeria";
-  src: url("../lib/assets/fonts/APK-Galeria-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
+@theme inline {
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-to: var(--primary-to);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border-subtle);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --shadow-2xs:
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 7.45%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent);
+  --shadow-xs:
+    0px 1px 1px -0.5px color-mix(in oklab, var(--shadow-dark) 18.82%, transparent),
+    0px 2px 2px -1px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
+    0px 4px 4px -2px color-mix(in oklab, var(--shadow-dark) 1.96%, transparent),
+    0px 8px 4px -3px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset;
+  --shadow-sm:
+    0px 1px 2px -0.5px color-mix(in oklab, var(--shadow-dark) 18.82%, transparent),
+    0px 3px 3px -1px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
+    0px 6px 5px -2px color-mix(in oklab, var(--shadow-dark) 1.96%, transparent),
+    0px 15px 6px -3px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset;
+  --shadow-md:
+    0px 1px 3px 0px color-mix(in oklab, var(--shadow-dark) 5.1%, transparent),
+    0px 5px 5px -1px color-mix(in oklab, var(--shadow-dark) 5.1%, transparent),
+    0px 11px 6px -2px color-mix(in oklab, var(--shadow-dark) 3.14%, transparent),
+    0px 19px 8px -3px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent);
+  --shadow-lg:
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 2px 5px -1px color-mix(in oklab, var(--shadow-dark) 5.88%, transparent),
+    0px 8px 12px -1px color-mix(in oklab, var(--shadow-dark) 5.1%, transparent),
+    0px 22px 16px -2px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
+    0px 32px 18px -2px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent);
+  --shadow-xl:
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 4px 8px -1px color-mix(in oklab, var(--shadow-dark) 5.88%, transparent),
+    0px 15px 15px -1px color-mix(in oklab, var(--shadow-dark) 5.1%, transparent),
+    0px 33px 20px -2px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
+    0px 58px 23px -2px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent);
+  --shadow-2xl:
+    0px 13px 29px 0px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 53px 53px 0px color-mix(in oklab, var(--shadow-dark) 5.88%, transparent),
+    0px 119px 71px 0px color-mix(in oklab, var(--shadow-dark) 3.14%, transparent),
+    0px 211px 85px 0px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
+    0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset;
 }
 
-@font-face {
-  font-family: "Berkeley Mono";
-  src: url("../lib/assets/fonts/BerkeleyMono-Regular.woff2") format("woff2");
-  font-weight: 200 800;
-  font-style: normal;
-  font-display: swap;
-}
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
 
-html {
-  scroll-behavior: smooth;
+  html {
+    scroll-behavior: smooth;
+    font-optical-sizing: auto;
+    font-feature-settings:
+      "liga" 1,
+      "calt" 1;
+    font-feature-settings: "cv11";
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
@@ -52,363 +221,5 @@ html {
     scroll-behavior: auto !important;
     transition-delay: 0ms !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-:root {
-  --base-hue: 265;
-  --radius-base: 0.275rem;
-  --background-inset: oklch(0.9764 0.0013 var(--base-hue));
-  --background: oklch(1 0 0);
-  --background-muted: oklch(0.9264 0.002 var(--base-hue));
-  --fixed-light: oklch(1 0 0);
-  --foreground: oklch(0.1881 0.006 var(--base-hue));
-  --foreground-muted: oklch(0.5493 0.0081 var(--base-hue));
-  --accent: oklch(0.6996 0.201959 44.4414);
-  --accent-secondary: oklch(0.5096 0.151959 44.4414);
-  /* Official Twitter/X blue, reserved for verified-account badges. */
-  --verified: #1d9bf0;
-  --warning: oklch(0.668 0.18 27.518);
-
-  --shadow-color: oklch(0 0.0013 var(--base-hue));
-  --shadow-highlight-color: oklch(1 0.013 var(--base-hue));
-  --guide-ink: oklch(from var(--shadow-color) l c h / 0.06);
-  --guide-duotone-ink: oklch(from var(--shadow-color) l c h / 0.06);
-  --guide-duotone-glint: var(--shadow-highlight-color);
-}
-
-.dark {
-  --background-inset: oklch(0.1599 0.0039 var(--base-hue));
-  --background: oklch(0.2074 0.0056 var(--base-hue));
-  --background-muted: oklch(0.2617 0.0073 var(--base-hue));
-  --foreground: oklch(0.9674 0.0013 var(--base-hue));
-  --foreground-muted: oklch(0.669 0.0107 var(--base-hue));
-  --accent: oklch(0.6996 0.181959 44.4414);
-  --accent-secondary: oklch(0.5096 0.131959 44.4414);
-  --warning: oklch(0.708 0.18 19.571);
-  --guide-ink: oklch(from var(--shadow-highlight-color) l c h / 0.08);
-  --guide-duotone-ink: var(--shadow-color);
-  --guide-duotone-glint: oklch(from var(--shadow-highlight-color) l c h / 0.08);
-}
-
-@theme inline {
-  --font-display: "APK Avionica";
-  --font-sans: "APK Galeria";
-  --font-mono: "Berkeley Mono";
-
-  --color-background-inset: var(--background-inset);
-  --color-background: var(--background);
-  --color-background-muted: var(--background-muted);
-  --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-fixed-light: var(--fixed-light);
-  --color-accent: var(--accent);
-  --color-accent-secondary: var(--accent-secondary);
-  --color-verified: var(--verified);
-  --color-warning: var(--warning);
-
-  --radius-xs: calc(var(--radius-base) * 1);
-  --radius-sm: calc(var(--radius-base) * 2);
-  --radius-md: calc(var(--radius-base) * 3);
-  --radius-lg: calc(var(--radius-base) * 4);
-  --radius-xl: calc(var(--radius-base) * 6);
-  --radius-2xl: calc(var(--radius-base) * 8);
-  --radius-3xl: calc(var(--radius-base) * 12);
-  --radius-4xl: calc(var(--radius-base) * 16);
-  --radius-full: 9999px;
-
-  --shadow-inset:
-    0px 1px 3px 0px oklch(from var(--shadow-color) l c h / 0.051) inset,
-    0px 5px 5px -1px oklch(from var(--shadow-color) l c h / 0.051) inset,
-    0px 11px 6px -2px oklch(from var(--shadow-color) l c h / 0.031) inset,
-    0px 19px 8px -3px oklch(from var(--shadow-color) l c h / 0.012) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039) inset;
-
-  --shadow-highlight-inset:
-    0px 1px 3px 0px oklch(from var(--shadow-color) l c h / 0.051) inset,
-    0px 5px 5px -1px oklch(from var(--shadow-color) l c h / 0.051) inset,
-    0px 11px 6px -2px oklch(from var(--shadow-color) l c h / 0.031) inset,
-    0px 19px 8px -3px oklch(from var(--shadow-color) l c h / 0.012) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px -1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039) inset;
-
-  --shadow-2xs:
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.075),
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071);
-
-  --shadow-xs:
-    0px 1px 1px -0.5px oklch(from var(--shadow-color) l c h / 0.188),
-    0px 2px 2px -1px oklch(from var(--shadow-color) l c h / 0.039),
-    0px 4px 4px -2px oklch(from var(--shadow-color) l c h / 0.02),
-    0px 8px 4px -3px oklch(from var(--shadow-color) l c h / 0.012),
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071),
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039),
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset;
-
-  --shadow-sm:
-    0px 1px 2px -0.5px oklch(from var(--shadow-color) l c h / 0.188),
-    0px 3px 3px -1px oklch(from var(--shadow-color) l c h / 0.039),
-    0px 6px 5px -2px oklch(from var(--shadow-color) l c h / 0.02),
-    0px 15px 6px -3px oklch(from var(--shadow-color) l c h / 0.012),
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071),
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039),
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset;
-
-  --shadow-md:
-    0px 1px 3px 0px oklch(from var(--shadow-color) l c h / 0.051),
-    0px 5px 5px -1px oklch(from var(--shadow-color) l c h / 0.051),
-    0px 11px 6px -2px oklch(from var(--shadow-color) l c h / 0.031),
-    0px 19px 8px -3px oklch(from var(--shadow-color) l c h / 0.012),
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.071),
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.039);
-
-  --shadow-lg:
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.102),
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.102),
-    0px 2px 5px -1px oklch(from var(--shadow-color) l c h / 0.059),
-    0px 8px 12px -1px oklch(from var(--shadow-color) l c h / 0.051),
-    0px 22px 16px -2px oklch(from var(--shadow-color) l c h / 0.039),
-    0px 32px 18px -2px oklch(from var(--shadow-color) l c h / 0.012);
-
-  --shadow-xl:
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset,
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.102),
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.102),
-    0px 4px 8px -1px oklch(from var(--shadow-color) l c h / 0.059),
-    0px 15px 15px -1px oklch(from var(--shadow-color) l c h / 0.051),
-    0px 33px 20px -2px oklch(from var(--shadow-color) l c h / 0.039),
-    0px 58px 23px -2px oklch(from var(--shadow-color) l c h / 0.012);
-
-  --shadow-2xl:
-    0px 13px 29px 0px oklch(from var(--shadow-color) l c h / 0.071),
-    0px 53px 53px 0px oklch(from var(--shadow-color) l c h / 0.059),
-    0px 119px 71px 0px oklch(from var(--shadow-color) l c h / 0.031),
-    0px 211px 85px 0px oklch(from var(--shadow-color) l c h / 0.012),
-    0px 0px 0px 1px oklch(from var(--shadow-color) l c h / 0.102),
-    0px 1px 0px 0px oklch(from var(--shadow-color) l c h / 0.102),
-    0px 0px 0px 1px oklch(from var(--shadow-highlight-color) l c h / 0.051) inset,
-    0px 1px 0px 0px oklch(from var(--shadow-highlight-color) l c h / 0.122) inset;
-}
-
-@layer base {
-  body {
-    @apply bg-background-inset text-foreground font-sans antialiased;
-  }
-
-  ::selection {
-    background-color: var(--color-accent);
-    color: var(--color-foreground);
-  }
-}
-
-@utility guide {
-  border-color: var(--guide-ink);
-  background-color: var(--guide-ink);
-  background-clip: padding-box;
-}
-
-@utility guide-duotone {
-  background-color: var(--guide-duotone-ink);
-  box-shadow: 0 1px var(--guide-duotone-glint);
-}
-
-@utility card-outer {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  box-shadow:
-    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--shadow-inset);
-}
-
-@utility inset-shadow {
-  position: relative;
-  isolation: isolate;
-  box-shadow:
-    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--shadow-highlight-inset);
-}
-
-@utility card {
-  box-shadow:
-    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--shadow-md);
-}
-
-@utility focus-ring-shell {
-  transition: box-shadow 150ms ease-out;
-
-  &:has(:focus-visible) {
-    --tw-ring-color: var(--accent);
-    --tw-ring-offset-color: var(--background);
-    --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-    --tw-ring-shadow: 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-    outline: 2px solid transparent;
-    box-shadow:
-      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-      var(--shadow-highlight-inset);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-}
-
-/*
- * Increase pointer targets without changing the controls' visual dimensions.
- * Keep the compact variant within the 36px rhythm used by adjacent icon groups
- * so neighbouring targets meet at their edges instead of overlapping.
- */
-.hit-target,
-.hit-target-compact {
-  --hit-target-inline-size: 2.75rem;
-  --hit-target-block-size: 2.75rem;
-
-  position: relative;
-}
-
-.hit-target-compact {
-  --hit-target-inline-size: 2.25rem;
-  --hit-target-block-size: 2.5rem;
-}
-
-.hit-target::before,
-.hit-target-compact::before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  inline-size: max(100%, var(--hit-target-inline-size));
-  block-size: max(100%, var(--hit-target-block-size));
-  content: "";
-  transform: translate(-50%, -50%);
-}
-
-.hit-target-gap-1 {
-  position: relative;
-}
-
-.hit-target-gap-1::before {
-  position: absolute;
-  inset: -0.125rem;
-  content: "";
-}
-
-.btn-primary {
-  position: relative;
-  appearance: none;
-}
-
-.btn-primary {
-  overflow: hidden;
-  color: var(--fixed-light);
-  text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
-  --tw-inset-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22);
-  --tw-shadow: var(--shadow-md);
-  transition:
-    filter 150ms ease-out,
-    box-shadow 150ms ease-out;
-  background:
-    radial-gradient(ellipse at center top, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0)),
-    linear-gradient(180deg, var(--accent), var(--accent-secondary));
-  box-shadow:
-    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--tw-shadow);
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    border: 1.5px solid transparent;
-    -webkit-mask:
-      linear-gradient(black, black) padding-box,
-      linear-gradient(black, black);
-    mask:
-      linear-gradient(black, black) padding-box,
-      linear-gradient(black, black);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    background: linear-gradient(
-        180deg,
-        rgb(255 255 255 / 0.72),
-        rgb(0 0 0 / 0.24) 41%,
-        rgb(0 0 0 / 0.24) 75%,
-        rgb(255 255 255 / 0.28)
-      )
-      border-box;
-    mix-blend-mode: overlay;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      filter: brightness(1.08) saturate(1.04);
-    }
-  }
-}
-
-.dark .btn-primary {
-  overflow: hidden;
-  color: var(--fixed-light);
-  text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
-  --tw-inset-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22);
-  --tw-shadow: var(--shadow-md);
-  transition:
-    filter 150ms ease-out,
-    box-shadow 150ms ease-out;
-  background:
-    radial-gradient(ellipse at center top, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0)),
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--accent) 90%, var(--background-inset) 10%),
-      color-mix(in oklab, var(--accent-secondary) 90%, var(--background-inset) 10%)
-    );
-  box-shadow:
-    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--tw-shadow);
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    border: 1.5px solid transparent;
-    -webkit-mask:
-      linear-gradient(black, black) padding-box,
-      linear-gradient(black, black);
-    mask:
-      linear-gradient(black, black) padding-box,
-      linear-gradient(black, black);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    background: linear-gradient(
-        180deg,
-        rgb(255 255 255 / 0.72),
-        rgb(0 0 0 / 0.24) 41%,
-        rgb(0 0 0 / 0.24) 75%,
-        rgb(255 255 255 / 0.28)
-      )
-      border-box;
-    mix-blend-mode: overlay;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      filter: brightness(1.08) saturate(1.04);
-    }
   }
 }

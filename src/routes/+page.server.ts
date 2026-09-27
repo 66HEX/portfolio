@@ -1,8 +1,10 @@
+import { portfolio } from "$portfolio/config";
+import { testimonialsData } from "$portfolio/sections/testimonials";
 import { env } from "$env/dynamic/private";
-import { getRecentBlogPosts } from "$lib/features/blog/server/posts";
+import { getRecentWritingPosts } from "$lib/features/writing/server/posts";
 import { GITHUB_USERNAME, getGitHubContributions } from "$lib/features/github/server/contributions";
 import type { TweetData } from "$lib/features/tweets/server/fetch-tweet";
-import tweetsCache from "$lib/content/data/tweets-cache.json";
+import tweetsCache from "$portfolio/cache/tweets.json";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch, setHeaders, platform }) => {
@@ -10,14 +12,22 @@ export const load: PageServerLoad = async ({ fetch, setHeaders, platform }) => {
     "cache-control": "public, max-age=60, s-maxage=300, stale-while-revalidate=600",
   });
 
-  const recentBlogPosts = getRecentBlogPosts(3);
+  const recentWritingPosts = portfolio.sections.includes("writing") ? getRecentWritingPosts() : [];
   const githubToken = platform?.env?.GITHUB_TOKEN ?? env.GITHUB_TOKEN;
-  const githubContributions = await getGitHubContributions(fetch, githubToken);
+  const githubContributions = portfolio.sections.includes("github")
+    ? await getGitHubContributions(fetch, githubToken)
+    : null;
 
-  const tweets = tweetsCache as TweetData[];
+  const cachedTweets = new Map((tweetsCache as TweetData[]).map((tweet) => [tweet.id_str, tweet]));
+  const tweets = portfolio.sections.includes("testimonials")
+    ? testimonialsData.tweetIds.flatMap((id) => {
+        const tweet = cachedTweets.get(id);
+        return tweet ? [tweet] : [];
+      })
+    : [];
 
   return {
-    recentBlogPosts,
+    recentWritingPosts,
     githubUsername: GITHUB_USERNAME,
     githubApiConfigured: Boolean(githubToken),
     githubContributions,

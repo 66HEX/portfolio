@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { Button } from "$lib/components/ui/button";
+  import ActionTooltip from "$lib/components/action-tooltip/ActionTooltip.svelte";
+  import CopyFeedbackIcon from "$lib/components/copy-feedback/CopyFeedbackIcon.svelte";
   import { onDestroy } from "svelte";
-  import { cn } from "$lib/utils/cn";
-  import IconRenderer from "$lib/content/IconRenderer.svelte";
-  import { IconCheck, IconCopy } from "$lib/content/icons";
+  import { IconCopy } from "$lib/components/icons/data";
 
   type Props = {
     code: string;
@@ -58,36 +59,21 @@
   });
 </script>
 
-<div class="bg-background-inset card-outer focus-ring-shell size-8 rounded-sm p-1">
-  <button
-    type="button"
-    class={cn(
-      "hit-target group card bg-background text-foreground relative flex size-6 items-center justify-center rounded-[calc(var(--radius-base)*1.25)] transition-[scale] duration-150 ease-out outline-none active:scale-[0.95] motion-reduce:transition-none motion-reduce:active:scale-100",
-      className,
-    )}
-    onclick={(event) => {
-      event.stopPropagation();
-      event.preventDefault();
-      handleCopy(code);
-    }}
-    aria-label={copied ? "Copied code" : "Copy code"}
-  >
-    <span class="sr-only">{copied ? "Copied code" : "Copy code"}</span>
-    <span
-      class={cn(
-        "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale] motion-reduce:transition-none motion-reduce:will-change-auto",
-        copied ? "scale-[0.25] opacity-0 blur-xs" : "blur-0 scale-100 opacity-100",
-      )}
+<ActionTooltip content={copied ? "Copied code" : "Copy code"} disableCloseOnTriggerClick>
+  {#snippet trigger({ props })}
+    <Button
+      {...props}
+      variant="ghost"
+      size="icon"
+      class={className}
+      onclick={(event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        handleCopy(code);
+      }}
+      aria-label={copied ? "Copied code" : "Copy code"}
     >
-      <IconRenderer icon={IconCopy} size={16} />
-    </span>
-    <span
-      class={cn(
-        "absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale] motion-reduce:transition-none motion-reduce:will-change-auto",
-        copied ? "blur-0 scale-100 opacity-100" : " scale-[0.25] opacity-0 blur-xs",
-      )}
-    >
-      <IconRenderer icon={IconCheck} size={16} />
-    </span>
-  </button>
-</div>
+      <CopyFeedbackIcon {copied} idleIcon={IconCopy} />
+    </Button>
+  {/snippet}
+</ActionTooltip>

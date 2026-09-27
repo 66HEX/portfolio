@@ -1,3 +1,4 @@
+import { portfolio } from "$portfolio/config";
 import { dev } from "$app/environment";
 import type { Handle } from "@sveltejs/kit";
 
@@ -31,7 +32,9 @@ function buildCspHeaderValue(): string {
 const cspHeaderValue = buildCspHeaderValue();
 
 export const handle: Handle = async ({ event, resolve }) => {
-  const response = await resolve(event);
+  const response = await resolve(event, {
+    transformPageChunk: ({ html }) => html.replace("%portfolio.language%", portfolio.language),
+  });
 
   if (!response.headers.has("Content-Security-Policy")) {
     response.headers.set("Content-Security-Policy", cspHeaderValue);

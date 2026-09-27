@@ -1,16 +1,25 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import { cn } from "$lib/utils/cn";
+  import * as Table from "$lib/components/ui/table";
 
-  type ComponentProps = {
-    class?: string;
-    children?: Snippet;
-    [prop: string]: unknown;
-  };
+  import { cn } from "$lib/utils";
+  import type { HTMLThAttributes } from "svelte/elements";
 
-  const { children, class: className = "", ...restProps }: ComponentProps = $props();
+  let { children, align, class: className, ...restProps }: HTMLThAttributes = $props();
 </script>
 
-<th {...restProps} class={cn("text-foreground px-4 py-2 text-left align-middle text-sm font-medium", className)}>
+<Table.Head
+  {...restProps}
+  {align}
+  class={cn(
+    "px-4 py-2 text-sm",
+    {
+      "text-left": align === "left",
+      "text-center": align === "center",
+      "text-right": align === "right",
+      "text-justify": align === "justify",
+    },
+    className,
+  )}
+>
   {@render children?.()}
-</th>
+</Table.Head>

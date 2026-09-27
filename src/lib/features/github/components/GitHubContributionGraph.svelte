@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Tooltip from "$lib/components/ui/Tooltip.svelte";
-  import { cn } from "$lib/utils/cn";
+  import * as Tooltip from "$lib/components/ui/tooltip";
+  import { ScrollArea } from "$lib/components/ui/scroll-area";
+  import { cn } from "$lib/utils";
   import type { ContributionInput, ContributionLevel, GraphText } from "../types";
   import { ContributionGraphState } from "../utils/contribution-logic.svelte";
 
@@ -24,16 +25,18 @@
     tooltipOnLabel: "on",
   };
 
-  const levelClasses = ["bg-background-muted", "bg-accent/10", "bg-accent/35", "bg-accent/60", "bg-accent/80"] as const;
+  const levelClasses = ["bg-muted", "bg-primary/20", "bg-primary/40", "bg-primary/65", "bg-primary/90"] as const;
 
   let { username = "github", days = 364, data, text = defaultText, class: className = "" }: Props = $props();
 
-  const state = new ContributionGraphState(() => ({ username, days, text, data }));
+  const contributionState = new ContributionGraphState(() => ({ username, days, text, data }));
 
   const legendLevels: ContributionLevel[] = [0, 1, 2, 3, 4];
 
+  let graph = $state<HTMLElement | null>(null);
+
   function handleGraphKeydown(event: KeyboardEvent) {
-    const graph = event.currentTarget as HTMLDivElement;
+    if (!graph) return;
 
     switch (event.key) {
       case "ArrowLeft":
@@ -56,59 +59,74 @@
   }
 </script>
 
-<div class={cn("bg-background card w-full rounded-md p-4", className)}>
-  <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
-  <div
-    class="focus-visible:ring-accent focus-visible:ring-offset-background -my-0.5 scrollbar-none overflow-x-auto overscroll-none rounded-xs py-0.5 outline-none [-ms-overflow-style:none] focus-visible:ring-2 focus-visible:ring-offset-2 [&::-webkit-scrollbar]:hidden"
-    role="region"
-    tabindex="0"
-    aria-label={state.graphAriaLabel}
+<div class={cn("w-full", className)}>
+  <ScrollArea
+    orientation="horizontal"
+    bind:viewportRef={graph}
+    focusableWhenScrollable
+    class="w-full pb-3"
     onkeydown={handleGraphKeydown}
+    viewportProps={{
+      role: "region",
+      "aria-label": "GitHub contribution graph",
+      class: "focus-visible:ring-0 focus-visible:outline-none",
+    }}
   >
-    <div aria-hidden="true">
-      <div
-        class="mb-2 grid items-center gap-1"
-        style={`grid-template-columns: 2rem repeat(${state.weeks.length}, 0.75rem);`}
-      >
-        <div></div>
-        {#each state.monthLabels as label, index (`month-${index}-${label}`)}
-          <div class="text-foreground-muted text-xs leading-none">{label}</div>
-        {/each}
-      </div>
-
-      <div class="grid gap-1" style={`grid-template-columns: 2rem repeat(${state.weeks.length}, 0.75rem);`}>
-        <div class="grid grid-rows-7 gap-1">
-          {#each state.text.dayLabels as label, index (`weekday-${index}-${label}`)}
-            <div class="text-foreground-muted flex h-3 items-center text-xs leading-none">
-              {label}
-            </div>
+    <div role="img" aria-label={contributionState.graphAriaLabel}>
+      <div aria-hidden="true">
+        <div
+          class="mb-2 grid items-center gap-1"
+          style={`grid-template-columns: 2rem repeat(${contributionState.weeks.length}, 0.75rem);`}
+        >
+          <div></div>
+          {#each contributionState.monthLabels as label, index (`month-${index}-${label}`)}
+            <div class="text-muted-foreground text-xs leading-none">{label}</div>
           {/each}
         </div>
 
-        {#each state.weeks as week, weekIndex (week[0]?.key ?? `week-${weekIndex}`)}
+        <div
+          class="grid gap-1"
+          style={`grid-template-columns: 2rem repeat(${contributionState.weeks.length}, 0.75rem);`}
+        >
           <div class="grid grid-rows-7 gap-1">
-            {#each week as day (day.key)}
-              <Tooltip content={day.tooltip} class="hit-target-gap-1 size-3 shrink-0">
-                <span
-                  class={cn("size-full rounded-[3px]", levelClasses[day.level], day.inRange ? "" : "opacity-40")}
-                  aria-hidden="true"
-                ></span>
-              </Tooltip>
+            {#each contributionState.text.dayLabels as label, index (`weekday-${index}-${label}`)}
+              <div class="text-muted-foreground flex h-3 items-center text-xs leading-none">
+                {label}
+              </div>
             {/each}
           </div>
-        {/each}
+
+          {#each contributionState.weeks as week, weekIndex (week[0]?.key ?? `week-${weekIndex}`)}
+            <div class="grid grid-rows-7 gap-1">
+              {#each week as day (day.key)}
+                <Tooltip.Root>
+                  <Tooltip.Trigger
+                    tabindex={-1}
+                    aria-hidden="true"
+                    class={cn(
+                      "block size-3 shrink-0 rounded-[3px]",
+                      levelClasses[day.level],
+                      day.inRange ? "" : "opacity-40",
+                    )}
+                  />
+                  <Tooltip.Content sideOffset={6}>{day.tooltip}</Tooltip.Content>
+                </Tooltip.Root>
+              {/each}
+            </div>
+          {/each}
+        </div>
       </div>
     </div>
-  </div>
+  </ScrollArea>
 
   <div class="mt-3 flex items-center justify-between gap-3">
-    <p class="text-foreground-muted text-xs font-medium text-balance">
-      {state.totalContributions}
+    <p class="text-muted-foreground text-xs font-medium text-balance">
+      {contributionState.totalContributions}
       {text.summaryMiddleLabel}
-      {state.normalizedDays}
+      {contributionState.normalizedDays}
       {text.summaryDaysLabel}
     </p>
-    <div class="text-foreground-muted flex items-center gap-1 text-xs leading-none">
+    <div class="text-muted-foreground flex items-center gap-1 text-xs leading-none">
       <span>{text.legendLessLabel}</span>
       {#each legendLevels as level (`legend-${level}`)}
         <span class={cn("size-3 rounded-[3px]", levelClasses[level])}></span>

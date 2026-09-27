@@ -1,4 +1,4 @@
-import { homepageContent } from "$lib/content/homepage-content";
+import { homepageContent } from "$lib/homepage";
 import type { RequestHandler } from "./$types";
 
 const directives = ["User-agent: *", "Allow: /", "Disallow: /blog/raw/"];

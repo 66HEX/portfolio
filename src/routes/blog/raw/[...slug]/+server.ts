@@ -11,13 +11,13 @@ export const GET: RequestHandler = async ({ params }) => {
     throw error(404, "Document not found");
   }
 
-  const modules = import.meta.glob<string>("/src/routes/blog/**/+page.svx", {
+  const modules = import.meta.glob<string>("/src/portfolio/posts/**/*.svx", {
     query: "?raw",
     import: "default",
     eager: true,
   });
 
-  const modulePath = `/src/routes/blog/${metadata.slug}/+page.svx`;
+  const modulePath = `/src/portfolio/posts/${metadata.slug}.svx`;
   const content = modules[modulePath];
 
   if (!content) {

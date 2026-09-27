@@ -8,6 +8,7 @@ declare global {
     // interface PageState {}
     interface Platform {
       env?: {
+        ASSETS?: { fetch: typeof fetch };
         GITHUB_TOKEN?: string;
         RESEND_API_KEY?: string;
         CONTACT_FROM_EMAIL?: string;

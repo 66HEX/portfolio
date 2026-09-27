@@ -1,22 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import { cn } from "$lib/utils/cn";
+  import * as Table from "$lib/components/ui/table";
 
-  type ComponentProps = {
-    class?: string;
-    children?: Snippet;
-    [prop: string]: unknown;
-  };
+  import { cn } from "$lib/utils";
+  import type { HTMLAttributes } from "svelte/elements";
 
-  const { children, class: className = "", ...restProps }: ComponentProps = $props();
+  let { children, class: className, ...restProps }: HTMLAttributes<HTMLTableRowElement> = $props();
 </script>
 
-<tr
-  {...restProps}
-  class={cn(
-    "text-sm font-normal transition-[background-color] duration-150 ease-out [&_code]:text-sm [&_strong]:text-base",
-    className,
-  )}
->
+<Table.Row {...restProps} class={cn("text-sm", className)}>
   {@render children?.()}
-</tr>
+</Table.Row>

@@ -1,7 +1,9 @@
 node_modules
 .svelte-kit
+.content-collections
+.wrangler
 build
 dist
 coverage
 bun.lock
-src/lib/content/data/tweets-cache.json
+src/portfolio/cache/tweets.json

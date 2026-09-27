@@ -1,7 +1,6 @@
 <script lang="ts">
   import "./layout.css";
-  import apkAvionicaUrl from "$lib/assets/fonts/APK-Avionica.woff2?url";
-  import apkGaleriaRegularUrl from "$lib/assets/fonts/APK-Galeria-Regular.woff2?url";
+  import * as Tooltip from "$lib/components/ui/tooltip";
   import { faviconLinks, seoConfig } from "$lib/seo/meta";
 
   let { children } = $props();
@@ -13,15 +12,15 @@
   {/each}
   <meta name="theme-color" content={seoConfig.themeColorLight} />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="preload" href={apkGaleriaRegularUrl} as="font" type="font/woff2" crossorigin="anonymous" />
-  <link rel="preload" href={apkAvionicaUrl} as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 
-<div class="guide mx-auto max-w-4xl overflow-hidden bg-transparent! sm:border-x">
-  <main
-    id="main-content"
-    class="guide mx-auto flex w-full max-w-3xl flex-col items-center justify-start gap-2 border-dashed bg-transparent! sm:border-x"
-  >
-    {@render children()}
-  </main>
-</div>
+<Tooltip.Provider delayDuration={300} skipDelayDuration={300}>
+  <div class="@container/page mx-auto max-w-3xl overflow-hidden sm:border-x">
+    <main
+      id="main-content"
+      class="mx-auto flex w-full max-w-2xl flex-col items-center justify-start gap-2 border-dashed sm:border-x"
+    >
+      {@render children()}
+    </main>
+  </div>
+</Tooltip.Provider>

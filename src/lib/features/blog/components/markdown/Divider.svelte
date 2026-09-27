@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { cn } from "$lib/utils/cn";
+  import { Separator } from "$lib/components/ui/separator";
+  import { cn } from "$lib/utils";
+  import type { ComponentProps } from "svelte";
 
-  type ComponentProps = Record<string, unknown> & { class?: string };
-  const { class: className = "", ...restProps }: ComponentProps = $props();
+  let { class: className, ...restProps }: ComponentProps<typeof Separator> = $props();
 </script>
 
-<hr {...restProps} class={cn("guide-duotone my-12 h-px border-0", className)} />
+<Separator {...restProps} class={cn("my-12", className)} />

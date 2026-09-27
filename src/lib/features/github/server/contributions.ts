@@ -1,4 +1,4 @@
-import { githubData } from "$lib/content/data/github";
+import { githubData } from "$portfolio/sections/github";
 
 type GitHubGraphQLResponse = {
   data?: {

@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { Badge } from "$lib/components/ui/badge";
   import type { Snippet } from "svelte";
-  import { cn } from "$lib/utils/cn";
+  import { cn } from "$lib/utils";
 
   type ComponentProps = {
     class?: string;
@@ -23,14 +24,7 @@
     {@render children?.()}
   </code>
 {:else}
-  <span
-    class="card-outer bg-background-inset text-foreground relative inline-flex w-fit rounded-sm p-1 font-mono text-xs font-medium whitespace-nowrap"
-  >
-    <code
-      {...restProps}
-      class={cn("card bg-background rounded-[calc(var(--radius-base)*1.25)] px-1.5 py-0.5", className)}
-    >
-      {@render children?.()}
-    </code>
-  </span>
+  <Badge variant="secondary" class="rounded-sm px-1.5 font-mono text-xs">
+    <code {...restProps} class={cn("font-mono", className)}>{@render children?.()}</code>
+  </Badge>
 {/if}

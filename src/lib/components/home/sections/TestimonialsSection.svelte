@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { TweetData } from "$lib/content/types";
+  import type { TweetData } from "$lib/types/portfolio";
   import type { Attachment } from "svelte/attachments";
-  import LandingContentCard from "../../layout/LandingContentCard.svelte";
+  import TestimonialCard from "../cards/TestimonialCard.svelte";
   import SectionBlock from "../../layout/SectionBlock.svelte";
 
   type Props = {
@@ -102,7 +102,7 @@
 
 <SectionBlock {title}>
   <div
-    class="relative overflow-clip"
+    class="relative overflow-clip p-px"
     data-testimonials-viewport
     data-focus-within={focusWithin}
     onfocusin={() => (focusWithin = true)}
@@ -110,28 +110,17 @@
     {@attach observeMarqueeItems}
   >
     <div
-      class="from-background-inset pointer-events-none absolute inset-y-1 left-0 z-10 w-5 bg-linear-to-r to-transparent"
+      class="from-background pointer-events-none absolute inset-y-0 left-0 z-10 w-5 bg-linear-to-r to-transparent"
     ></div>
     <div
-      class="from-background-inset pointer-events-none absolute inset-y-1 right-0 z-10 w-5 bg-linear-to-l to-transparent"
+      class="from-background pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-linear-to-l to-transparent"
     ></div>
     <div class="marquee-row">
       <div class="marquee-track marquee-left">
         {#each firstTrack as tweet, index (`first-${tweet.id_str}-${index}`)}
           {@const itemId = `first-${tweet.id_str}-${index}`}
           <div class="flex-none" data-marquee-item={itemId}>
-            <LandingContentCard
-              tweetLinkTabIndex={-1}
-              card={{
-                variant: "tweet",
-                name: tweet.user.name,
-                handle: tweet.user.screen_name,
-                text: tweet.text,
-                avatar: tweet.user.profile_image_url_https,
-                verified: tweet.user.is_blue_verified || tweet.user.verified,
-                tweetUrl: `https://x.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
-              }}
-            />
+            <TestimonialCard {tweet} tabindex={-1} />
           </div>
         {/each}
       </div>
@@ -142,18 +131,7 @@
         {#each secondTrack as tweet, index (`second-${tweet.id_str}-${index}`)}
           {@const itemId = `second-${tweet.id_str}-${index}`}
           <div class="flex-none" data-marquee-item={itemId}>
-            <LandingContentCard
-              tweetLinkTabIndex={-1}
-              card={{
-                variant: "tweet",
-                name: tweet.user.name,
-                handle: tweet.user.screen_name,
-                text: tweet.text,
-                avatar: tweet.user.profile_image_url_https,
-                verified: tweet.user.is_blue_verified || tweet.user.verified,
-                tweetUrl: `https://x.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
-              }}
-            />
+            <TestimonialCard {tweet} tabindex={-1} />
           </div>
         {/each}
       </div>

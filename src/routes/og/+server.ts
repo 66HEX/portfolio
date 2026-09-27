@@ -1,4 +1,4 @@
-import { homepageContent } from "$lib/content/homepage-content";
+import { homepageContent } from "$lib/homepage";
 import { createOgImage } from "$lib/seo/og-image";
 import type { RequestHandler } from "./$types";
 

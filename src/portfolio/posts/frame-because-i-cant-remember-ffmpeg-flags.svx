@@ -1,0 +1,25 @@
+---
+title: "The first 26 days of Frame"
+description: "I built a Tauri app to stop looking up FFmpeg flags. Within 26 days, it had 500 stars and five contributors."
+date: "2026-02-17"
+tags:
+  - rust
+  - tauri
+  - ffmpeg
+published: true
+layout: docs
+---
+
+Twenty-six days after I put Frame on GitHub, it had 500 stars, five contributors, and tens of thousands of views. I hadn't expected much attention. This was an app I had started because I kept forgetting how to convert a file.
+
+The routine was always the same: open the terminal, remember most of an FFmpeg command, then search Stack Overflow for the flag I'd looked up the week before. Eventually I decided to give those options an interface. I managed to turn a few minutes of repeated searching into weeks of writing code.
+
+Frame puts a Tauri v2 interface around FFmpeg. It supports the common video and audio formats, with controls for codecs, bitrate, and scaling, along with the other settings I'd normally have to pass as terminal flags. I still wanted that control; I just wanted to be able to see the options.
+
+The Rust backend keeps the application overhead low. A Tokio-based queue handles tasks asynchronously, with two FFmpeg processes allowed to run in parallel by default. In use, that leaves the rest of the system responsive, and the lower memory use compared with Electron is noticeable.
+
+The part I'm particularly happy with is Real-ESRGAN upscaling. It can double or quadruple the resolution, with much better results than conventional scaling, especially on older material. It goes a little beyond the quick converter I originally had in mind, but it is useful to have it in the same app.
+
+Seeing other people use Frame changed how I thought about maintaining it. I could live with the rough edges of a tool I'd made for myself. Once people were contributing and relying on it, I wanted to spend the time making it work well for them too.
+
+I'm continuing development, with more features planned and pull requests welcome. If you try it and find a workflow it doesn't cover, open an issue in the [Frame repository](https://github.com/66HEX/frame). The code is available under GPLv3.

@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { cn } from "$lib/utils/cn";
+  import CardWrapper from "$lib/components/layout/CardWrapper.svelte";
+  import { Badge } from "$lib/components/ui/badge";
+  import { cn } from "$lib/utils";
   import type { Snippet } from "svelte";
 
   let {
@@ -13,28 +15,28 @@
   }>();
 </script>
 
-<div class={cn("relative pl-8", className)}>
+<div class={cn("relative min-h-10 pl-8", className)}>
   {#if title}
-    <div class="mb-4 flex h-10 items-center">
-      <div class="card-outer bg-background-inset absolute -left-5 flex size-10 rounded-full p-1.5">
-        <span
-          class="card bg-background text-foreground flex h-full w-full items-center justify-center rounded-full text-xs font-medium [counter-increment:step] before:content-[counter(step)]"
-        >
-        </span>
-      </div>
-      <h3 class="text-foreground relative z-10 text-base leading-none font-medium tracking-tight">
+    <div class="mb-4 flex min-h-10 items-center">
+      <CardWrapper class="absolute -left-5 size-10 rounded-full">
+        <Badge
+          variant="outline"
+          class="bg-card! h-full w-full rounded-full text-xs shadow-md [counter-increment:step] before:content-[counter(step)]"
+        />
+      </CardWrapper>
+      <h3 class="text-foreground relative z-10 text-base leading-tight font-medium tracking-tight">
         {title}
       </h3>
     </div>
   {:else}
-    <div class="card-outer bg-background-inset absolute -left-5 flex size-10 rounded-full p-1.5">
-      <span
-        class="card bg-background text-foreground flex h-full w-full items-center justify-center rounded-full text-xs font-medium [counter-increment:step] before:content-[counter(step)]"
-      >
-      </span>
-    </div>
+    <CardWrapper class="absolute -left-5 size-10 rounded-full">
+      <Badge
+        variant="outline"
+        class="bg-card! h-full w-full rounded-full text-xs shadow-md [counter-increment:step] before:content-[counter(step)]"
+      />
+    </CardWrapper>
   {/if}
-  <div class={cn("text-foreground-muted text-sm tracking-normal", !title && "pt-2")}>
+  <div class={cn("text-muted-foreground space-y-4 text-sm tracking-normal [&>:first-child]:mt-0", !title && "pt-2")}>
     {@render children?.()}
   </div>
 </div>

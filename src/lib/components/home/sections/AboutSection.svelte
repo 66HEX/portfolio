@@ -1,6 +1,6 @@
 <script lang="ts">
   import SectionBlock from "../../layout/SectionBlock.svelte";
-  import type { AboutListItem, AboutNode } from "$lib/content/homepage-content";
+  import type { AboutListItem, AboutNode } from "$lib/homepage";
   import { resolve } from "$app/paths";
   type Props = {
     content: {
@@ -22,7 +22,7 @@
         href={node.href}
         target="_blank"
         rel="external noreferrer"
-        class="text-foreground focus-visible:ring-accent focus-visible:ring-offset-background rounded-xs font-medium underline decoration-dotted underline-offset-2 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
+        class="text-foreground focus-visible:ring-ring/50 focus-visible:ring-offset-background rounded-xs font-medium underline decoration-dotted underline-offset-2 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         {node.text}
       </a>
@@ -31,7 +31,7 @@
         href={resolve(node.href as "/")}
         target="_blank"
         rel="noreferrer"
-        class="text-foreground focus-visible:ring-accent focus-visible:ring-offset-background rounded-xs font-medium underline decoration-dotted underline-offset-2 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none"
+        class="text-foreground focus-visible:ring-ring/50 focus-visible:ring-offset-background rounded-xs font-medium underline decoration-dotted underline-offset-2 transition-[opacity,box-shadow] duration-150 ease-out outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         {node.text}
       </a>
@@ -40,14 +40,14 @@
 {/snippet}
 
 {#snippet renderList(items: AboutListItem[])}
-  <ul class="text-foreground-muted list-disc space-y-3 py-1 pl-5 text-sm text-pretty">
+  <ul class="text-muted-foreground leading-relaxed list-disc space-y-3 py-1 pl-5 text-sm text-pretty">
     {#each items as item, i (i)}
-      <li>
+    <li>
         {#each item.content as node, j (j)}
           {@render renderNode(node)}
         {/each}
         {#if item.nestedList}
-          <ul class="text-foreground-muted mt-1 list-disc space-y-3 pl-5 text-sm">
+          <ul class="text-muted-foreground leading-relaxed mt-1 list-disc space-y-3 pl-5 text-sm">
             {#each item.nestedList as nestedItem, k (k)}
               <li>
                 {#each nestedItem.content as node, l (l)}

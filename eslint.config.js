@@ -6,7 +6,16 @@ import ts from "typescript-eslint";
 
 export default defineConfig([
   {
-    ignores: ["node_modules/**", ".svelte-kit/**", "build/**", "dist/**", "coverage/**", "static/**"],
+    ignores: [
+      "node_modules/**",
+      ".svelte-kit/**",
+      ".content-collections/**",
+      ".wrangler/**",
+      "build/**",
+      "dist/**",
+      "coverage/**",
+      "static/**",
+    ],
   },
   js.configs.recommended,
   ...ts.configs.recommended,

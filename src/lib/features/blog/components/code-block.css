@@ -1,0 +1,32 @@
+.shiki-theme .line-number {
+  display: inline-block;
+  width: var(--line-number-width);
+  margin-right: 1.5em;
+  color: var(--muted-foreground);
+  opacity: 0.5;
+  text-align: right;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.shiki-theme .line-number::before {
+  content: attr(data-line);
+}
+
+.shiki-dark {
+  display: none;
+}
+
+html.dark .shiki-light {
+  display: none;
+}
+
+html.dark .shiki-dark {
+  display: block;
+}
+
+.shiki {
+  background-color: transparent !important;
+  font-size: 0.79rem;
+  font-weight: 400;
+}

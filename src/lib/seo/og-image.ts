@@ -1,7 +1,6 @@
 import ImageResponse from "@takumi-rs/image-response";
-import apkAvionicaDataUri from "$lib/assets/fonts/APK-Avionica.woff2?inline";
-import apkGaleriaMediumDataUri from "$lib/assets/fonts/APK-Galeria-Medium.woff2?inline";
-import apkGaleriaRegularDataUri from "$lib/assets/fonts/APK-Galeria-Regular.woff2?inline";
+import { asset } from "$app/paths";
+import { getRequestEvent } from "$app/server";
 import { brandLogoRaw } from "$lib";
 import { ogThemeColors as colors, withAlpha } from "$lib/seo/og-theme";
 
@@ -42,45 +41,22 @@ const el = (type: string, props: Record<string, unknown> = {}, ...children: Taku
         },
 });
 
-const dataUriToArrayBuffer = (dataUri: string) => {
-  const base64 = dataUri.slice(dataUri.indexOf(",") + 1);
-  const binary = atob(base64);
-  const bytes = new Uint8Array(binary.length);
-
-  for (let index = 0; index < binary.length; index += 1) {
-    bytes[index] = binary.charCodeAt(index);
-  }
-
-  return bytes.buffer;
-};
-
-const fontDataPromise = Promise.all([
-  Promise.resolve(dataUriToArrayBuffer(apkGaleriaRegularDataUri)),
-  Promise.resolve(dataUriToArrayBuffer(apkGaleriaMediumDataUri)),
-  Promise.resolve(dataUriToArrayBuffer(apkAvionicaDataUri)),
-]);
-
 const takumiFontLoaders = [
   {
-    key: "apk-galeria-regular",
-    name: "APK Galeria",
+    key: "inter",
+    name: "Inter",
     weight: 400,
     style: "normal" as const,
-    data: async () => (await fontDataPromise)[0],
-  },
-  {
-    key: "apk-galeria-medium",
-    name: "APK Galeria",
-    weight: 500,
-    style: "normal" as const,
-    data: async () => (await fontDataPromise)[1],
-  },
-  {
-    key: "apk-avionica",
-    name: "APK Avionica",
-    weight: 400,
-    style: "normal" as const,
-    data: async () => (await fontDataPromise)[2],
+    data: async () => {
+      const event = getRequestEvent();
+      const fontUrl = new URL(asset("/fonts/InterVariable.woff2"), event.url);
+      const assets = event.platform?.env?.ASSETS;
+      const response = assets ? await assets.fetch(fontUrl) : await event.fetch(fontUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to load Inter for Open Graph images (${response.status})`);
+      }
+      return response.arrayBuffer();
+    },
   },
 ];
 
@@ -108,10 +84,10 @@ const verticalDivider = (left: number) =>
       el("div", {
         style: {
           display: "flex",
-          width: 1,
+          width: 2,
           height: DIVIDER_DASH_LENGTH,
           flexShrink: 0,
-          background: withAlpha(colors.shadowHighlight, 0.08),
+          background: colors.border,
         },
       }),
     ),
@@ -128,7 +104,7 @@ const horizontalDivider = (top: number) =>
         left: 0,
         display: "flex",
         gap: DIVIDER_DASH_GAP,
-        height: 1,
+        height: 2,
         overflow: "hidden",
       },
     },
@@ -139,7 +115,7 @@ const horizontalDivider = (top: number) =>
           width: DIVIDER_DASH_LENGTH,
           height: 1,
           flexShrink: 0,
-          background: withAlpha(colors.shadowHighlight, 0.08),
+          background: colors.border,
         },
       }),
     ),
@@ -163,26 +139,11 @@ const createComponent = ({
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        backgroundColor: colors.backgroundInset,
+        backgroundColor: colors.background,
         color: colors.foreground,
-        fontFamily: "APK Galeria, sans-serif",
+        fontFamily: "Inter, sans-serif",
       },
     },
-    el("div", {
-      style: {
-        position: "absolute",
-        top: -90,
-        right: -90,
-        bottom: -90,
-        left: -90,
-        backgroundColor: colors.backgroundInset,
-        backgroundImage: `radial-gradient(ellipse 50% 80% at 50% 50%, rgba(0, 0, 0, 0) 72%, rgba(0, 0, 0, 0.92) 100%), radial-gradient(ellipse 100% 110% at 50% 0%, ${colors.backgroundInset} 37%, ${colors.accent} 69%, ${colors.foreground} 100%)`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: `${OG_WIDTH}px ${OG_HEIGHT}px`,
-        filter: "blur(90px)",
-      },
-    }),
     verticalDivider(OG_GRID_INSET),
     verticalDivider(OG_WIDTH - OG_GRID_INSET),
     horizontalDivider(OG_GRID_INSET),
@@ -229,10 +190,10 @@ const createComponent = ({
               display: "flex",
               maxWidth: OG_WIDTH - OG_GRID_INSET * 2,
               color: colors.foreground,
-              fontFamily: "APK Avionica, APK Galeria, sans-serif",
+              fontFamily: "Inter, sans-serif",
               fontSize: titleFontSize,
               fontWeight: 400,
-              letterSpacing: "-0.025em",
+              letterSpacing: "-0.05em",
               lineHeight: titleLineHeight,
               textAlign: "left",
               textWrapStyle: "pretty",

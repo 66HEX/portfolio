@@ -1,0 +1,75 @@
+---
+title: "Moving Frame to GPUI-CE"
+description: "The duplicated conversion rules, preview mismatches, and maintenance costs behind Frame's move from Tauri and Svelte to Rust."
+date: "2026-07-08"
+tags:
+  - rust
+  - gpui
+  - ffmpeg
+  - desktop
+published: true
+layout: docs
+---
+
+Subtitle burn-in made the limits of Frame's old preview hard to ignore. I could draw the source media in a canvas and reproduce an edit on top of it, but I couldn't show subtitles through the same rendering path FFmpeg would use during export. The preview and the conversion were two implementations that I had to keep in agreement.
+
+Much of the app had developed the same problem. By release 0.30.0, I had replaced the Tauri/Svelte application with a native Rust app built on GPUI-CE. Preview was a large part of that work, but the decision reached into the conversion model, packaging, and updates too.
+
+## Maintaining the same rules twice
+
+I had started Frame as a weekend project, a more comfortable way to use FFmpeg. By the time the repository passed 1.2k stars, it had users reporting issues and asking for features. The app had acquired a queue, presets, subtitle and metadata controls, image workflows, and a preview surface that was becoming a substantial project of its own.
+
+The Svelte frontend talked to Rust through a websocket bridge. Rust built the FFmpeg command and rejected invalid conversions, so it needed to know which containers, codecs, pixel formats, subtitle modes, and output formats could be used together. The frontend needed much of the same knowledge to decide what to show and which controls to enable.
+
+Preview state lived on one side of that bridge and process control on the other. A change to a conversion setting often meant updating both models and checking that they still agreed. That was manageable early on. As the number of settings grew, more of my work went into maintaining the connection between two versions of the same app.
+
+I wanted application state and the UI alongside the conversion logic in Rust. That would make Rust the main application layer and reduce the code needed to connect it to FFmpeg. Tauri had worked for the earlier version. I was now spending more time keeping its two sides in sync than I wanted.
+
+## Leaving the system webview
+
+There was a separate source of uncertainty: the webview itself. Tauri uses WebKit on Linux, WebView2 on Windows, and WKWebView on macOS. Using the system engine keeps the app lightweight, but its rendering and media behavior can differ between platforms. Frame inherited those differences and their bugs.
+
+I tried Tauri CEF in the hope that bundling Chromium would give me more consistent behavior. My attempts were still too unstable for what I needed. I wanted to stop depending on a webview for the main media interface.
+
+GPUI-CE let me keep Frame's existing workflows: the workspace, file queue, preview, settings, logs, and updates. I could build them directly in Rust. Coming from web frontend work, the element and styling model was also easier to pick up than I expected. Composing boxes and setting spacing, colors, borders, and interaction states felt familiar after working with `div`s and Tailwind-style classes.
+
+That familiarity only went so far. I still miss how quickly I can build an interface in Svelte, the flexibility of CSS, and browser devtools. Controls that I could reach for on the web took time to recreate: scroll areas, text inputs, select menus, and color pickers, followed by focus rings, keyboard behavior, and accessibility metadata.
+
+## Letting FFmpeg produce the preview
+
+Before the migration, preview had already moved from DOM media elements to a Pixi/WebGPU renderer. Crop and overlay tools, trim timelines, zooming, image support, and subtitle handling had accumulated around it.
+
+For each edit, I had to reproduce the intended result in that renderer. Crop, trim, rotate, flip, scaling, and overlays all needed to stay synchronized with the corresponding FFmpeg settings. Some of that work was incomplete, and subtitle burn-in was the clearest case where the preview couldn't faithfully represent the export.
+
+During the GPUI work I briefly tried GStreamer. That experiment never shipped, but it helped me settle on using FFmpeg to generate preview frames. I was already treating FFmpeg as the authority on conversion; using it for preview meant I could reuse more of the same decisions.
+
+The Rust preview engine now derives FFmpeg preview plans and extracts frames. It also stages overlay edits, tracks crop and trim state, plays audio, and reconfigures an existing preview when settings change. Building this was less convenient than using browser media elements. It did remove a class of mismatches, though, and brought the preview closer to the exported result.
+
+## The workspace behind 0.30.0
+
+The migration removed the old `src-tauri` backend and SvelteKit frontend, including their stores, routes, services, internationalization system, web preview pipeline, and JavaScript build tooling. The replacement is a Rust workspace with four areas of responsibility:
+
+| Crate | Responsibility |
+| --- | --- |
+| `frame-app` | The GPUI-CE shell, panels and controls, previews, queue state, notifications, persistence, and platform integration. |
+| `frame-core` | FFmpeg arguments, media probing, compatibility rules, filters, validation, and preview planning. |
+| `frame-updater` | Signed update manifests, asset verification, and the install helper. |
+| `tooling/xtask` | Development commands, bundling, runtime setup, and release workflow generation. |
+
+The useful change here is having one compatibility model in `frame-core`. It drives control availability in the UI, validates a conversion, builds FFmpeg arguments, and can be exercised by tests. An unsupported container/codec combination or encoder/pixel-format pairing should be caught before the task enters the queue.
+
+The queue now belongs to the same native runtime as the rest of the app. Importing and probing files, starting FFmpeg, parsing progress, pausing, resuming, and cancelling conversions no longer require synchronization across a websocket bridge. Copying logs and sending completion notifications live there too. The modules still have separate responsibilities, but they can work with the same application state.
+
+Shipping that workspace needed its own migration. Rust tooling now produces the macOS, Windows, and Linux bundles and their platform-specific release artifacts. Release builds include FFmpeg and FFprobe, then detect the capabilities of the bundled encoders at startup. The updater checks Ed25519-signed manifests and verifies assets with SHA-256.
+
+I also added real media conversion tests and a stricter clippy policy. Replacing the UI alone would have left much of the work unfinished: installation, runtime packaging, and updates all needed to work for the Rust app people would actually download.
+
+## What I left out
+
+The GPUI version no longer has the production Real-ESRGAN upscaling path. I liked having it in the old app, but almost nobody used it. Its runtime weight and maintenance cost were difficult to justify, so I didn't carry it through the rewrite.
+
+I also removed internationalization. I couldn't properly review all the translations, and automated translations without enough product context were sometimes inaccurate or wrong. I was more comfortable shipping English copy I could check myself.
+
+The [Frame repository](https://github.com/66HEX/frame) remains GPLv3. It now contains a native app with a dedicated conversion core, an FFmpeg-backed preview engine, and its own release and update tooling. The code is closer to how I think about the product: a Rust application controlling FFmpeg, with fewer layers to coordinate when I change a conversion rule.
+
+There was a personal reason for doing this as well. I was burned out on Frame. The codebase reminded me of compromises I'd made while trying to get the early versions out, and returning to it had become difficult. Starting again gave me a mental reset and made the project feel new. With ADHD, that mattered more to my willingness to keep working on it than I used to admit.

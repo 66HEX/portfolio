@@ -1,46 +1,28 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import Separator from "$lib/components/ui/Separator.svelte";
+  import SectionSeparator from "$lib/components/layout/SectionSeparator.svelte";
   import HeroSection from "$lib/components/home/sections/HeroSection.svelte";
   import GitHubActivityCard from "$lib/features/github/components/GitHubActivityCard.svelte";
   import ProjectsSection from "$lib/components/home/sections/ProjectsSection.svelte";
-  import BlogSection from "$lib/components/home/sections/BlogSection.svelte";
+  import WritingSection from "$lib/components/home/sections/WritingSection.svelte";
   import TestimonialsSection from "$lib/components/home/sections/TestimonialsSection.svelte";
   import ContactSection from "$lib/components/home/sections/ContactSection.svelte";
   import FooterSection from "$lib/components/home/sections/FooterSection.svelte";
-  import { homepageContent } from "$lib/content/homepage-content";
+  import { homepageContent } from "$lib/homepage";
   import { buildPersonJsonLd, buildSeoMeta, buildWebsiteJsonLd, toJsonLdScript } from "$lib/seo/meta";
   import AboutSection from "$lib/components/home/sections/AboutSection.svelte";
   import ExperienceSection from "$lib/components/home/sections/ExperienceSection.svelte";
 
-  type GitHubContribution = {
-    date: string;
-    count: number;
-  };
+  import { portfolio } from "$portfolio/config";
 
-  import type { TweetData } from "$lib/content/types";
+  import type { PageData } from "./$types";
 
-  type RouteData = {
-    recentBlogPosts: {
-      slug: string;
-      title: string;
-      description: string;
-      date: string;
-      tags: string[];
-      published: boolean;
-    }[];
-    githubUsername: string;
-    githubContributions: GitHubContribution[] | null;
-    githubApiConfigured: boolean;
-    tweets: TweetData[];
-  };
-
-  let { data }: { data: RouteData } = $props();
+  let { data }: { data: PageData } = $props();
 
   const githubUsername = $derived(data.githubUsername);
   const githubContributions = $derived(data.githubContributions ?? undefined);
   const githubApiConfigured = $derived(data.githubApiConfigured);
-  const recentBlogPosts = $derived(data.recentBlogPosts);
+  const recentWritingPosts = $derived(data.recentWritingPosts);
   const tweets = $derived(data.tweets);
 
   const homeSeo = $derived(
@@ -81,44 +63,44 @@
 
 <div class="w-full">
   <HeroSection hero={homepageContent.hero} profile={homepageContent.profile} />
-  <Separator />
-  <AboutSection content={homepageContent.about} />
-  <Separator />
-  <GitHubActivityCard
-    username={githubUsername}
-    contributions={githubContributions}
-    apiConfigured={githubApiConfigured}
-    missingTokenMessage={homepageContent.githubCard.missingTokenMessage}
-    graphText={homepageContent.githubCard.graphText}
-  />
-  <Separator />
-  <ExperienceSection content={homepageContent.experience} />
-  <Separator />
-  <TestimonialsSection title={homepageContent.testimonials.title} items={tweets} />
-
-  <Separator />
-  <ProjectsSection
-    title={homepageContent.projects.title}
-    ctaLabel={homepageContent.projects.ctaLabel}
-    githubCtaLabel={homepageContent.projects.githubCtaLabel}
-    items={homepageContent.projects.items}
-  />
-  {#if recentBlogPosts.length > 0}
-    <Separator />
-    <BlogSection
-      posts={recentBlogPosts}
-      title={homepageContent.blog.title}
-      readArticleLabel={homepageContent.blog.readArticleLabel}
-    />
-  {/if}
-  <Separator />
-  <ContactSection content={homepageContent.contact} />
-  <Separator />
-  <FooterSection
-    headline={homepageContent.footer.headline}
-    description={homepageContent.footer.description}
-    socialLinks={homepageContent.footer.socialLinks}
-    copyrightName={homepageContent.footer.copyrightName}
-    copyrightSuffix={homepageContent.footer.copyrightSuffix}
-  />
+  {#each portfolio.sections as section (section)}
+    {@const visible =
+      section === "writing"
+        ? recentWritingPosts.length > 0
+        : section === "testimonials"
+          ? tweets.length > 0
+          : section === "projects"
+            ? homepageContent.projects.items.length > 0
+            : section === "experience"
+              ? homepageContent.experience.items.length > 0
+              : section === "about"
+                ? homepageContent.about.items.length > 0
+                : true}
+    {#if visible}
+      <SectionSeparator />
+      {#if section === "about"}
+        <AboutSection content={homepageContent.about} />
+      {:else if section === "github"}
+        <GitHubActivityCard
+          username={githubUsername}
+          contributions={githubContributions}
+          apiConfigured={githubApiConfigured}
+          missingTokenMessage={homepageContent.githubCard.missingTokenMessage}
+          graphText={homepageContent.githubCard.graphText}
+        />
+      {:else if section === "experience"}
+        <ExperienceSection content={homepageContent.experience} />
+      {:else if section === "testimonials"}
+        <TestimonialsSection title={homepageContent.testimonials.title} items={tweets} />
+      {:else if section === "projects"}
+        <ProjectsSection content={homepageContent.projects} />
+      {:else if section === "writing"}
+        <WritingSection posts={recentWritingPosts} content={homepageContent.writing} />
+      {:else if section === "contact"}
+        <ContactSection content={homepageContent.contact} />
+      {/if}
+    {/if}
+  {/each}
+  <SectionSeparator />
+  <FooterSection content={homepageContent.footer} />
 </div>

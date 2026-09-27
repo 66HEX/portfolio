@@ -1,22 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import { cn } from "$lib/utils/cn";
+  import * as Table from "$lib/components/ui/table";
 
-  type ComponentProps = {
-    class?: string;
-    children?: Snippet;
-    [prop: string]: unknown;
-  };
+  import { cn } from "$lib/utils";
+  import type { HTMLAttributes } from "svelte/elements";
 
-  const { children, class: className = "", ...restProps }: ComponentProps = $props();
+  let { children, class: className, ...restProps }: HTMLAttributes<HTMLTableSectionElement> = $props();
 </script>
 
-<tbody
-  {...restProps}
-  class={cn(
-    "[&>tr]:after:guide-duotone [&>tr]:relative [&>tr]:after:absolute [&>tr]:after:inset-x-0 [&>tr]:after:bottom-0 [&>tr]:after:h-px [&>tr]:after:content-[''] [&>tr:last-child]:after:hidden",
-    className,
-  )}
->
+<Table.Body {...restProps} class={cn("", className)}>
   {@render children?.()}
-</tbody>
+</Table.Body>

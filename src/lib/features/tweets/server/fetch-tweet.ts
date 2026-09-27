@@ -1,19 +1,7 @@
 const SYNDICATION_URL = "https://cdn.syndication.twimg.com";
 
-export type TweetUser = {
-  id_str: string;
-  name: string;
-  screen_name: string;
-  profile_image_url_https: string;
-  verified: boolean;
-  is_blue_verified: boolean;
-};
-
-export type TweetData = {
-  id_str: string;
-  text: string;
-  user: TweetUser;
-};
+import type { TweetData } from "../types.ts";
+export type { TweetData } from "../types.ts";
 
 const TWEET_ID = /^[0-9]+$/;
 
@@ -50,7 +38,7 @@ export async function fetchTweet(id: string): Promise<TweetData | null> {
   );
   url.searchParams.set("token", getToken(id));
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), { signal: AbortSignal.timeout(8000) });
   if (!res.ok || res.status === 404) return null;
 
   const isJson = res.headers.get("content-type")?.includes("application/json");

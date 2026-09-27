@@ -1,52 +1,49 @@
 <script lang="ts">
+  import "../code-block.css";
   import type { Snippet } from "svelte";
-  import { cn } from "$lib/utils/cn";
+  import type { HTMLAttributes } from "svelte/elements";
+  import { cn } from "$lib/utils";
+  import * as Card from "$lib/components/ui/card";
+  import { ScrollArea } from "$lib/components/ui/scroll-area";
   import CopyCodeButton from "./CopyCodeButton.svelte";
+  import MarkdownCardWrapper from "./MarkdownCardWrapper.svelte";
 
-  type ComponentProps = {
-    class?: string;
+  type Props = HTMLAttributes<HTMLDivElement> & {
     children?: Snippet;
     code?: string;
     unstyled?: boolean;
-    [prop: string]: unknown;
   };
 
-  const props = $props();
-  const className = $derived((props as ComponentProps).class ?? "");
-  const code = $derived((props as ComponentProps).code ?? "");
-  const unstyled = $derived((props as ComponentProps).unstyled ?? false);
-  const children = $derived((props as ComponentProps).children);
-  const restProps = $derived(() => {
-    const { class: _class, children: _children, code: _code, unstyled: _unstyled, ...rest } = props as ComponentProps;
-    return rest;
-  });
+  let { class: className, code = "", unstyled = false, children, ...restProps }: Props = $props();
 </script>
 
-<div class="card-outer bg-background-inset rounded-lg p-1.5">
-  <div
+<MarkdownCardWrapper>
+  <Card.Root
     {...restProps}
     class={cn(
-      unstyled
-        ? "group/pre relative font-mono text-base font-normal"
-        : "group/pre card bg-background text-foreground relative rounded-md p-4 font-mono text-xs font-normal",
+      "group/pre has-[[data-scrollable]:focus-visible]:ring-ring/50 relative gap-0 p-0 font-mono font-normal transition-shadow has-[[data-scrollable]:focus-visible]:ring-[3px] has-[[data-scrollable]:focus-visible]:outline-1",
+      unstyled ? "bg-transparent ring-0" : "text-xs",
       className,
     )}
   >
-    <div class="overflow-x-auto">
-      {@render children?.()}
-    </div>
+    <ScrollArea
+      orientation="horizontal"
+      focusableWhenScrollable
+      class="min-w-0"
+      viewportProps={{
+        role: "region",
+        "aria-label": "Code block",
+        class: "focus-visible:ring-0 focus-visible:outline-none",
+      }}
+    >
+      <div class={cn(!unstyled && "p-4")}>
+        {@render children?.()}
+      </div>
+    </ScrollArea>
     {#if code}
-      <div class="pointer-events-none absolute top-2 right-2">
-        <CopyCodeButton {code} class="pointer-events-auto" />
+      <div class="absolute top-2 right-2">
+        <CopyCodeButton {code} />
       </div>
     {/if}
-  </div>
-</div>
-
-<style>
-  :global(.shiki) {
-    background-color: transparent !important;
-    font-size: 0.79rem;
-    font-weight: 400;
-  }
-</style>
+  </Card.Root>
+</MarkdownCardWrapper>

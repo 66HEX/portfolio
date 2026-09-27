@@ -1,53 +1,44 @@
 <script lang="ts">
-  import type { HomeSocialLink } from "$lib/content/homepage-content";
-  import Tooltip from "$lib/components/ui/Tooltip.svelte";
+  import type { HomepageContent } from "$lib/homepage";
+  import * as Card from "$lib/components/ui/card";
   import IconLinkButton from "../../layout/IconLinkButton.svelte";
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
-  import IconRenderer from "$lib/content/IconRenderer.svelte";
+  import IconRenderer from "$lib/components/icons/IconRenderer.svelte";
+  import CardWrapper from "$lib/components/layout/CardWrapper.svelte";
 
   const year = new Date().getFullYear();
 
-  type Props = {
-    headline: string;
-    description: string;
-    socialLinks: HomeSocialLink[];
-    copyrightName: string;
-    copyrightSuffix: string;
-  };
-
-  let { headline, description, socialLinks, copyrightName, copyrightSuffix }: Props = $props();
+  let { content }: { content: HomepageContent["footer"] } = $props();
 </script>
 
 <SectionBlock>
-  <footer class="card-outer w-full rounded-lg p-1.5">
-    <div class="bg-background card relative flex flex-col rounded-md p-4">
-      <div class="flex flex-col gap-1">
-        <h2 class="text-foreground font-display text-lg leading-none">
-          {headline}
-        </h2>
-        <p class="text-foreground-muted max-w-xl text-sm text-balance">
-          {description}
-        </p>
-      </div>
+  <CardWrapper>
+    <footer>
+      <Card.Root>
+        <Card.Header>
+          <h2 class="text-foreground font-display text-lg leading-none font-medium tracking-tight">
+            {content.headline}
+          </h2>
+          <p class="text-muted-foreground max-w-xl text-sm text-balance">
+            {content.description}
+          </p>
+        </Card.Header>
 
-      <div class="bg-card my-4 h-px"></div>
-
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div class="flex flex-wrap items-center gap-1">
-          {#each socialLinks as social (`footer-social-${social.platform}-${social.href}`)}
-            <Tooltip content={`${social.platform} ${social.handle}`}>
+        <Card.Footer class="mt-4 flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div class="flex flex-wrap items-center gap-1">
+            {#each content.socialLinks as social (`footer-social-${social.platform}-${social.href}`)}
               <IconLinkButton href={social.href} ariaLabel={`${social.platform} ${social.handle}`}>
                 <IconRenderer icon={social.icon} size={16} />
               </IconLinkButton>
-            </Tooltip>
-          {/each}
-        </div>
+            {/each}
+          </div>
 
-        <p class="text-foreground-muted mt-2 text-xs leading-none font-medium">
-          © {year}
-          {copyrightName}. {copyrightSuffix}
-        </p>
-      </div>
-    </div>
-  </footer>
+          <p class="text-muted-foreground mt-2 text-xs leading-none font-medium">
+            © {year}
+            {content.copyrightName}. {content.copyrightSuffix}
+          </p>
+        </Card.Footer>
+      </Card.Root>
+    </footer>
+  </CardWrapper>
 </SectionBlock>

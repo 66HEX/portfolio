@@ -1,3 +1,4 @@
+import { portfolio } from "$portfolio/config";
 import { json } from "@sveltejs/kit";
 import { contactFormSchema } from "$lib/validation/contact";
 import { groupContactValidationIssues, TURNSTILE_ACTION } from "$lib/features/contact/shared";
@@ -10,6 +11,10 @@ import { verifyTurnstileToken } from "$lib/features/contact/server/turnstile";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ request, fetch, platform, getClientAddress }) => {
+  if (!portfolio.sections.includes("contact")) {
+    return json({ success: false, message: "Contact form is disabled." }, { status: 404 });
+  }
+
   let body: unknown;
 
   try {

@@ -4,30 +4,40 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
+    "dev": "pnpm config:check && vite dev",
+    "build": "pnpm config:check && vite build",
     "preview": "wrangler dev",
     "deploy": "wrangler deploy",
     "cf-typegen": "wrangler types",
     "prepare": "svelte-kit sync || echo ''",
     "content:build": "content-collections build",
-    "check": "content-collections build && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check": "pnpm config:check && content-collections build && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "content-collections build && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "config:check": "node scripts/check-config.ts",
+    "post:new": "node scripts/new-post.ts",
+    "tweets:sync": "node scripts/sync-tweets.ts",
+    "test": "node --test tests/*.test.ts",
+    "verify": "pnpm check && pnpm lint && pnpm test && pnpm build",
+    "setup:check": "node scripts/doctor.ts"
   },
   "devDependencies": {
     "@content-collections/cli": "^0.1.9",
     "@content-collections/core": "^0.14.3",
     "@content-collections/vite": "^0.2.9",
     "@eslint/js": "^10.0.1",
+    "@internationalized/date": "^3.12.0",
     "@sveltejs/adapter-cloudflare": "^7.2.9",
     "@sveltejs/kit": "^2.70.2",
     "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/hast": "^3.0.5",
     "@types/node": "^25.9.5",
+    "bits-ui": "^2.18.0",
+    "cn": "^0.4.0",
     "eslint": "^10.8.1",
     "eslint-plugin-svelte": "^3.22.0",
     "globals": "^17.11.0",
@@ -36,23 +46,28 @@
     "prettier-plugin-svelte": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.7.4",
     "rehype-pretty-code": "^0.14.5",
+    "shadcn-svelte": "^1.7.0",
     "shiki": "^3.23.0",
     "svelte": "^5.56.9",
     "svelte-check": "^4.7.5",
+    "tailwind-variants": "^3.3.1",
     "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.67.0",
     "vite": "^8.2.1",
-    "wrangler": "^4.122.0"
+    "wrangler": "^4.122.0",
+    "yaml": "^2.9.1"
   },
   "dependencies": {
     "@takumi-rs/image-response": "1.0.0-rc.12",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "ogl": "^1.0.11",
+    "pixi.js": "^8.21.0",
     "rehype-slug": "^6.0.0",
-    "tailwind-merge": "^3.6.0",
     "zod": "^4.4.3"
   },
-  "packageManager": "pnpm@10.33.3+sha512.a19744364a7e248b92657a4ca5973f9354d21caf982579674b1c539f32c7420c47138ad8b1254df07aba9bc782d9b3029e3db34d5dbff974326eb74dac8ff489"
+  "packageManager": "pnpm@10.33.3+sha512.a19744364a7e248b92657a4ca5973f9354d21caf982579674b1c539f32c7420c47138ad8b1254df07aba9bc782d9b3029e3db34d5dbff974326eb74dac8ff489",
+  "engines": {
+    "node": ">=22.18.0"
+  }
 }

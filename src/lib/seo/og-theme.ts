@@ -1,12 +1,11 @@
 import layoutCss from "../../routes/layout.css?raw";
 
 type OgThemeColors = {
-  backgroundInset: string;
   background: string;
   foreground: string;
   foregroundMuted: string;
   accent: string;
-  shadowHighlight: string;
+  border: string;
 };
 
 function extractCustomProperties(selector: string): Map<string, string> {
@@ -105,13 +104,11 @@ export function withAlpha(color: string, alpha: number): string {
 }
 
 const rootThemeProperties = extractCustomProperties(":root");
-const darkThemeProperties = new Map([...rootThemeProperties, ...extractCustomProperties(".dark")]);
 
 export const ogThemeColors: OgThemeColors = {
-  backgroundInset: resolveCustomProperty("--background-inset", darkThemeProperties),
-  background: resolveCustomProperty("--background", darkThemeProperties),
-  foreground: resolveCustomProperty("--foreground", darkThemeProperties),
-  foregroundMuted: resolveCustomProperty("--foreground-muted", darkThemeProperties),
-  accent: resolveCustomProperty("--accent", darkThemeProperties),
-  shadowHighlight: resolveCustomProperty("--shadow-highlight-color", darkThemeProperties),
+  background: resolveCustomProperty("--background", rootThemeProperties),
+  foreground: resolveCustomProperty("--foreground", rootThemeProperties),
+  foregroundMuted: resolveCustomProperty("--muted-foreground", rootThemeProperties),
+  accent: resolveCustomProperty("--primary", rootThemeProperties),
+  border: resolveCustomProperty("--border-subtle", rootThemeProperties),
 };

@@ -1,5 +1,5 @@
 import { getAllBlogPosts } from "$lib/features/blog/server/posts";
-import { homepageContent } from "$lib/content/homepage-content";
+import { homepageContent } from "$lib/homepage";
 import type { RequestHandler } from "./$types";
 
 type SitemapUrl = {

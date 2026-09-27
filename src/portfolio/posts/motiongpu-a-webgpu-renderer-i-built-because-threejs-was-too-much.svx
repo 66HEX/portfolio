@@ -1,0 +1,101 @@
+---
+title: "Inside Spektral's renderer"
+description: "How materials, scheduling, and render passes work in the WebGPU fragment renderer I built for fullscreen effects."
+date: "2026-03-17"
+tags:
+  - webgpu
+  - svelte
+  - graphics
+  - wgsl
+published: true
+layout: docs
+---
+
+This is the kind of material I wanted to be able to write for a fullscreen effect:
+
+```ts
+const material = defineMaterial({
+  fragment: `
+    fn frag(uv: vec2f) -> vec4f {
+      return vec4f(uv, sin(time) * 0.5 + 0.5, 1.0);
+    }
+  `,
+  uniforms: {
+    time: 0.0,
+    resolution: [0, 0],
+  },
+  textures: {
+    noise: { url: '/textures/noise.png' },
+  },
+});
+```
+
+The shader gets time and resolution as uniforms, and the material can provide textures. For a noise field, a generative background, or a post-processing effect, that is often most of what I need to describe.
+
+I had been reaching for Three.js to do this. It brought roughly 600 kB of dependency along with concepts intended for 3D scenes: geometry, materials, cameras, lights, and loaders. Setting up a fragment effect meant working through things like `PlaneGeometry`, `ShaderMaterial`, and `OrthographicCamera` just to draw a quad. Three.js is useful when I need a scene graph. Here I wanted to run a WGSL function for each pixel and, sometimes, chain a few passes afterward.
+
+[Spektral](https://github.com/kaltwrk/spektral) grew out of that narrower requirement. It has a framework-agnostic WebGPU core and a Svelte 5 adapter. There are no scene objects, cameras, lights, or mesh primitives. The material describes the work, and `<FragCanvas>` manages the renderer that carries it out. Keeping that scope small gives me less API to maintain, clearer failures to explain, and fewer places for bugs to hide.
+
+## Before the first frame
+
+A material is defined once with `defineMaterial()` and treated as immutable. Its fragment entry point must match `fn frag(uv: vec2f) -> vec4f`. Spektral checks that contract at runtime, along with the requirement that uniform and texture keys are valid WGSL identifiers. An attempt to set an unknown uniform throws immediately.
+
+Before compilation, the preprocessor expands `#include` and `#define` directives. It keeps a line map during expansion, so a WGSL compiler error can point to the location in the source I wrote.
+
+The renderer then needs to know whether it can keep using an existing pipeline. I wanted that decision to be easy to inspect. Unexpected recompilation in other WebGPU and WebGL wrappers had made it difficult to tell which changes were expensive.
+
+Spektral derives a deterministic pipeline signature from the compiled shader source, uniform layout, and texture bindings. Live values are excluded. `<FragCanvas>` compares that signature when resolving a material:
+
+| Change | Renderer behavior |
+| --- | --- |
+| A uniform value changes | Write the dirty range to the GPU buffer; keep the pipeline. |
+| `clearColor` changes | Apply it on the next frame; keep the pipeline. |
+| Shader source changes | The signature changes, so rebuild the renderer from scratch. |
+
+While the signature stays the same, updates affect uniform buffers and texture bindings without recompilation. The definition tells me where the rebuild boundary is, and that boundary is something I can test.
+
+## Work inside a frame
+
+A frame begins with scheduler tasks. After those run, the renderer resolves uniforms and textures, executes the base fullscreen pass, runs any post-processing passes through the render graph, and presents the result to the canvas.
+
+Each `useFrame` callback is a task with a key, a stage, `before` and `after` dependencies, and an invalidation policy. Stages group tasks and have dependency constraints of their own. Together these form a directed acyclic graph. A topological sort determines the execution order; cycles and missing references throw errors. When an order is unclear, `getSchedule()` exposes the resolved schedule for debugging.
+
+The render mode determines when that work runs:
+
+- `always` keeps the render loop running continuously.
+- `on-demand` renders after invalidation.
+- `manual` waits for an explicit `advance()` call.
+
+The scheduler is responsible for requesting frames. Changing a value doesn't introduce another implicit path that happens to request a frame. This is particularly useful when I need an effect to stay idle until there is work to do.
+
+Post-processing uses a separate, slot-based render graph. `source` refers to the current scene surface, `target` is its ping-pong companion, and `canvas` is the visible output. Passes can also use named off-screen render targets.
+
+With no passes configured, the base shader renders straight to `canvas`. Adding passes makes `planRenderGraph()` validate their sequence, resolve clear and preserve flags, and produce an immutable execution plan before GPU work starts. A pass that writes to `canvas` in the middle of a chain is rejected. So is reading `target` before anything has written to it, or declaring `needsSwap` on a pass that doesn't run from `source` to `target`.
+
+Once the passes finish, the renderer checks where the result ended up. If it isn't already on `canvas`, it blits the resolved surface there. Three built-in pass types cover common cases, and custom passes use the same interface.
+
+## When rendering fails
+
+A shader compiler message is much easier to act on when the surrounding app can present it consistently. Spektral turns failures such as unavailable WebGPU support, a lost adapter, invalid WGSL, or a uniform type mismatch into a `MotionGPUErrorReport`:
+
+```ts
+{
+  title: string;       // "WGSL compilation failed"
+  message: string;     // Primary error message
+  hint: string;        // Suggested fix
+  details: string[];   // Additional compiler output
+  stack: string[];     // Stack trace
+  phase: 'initialization' | 'render';
+  source: {            // Present for shader compile errors
+    line: number;
+    column?: number;
+    snippet: Array<{ number: number; code: string; highlight: boolean }>;
+  } | null;
+}
+```
+
+The default error overlay displays the report automatically. It can be disabled with `showErrorOverlay={false}` if I want to handle reports through `onError`, or replaced with `errorRenderer`. Either way, the report has the same shape, including source positions and snippets for shader compilation errors.
+
+Failed renderer creation also has a recovery path. Missing WebGPU support, a WGSL syntax error, or a lost device starts an exponential retry delay: 250 ms, 500 ms, 1000 ms, up to an 8000 ms cap. A change to the pipeline signature resets the backoff. Fixing a shader and hot-reloading it therefore triggers a fresh attempt immediately, rather than waiting for the previous retry delay to expire.
+
+The Svelte adapter is the first way I've exposed this runtime to a framework. React and Vue adapters are on the roadmap; they can use the same core without taking on a dependency on Svelte.
