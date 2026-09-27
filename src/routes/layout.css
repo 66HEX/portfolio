@@ -47,7 +47,7 @@
 .dark {
   --background: lab(7.51107% 0.242703 -0.886115);
   --foreground: #fff;
-  --card: color-mix(in oklab, lab(22.7305% 0.613764 -2.16959) 65%, #000);
+  --card: color-mix(in oklab, lab(15.7305% 0.613764 -2.16959) 40%, #161618);
   --card-foreground: #fff;
   --popover: lab(2.51107% 0.242703 -0.886115);
   --popover-foreground: #fff;
