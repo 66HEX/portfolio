@@ -17,20 +17,6 @@ export function toDateKey(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export function hashText(value: string): number {
-  let hash = 0;
-  for (let i = 0; i < value.length; i += 1) {
-    hash = (hash << 5) - hash + value.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
-export function seededNoise(seed: number): number {
-  const x = Math.sin(seed * 12.9898) * 43758.5453;
-  return x - Math.floor(x);
-}
-
 export function mapCountToLevel(count: number): ContributionLevel {
   if (count <= 0) return 0;
   if (count <= 2) return 1;
@@ -48,33 +34,6 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 export function formatTooltip(count: number, date: Date, text: GraphText): string {
   const label = count === 1 ? text.contributionSingularLabel : text.contributionPluralLabel;
   return `${count} ${label} ${text.tooltipOnLabel} ${dateFormatter.format(date)}`;
-}
-
-export function generateMockContributions(handle: string, amountOfDays: number): ContributionInput[] {
-  const seed = hashText(handle);
-  const end = toStartOfDay(new SvelteDate());
-  const start = addDays(end, -(amountOfDays - 1));
-
-  const values: ContributionInput[] = [];
-  for (let i = 0; i < amountOfDays; i += 1) {
-    const date = addDays(start, i);
-    const weekday = date.getDay();
-    const weekendFactor = weekday === 0 || weekday === 6 ? 0.65 : 1;
-    const wave = (Math.sin((i + (seed % 17)) / 13) + 1) * 0.5;
-    const noise = seededNoise(seed + i * 37 + date.getMonth() * 91);
-
-    let count = Math.round((wave * 7 + noise * 6) * weekendFactor);
-    if (noise < 0.38) {
-      count = 0;
-    }
-
-    values.push({
-      date,
-      count: Math.max(0, count),
-    });
-  }
-
-  return values;
 }
 
 export function buildContributionDays(
@@ -207,9 +166,7 @@ export class ContributionGraphState {
     this.data = $derived.by(() => getProps().data);
 
     this.normalizedDays = $derived.by(() => Math.max(7, this.days));
-    this.inputData = $derived.by(() =>
-      this.data && this.data.length > 0 ? this.data : generateMockContributions(this.username, this.normalizedDays),
-    );
+    this.inputData = $derived.by(() => this.data ?? []);
     this.dayCells = $derived.by(() => buildContributionDays(this.inputData, this.normalizedDays, this.text));
     this.weeks = $derived.by(() => groupByWeek(this.dayCells));
     this.monthNames = $derived.by(() => this.text.monthNames);

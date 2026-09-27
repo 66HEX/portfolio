@@ -39,7 +39,9 @@
   let { username, contributions = undefined, apiConfigured, missingTokenMessage, graphText }: Props = $props();
 
   let clientContributions = $state<GitHubContribution[] | undefined>(getCachedClientContributions());
+  let loadFinished = $state(false);
   const contributionData = $derived(contributions && contributions.length > 0 ? contributions : clientContributions);
+  const loading = $derived(apiConfigured && !contributionData?.length && !loadFinished);
 
   $effect(() => {
     if (contributions && contributions.length > 0) {
@@ -75,9 +77,10 @@
         clientContributions = payload.githubContributions;
         setCachedClientContributions(payload.githubContributions);
       } catch {
-        // Keep current fallback graph state on fetch errors.
+        // The graph shows its unavailable state after a failed request.
       } finally {
         clearTimeout(timeoutId);
+        if (active) loadFinished = true;
       }
     };
 
@@ -95,7 +98,7 @@
       class="has-[[data-scrollable]:focus-visible]:ring-ring/50 transition-shadow has-[[data-scrollable]:focus-visible]:ring-[3px] has-[[data-scrollable]:focus-visible]:outline-1"
     >
       <Card.Content>
-        <GitHubContributionGraph {username} data={contributionData} text={graphText} />
+        <GitHubContributionGraph {username} data={contributionData} text={graphText} {loading} />
         {#if !apiConfigured}
           <p class="text-muted-foreground mt-2 text-base">
             {missingTokenMessage}
