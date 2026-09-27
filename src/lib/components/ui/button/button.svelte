@@ -8,7 +8,7 @@
     variants: {
       variant: {
         default:
-          "isolate text-primary-foreground bg-linear-to-b from-primary to-primary-to ring-1 ring-[color-mix(in_oklch,var(--primary),black_10%)] shadow-md",
+          "isolate text-primary-foreground hover:saturate-200 bg-linear-to-b from-primary to-primary-to ring-1 ring-[color-mix(in_oklch,var(--primary),black_10%)] shadow-md",
         outline:
           "shadow-xs dark:bg-input/30 hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:

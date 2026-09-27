@@ -528,7 +528,7 @@
 
   .turnstile-layer {
     backface-visibility: hidden;
-    transform: translateZ(0) scale(1.01);
+    transform: translateZ(0) scale(1.02);
     transform-origin: center bottom;
   }
 </style>
