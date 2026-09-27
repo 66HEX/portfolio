@@ -67,7 +67,7 @@ Keep public images and documents in `static/`, referenced with root-relative URL
 - `static/resume.pdf` and, if used, its source in `resume/resume.tex`;
 - `src/lib/assets/hex-logo.svg`, used by Open Graph images.
 
-The current font is self-hosted Inter. Font declarations and the regular-font preload live in `src/app.html`; font stacks and theme tokens live in `src/routes/layout.css`. OG font loading lives in `src/lib/seo/og-image.ts`. Update all three if changing fonts. `src/lib/seo/og-theme.ts` owns the OG palette.
+The current font is self-hosted Mona Sans, with variable weights from 200 to 900 and separate normal and italic files. Font declarations and the regular-font preload live in `src/app.html`; font stacks and theme tokens live in `src/routes/layout.css`. OG font loading lives in `src/lib/seo/og-image.ts` and uses the static Regular face for consistent rendering. Update all three if changing fonts. `src/lib/seo/og-theme.ts` owns the OG palette.
 
 `LiquidGlass` is feature code under `src/lib/features/hero/components/`, separate from shadcn primitives. Hero colors come from CSS theme tokens and are converted to six-digit HEX for the shader. Its scale range is 0.35–2.5. Turning it off retains the existing hero card and avatar layout. Its `pixi.js/unsafe-eval` import installs Pixi's CSP-compatible implementation (despite the name, it avoids dynamic code evaluation); keep it when updating the copied shader.
 

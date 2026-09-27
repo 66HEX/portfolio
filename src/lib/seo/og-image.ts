@@ -43,17 +43,17 @@ const el = (type: string, props: Record<string, unknown> = {}, ...children: Taku
 
 const takumiFontLoaders = [
   {
-    key: "inter",
-    name: "Inter",
+    key: "mona-sans",
+    name: "Mona Sans",
     weight: 400,
     style: "normal" as const,
     data: async () => {
       const event = getRequestEvent();
-      const fontUrl = new URL(asset("/fonts/InterVariable.woff2"), event.url);
+      const fontUrl = new URL(asset("/fonts/MonaSans-Regular.woff2"), event.url);
       const assets = event.platform?.env?.ASSETS;
       const response = assets ? await assets.fetch(fontUrl) : await event.fetch(fontUrl);
       if (!response.ok) {
-        throw new Error(`Failed to load Inter for Open Graph images (${response.status})`);
+        throw new Error(`Failed to load Mona Sans for Open Graph images (${response.status})`);
       }
       return response.arrayBuffer();
     },
@@ -141,7 +141,7 @@ const createComponent = ({
         overflow: "hidden",
         backgroundColor: colors.background,
         color: colors.foreground,
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "Mona Sans, sans-serif",
       },
     },
     verticalDivider(OG_GRID_INSET),
@@ -190,7 +190,7 @@ const createComponent = ({
               display: "flex",
               maxWidth: OG_WIDTH - OG_GRID_INSET * 2,
               color: colors.foreground,
-              fontFamily: "Inter, sans-serif",
+              fontFamily: "Mona Sans, sans-serif",
               fontSize: titleFontSize,
               fontWeight: 400,
               letterSpacing: "-0.05em",

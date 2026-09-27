@@ -79,6 +79,6 @@ Generated shadcn components live in `src/lib/components/ui/`; add components wit
 
 UI icons use Nucleo UI Outline 18 and Nucleo Social Media. Add SVG definitions to [`src/lib/components/icons/data.ts`](src/lib/components/icons/data.ts), include the exact Nucleo source filename or library name in a comment, and render them with `IconRenderer.svelte`. When adding or regenerating a shadcn component, replace its generated icon imports with these shared definitions.
 
-The Inter font files include their SIL Open Font License in `static/fonts/Inter-LICENSE.txt`.
+The [Mona Sans](https://github.com/github/mona-sans) font files include their SIL Open Font License in `static/fonts/MonaSans-LICENSE.txt`.
 
 MIT License. See [LICENSE](LICENSE).
