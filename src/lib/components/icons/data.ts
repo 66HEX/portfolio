@@ -39,6 +39,18 @@ const socialIcon = (d: string, fillRule?: "evenodd"): IconData => ({
   elements: [{ type: "path", d, fill: "currentColor", fillRule }],
 });
 
+// Nucleo UI Outline 18: IconDeviceConnectionOutline18.svg
+export const IconRss = uiIcon([
+  {
+    type: "path",
+    d: "M2.75,6v-.25c0-1.105,.895-2,2-2H14.25c1.105,0,2,.895,2,2v4.5c0,1.105-.895,2-2,2h-4.25",
+    stroke: true,
+  },
+  { type: "path", d: "M1.5,16c-.551,0-1-.449-1-1s.449-1,1-1,1,.449,1,1-.449,1-1,1Z", stroke: true },
+  { type: "path", d: "M1.25,11.75h.25c1.795,0,3.25,1.455,3.25,3.25v.25", stroke: true },
+  { type: "path", d: "M1.25,8.75h.25c3.452,0,6.25,2.798,6.25,6.25v.25", stroke: true },
+]);
+
 // Nucleo UI Outline 18: IconChevronLeftOutline18.svg
 export const IconArrowLeft = uiIcon([{ type: "polyline", points: "11.5 15.25 5.25 9 11.5 2.75", stroke: true }]);
 

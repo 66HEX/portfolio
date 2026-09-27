@@ -30,7 +30,7 @@ published: false
 
 ## Drafts and publishing
 
-Run `pnpm dev` and open the draft URL directly. Drafts show a preview badge and use `noindex` plus `no-store`; they stay out of Writing, sitemap, raw Markdown and OG endpoints. Production article routes return 404 for drafts, and production browser bundles import only published article components.
+Run `pnpm dev` and open the draft URL directly. Drafts show a preview badge and use `noindex` plus `no-store`; they stay out of Writing, RSS, sitemap, raw Markdown and OG endpoints. Production article routes return 404 for drafts, and production browser bundles import only published article components.
 
 Before publishing:
 
@@ -102,6 +102,14 @@ A published local post automatically has:
 - `/blog/<slug>`: article;
 - `/blog/raw/<slug>`: original Markdown source, marked `noindex`;
 - `/blog/og/<slug>`: generated social preview;
-- an entry in `/sitemap.xml` and `/llms.txt`.
+- an entry in `/sitemap.xml`, `/llms.txt` and `/rss.xml`.
 
 Canonical URLs always use `portfolio.url`, including in local previews. This prevents localhost and Worker preview domains from becoming the canonical site.
+
+## RSS
+
+`/rss.xml` serves RSS 2.0 with every published local and external article, newest first. It is independent of `writing.limit` and homepage section visibility. The footer links to it, and every page includes an RSS autodiscovery link.
+
+Local entries include a summary and full HTML in `content:encoded`. Markdown tables, task lists, fenced code and static HTML are converted during the content build; links and images use absolute URLs. Scripts and unsafe HTML are removed. Interactive Svelte components and expressions are not evaluated for RSS, so provide prose or static HTML alternatives when an article depends on them. External entries include the publisher name, description and original article URL.
+
+Article URLs are stable RSS identifiers: editing a title or body updates the existing item. The feed uses publication dates from frontmatter and `publications.ts`, with UTC midnight for date-only values. Readers may postpone future-dated entries. HTTP caching uses a content-based ETag, so edits are detected even when the publication date stays the same.

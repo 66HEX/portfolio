@@ -2,11 +2,18 @@
   import "./layout.css";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { faviconLinks, seoConfig } from "$lib/seo/meta";
+  import { portfolio } from "$portfolio/config";
 
   let { children } = $props();
 </script>
 
 <svelte:head>
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={`${portfolio.name} — Writing`}
+    href={new URL("/rss.xml", portfolio.url).href}
+  />
   {#each faviconLinks as link (`favicon-${link.href}`)}
     <link rel={link.rel} href={link.href} type={link.type} sizes={link.sizes} crossorigin={link.crossorigin} />
   {/each}

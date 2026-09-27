@@ -5,6 +5,7 @@
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
   import IconRenderer from "$lib/components/icons/IconRenderer.svelte";
   import CardWrapper from "$lib/components/layout/CardWrapper.svelte";
+  import { IconRss } from "$lib/components/icons/data";
 
   const year = new Date().getFullYear();
 
@@ -31,6 +32,9 @@
                 <IconRenderer icon={social.icon} size={16} />
               </IconLinkButton>
             {/each}
+            <IconLinkButton href="/rss.xml" ariaLabel="Subscribe via RSS" target="_self" rel="">
+              <IconRenderer icon={IconRss} size={16} />
+            </IconLinkButton>
           </div>
 
           <p class="text-muted-foreground mt-2 text-xs leading-none font-medium">

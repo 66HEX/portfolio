@@ -14,6 +14,7 @@ const summary = `${homepageContent.site.siteName} is ${homepageContent.seo.descr
 const detailParagraphs = [
   "LLM-friendly Markdown for local blog posts is available at `/blog/raw/<slug>`; this is the source blog content without page chrome.",
   "Use `/sitemap.xml` for URL discovery and `/robots.txt` for crawl guidance.",
+  "Subscribe at `/rss.xml` for full local articles and links to external publications.",
 ];
 
 const buildBlogEntry = (origin: string, entry: BlogEntry) => {
@@ -43,6 +44,9 @@ export const GET: RequestHandler = () => {
   const optionalLinks = homepageContent.footer.socialLinks
     .filter((link) => link.platform.toLowerCase() !== "resume")
     .map((link) => `- [${link.platform}](${link.href}): ${homepageContent.site.siteName} on ${link.platform}.`);
+  optionalLinks.push(
+    `- [RSS](${new URL("/rss.xml", canonicalOrigin).href}): Full local articles and links to external publications.`,
+  );
 
   const blogs = dedupeBlogs(
     getAllBlogPosts().map((post) => ({
