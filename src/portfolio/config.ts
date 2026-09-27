@@ -1,4 +1,13 @@
-export const sectionIds = ["about", "github", "experience", "testimonials", "projects", "writing", "contact"] as const;
+export const sectionIds = [
+  "about",
+  "github",
+  "experience",
+  "testimonials",
+  "projects",
+  "recognition",
+  "writing",
+  "contact",
+] as const;
 export type SectionId = (typeof sectionIds)[number];
 
 type PortfolioConfig = {
@@ -31,7 +40,7 @@ export const portfolio: PortfolioConfig = {
   resumeHref: "/resume.pdf",
   // Reorder these IDs or remove one to hide its section and skip its data loading.
   // Hero and footer stay outside this list.
-  sections: ["about", "github", "experience", "testimonials", "projects", "writing", "contact"],
+  sections: ["about", "github", "experience", "testimonials", "projects", "recognition", "writing", "contact"],
   writing: { limit: 5 },
   hero: {
     // The shader clamps scale to 2.5; this preserves the previous effective value.

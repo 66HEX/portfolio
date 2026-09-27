@@ -4,6 +4,7 @@
   import HeroSection from "$lib/components/home/sections/HeroSection.svelte";
   import GitHubActivityCard from "$lib/features/github/components/GitHubActivityCard.svelte";
   import ProjectsSection from "$lib/components/home/sections/ProjectsSection.svelte";
+  import RecognitionSection from "$lib/components/home/sections/RecognitionSection.svelte";
   import WritingSection from "$lib/components/home/sections/WritingSection.svelte";
   import TestimonialsSection from "$lib/components/home/sections/TestimonialsSection.svelte";
   import ContactSection from "$lib/components/home/sections/ContactSection.svelte";
@@ -71,11 +72,13 @@
           ? tweets.length > 0
           : section === "projects"
             ? homepageContent.projects.items.length > 0
-            : section === "experience"
-              ? homepageContent.experience.items.length > 0
-              : section === "about"
-                ? homepageContent.about.items.length > 0
-                : true}
+            : section === "recognition"
+              ? homepageContent.recognition.items.length > 0
+              : section === "experience"
+                ? homepageContent.experience.items.length > 0
+                : section === "about"
+                  ? homepageContent.about.items.length > 0
+                  : true}
     {#if visible}
       <SectionSeparator />
       {#if section === "about"}
@@ -94,6 +97,8 @@
         <TestimonialsSection title={homepageContent.testimonials.title} items={tweets} />
       {:else if section === "projects"}
         <ProjectsSection content={homepageContent.projects} />
+      {:else if section === "recognition"}
+        <RecognitionSection content={homepageContent.recognition} />
       {:else if section === "writing"}
         <WritingSection posts={recentWritingPosts} content={homepageContent.writing} />
       {:else if section === "contact"}

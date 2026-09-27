@@ -1,6 +1,7 @@
 import type { HomepageContent } from "./types/portfolio";
 import { aboutData } from "$portfolio/sections/about";
 import { projectsData } from "$portfolio/sections/projects";
+import { recognitionData } from "$portfolio/sections/recognition";
 import { testimonialsData } from "$portfolio/sections/testimonials";
 import { siteData } from "$portfolio/seo";
 import { heroData } from "$portfolio/sections/hero";
@@ -21,6 +22,7 @@ export const homepageContent: HomepageContent = {
   ...githubData,
   experience: experienceData,
   projects: projectsData,
+  recognition: recognitionData,
   ...writingData,
   testimonials: testimonialsData,
   ...contactData,

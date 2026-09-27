@@ -14,6 +14,14 @@ export type ProjectItem = {
   githubHref?: string;
 };
 
+export type RecognitionItem = {
+  title: string;
+  organization: string;
+  date: string;
+  description: string;
+  href: string;
+};
+
 export type ExperienceItem = {
   company: string;
   companyHref: string;
@@ -106,6 +114,11 @@ export type HomepageContent = {
     ctaLabel: string;
     githubCtaLabel: string;
     items: ProjectItem[];
+  };
+  recognition: {
+    title: string;
+    learnMoreLabel: string;
+    items: RecognitionItem[];
   };
   writing: {
     title: string;

@@ -31,7 +31,7 @@ src/portfolio/
 | `writing.limit`             | Number of combined local/external entries; zero hides Writing     |
 | `hero.shader`               | Shader visibility, scale, blur, grain and chromatic aberration    |
 
-The hero and footer frame the homepage and are outside the reorderable section list. Empty About, Experience, Projects, Writing and Testimonials sections are skipped with their separators. Hiding GitHub skips its homepage request. Hiding Contact also disables its POST endpoint.
+The hero and footer frame the homepage and are outside the reorderable section list. Empty About, Experience, Projects, Recognition, Writing and Testimonials sections are skipped with their separators. Hiding GitHub skips its homepage request. Hiding Contact also disables its POST endpoint.
 
 ```ts
 sections: ["about", "projects", "writing", "contact"],
@@ -48,6 +48,7 @@ Each file in `src/portfolio/sections/` owns a small set of content:
 - `about.ts`: paragraphs, links and nested list content.
 - `experience.ts`: employment entries, logos, technologies and highlights.
 - `projects.ts`: projects and action labels.
+- `recognition.ts`: recognition entries, organizations, dates (YYYY-MM-DD), descriptions and program links.
 - `writing.ts`: section heading and local-article action label.
 - `testimonials.ts`: X post IDs and section title.
 - `github.ts`: graph labels; username comes from `portfolio`.
