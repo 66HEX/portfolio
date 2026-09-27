@@ -19,7 +19,7 @@
   <Card.Header class="min-w-0 gap-2 px-0">
     {@render metadata?.()}
     <Card.Title><h3 class="line-clamp-1 text-base leading-tight text-pretty wrap-break-word">{title}</h3></Card.Title>
-    <Card.Description class="line-clamp-2 text-sm text-pretty">{description}</Card.Description>
+    <Card.Description class="line-clamp-2 text-sm leading-relaxed text-pretty">{description}</Card.Description>
   </Card.Header>
   <Card.Footer class="gap-1 p-0 has-[>:nth-child(2)]:[--hit-area-width:32px]">{@render actions()}</Card.Footer>
 </article>
