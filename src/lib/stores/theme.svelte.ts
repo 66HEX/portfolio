@@ -1,4 +1,5 @@
 import { browser } from "$app/environment";
+import { tick } from "svelte";
 
 export const themes = ["light", "dark"] as const;
 export type Theme = (typeof themes)[number];
@@ -80,7 +81,15 @@ function createThemeStore() {
   };
 
   const toggle = () => {
-    set(current === "dark" ? "light" : "dark");
+    const nextTheme = current === "dark" ? "light" : "dark";
+    if (browser && document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.startViewTransition(async () => {
+        set(nextTheme);
+        await tick();
+      });
+    } else {
+      set(nextTheme);
+    }
   };
 
   return {

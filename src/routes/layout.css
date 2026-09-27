@@ -223,6 +223,30 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(root) {
+    animation-duration: 180ms;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  ::view-transition-old(root),
+  .dark::view-transition-old(root) {
+    z-index: -1;
+    animation: none;
+    animation-fill-mode: both;
+  }
+
+  ::view-transition-new(root) {
+    animation: theme-crossfade 180ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+}
+
+@keyframes theme-crossfade {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
