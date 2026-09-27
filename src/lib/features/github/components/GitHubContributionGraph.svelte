@@ -66,16 +66,29 @@
     if (next === null) return;
 
     event.preventDefault();
-    graph.querySelector<HTMLElement>(`[data-contribution-index="${next}"]`)?.focus({ preventScroll: true });
+    const cell = graph.querySelector<HTMLElement>(`[data-contribution-index="${next}"]`);
+    if (cell === event.target) revealDay(cell);
+    else cell?.focus({ preventScroll: true });
   }
 
-  function handleDayFocus(event: FocusEvent) {
-    if (!graph || !(event.target instanceof HTMLElement)) return;
-    const index = event.target.dataset.contributionIndex;
+  function revealDay(target: EventTarget | null) {
+    if (!graph || !(target instanceof HTMLElement)) return;
+    const index = target.dataset.contributionIndex;
     if (index === undefined) return;
-    activeDate = contributionState.dayCells[Number(index)].key;
+    const dayIndex = Number(index);
+    activeDate = contributionState.dayCells[dayIndex].key;
 
-    const cell = event.target.getBoundingClientRect();
+    // At either end of a weekday row, reveal the full edge, including its labels.
+    if (dayIndex - 7 < firstDayIndex) {
+      graph.scrollLeft = 0;
+      return;
+    }
+    if (dayIndex + 7 > lastDayIndex) {
+      graph.scrollLeft = graph.scrollWidth - graph.clientWidth;
+      return;
+    }
+
+    const cell = target.getBoundingClientRect();
     const viewport = graph.getBoundingClientRect();
     // Keep the focus indicator and cell out of the scroll area's edge fades.
     if (cell.left < viewport.left + 28) graph.scrollLeft += cell.left - viewport.left - 28;
@@ -108,13 +121,13 @@
       </div>
 
       <div
-        class="grid gap-1"
+        class="grid w-max gap-1 pr-1 pb-1"
         role="grid"
         tabindex={-1}
         aria-label="GitHub contribution graph"
         aria-describedby={`${id}-summary ${id}-instructions`}
         onkeydown={handleGraphKeydown}
-        onfocusin={handleDayFocus}
+        onfocusin={(event) => revealDay(event.target)}
       >
         {#each contributionState.text.dayLabels as label, index (`weekday-${index}-${label}`)}
           <div
