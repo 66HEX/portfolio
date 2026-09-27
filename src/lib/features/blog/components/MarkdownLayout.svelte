@@ -124,13 +124,13 @@
         <time datetime={date}>{date}</time>
       {/if}
     </div>
-    {#if !published}<Badge variant="secondary" class="mt-3">Draft preview</Badge>{/if}
+    {#if !published}<Badge variant="secondary" class="mt-2">Draft preview</Badge>{/if}
     <div class="mt-2">
       <h1 class="text-foreground font-display text-xl leading-none font-medium tracking-tight">
         {title}
       </h1>
       {#if description}
-        <p class="text-muted-foreground mt-1 text-sm text-pretty">
+        <p class="text-muted-foreground mt-2 text-sm text-pretty">
           {description}
         </p>
       {/if}
