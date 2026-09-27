@@ -125,17 +125,17 @@
       {/if}
     </div>
     {#if !published}<Badge variant="secondary" class="mt-3">Draft preview</Badge>{/if}
-    <div class="mt-3">
+    <div class="mt-2">
       <h1 class="text-foreground font-display text-xl leading-none font-medium tracking-tight">
         {title}
       </h1>
       {#if description}
-        <p class="text-muted-foreground mt-2 text-sm">
+        <p class="text-muted-foreground mt-1 text-sm text-pretty">
           {description}
         </p>
       {/if}
       {#each tags as tag, index (`${tag}-${index}`)}
-        <Badge variant="secondary" class="mt-3 mr-1 font-mono">{tag}</Badge>
+        <Badge variant="secondary" class="mt-2 mr-1 font-mono">{tag}</Badge>
       {/each}
     </div>
   </div>

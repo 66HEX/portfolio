@@ -16,7 +16,7 @@
 </script>
 
 <article class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 p-4">
-  <Card.Header class="min-w-0 gap-2 px-0">
+  <Card.Header class="min-w-0 px-0">
     {@render metadata?.()}
     <Card.Title><h3 class="line-clamp-1 text-base leading-tight text-pretty wrap-break-word">{title}</h3></Card.Title>
     <Card.Description class="line-clamp-2 text-sm leading-relaxed text-pretty">{description}</Card.Description>
