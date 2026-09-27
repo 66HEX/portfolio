@@ -105,10 +105,9 @@
 
   function applyValidationErrors(errors: ContactFieldErrors, formMessages: string[]): void {
     fieldErrors = { ...errors };
-    const firstFieldError = contactFieldNames.map((field) => errors[field]).find(Boolean);
-    showSubmitError(firstFieldError ?? formMessages[0] ?? content.form.validationErrorLabel);
-
     const firstInvalidField = contactFieldNames.find((field) => Boolean(errors[field]));
+    showSubmitError(firstInvalidField ? "" : (formMessages[0] ?? content.form.validationErrorLabel));
+
     if (firstInvalidField) {
       requestAnimationFrame(() => {
         document.getElementById(`contact-${firstInvalidField}`)?.focus();
@@ -365,7 +364,12 @@
               {@render fieldErrorIndicator(fieldErrors.name, "center")}
             </div>
             {#if fieldErrors.name}
-              <p id="contact-name-error" class="sr-only">{fieldErrors.name}</p>
+              <p
+                id="contact-name-error"
+                class="text-destructive text-xs [@media(hover:hover)_and_(pointer:fine)]:sr-only"
+              >
+                {fieldErrors.name}
+              </p>
             {/if}
           </div>
 
@@ -391,7 +395,12 @@
               {@render fieldErrorIndicator(fieldErrors.email, "center")}
             </div>
             {#if fieldErrors.email}
-              <p id="contact-email-error" class="sr-only">{fieldErrors.email}</p>
+              <p
+                id="contact-email-error"
+                class="text-destructive text-xs [@media(hover:hover)_and_(pointer:fine)]:sr-only"
+              >
+                {fieldErrors.email}
+              </p>
             {/if}
           </div>
 
@@ -417,7 +426,12 @@
               {@render fieldErrorIndicator(fieldErrors.subject, "center")}
             </div>
             {#if fieldErrors.subject}
-              <p id="contact-subject-error" class="sr-only">{fieldErrors.subject}</p>
+              <p
+                id="contact-subject-error"
+                class="text-destructive text-xs [@media(hover:hover)_and_(pointer:fine)]:sr-only"
+              >
+                {fieldErrors.subject}
+              </p>
             {/if}
           </div>
 
@@ -442,7 +456,12 @@
               {@render fieldErrorIndicator(fieldErrors.message, "top")}
             </div>
             {#if fieldErrors.message}
-              <p id="contact-message-error" class="sr-only">{fieldErrors.message}</p>
+              <p
+                id="contact-message-error"
+                class="text-destructive text-xs [@media(hover:hover)_and_(pointer:fine)]:sr-only"
+              >
+                {fieldErrors.message}
+              </p>
             {/if}
           </div>
 
@@ -477,7 +496,12 @@
             </Button>
 
             <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{successAnnouncement}</p>
-            <p class="sr-only" role="alert" aria-live="assertive" aria-atomic="true">
+            <p
+              class="text-destructive text-xs empty:sr-only [@media(hover:hover)_and_(pointer:fine)]:sr-only"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
               {errorAnnouncement}
             </p>
 
