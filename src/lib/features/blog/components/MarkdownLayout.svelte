@@ -139,15 +139,15 @@
       {/each}
     </div>
   </div>
-  <SectionSeparator class="mb-4" />
+  <SectionSeparator />
   <article
     data-doc-content
-    class="text-muted-foreground mt-3 w-full space-y-3 p-4 text-sm [&>[data-heading]:first-child]:mt-0"
+    class="text-muted-foreground w-full space-y-3 p-4 text-sm [&>[data-heading]:first-child]:mt-0"
   >
     <Tooltip.Provider delayDuration={350} skipDelayDuration={100}>
       {@render children?.()}
     </Tooltip.Provider>
   </article>
-  <SectionSeparator class="my-4" />
+  <SectionSeparator />
   <FooterSection content={footerData.footer} />
 </div>
