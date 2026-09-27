@@ -18,8 +18,8 @@
   });
 </script>
 
-<CardWrapper>
-  <Card.Root role="article" class="relative h-full w-[min(22rem,calc(100vw-2.5rem))] flex-none gap-0 p-4">
+<CardWrapper class="h-full min-w-0">
+  <Card.Root role="article" class="relative h-full w-full min-w-0 gap-0 p-4">
     <div class="flex items-start justify-between gap-2">
       <div class="flex min-w-0 items-center gap-2">
         <Avatar.Root class="size-9">
