@@ -11,12 +11,14 @@
       crossorigin="anonymous"
     />
     <style>
+      /* Mona Sans 2.027 uses rlig to replace a/J/Q at small optical sizes. Keep their base glyphs. */
       @font-face {
         font-family: "Mona Sans";
         src: url("%sveltekit.assets%/fonts/MonaSansVariable.woff2") format("woff2");
         font-weight: 200 900;
         font-style: normal;
         font-display: block;
+        font-feature-settings: "rlig" 0;
       }
 
       @font-face {
@@ -25,6 +27,7 @@
         font-weight: 200 900;
         font-style: italic;
         font-display: block;
+        font-feature-settings: "rlig" 0;
       }
     </style>
     <script>
