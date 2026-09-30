@@ -25,7 +25,7 @@
           </p>
         </Card.Header>
 
-        <Card.Footer class="mt-4 flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <Card.Footer class="flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div class="flex flex-wrap items-center gap-2 [--hit-area-width:32px]">
             {#each content.socialLinks as social (`footer-social-${social.platform}-${social.href}`)}
               <IconLinkButton href={social.href} ariaLabel={`${social.platform} ${social.handle}`}>

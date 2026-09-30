@@ -12,12 +12,6 @@ const clampText = (value: string, maxLength: number) => {
   return `${text.slice(0, maxLength - 1).trimEnd()}…`;
 };
 
-const getTitleFontSize = (title: string) => {
-  if (title.length <= 34) return 54;
-  if (title.length <= 58) return 44;
-  return 36;
-};
-
 export const GET: RequestHandler = ({ params }) => {
   const rawSlug = (params.slug ?? "").replace(/^\/+|\/+$/g, "");
   const slug = rawSlug === "" || rawSlug === "index" || rawSlug === "blog" ? "" : rawSlug;
@@ -36,7 +30,6 @@ export const GET: RequestHandler = ({ params }) => {
   return createOgImage({
     title,
     description,
-    titleFontSize: getTitleFontSize(title),
-    titleLineHeight: 1.04,
+    kind: "article",
   });
 };

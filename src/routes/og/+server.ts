@@ -6,5 +6,4 @@ export const GET: RequestHandler = () =>
   createOgImage({
     title: homepageContent.profile.name,
     description: homepageContent.profile.role,
-    descriptionLineHeight: 1,
   });
