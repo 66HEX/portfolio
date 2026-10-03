@@ -16,10 +16,15 @@
     {#each content.items as item, index (`${item.company}-${item.period}`)}
       <li class="relative grid grid-cols-[1.75rem_minmax(0,1fr)] gap-3">
         {#if index < content.items.length - 1}
-          <div class="bg-border absolute top-7 -bottom-6 left-[calc(0.875rem-0.5px)] w-px" aria-hidden="true"></div>
+          <div
+            class="bg-border absolute top-7.75 -bottom-5.25 left-[calc(0.875rem-0.5px)] w-px dark:top-7 dark:-bottom-6"
+            aria-hidden="true"
+          ></div>
         {/if}
 
-        <Avatar.Root class="bg-card relative z-10 size-7 items-center justify-center rounded-md after:rounded-md">
+        <Avatar.Root
+          class="bg-card relative z-10 size-7 items-center justify-center rounded-md shadow-[0_0_0_3px_var(--secondary),var(--shadow-xs)] after:rounded-md dark:shadow-[0_0_0_3px_var(--background),var(--shadow-xs)]"
+        >
           {#if item.darkLogoSrc}
             <img
               src={item.logoSrc}
