@@ -4,7 +4,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Keep compact controls visually unchanged. Dense contexts can cap either axis. */
 @utility hit-area {
   &::after {
     content: "";
@@ -28,7 +27,7 @@
   --border-subtle: color-mix(in oklab, var(--border) 10%, transparent);
   --input: lab(90.6853% 0.399232 -1.45452);
   --ring: lab(32.4486% 49.2217 -84.6695);
-  --primary: lab(63% 38.3129 -81.9673);
+  --primary: lab(73% 38.3129 -81.9673);
   --primary-to: lab(53% 38.3129 -81.9673);
   --primary-foreground: #fff;
   --secondary: color-mix(in oklab, lab(2.75381% 0 0) 10%, transparent);
@@ -67,7 +66,7 @@
   --border-subtle: color-mix(in oklab, var(--border) 7.5%, transparent);
   --input: lab(25.7305% 0.613764 -2.16959);
   --ring: lab(59.866% 22.4834 -64.4485);
-  --primary: lab(53% 38.3129 -81.9673);
+  --primary: lab(63% 38.3129 -81.9673);
   --primary-to: lab(43% 38.3129 -81.9673);
   --primary-foreground: #fff;
   --secondary: lab(15.7305% 0.613764 -2.16959);

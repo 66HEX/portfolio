@@ -8,7 +8,7 @@
     variants: {
       variant: {
         default:
-          "isolate text-primary-foreground hover:saturate-200 bg-linear-to-b from-primary to-primary-to ring-1 ring-[color-mix(in_oklch,var(--primary),black_10%)] shadow-md",
+          "isolate text-primary-foreground hover:saturate-150 bg-linear-to-b from-primary to-primary-to shadow-[0_0_0_1px_var(--color-primary-to),var(--shadow-md)] text-shadow-md [&_svg]:[filter:drop-shadow(0_1px_1px_rgb(0_0_0/0.1))_drop-shadow(0_1px_2px_rgb(0_0_0/0.1))_drop-shadow(0_2px_4px_rgb(0_0_0/0.1))]",
         outline:
           "shadow-[0_0_0_3px_var(--secondary),var(--shadow-xs)] dark:shadow-[0_0_0_3px_var(--background),var(--shadow-xs)] bg-card dark:bg-input/30 hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:
