@@ -30,8 +30,8 @@ export type ExperienceItem = {
   role: string;
   period: string;
   employmentType: string;
-  workMode: string;
-  location: string;
+  workMode?: string;
+  location?: string;
   technologies: string[];
   highlights: string[];
 };

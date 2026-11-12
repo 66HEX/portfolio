@@ -52,5 +52,20 @@ export const experienceData: HomepageContent["experience"] = {
         "Delivered modular components compatible with shadcn/ui and Tailwind CSS.",
       ],
     },
+    {
+      company: "Self-employed",
+      companyHref: "https://madebyhex.com/",
+      logoSrc: "/images/experience/hex.svg",
+      darkLogoSrc: "/images/experience/hex-dark.svg",
+      role: "Web Developer & Designer",
+      period: "Dec 2023–present",
+      employmentType: "Freelance",
+      technologies: ["Web Design", "React", "Svelte", "Tailwind CSS"],
+      highlights: [
+        "Design and build websites and web applications for freelance clients.",
+        "Develop responsive interfaces and reusable components with React, Svelte, and Tailwind CSS.",
+        "Refine layouts, typography, and interactions across desktop and mobile.",
+      ],
+    },
   ],
 };

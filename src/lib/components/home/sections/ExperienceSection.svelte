@@ -66,9 +66,11 @@
               {item.company}
             </a>
 
-            <p class="text-muted-foreground text-xs leading-snug text-pretty sm:max-w-64 sm:text-right">
-              {item.location} | {item.workMode}
-            </p>
+            {#if item.location || item.workMode}
+              <p class="text-muted-foreground text-xs leading-snug text-pretty sm:max-w-64 sm:text-right">
+                {[item.location, item.workMode].filter(Boolean).join(" | ")}
+              </p>
+            {/if}
           </div>
 
           <div class="mt-3">
