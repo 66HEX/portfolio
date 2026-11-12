@@ -8,7 +8,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
         { type: "highlight", text: "Creative developer" },
         {
           type: "text",
-          text: " with 2.5+ years of experience and a strong eye for detail.",
+          text: " with 3 years of experience and a strong eye for detail.",
         },
       ],
     },
@@ -87,7 +87,7 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
       nestedList: [
         {
           content: [
-            { type: "highlight", text: "2000+ stars" },
+            { type: "highlight", text: "2200+ stars" },
             { type: "text", text: " on GitHub" },
           ],
         },
