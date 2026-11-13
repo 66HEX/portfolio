@@ -1,6 +1,6 @@
 ---
-title: "Designing Frame around the media"
-description: "A design case study of Frame: making room for the preview, organizing complex settings, and giving the interface a clearer visual hierarchy."
+title: "Designing the Frame workspace"
+description: "A design case study of Frame 0.34.0: workspace hierarchy, export controls, and deciding when animation helps."
 date: "2026-11-12"
 tags:
   - design
@@ -11,78 +11,98 @@ published: true
 layout: docs
 ---
 
-When I designed the first version of Frame, I gave most of the window to a file list. It made sense for the tool I was building: a desktop interface for FFmpeg, where I could choose conversion settings without remembering command-line flags. Add files, configure the output, start the batch.
+<script>
+  import MotionClip from "$lib/features/blog/components/markdown/MotionClip.svelte";
+</script>
 
-Trimming and rotation made the limits of that layout harder to ignore. Those edits needed a visual reference, while the screen was still organized around filenames and parameters. I had made the settings visible before giving the thing they affected a proper place in the interface.
+When I started Frame, I was mostly thinking about the commands I didn't want to look up again. Giving FFmpeg's options a visible place felt like the main job. As the app grew, the harder question became how much of the window to give the media itself.
 
-I design and build Frame myself, so these problems followed me from the layout into the implementation. The challenge was keeping the control that made the app useful while making it easier to understand what would happen to a file. Video and audio still needed detailed settings. Batch conversion still needed a queue. The preview had to fit into that workflow.
+I design and build the app myself, and I wanted to keep the control that made it useful in the first place. A simpler-looking interface would be of little use if I had to return to the terminal whenever I needed a particular codec or scaling option. There was still a batch to manage, but now the selected file needed room for visual decisions too.
 
-The two screenshots below show 0.1.0 and 0.34.0 with the same three files loaded. The design decisions between them changed what the screen gives attention to, how settings are grouped, and where editing happens.
+The comparison between 0.1.0 and 0.34.0 makes that problem fairly visible. Both screenshots contain the same three files. What changes is the work the layout encourages.
 
-## Giving the image enough space
+## Deciding what gets the space
 
-![Frame 0.1.0 on macOS, with a large file queue on the left and conversion settings above an estimated output panel on the right.](/images/blog/frame-design/frame-0.1.0.webp)
+![Frame 0.1.0, with the file queue taking most of the window and conversion settings in a narrow panel on the right.](/images/blog/frame-design/frame-0.1.0.webp)
 
-_0.1.0. Three files occupy the largest panel, while the settings are compressed into the right-hand column._
+_0.1.0. The queue sets the proportions of the whole workspace._
 
-The first version has a clear structure, but its proportions don't match the work. The queue is the largest object on screen, even when it contains only a few files. The settings are dense. Storage totals, uppercase labels, and an estimated-output card all ask to be read. There is plenty of empty space, yet no image to help judge an edit.
+In the first layout, the file table could grow comfortably. Everything else had to fit beside it. That was a reasonable starting point for batch conversion, but it left a lot of room for filenames and very little for judging a visual edit. Adding more controls to the sidebar would only make the imbalance worse.
 
-I wanted the selected file to determine the main view. The queue could remain visible as a way to move between files and manage the batch, with the preview taking the space above it. Keeping the inspector on the right preserved a stable place for settings.
+I gave the preview the larger area and moved the queue below it. The inspector stayed on the right. This kept the working relationship simple: choose a file below, look at it above, change its output alongside it.
 
-This costs space in the queue. Fewer files fit without scrolling, which matters when working through a large batch. I kept selection and conversion status in the rows so that the smaller panel still works as a queue. Opening a file for inspection and checking it for conversion remain separate actions.
+![Frame 0.34.0, with a large preview above the file queue and the Metadata inspector on the right.](/images/blog/frame-design/frame-0.34.0.webp)
 
-The resulting layout lets me inspect one file without losing the batch around it. The image, its settings, and its place in the queue are visible together.
+_0.34.0. The selected file has room of its own, with the rest of the batch still visible._
 
-![Frame 0.34.0 on macOS, showing a large video preview above a smaller file queue, editing tools beside the image, and three labeled inspector tabs.](/images/blog/frame-design/frame-0.34.0.webp)
+The smaller queue is a compromise. There are fewer rows on screen, so a large batch needs more scrolling. I was willing to spend that space on a useful preview. Keeping the queue in the workspace also avoids turning every file inspection into a separate view that has to be opened and closed.
 
-_0.34.0. The selected media gets the largest surface. The queue remains below it, and the inspector stays alongside it._
+The tools follow the same division. Rotation, flipping, and cropping sit beside the image because their effect is visual. Export settings stay in the inspector. The arrangement lets the preview remain a reference while I move through the technical decisions.
 
-## Making the inspector easier to read
+## Giving Output a clear job
 
-Adding settings had gradually stretched the original tab structure. Video, audio, images, subtitles, filters, and metadata each needed controls. At one point, I used icons for the tabs to fit more categories into the available width.
+Giving the preview more room made the remaining problem clearer: the settings beside it still needed somewhere sensible to go. As Frame gained settings, adding another category to the tab bar became an easy answer. Eventually, the navigation itself was asking for too much attention. An icon-only version saved width, but it made the categories harder to recognize.
 
-That solved a space problem and created a recognition problem. An icon can be compact without making its meaning obvious. Hover labels helped, but finding a category still depended on knowing its symbol or pausing over it. I was using less room to say something that took more effort to understand.
+The three tabs in 0.34.0 describe different jobs. Metadata tells me what is in the source. Output is where I decide what the exported file should be. Presets holds configurations I can use again. This distinction also explains why editing metadata belongs inside Output: it changes the file I'm about to create.
 
-The current inspector has three named tabs: Metadata, Output, and Presets. They separate reading the source information, deciding what to export, and reusing a configuration. A source frame rate belongs in Metadata; choosing a different frame rate belongs in Output. Metadata editing also lives under Output because it changes the exported file.
+![Frame 0.34.0 on macOS with Output selected, Video expanded, and controls for resolution, encoder, pixel format, encoding speed, and quality beside the media preview.](/images/blog/frame-design/frame-0.34.0-output.webp)
 
-Within Output, related settings sit in collapsible sections. This adds an interaction when a section is closed, but it lets the panel show a manageable set of controls at a time. The detailed codec and format choices are still available. They no longer all need a place in the top-level navigation.
+_Output, with Video expanded. The other sections remain available below it._
 
-I also changed how choices occupy space. Short mode switches can show their alternatives together. Long lists, such as encoders, use select menus. A new option can then fit into an existing control without forcing another redesign of the whole panel.
+Inside Output, sections provide another level of detail without adding another row of navigation. General covers the file itself. Video contains the controls shown here, while audio, filters, subtitles, and metadata have their own sections. I can open the part I need and leave the rest as a short list of names.
 
-## Editing where the result is visible
+The controls within those sections don't all need the same shape. Resolution has a small set of useful choices, so they can sit together in a segmented control. Encoder names need more room and more alternatives, which suits a menu. Constant Quality and Target Bitrate are worth seeing together; selecting one determines whether the next input is a quality slider or a bitrate value.
 
-A crop rectangle is easier to understand on the image than through four numbers in a sidebar. Rotation and flipping also benefit from an immediate visual response. I moved those tools beside the preview so that the control and its effect stay close together.
+That gives the panel a rhythm. A label introduces a decision, the control holds its current value, and extra detail appears where it is relevant. There is still a lot to configure, but the whole list no longer has to be read at once.
 
-Direct manipulation still needs precision. Dragging a crop is useful for finding a composition; entering dimensions or a ratio is useful when the output has a specific requirement. Frame keeps both. Auto Crop follows the same approach: it proposes a rectangle from detected black bars, leaves it available for adjustment, and waits for Apply. Cancel preserves the previous settings.
+## Letting the image carry the color
 
-That distinction between trying an edit and committing it matters. I want to be able to explore a crop without wondering whether I've already changed the export. The visible selection and calculated output dimensions help explain what applying it will do.
+Once the main areas had clearer jobs, I could look more closely at what was competing for attention inside them.
 
-Playback and trim controls now sit over the preview too. Opening the detailed trim panel doesn't shrink the image underneath it. That keeps the visual reference stable while I adjust the range.
+I liked the technical character of the early interface. Monospaced text, uppercase labels, and blue selection states made it feel like a tool. But those choices were repeated across so many elements that a heading and a value could demand much the same attention.
 
-Floating controls have a cost: they cover some of the media, and controls revealed on interaction need to be discoverable. Their placement and focus behavior are part of the design. Playback controls can be revealed through hover or keyboard focus, tooltips explain the editing icons, and crop and overlay modes have their own controls. I kept the preview navigation separate from export settings, so zooming in to inspect a detail doesn't change the output dimensions.
+In 0.34.0, Inter and sentence case let the labels recede a little. Values are brighter, headings have space around them, and the selected control has a distinct surface. I can keep the interface compact without relying on an accent color to explain every state.
 
-The preview also has to be credible. If the displayed crop or subtitle placement disagrees with the export, the interface asks someone to make a decision using misleading information. The [move to an FFmpeg-backed preview](/blog/frame-rewriting-a-tauri-app-in-gpui-ce) was partly an engineering decision, but it supports this design requirement: the picture should be useful for judging the result.
+The Graphite surfaces draw on Sebastiano Guerriero's work, with control proportions informed by shadcn/ui's Mira style. I wanted that depth: a raised selection inside a darker track, an inset field, a quiet border between sections. The gray palette leaves the video's color in the preview, where it belongs.
 
-## Changing the visual weight of the controls
+## Keeping repeated interactions quick
 
-The early monospaced type, uppercase labels, and blue selected states gave Frame a technical character. I liked that character, but the repeated treatment made very different pieces of information look similar. A section heading, a format name, and a button label could all have much the same emphasis.
+The same priorities had to hold up in the smaller interactions. A layout can look settled in a screenshot and still feel slow when I work through several files.
 
-Inter and sentence case give the current interface more variation in the shape of the text. Labels read as words, and hierarchy can come from size, weight, and spacing. In the Metadata panel, the muted field names and brighter values make it easier to separate the label from the information I'm looking for.
+<!-- prettier-ignore -->
+<figure class="space-y-2">
+  <MotionClip
+    src="/images/blog/frame-design/frame-0.34-tabs-loop.mp4"
+    poster="/images/blog/frame-design/frame-0.34-tabs-loop.webp"
+    label="Inspector tab selection in Frame 0.34.0"
+    width={1920}
+    height={1246}
+  >
+    <a href="/images/blog/frame-design/frame-0.34-tabs-loop.mp4">Watch the tab selection loop.</a>
+  </MotionClip>
+  <figcaption class="text-muted-foreground text-sm italic">The selected surface travels between tabs. The labels stay in place.</figcaption>
+</figure>
 
-The neutral palette serves the same purpose. Video already brings its own color into the window. The surrounding panels use restrained grays, with enough separation to show their boundaries. The active inspector tab is a raised surface inside a recessed rail, so selection doesn't depend on a bright accent color everywhere.
+For tabs, I wanted a short movement that connects the previous selection to the next one. The background moves underneath the labels, so the control remains easy to read during the transition. The text and hit areas don't need to travel with it.
 
-I kept depth because it gives the controls a physical distinction I like. Buttons look raised, fields look inset, and ordinary rows and separators stay flatter. The Graphite treatment draws on Sebastiano Guerriero's surface work, while the control proportions and spacing build on shadcn/ui's Mira style. Nucleo icons share a consistent visual weight across the interface.
+Collapsible sections have a different job. Opening Video, checking a value, then moving to Audio can happen many times during a session. A height animation would put a small wait into that routine every time, while the controls below it moved to their new positions.
 
-The details need to agree. A toolbar with a 14-pixel corner radius and 4 pixels of padding contains controls with 10-pixel corners. That relationship makes the nested shapes sit together. Applying the same spacing and surface rules to menus, dialogs, and settings avoids each part of the app feeling separately styled.
+<!-- prettier-ignore -->
+<figure class="space-y-2">
+  <MotionClip
+    src="/images/blog/frame-design/frame-0.34-sections-loop.mp4"
+    poster="/images/blog/frame-design/frame-0.34-sections-loop.webp"
+    label="Output section icon animation in Frame 0.34.0"
+    width={1920}
+    height={1246}
+  >
+    <a href="/images/blog/frame-design/frame-0.34-sections-loop.mp4">Watch the section disclosure loop.</a>
+  </MotionClip>
+  <figcaption class="text-muted-foreground text-sm italic">The section icon animates. The contents open and close immediately.</figcaption>
+</figure>
 
-I also removed appearance choices that made that consistency harder to maintain, including the font selector and adjustable window tint. Light and dark themes remain, along with interface scaling from 80% to 200%. Scaling the controls is independent of zooming the preview, so making text comfortable to read doesn't change how the media is framed.
+I kept the animation on the icon and omitted the expansion animation. The icon acknowledges the change; the settings are available straight away. It is a small distinction in a short recording, but repeated interaction is exactly where I care about it. I don't want someone waiting for the same flourish to finish before they can reach the next control.
 
-## The behavior behind the appearance
+That is where the two versions feel furthest apart to me. In 0.1.0, I was finding places for FFmpeg's options. In 0.34.0, I can start with the media and work outward to the settings I need, with the rest of the batch still close by.
 
-A compact control can still need a generous pointer target. Crop handles have a larger interactive area than their visible marks, and their light fill and dark outline help keep them visible over different images. Sliders and scrollbars received the same attention to the area someone actually has to hit.
-
-Keyboard use exposed another weakness in the early design. I had removed focus rings and suppressed Tab in an attempt to make the interface feel native. That made the appearance more uniform at the expense of navigation. The current controls show focus, the queue supports keyboard selection, and closing dialogs returns focus to a useful place. System reduced-motion preferences also affect interface transitions and preview navigation.
-
-Feedback needed to be more specific as well. A disabled Start button can tell you that something is missing without telling you how to fix it. Frame now explains the blocked state and opens the folder chooser when an output directory is the missing step. That small interaction does more to help someone finish a conversion than another round of button styling.
-
-Looking at the two versions, the change I'm happiest with is the relationship between the picture and the controls. I can keep the frame in view while I crop it, inspect its properties, or decide how to export it. The batch remains close by. Frame still has plenty of technical options, but the layout gives me a more useful place to work through them.
+I still want Frame to save me the same trip back to the terminal. Getting there has meant paying as much attention to where a control lives, and how often I use it, as to whether it exists at all.
