@@ -13,6 +13,7 @@ layout: docs
 
 <script>
   import MotionClip from "$lib/features/blog/components/markdown/MotionClip.svelte";
+  import MediaCaption from "$lib/features/blog/components/markdown/MediaCaption.svelte";
 </script>
 
 When I started Frame, I was mostly thinking about the commands I didn't want to look up again. Giving FFmpeg's options a visible place felt like the main job. As the app grew, the harder question became how much of the window to give the media itself.
@@ -25,7 +26,7 @@ The comparison between 0.1.0 and 0.34.0 makes that problem fairly visible. Both 
 
 ![Frame 0.1.0, with the file queue taking most of the window and conversion settings in a narrow panel on the right.](/images/blog/frame-design/frame-0.1.0.webp)
 
-_0.1.0. The queue sets the proportions of the whole workspace._
+<MediaCaption>0.1.0. The queue sets the proportions of the whole workspace.</MediaCaption>
 
 In the first layout, the file table could grow comfortably. Everything else had to fit beside it. That was a reasonable starting point for batch conversion, but it left a lot of room for filenames and very little for judging a visual edit. Adding more controls to the sidebar would only make the imbalance worse.
 
@@ -33,7 +34,7 @@ I gave the preview the larger area and moved the queue below it. The inspector s
 
 ![Frame 0.34.0, with a large preview above the file queue and the Metadata inspector on the right.](/images/blog/frame-design/frame-0.34.0.webp)
 
-_0.34.0. The selected file has room of its own, with the rest of the batch still visible._
+<MediaCaption>0.34.0. The selected file has room of its own, with the rest of the batch still visible.</MediaCaption>
 
 The smaller queue is a compromise. There are fewer rows on screen, so a large batch needs more scrolling. I was willing to spend that space on a useful preview. Keeping the queue in the workspace also avoids turning every file inspection into a separate view that has to be opened and closed.
 
@@ -47,7 +48,7 @@ The three tabs in 0.34.0 describe different jobs. Metadata tells me what is in t
 
 ![Frame 0.34.0 on macOS with Output selected, Video expanded, and controls for resolution, encoder, pixel format, encoding speed, and quality beside the media preview.](/images/blog/frame-design/frame-0.34.0-output.webp)
 
-_Output, with Video expanded. The other sections remain available below it._
+<MediaCaption>Output, with Video expanded. The other sections remain available below it.</MediaCaption>
 
 Inside Output, sections provide another level of detail without adding another row of navigation. General covers the file itself. Video contains the controls shown here, while audio, filters, subtitles, and metadata have their own sections. I can open the part I need and leave the rest as a short list of names.
 
@@ -80,7 +81,7 @@ The same priorities had to hold up in the smaller interactions. A layout can loo
   >
     <a href="/images/blog/frame-design/frame-0.34-tabs-loop.mp4">Watch the tab selection loop.</a>
   </MotionClip>
-  <figcaption class="text-muted-foreground text-sm italic">The selected surface travels between tabs. The labels stay in place.</figcaption>
+  <MediaCaption as="figcaption">The selected surface travels between tabs. The labels stay in place.</MediaCaption>
 </figure>
 
 For tabs, I wanted a short movement that connects the previous selection to the next one. The background moves underneath the labels, so the control remains easy to read during the transition. The text and hit areas don't need to travel with it.
@@ -98,7 +99,7 @@ Collapsible sections have a different job. Opening Video, checking a value, then
   >
     <a href="/images/blog/frame-design/frame-0.34-sections-loop.mp4">Watch the section disclosure loop.</a>
   </MotionClip>
-  <figcaption class="text-muted-foreground text-sm italic">The section icon animates. The contents open and close immediately.</figcaption>
+  <MediaCaption as="figcaption">The section icon animates. The contents open and close immediately.</MediaCaption>
 </figure>
 
 I kept the animation on the icon and omitted the expansion animation. The icon acknowledges the change; the settings are available straight away. It is a small distinction in a short recording, but repeated interaction is exactly where I care about it. I don't want someone waiting for the same flourish to finish before they can reach the next control.

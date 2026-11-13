@@ -142,7 +142,7 @@
   <SectionSeparator />
   <article
     data-doc-content
-    class="text-muted-foreground w-full space-y-3 p-4 text-sm [&>[data-heading]:first-child]:mt-0"
+    class="text-muted-foreground w-full space-y-3 p-4 text-sm [counter-reset:media-caption] [&>[data-heading]:first-child]:mt-0"
   >
     <Tooltip.Provider delayDuration={350} skipDelayDuration={100}>
       {@render children?.()}
