@@ -308,7 +308,7 @@
         bind:ref={trigger}
         aria-label={`View full size: ${label}`}
         data-motion-expand
-        class="focus-visible:outline-ring absolute inset-0 cursor-zoom-in rounded-xl focus-visible:outline-2 focus-visible:-outline-offset-2"
+        class="inset-ring-ring/50 absolute inset-0 cursor-zoom-in rounded-xl inset-ring-0 transition-shadow duration-150 ease-in-out outline-none focus-visible:inset-ring-3 motion-reduce:transition-none forced-colors:focus-visible:outline-2 forced-colors:focus-visible:-outline-offset-2 forced-colors:focus-visible:outline-[Highlight] forced-colors:focus-visible:outline-solid"
       />
     </div>
   </MarkdownCardWrapper>
@@ -335,7 +335,7 @@
       <Dialog.Description class="sr-only">Press Escape or click outside the video to close.</Dialog.Description>
       <Dialog.Close
         aria-label="Close video"
-        class="focus-visible:outline-ring pointer-events-auto fixed top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10 flex size-11 items-center justify-center rounded-md text-white opacity-80 transition-opacity outline-none hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid motion-reduce:transition-none"
+        class="focus-visible:ring-ring/50 pointer-events-auto fixed top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10 flex size-11 items-center justify-center rounded-md text-white opacity-80 transition-[opacity,box-shadow] duration-150 ease-in-out outline-none hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-3 motion-reduce:transition-none forced-colors:focus-visible:outline-2 forced-colors:focus-visible:outline-offset-2 forced-colors:focus-visible:outline-[Highlight] forced-colors:focus-visible:outline-solid"
       >
         <IconRenderer icon={IconClose} size={20} />
       </Dialog.Close>

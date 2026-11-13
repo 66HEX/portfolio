@@ -199,7 +199,7 @@
       {alt}
       data-slot="markdown-image"
       class={cn(
-        "bg-card [a:focus-visible_&]:ring-ring/50 block h-auto w-full rounded-xl shadow-md transition-shadow [a:focus-visible_&]:ring-2",
+        "bg-card [a:focus-visible_&]:ring-ring/50 block h-auto w-full rounded-xl shadow-md transition-shadow duration-150 ease-in-out [a:focus-visible_&]:ring-3",
         className,
         (open || moving) && "invisible transition-none",
       )}
@@ -207,7 +207,7 @@
     {#if zoomable}
       <Dialog.Trigger
         aria-label={alt ? `View full size: ${alt}` : "View image full size"}
-        class="focus-visible:outline-ring absolute inset-1 cursor-zoom-in rounded-xl focus-visible:outline-2 focus-visible:-outline-offset-2"
+        class="inset-ring-ring/50 absolute inset-1 cursor-zoom-in rounded-xl inset-ring-0 transition-shadow duration-150 ease-in-out outline-none focus-visible:inset-ring-3 motion-reduce:transition-none forced-colors:focus-visible:outline-2 forced-colors:focus-visible:-outline-offset-2 forced-colors:focus-visible:outline-[Highlight] forced-colors:focus-visible:outline-solid"
       />
     {/if}
   </MarkdownCardWrapper>
@@ -230,7 +230,7 @@
       <Dialog.Description class="sr-only">Press Escape or click outside the image to close.</Dialog.Description>
       <Dialog.Close
         aria-label="Close image"
-        class="focus-visible:outline-ring pointer-events-auto fixed top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10 flex size-11 items-center justify-center rounded-md text-white opacity-80 transition-opacity outline-none hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid motion-reduce:transition-none"
+        class="focus-visible:ring-ring/50 pointer-events-auto fixed top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10 flex size-11 items-center justify-center rounded-md text-white opacity-80 transition-[opacity,box-shadow] duration-150 ease-in-out outline-none hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-3 motion-reduce:transition-none forced-colors:focus-visible:outline-2 forced-colors:focus-visible:outline-offset-2 forced-colors:focus-visible:outline-[Highlight] forced-colors:focus-visible:outline-solid"
       >
         <IconRenderer icon={IconClose} size={20} />
       </Dialog.Close>

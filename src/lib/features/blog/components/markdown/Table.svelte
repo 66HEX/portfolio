@@ -11,7 +11,7 @@
 
 <MarkdownCardWrapper class="my-8">
   <Card.Root
-    class="has-[[data-scrollable]:focus-visible]:ring-ring/50 gap-0 py-0 transition-shadow has-[[data-scrollable]:focus-visible]:ring-[3px] has-[[data-scrollable]:focus-visible]:outline-1"
+    class="has-[[data-scrollable]:focus-visible]:ring-ring/50 gap-0 py-0 transition-shadow outline-none has-[[data-scrollable]:focus-visible]:ring-[3px] forced-colors:has-[[data-scrollable]:focus-visible]:outline-2 forced-colors:has-[[data-scrollable]:focus-visible]:outline-offset-2 forced-colors:has-[[data-scrollable]:focus-visible]:outline-[Highlight] forced-colors:has-[[data-scrollable]:focus-visible]:outline-solid"
   >
     <ScrollArea
       orientation="horizontal"

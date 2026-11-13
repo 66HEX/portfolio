@@ -95,7 +95,7 @@
 <SectionBlock>
   <CardWrapper>
     <Card.Root
-      class="has-[[data-scrollable]:focus-visible]:ring-ring/50 transition-shadow has-[[data-scrollable]:focus-visible]:ring-[3px] has-[[data-scrollable]:focus-visible]:outline-1"
+      class="has-[[data-scrollable]:focus-visible]:ring-ring/50 transition-shadow outline-none has-[[data-scrollable]:focus-visible]:ring-[3px] forced-colors:has-[[data-scrollable]:focus-visible]:outline-2 forced-colors:has-[[data-scrollable]:focus-visible]:outline-offset-2 forced-colors:has-[[data-scrollable]:focus-visible]:outline-[Highlight] forced-colors:has-[[data-scrollable]:focus-visible]:outline-solid"
     >
       <Card.Content>
         <GitHubContributionGraph {username} data={contributionData} text={graphText} {loading} />

@@ -21,7 +21,7 @@
   <Card.Root
     {...restProps}
     class={cn(
-      "group/pre has-[[data-scrollable]:focus-visible]:ring-ring/50 relative gap-0 p-0 font-mono font-normal transition-shadow has-[[data-scrollable]:focus-visible]:ring-[3px] has-[[data-scrollable]:focus-visible]:outline-1",
+      "group/pre has-[[data-scrollable]:focus-visible]:ring-ring/50 relative gap-0 p-0 font-mono font-normal transition-shadow outline-none has-[[data-scrollable]:focus-visible]:ring-[3px] forced-colors:has-[[data-scrollable]:focus-visible]:outline-2 forced-colors:has-[[data-scrollable]:focus-visible]:outline-offset-2 forced-colors:has-[[data-scrollable]:focus-visible]:outline-[Highlight] forced-colors:has-[[data-scrollable]:focus-visible]:outline-solid",
       unstyled ? "bg-transparent ring-0" : "text-xs",
       className,
     )}

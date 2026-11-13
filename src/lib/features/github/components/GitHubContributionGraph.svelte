@@ -156,7 +156,7 @@
                       aria-label={day.tooltip}
                       data-contribution-index={weekIndex * 7 + index}
                       class={cn(
-                        "focus-visible:outline-foreground relative block size-3 shrink-0 rounded-[3px] after:absolute after:-inset-0.5 after:content-[''] focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
+                        "focus-visible:ring-ring/50 focus-visible:ring-offset-card relative block size-3 shrink-0 rounded-[3px] transition-shadow duration-150 ease-in-out outline-none after:absolute after:-inset-0.5 after:content-[''] focus-visible:z-10 focus-visible:ring-3 focus-visible:ring-offset-2 forced-colors:focus-visible:outline-2 forced-colors:focus-visible:outline-offset-2 forced-colors:focus-visible:outline-[Highlight] forced-colors:focus-visible:outline-solid",
                         levelClasses[day.level],
                       )}
                     ></button>
