@@ -90,20 +90,23 @@
 
     const cell = target.getBoundingClientRect();
     const viewport = graph.getBoundingClientRect();
-    // Keep the focus indicator and cell out of the scroll area's edge fades.
-    if (cell.left < viewport.left + 28) graph.scrollLeft += cell.left - viewport.left - 28;
-    else if (cell.right > viewport.right - 28) graph.scrollLeft += cell.right - viewport.right + 28;
+    // Allow for the 24px fade, the 5px focus ring, and a pixel of clearance.
+    const focusClearance = 30;
+    if (cell.left < viewport.left + focusClearance) graph.scrollLeft += cell.left - viewport.left - focusClearance;
+    else if (cell.right > viewport.right - focusClearance)
+      graph.scrollLeft += cell.right - viewport.right + focusClearance;
   }
 </script>
 
 <div class={cn("w-full", className)}>
   {#if contributionState.dayCells.length > 0}
+    <!-- Extra ring clearance replaces existing padding, keeping the cells, summary, and scrollbar in place. -->
     <ScrollArea
       orientation="horizontal"
       bind:viewportRef={graph}
       fadeHorizontalEdges
-      class="w-full pb-3"
-      viewportProps={{ tabindex: -1 }}
+      class="w-full pb-2.5"
+      viewportProps={{ tabindex: -1, class: "w-[calc(100%+0.125rem)]" }}
     >
       <p id={`${id}-instructions`} class="sr-only">
         Use arrow keys to move between days. Home and End move to the first and last week in a row. Control plus Home or
@@ -121,7 +124,7 @@
       </div>
 
       <div
-        class="grid w-max gap-1 pr-1 pb-1"
+        class="grid w-max gap-1 pr-1.5 pb-1.5"
         role="grid"
         tabindex={-1}
         aria-label="GitHub contribution graph"
