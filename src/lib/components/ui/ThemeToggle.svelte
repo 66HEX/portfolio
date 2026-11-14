@@ -10,7 +10,7 @@
   const ariaLabel = $derived(isDark ? "Switch to light mode" : "Switch to dark mode");
 </script>
 
-<Tooltip.Root>
+<Tooltip.Root disableCloseOnTriggerClick>
   <Tooltip.Trigger>
     {#snippet child({ props })}
       <Button
@@ -26,5 +26,7 @@
       </Button>
     {/snippet}
   </Tooltip.Trigger>
-  <Tooltip.Content sideOffset={6}>{ariaLabel}</Tooltip.Content>
+  <Tooltip.Content sideOffset={6}>
+    <Tooltip.Text text={ariaLabel} states={["Switch to dark mode", "Switch to light mode"]} />
+  </Tooltip.Content>
 </Tooltip.Root>

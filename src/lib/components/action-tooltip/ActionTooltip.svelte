@@ -4,6 +4,7 @@
 
   type Props = {
     content: string;
+    contentStates?: readonly string[];
     shortcut?: string;
     trigger: Snippet<[{ props: Record<string, unknown> }]>;
     side?: "top" | "right" | "bottom" | "left";
@@ -13,6 +14,7 @@
 
   let {
     content,
+    contentStates,
     shortcut,
     trigger,
     side = "top",
@@ -125,7 +127,7 @@
     {/snippet}
   </Tooltip.Trigger>
   <Tooltip.Content {side} {sideOffset} onEscapeKeydown={() => cancelFocusProtection?.()}>
-    <span>{content}</span>
+    <Tooltip.Text text={content} states={contentStates} />
     {#if shortcut}
       <kbd data-slot="kbd" class="bg-background/15 text-background/80 px-1.5 py-0.5 font-mono text-[10px] leading-none">
         {shortcut}

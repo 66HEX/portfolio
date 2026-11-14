@@ -59,7 +59,11 @@
   });
 </script>
 
-<ActionTooltip content={copied ? "Copied code" : "Copy code"} disableCloseOnTriggerClick>
+<ActionTooltip
+  content={copied ? "Copied code" : "Copy code"}
+  contentStates={["Copy code", "Copied code"]}
+  disableCloseOnTriggerClick
+>
   {#snippet trigger({ props })}
     <Button
       {...props}

@@ -39,7 +39,11 @@
   onDestroy(() => clearTimeout(resetTimer));
 </script>
 
-<ActionTooltip content={tooltipLabel} disableCloseOnTriggerClick>
+<ActionTooltip
+  content={tooltipLabel}
+  contentStates={["Copy link to this section", "Section link copied", "Could not copy the section link"]}
+  disableCloseOnTriggerClick
+>
   {#snippet trigger({ props })}
     <Button
       {...props}
