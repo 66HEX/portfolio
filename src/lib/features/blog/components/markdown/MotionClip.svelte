@@ -285,7 +285,7 @@
 </script>
 
 <Dialog.Root bind:open={() => open, changeOpen}>
-  <MarkdownCardWrapper>
+  <MarkdownCardWrapper class="markdown-media">
     <div bind:this={thumbnail} data-motion-clip class="relative overflow-hidden rounded-xl shadow-md">
       <video
         bind:this={video}

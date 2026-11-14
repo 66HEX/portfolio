@@ -192,7 +192,7 @@
 
 <!-- Markdown images can appear inside paragraphs and links, so the wrapper must stay phrasing content. -->
 <Dialog.Root bind:open={() => open, changeOpen}>
-  <MarkdownCardWrapper as="span" class="relative my-6 block">
+  <MarkdownCardWrapper as="span" class="markdown-media relative my-6 block">
     <img
       {...restProps}
       bind:this={thumbnail}
