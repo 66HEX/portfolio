@@ -99,8 +99,8 @@
 }
 
 @theme inline {
-  --font-display: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Tomato Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Tomato Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);

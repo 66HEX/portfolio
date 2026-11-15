@@ -69,7 +69,7 @@ export const portfolio: PortfolioConfig = {
     shader: {
       enabled: true,
       svgSource: "/favicon.svg",
-      fontUrl: "/fonts/MonaSansVariable.woff2",
+      fontUrl: "/fonts/TomatoGrotesk-Regular.woff2",
       scale: 1.2, // [0.1, 1.8]
       offsetX: 0.3, // [-0.3, 0.3], fraction of canvas width
       offsetY: 0, // [-0.5, 0.5], fraction of canvas height

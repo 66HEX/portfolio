@@ -31,18 +31,18 @@ const el = (type: string, props: Record<string, unknown> = {}, ...children: Taku
 
 const takumiFontLoaders = [
   {
-    key: "mona-sans",
-    name: "Mona Sans",
+    key: "tomato-grotesk",
+    name: "Tomato Grotesk",
     weight: 400,
     style: "normal" as const,
     data: async () => {
       const event = getRequestEvent();
-      const fontUrl = new URL(asset("/fonts/MonaSans-Regular.woff2"), event.url);
+      const fontUrl = new URL(asset("/fonts/TomatoGrotesk-Regular.woff2"), event.url);
       const assets = event.platform?.env?.ASSETS;
       // The dev ASSETS binding serves the last build, which may not contain fonts yet.
       const response = !dev && assets ? await assets.fetch(fontUrl) : await event.fetch(fontUrl);
       if (!response.ok) {
-        throw new Error(`Failed to load Mona Sans for Open Graph images (${response.status})`);
+        throw new Error(`Failed to load Tomato Grotesk for Open Graph images (${response.status})`);
       }
       return response.arrayBuffer();
     },
@@ -64,7 +64,7 @@ const createComponent = ({ title, description, category = "Writing", kind = "por
         overflow: "hidden",
         backgroundColor: colors.background,
         color: colors.foreground,
-        fontFamily: "Mona Sans, sans-serif",
+        fontFamily: "Tomato Grotesk, sans-serif",
         fontWeight: 400,
       },
     },
@@ -95,9 +95,6 @@ const createComponent = ({ title, description, category = "Writing", kind = "por
             fontSize: 28,
             lineHeight: 1,
             letterSpacing: "-0.035em",
-            // Mona Sans's visible glyphs sit 3px below the center of its line box
-            // at 28px. Align the ink with the mark, not just the layout boxes.
-            transform: "translateY(-3px)",
           },
         },
         "madebyhex",
