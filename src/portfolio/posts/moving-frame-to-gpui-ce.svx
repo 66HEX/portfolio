@@ -1,5 +1,6 @@
 ---
 title: "Moving Frame to GPUI-CE"
+ogCategory: "Engineering"
 description: "The duplicated conversion rules, preview mismatches, and maintenance costs behind Frame's move from Tauri and Svelte to Rust."
 date: "2026-07-08"
 tags:

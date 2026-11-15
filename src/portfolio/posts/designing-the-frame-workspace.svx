@@ -1,5 +1,6 @@
 ---
 title: "Designing the Frame workspace"
+ogCategory: "Case study"
 description: "A design case study of Frame 0.34.0: workspace hierarchy, export controls, and deciding when animation helps."
 date: "2026-11-12"
 tags:

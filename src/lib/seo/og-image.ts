@@ -2,8 +2,7 @@ import ImageResponse from "@takumi-rs/image-response";
 import { dev } from "$app/environment";
 import { asset } from "$app/paths";
 import { getRequestEvent } from "$app/server";
-import { portfolio } from "../../portfolio/config";
-import { ogBlueprint } from "$lib/seo/og-blueprint";
+import { ogArtwork, ogArticleArtwork, ogBrandMark } from "$lib/seo/og-artwork";
 import { ogThemeColors as colors } from "$lib/seo/og-theme";
 
 export const OG_WIDTH = 1200;
@@ -19,7 +18,8 @@ type TakumiChild = TakumiElement | string;
 
 type OgImageOptions = {
   title: string;
-  description: string;
+  description?: string;
+  category?: string;
   kind?: "portfolio" | "article";
 };
 
@@ -49,11 +49,9 @@ const takumiFontLoaders = [
   },
 ];
 
-const siteHost = new URL(portfolio.url).hostname;
-
-const createComponent = ({ title, description, kind = "portfolio" }: OgImageOptions) => {
+const createComponent = ({ title, description, category = "Writing", kind = "portfolio" }: OgImageOptions) => {
   const isArticle = kind === "article";
-  const titleSize = isArticle ? (title.length > 58 ? 38 : title.length > 34 ? 46 : 54) : 64;
+  const titleSize = isArticle ? (title.length > 70 ? 60 : title.length > 44 ? 68 : 76) : 88;
 
   return el(
     "div",
@@ -71,7 +69,7 @@ const createComponent = ({ title, description, kind = "portfolio" }: OgImageOpti
       },
     },
     el("img", {
-      src: ogBlueprint,
+      src: isArticle ? ogArticleArtwork : ogArtwork,
       alt: "",
       width: OG_WIDTH,
       height: OG_HEIGHT,
@@ -82,47 +80,27 @@ const createComponent = ({ title, description, kind = "portfolio" }: OgImageOpti
       {
         style: {
           position: "absolute",
-          left: 80,
-          bottom: isArticle ? 128 : 144,
-          width: 544,
+          left: 76,
+          top: 64,
           display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: isArticle ? 24 : 56,
+          alignItems: "center",
+          gap: 12,
         },
       },
+      el("img", { src: ogBrandMark, alt: "", width: 28, height: 28 }),
       el(
         "div",
-        { style: { display: "flex", flexDirection: "column", width: "100%", gap: 18 } },
-        el(
-          "div",
-          {
-            style: {
-              width: "100%",
-              fontSize: titleSize,
-              letterSpacing: "-0.045em",
-              lineHeight: 1.08,
-              textWrap: "balance",
-              overflowWrap: "anywhere",
-              lineClamp: isArticle && title.length > 34 ? 3 : 2,
-            },
+        {
+          style: {
+            fontSize: 28,
+            lineHeight: 1,
+            letterSpacing: "-0.035em",
+            // Mona Sans's visible glyphs sit 3px below the center of its line box
+            // at 28px. Align the ink with the mark, not just the layout boxes.
+            transform: "translateY(-3px)",
           },
-          title,
-        ),
-        el(
-          "div",
-          {
-            style: {
-              width: "100%",
-              color: colors.foregroundMuted,
-              fontSize: isArticle ? 21 : 26,
-              lineHeight: 1.4,
-              textWrap: "pretty",
-              lineClamp: isArticle ? 3 : 2,
-            },
-          },
-          description,
-        ),
+        },
+        "madebyhex",
       ),
     ),
     el(
@@ -130,17 +108,53 @@ const createComponent = ({ title, description, kind = "portfolio" }: OgImageOpti
       {
         style: {
           position: "absolute",
-          left: 80,
-          right: 80,
-          top: 547,
+          left: 76,
+          bottom: 76,
+          width: 1048,
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          fontSize: 17,
-          color: colors.foregroundMuted,
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: 24,
         },
       },
-      el("div", {}, siteHost),
+      ...(isArticle
+        ? [
+            el(
+              "div",
+              {
+                style: {
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  fontSize: 20,
+                  letterSpacing: "0.12em",
+                  color: colors.accent,
+                  textTransform: "uppercase",
+                },
+              },
+              el("div", { style: { width: 7, height: 7, backgroundColor: colors.accent, borderRadius: 2 } }),
+              category,
+            ),
+          ]
+        : []),
+      el(
+        "div",
+        {
+          style: {
+            width: isArticle ? 1000 : 1048,
+            fontSize: titleSize,
+            letterSpacing: "-0.045em",
+            lineHeight: 1.08,
+            textWrap: "balance",
+            overflowWrap: "anywhere",
+            lineClamp: 3,
+          },
+        },
+        title,
+      ),
+      ...(!isArticle && description
+        ? [el("div", { style: { color: colors.foregroundMuted, fontSize: 30, lineHeight: 1.3 } }, description)]
+        : []),
     ),
   );
 };

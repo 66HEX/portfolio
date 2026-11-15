@@ -1,5 +1,6 @@
 ---
 title: "Inside Spektral's renderer"
+ogCategory: "Engineering"
 description: "How materials, scheduling, and render passes work in the WebGPU fragment renderer I built for fullscreen effects."
 date: "2026-03-17"
 tags:

@@ -4,6 +4,8 @@ export const publicationDate = z.iso.date();
 export const postMetadataSchema = z.object({
   title: z.string().trim().min(1, "Give the post a title."),
   description: z.string().trim().min(1, "Add a description for cards and SEO."),
+  ogTitle: z.string().trim().min(1).max(110).optional(),
+  ogCategory: z.string().trim().min(1).max(32).optional(),
   date: publicationDate,
   tags: z.array(z.string().trim().min(1)).default([]),
   published: z.boolean().default(false),

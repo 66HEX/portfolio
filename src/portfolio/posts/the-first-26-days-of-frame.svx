@@ -1,5 +1,6 @@
 ---
 title: "The first 26 days of Frame"
+ogCategory: "Build journal"
 description: "I built a Tauri app to stop looking up FFmpeg flags. Within 26 days, it had 500 stars and five contributors."
 date: "2026-02-17"
 tags:

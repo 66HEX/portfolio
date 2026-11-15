@@ -6,6 +6,8 @@ export type BlogPostMeta = {
   slug: string;
   title: string;
   description: string;
+  ogTitle?: string;
+  ogCategory?: string;
   date: string;
   tags: string[];
   published: boolean;
@@ -16,6 +18,8 @@ function toBlogPostMeta(post: CollectionBlogPost): BlogPostMeta {
     slug: post.slug,
     title: post.title,
     description: post.description,
+    ogTitle: post.ogTitle,
+    ogCategory: post.ogCategory,
     date: post.date,
     tags: post.tags,
     published: post.published,
