@@ -96,8 +96,8 @@
       }}
       data-markdown-image-dialog
       data-moving={lightbox.moving}
-      class="dark pointer-events-none! fixed inset-0 z-[100] grid place-items-center bg-transparent px-3 pt-(--image-top) pb-3 outline-none"
-      style={`--image-top: max(4.5rem, calc(env(safe-area-inset-top) + 3.5rem)); opacity: ${lightbox.opacity}`}
+      class="dark pointer-events-none! fixed inset-0 z-[100] grid place-items-center bg-transparent px-3 py-(--media-inset) outline-none"
+      style={`--media-inset: max(4.5rem, calc(env(safe-area-inset-top) + 3.5rem), calc(env(safe-area-inset-bottom) + 0.75rem)); opacity: ${lightbox.opacity}`}
     >
       <Dialog.Title class="sr-only">{alt || "Image preview"}</Dialog.Title>
       <Dialog.Description class="sr-only">Press Escape or click outside the image to close.</Dialog.Description>
@@ -110,7 +110,7 @@
       </Dialog.Close>
       <div
         bind:this={viewport}
-        class="pointer-events-auto w-[min(calc(100vw-1.5rem),calc((100svh-var(--image-top)-0.75rem)*var(--image-ratio)))] overflow-hidden rounded-xl shadow-lg"
+        class="pointer-events-auto w-[min(calc(100vw-1.5rem),calc((100dvh-2*var(--media-inset))*var(--image-ratio)))] overflow-hidden rounded-xl shadow-lg"
         style:--image-ratio={aspectRatio}
         style:aspect-ratio={aspectRatio}
         style:opacity={lightbox.moving ? 0 : 1}

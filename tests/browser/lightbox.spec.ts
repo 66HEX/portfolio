@@ -36,6 +36,14 @@ async function expectClosed(page: Page, name: string) {
   await expect.poll(() => page.evaluate(() => document.body.style.pointerEvents)).not.toBe("none");
 }
 
+async function expectMediaCentered(page: Page) {
+  const media = page.getByRole("dialog").locator("img, video").first();
+  const bounds = await media.boundingBox();
+  expect(bounds).not.toBeNull();
+  const height = await page.evaluate(() => window.innerHeight);
+  expect(Math.abs(bounds!.y + bounds!.height / 2 - height / 2)).toBeLessThanOrEqual(1);
+}
+
 async function slowAnimations(page: Page) {
   await page.addInitScript(() => {
     const animate = Element.prototype.animate;
@@ -65,6 +73,7 @@ test("image modal traps focus, closes from the keyboard and backdrop, and restor
   const close = page.getByRole("button", { name: "Close image", exact: true });
   await expect(close).toBeFocused();
   await expect(dialog).toHaveAttribute("data-moving", "false");
+  await expectMediaCentered(page);
   await page.keyboard.press("Tab");
   await expect(close).toBeFocused();
   await page.keyboard.press("Shift+Tab");
@@ -94,6 +103,7 @@ for (const [kind, name] of [
     await trigger.click();
     await expect(page.getByRole("dialog")).toHaveAttribute("data-moving", "false");
     await expect(page.locator(floating)).toHaveCount(0);
+    await expectMediaCentered(page);
     await page.keyboard.press("Escape");
     await expectClosed(page, name);
   });
@@ -149,6 +159,7 @@ test("resize settles an in-flight morph at the new viewport size", async ({ page
   expect(bounds!.y).toBeGreaterThanOrEqual(0);
   expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(431);
   expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(741);
+  await expectMediaCentered(page);
   await page.keyboard.press("Escape");
   await expectClosed(page, imageName);
 });
