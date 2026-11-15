@@ -80,8 +80,8 @@ export const portfolio: PortfolioConfig = {
       letterSpacing: 0.05, // [-0.1, 0.5] em, step 0.005
       roughness: 0.5, // [0.3, 0.85]
       lightAngle: -10, // [-180, 180] degrees
-      lightElevation: 85, // [10, 85] degrees
-      lightIntensity: 1, // [0, 3]
+      lightElevation: 35, // [10, 85] degrees
+      lightIntensity: 2, // [0, 3]
       lightSize: 2, // [0.25, 3]
       environmentRotation: 0, // [-180, 180] degrees
       environmentIntensity: 1, // [0, 3]
