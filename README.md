@@ -55,14 +55,24 @@ This creates `src/portfolio/posts/my-first-article.svx` as a draft. Preview it a
 | `pnpm tweets:sync`                  | Explicitly refresh the testimonial cache from X           |
 | `pnpm check`                        | Validate content and check Svelte/TypeScript              |
 | `pnpm lint`                         | Check source with ESLint                                  |
-| `pnpm test`                         | Run content, configuration and authoring regression tests |
+| `pnpm test`                         | Run unit and content regression tests                     |
 | `pnpm format` / `pnpm format:check` | Format or check formatting                                |
-| `pnpm verify`                       | Run checks, lint, tests and production build              |
+| `pnpm test:browser`                 | Run lightbox browser regression tests                     |
+| `pnpm verify`                       | Run checks, lint, unit/browser tests and production build |
 | `pnpm build`                        | Build the Cloudflare Worker and static assets             |
 | `pnpm preview`                      | Run the built Worker locally                              |
 | `pnpm deploy`                       | Deploy the built output with Wrangler                     |
 
 Builds use the committed testimonial cache and do not fetch X. Refresh it deliberately and commit the result with content changes; failed requests keep the previous cached entries.
+
+Before running browser tests for the first time, install the Playwright browsers:
+
+```sh
+pnpm exec playwright install chromium firefox webkit
+pnpm test:browser
+```
+
+The suite starts its own development server on port 4179. It covers image and video lightboxes in Chromium, Firefox and WebKit, including mobile Chromium and WebKit viewports. Mobile projects emulate the browser environment; they do not replace checks on physical phones. To run one project, use `pnpm test:browser --project=chromium`. Failed tests save screenshots and traces in `test-results/`.
 
 ## Deploy
 

@@ -5,5 +5,7 @@ node_modules
 build
 dist
 coverage
+playwright-report
+test-results
 bun.lock
 src/portfolio/cache/tweets.json
