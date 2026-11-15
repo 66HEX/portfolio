@@ -14,6 +14,7 @@ function buildCspHeaderValue(): string {
     "object-src 'none'",
     "frame-ancestors 'none'",
     `script-src ${scriptSrc.join(" ")}`,
+    "worker-src 'self' blob:",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "font-src 'self' data:",

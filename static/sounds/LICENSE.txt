@@ -1,0 +1,18 @@
+keycap-press.wav
+
+Source: Computer keyboard typing and keystrokes - Apple MacBook Pro 2018
+Author: khenshom
+Source page: https://freesound.org/people/khenshom/sounds/565645/
+License: CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Retrieved: 2026-11-15
+
+Prepared from the source page's public HQ MP3 preview:
+https://cdn.freesound.org/previews/565/565645_6652872-hq.mp3
+
+Edits: extracted 51.328-51.523 seconds; applied a 90 Hz high-pass filter,
+1 ms fade-in and 30 ms fade-out; normalized the peak to -6 dBFS.
+Output: mono, 48 kHz, 16-bit PCM WAV, 195 ms.
+
+The recording is dedicated to the public domain under CC0. Attribution
+is not required; this note records its source and the edits made here.

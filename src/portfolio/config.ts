@@ -23,7 +23,29 @@ type PortfolioConfig = {
   sections: SectionId[];
   writing: { limit: number };
   hero: {
-    shader: { enabled: boolean; scale: number; blur: number; grain: number; chromaticAberration: number };
+    shader: {
+      enabled: boolean;
+      svgSource: string;
+      fontUrl: string;
+      scale: number;
+      offsetX: number;
+      offsetY: number;
+      panX: number;
+      panY: number;
+      logoScale: number;
+      legendScale: number;
+      letterSpacing: number;
+      roughness: number;
+      lightAngle: number;
+      lightElevation: number;
+      lightIntensity: number;
+      lightSize: number;
+      environmentRotation: number;
+      environmentIntensity: number;
+      exposure: number;
+      interactive: boolean;
+      sound: { enabled: boolean; src: string; volume: number };
+    };
   };
 };
 
@@ -43,7 +65,33 @@ export const portfolio: PortfolioConfig = {
   sections: ["about", "github", "experience", "testimonials", "projects", "recognition", "writing", "contact"],
   writing: { limit: 5 },
   hero: {
-    // The shader clamps scale to 2.5; this preserves the previous effective value.
-    shader: { enabled: true, scale: 2.5, blur: 0.5, grain: 0, chromaticAberration: 0 },
+    // Keycap Logo settings from Godsend. Material colors follow the active theme.
+    shader: {
+      enabled: true,
+      svgSource: "/favicon.svg",
+      fontUrl: "/fonts/MonaSansVariable.woff2",
+      scale: 1.2, // [0.1, 1.8]
+      offsetX: 0.3, // [-0.3, 0.3], fraction of canvas width
+      offsetY: 0, // [-0.5, 0.5], fraction of canvas height
+      panX: 1, // [-14, 26], scene units
+      panY: 0, // [-8, 20], scene units
+      logoScale: 1.15, // [0.3, 1.15]
+      legendScale: 1.6, // [0.5, 1.6]
+      letterSpacing: 0.05, // [-0.1, 0.5] em, step 0.005
+      roughness: 0.5, // [0.3, 0.85]
+      lightAngle: -10, // [-180, 180] degrees
+      lightElevation: 85, // [10, 85] degrees
+      lightIntensity: 1, // [0, 3]
+      lightSize: 2, // [0.25, 3]
+      environmentRotation: 0, // [-180, 180] degrees
+      environmentIntensity: 1, // [0, 3]
+      exposure: 1, // [0, 2]
+      interactive: true,
+      sound: {
+        enabled: true,
+        src: "/sounds/keycap-press.wav",
+        volume: 0.35, // [0, 1]; 0 is silent
+      },
+    },
   },
 };

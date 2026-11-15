@@ -20,6 +20,8 @@
   --background: lab(96.26% 0 0);
   --foreground: lab(2.51107% 0.242703 -0.886115);
   --card: #fff;
+  /* Shared by dark cards and hero keycaps in both themes. */
+  --card-dark: color-mix(in oklab, lab(15.7305% 0.613764 -2.16959) 35%, #161619);
   --card-foreground: lab(2.51107% 0.242703 -0.886115);
   --popover: #fff;
   --popover-foreground: lab(2.51107% 0.242703 -0.886115);
@@ -59,7 +61,7 @@
 .dark {
   --background: lab(7.51107% 0.242703 -1.886115);
   --foreground: #fff;
-  --card: color-mix(in oklab, lab(15.7305% 0.613764 -2.16959) 35%, #161619);
+  --card: var(--card-dark);
   --card-foreground: #fff;
   --popover: lab(2.51107% 0.242703 -0.886115);
   --popover-foreground: #fff;

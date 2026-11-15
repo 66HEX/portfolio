@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card";
   import * as Avatar from "$lib/components/ui/avatar";
-  import { onMount } from "svelte";
+  import { onMount, type ComponentProps } from "svelte";
   import { browser } from "$app/environment";
   import type { HomepageContent } from "$lib/homepage";
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
@@ -9,19 +9,29 @@
   import { themeStore } from "$lib/stores/theme.svelte";
   import CardWrapper from "$lib/components/layout/CardWrapper.svelte";
   import { cssColorToHex } from "$lib/utils/color";
+  import { createKeyPressSound } from "$lib/features/hero/key-press-sound";
 
   import { portfolio } from "$portfolio/config";
+
+  type KeycapComponent = typeof import("$lib/features/hero/components/KeycapLogo.svelte").default;
 
   type Props = {
     hero: HomepageContent["hero"];
     profile: HomepageContent["profile"];
+    onKeyPress?: ComponentProps<KeycapComponent>["onKeyPress"];
   };
 
-  let { hero, profile }: Props = $props();
+  let { hero, profile, onKeyPress }: Props = $props();
 
-  let LiquidGlass = $state<typeof import("$lib/features/hero/components/LiquidGlass.svelte").default>();
+  let KeycapLogo = $state<KeycapComponent>();
   let shaderReady = $state(false);
   let avatarStatus = $state<"loading" | "loaded" | "error">("loading");
+  let keySound: ReturnType<typeof createKeyPressSound> | undefined;
+
+  function handleKeyPress(event: Parameters<NonNullable<Props["onKeyPress"]>>[0]): void {
+    keySound?.play();
+    onKeyPress?.(event);
+  }
 
   function handleShaderError(error: unknown): void {
     shaderReady = false;
@@ -32,9 +42,14 @@
     if (!portfolio.hero.shader.enabled) return;
 
     let active = true;
-    void import("$lib/features/hero/components/LiquidGlass.svelte")
+    if (portfolio.hero.shader.sound.enabled) {
+      keySound = createKeyPressSound(portfolio.hero.shader.sound);
+    }
+    // Install Pixi's static uniform sync before loading the generated component.
+    void import("pixi.js/unsafe-eval")
+      .then(() => import("$lib/features/hero/components/KeycapLogo.svelte"))
       .then((module) => {
-        if (active) LiquidGlass = module.default;
+        if (active) KeycapLogo = module.default;
       })
       .catch((error: unknown) => {
         if (active) handleShaderError(error);
@@ -42,22 +57,32 @@
 
     return () => {
       active = false;
+      keySound?.destroy();
+      keySound = undefined;
     };
   });
 
-  const liquidGlassColors = $derived.by(() => {
+  const keycapColors = $derived.by(() => {
     const theme = themeStore.current;
-    const fallbackBackground = theme === "dark" ? "#0a0a0a" : "#ffffff";
-    const fallbackAccent = theme === "dark" ? "#d4d4d4" : "#404040";
+    const fallback = {
+      backgroundColor: theme === "dark" ? "#161719" : "#f4f4f4",
+      keyColor: "#1c1c1f",
+      logoColor: theme === "dark" ? "#B8A8FF" : "#857AFF",
+      legendColor: "#ffffff",
+      lightColor: "#ffffff",
+    };
 
     if (!browser) {
-      return { accent: fallbackAccent, background: fallbackBackground };
+      return fallback;
     }
 
     const styles = getComputedStyle(document.documentElement);
     return {
-      accent: cssColorToHex(styles.getPropertyValue("--primary"), fallbackAccent),
-      background: cssColorToHex(styles.getPropertyValue("--background"), fallbackBackground),
+      backgroundColor: cssColorToHex(styles.getPropertyValue("--background"), fallback.backgroundColor),
+      keyColor: cssColorToHex(styles.getPropertyValue("--card-dark"), fallback.keyColor),
+      logoColor: cssColorToHex(styles.getPropertyValue("--primary"), fallback.logoColor),
+      legendColor: cssColorToHex(styles.getPropertyValue("--primary-foreground"), fallback.legendColor),
+      lightColor: cssColorToHex(styles.getPropertyValue("--primary-foreground"), fallback.lightColor),
     };
   });
 </script>
@@ -70,17 +95,32 @@
           <div
             class="absolute inset-0 overflow-hidden transition-opacity duration-500 motion-reduce:transition-none"
             class:opacity-0={!shaderReady}
-            aria-hidden="true"
+            inert={!shaderReady}
           >
-            {#if LiquidGlass}
-              <LiquidGlass
-                color1={liquidGlassColors.accent}
-                color2={liquidGlassColors.background}
-                chromaticAberration={portfolio.hero.shader.chromaticAberration}
+            {#if KeycapLogo}
+              <KeycapLogo
+                svgSource={portfolio.hero.shader.svgSource}
+                fontUrl={portfolio.hero.shader.fontUrl}
                 scale={portfolio.hero.shader.scale}
+                offsetX={portfolio.hero.shader.offsetX}
+                offsetY={portfolio.hero.shader.offsetY}
+                panX={portfolio.hero.shader.panX}
+                panY={portfolio.hero.shader.panY}
+                logoScale={portfolio.hero.shader.logoScale}
+                legendScale={portfolio.hero.shader.legendScale}
+                letterSpacing={portfolio.hero.shader.letterSpacing}
+                {...keycapColors}
+                roughness={portfolio.hero.shader.roughness}
+                lightAngle={portfolio.hero.shader.lightAngle}
+                lightElevation={portfolio.hero.shader.lightElevation}
+                lightIntensity={portfolio.hero.shader.lightIntensity}
+                lightSize={portfolio.hero.shader.lightSize}
+                environmentRotation={portfolio.hero.shader.environmentRotation}
+                environmentIntensity={portfolio.hero.shader.environmentIntensity}
+                exposure={portfolio.hero.shader.exposure}
+                interactive={portfolio.hero.shader.interactive}
                 class="h-full w-full"
-                blur={portfolio.hero.shader.blur}
-                grain={portfolio.hero.shader.grain}
+                onKeyPress={handleKeyPress}
                 onReady={() => (shaderReady = true)}
                 onError={handleShaderError}
               />

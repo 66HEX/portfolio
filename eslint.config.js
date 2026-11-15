@@ -51,4 +51,11 @@ export default defineConfig([
       ],
     },
   },
+  {
+    files: ["src/lib/features/hero/components/KeycapLogo.svelte"],
+    rules: {
+      // Godsend's contour lookup is local renderer data, not Svelte component state.
+      "svelte/prefer-svelte-reactivity": "off",
+    },
+  },
 ]);
