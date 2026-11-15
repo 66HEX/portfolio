@@ -18,7 +18,7 @@
 <li
   {...restProps}
   class={cn(
-    "text-muted-foreground text-sm font-normal tracking-normal text-pretty",
+    "text-muted-foreground text-sm font-normal tracking-[0.01em] text-pretty",
     taskChecked !== undefined && "list-none",
     className,
   )}

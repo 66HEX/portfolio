@@ -20,7 +20,7 @@
           <h2 class="text-foreground font-display text-lg leading-none font-medium tracking-tight">
             {content.headline}
           </h2>
-          <p class="text-muted-foreground max-w-xl text-sm text-balance">
+          <p class="text-muted-foreground max-w-xl text-sm tracking-[0.01em] text-balance">
             {content.description}
           </p>
         </Card.Header>
@@ -37,7 +37,7 @@
             </IconLinkButton>
           </div>
 
-          <p class="text-muted-foreground mt-2 text-xs leading-none font-medium">
+          <p class="text-muted-foreground mt-2 text-xs leading-none font-medium tracking-[0.01em]">
             © {year}
             {content.copyrightName}. {content.copyrightSuffix}
           </p>

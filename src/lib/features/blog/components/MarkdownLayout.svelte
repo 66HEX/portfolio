@@ -130,7 +130,7 @@
         {title}
       </h1>
       {#if description}
-        <p class="text-muted-foreground mt-2 text-sm text-pretty">
+        <p class="text-muted-foreground mt-2 text-sm tracking-[0.01em] text-pretty">
           {description}
         </p>
       {/if}

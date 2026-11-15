@@ -23,7 +23,7 @@
         {/if}
 
         <Avatar.Root
-          class="bg-card dark:bg-input-30 relative z-10 size-7 items-center justify-center rounded-md after:rounded-md shadow-[var(--shadow-xs),0_0_0_3px_var(--secondary)]!"
+          class="bg-card dark:bg-input-30 relative z-10 size-7 items-center justify-center rounded-md shadow-[var(--shadow-xs),0_0_0_3px_var(--secondary)]! after:rounded-md"
         >
           {#if item.darkLogoSrc}
             <img
@@ -67,7 +67,9 @@
             </a>
 
             {#if item.location || item.workMode}
-              <p class="text-muted-foreground text-xs leading-snug text-pretty sm:max-w-64 sm:text-right">
+              <p
+                class="text-muted-foreground text-xs leading-snug tracking-[0.01em] text-pretty sm:max-w-64 sm:text-right"
+              >
                 {[item.location, item.workMode].filter(Boolean).join(" | ")}
               </p>
             {/if}
@@ -75,14 +77,18 @@
 
           <div class="mt-3">
             <h3 class="text-foreground text-base leading-none font-medium tracking-tight text-balance">{item.role}</h3>
-            <p class="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-none">
+            <p
+              class="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-none tracking-[0.01em]"
+            >
               <span>{item.employmentType}</span>
               <span aria-hidden="true">|</span>
               <span class="tabular-nums">{item.period}</span>
             </p>
           </div>
 
-          <ul class="text-muted-foreground mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-pretty">
+          <ul
+            class="text-muted-foreground mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed tracking-[0.01em] text-pretty"
+          >
             {#each item.highlights as highlight (`${item.company}-${highlight}`)}
               <li>{highlight}</li>
             {/each}

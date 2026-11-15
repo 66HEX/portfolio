@@ -7,7 +7,7 @@
 <svelte:element
   this={as}
   data-media-caption
-  class="text-muted-foreground text-center text-xs leading-relaxed text-pretty italic [counter-increment:media-caption]"
+  class="text-muted-foreground text-center text-xs leading-relaxed tracking-[0.01em] text-pretty italic [counter-increment:media-caption]"
 >
   <span class="before:content-[counter(media-caption)]">.</span>&nbsp;{@render children?.()}
 </svelte:element>

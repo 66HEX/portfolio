@@ -40,7 +40,7 @@
               <IconRenderer icon={IconBadgeCheck} class="text-primary shrink-0" size={16} label="Verified account" />
             {/if}
           </div>
-          <p class="text-muted-foreground text-xs leading-none">@{item.handle}</p>
+          <p class="text-muted-foreground text-xs leading-none tracking-[0.01em]">@{item.handle}</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
       </IconLinkButton>
     </div>
 
-    <p class="text-muted-foreground mt-3 text-sm">
+    <p class="text-muted-foreground mt-3 text-sm tracking-[0.01em]">
       {item.text}
     </p>
   </Card.Root>

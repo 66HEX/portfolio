@@ -40,14 +40,14 @@
 {/snippet}
 
 {#snippet renderList(items: AboutListItem[])}
-  <ul class="text-muted-foreground leading-relaxed list-disc space-y-3 py-1 pl-5 text-sm text-pretty">
+  <ul class="text-muted-foreground list-disc space-y-3 py-1 pl-5 text-sm leading-relaxed tracking-[0.01em] text-pretty">
     {#each items as item, i (i)}
-    <li>
+      <li>
         {#each item.content as node, j (j)}
           {@render renderNode(node)}
         {/each}
         {#if item.nestedList}
-          <ul class="text-muted-foreground leading-relaxed mt-1 list-disc space-y-3 pl-5 text-sm">
+          <ul class="text-muted-foreground mt-1 list-disc space-y-3 pl-5 text-sm leading-relaxed tracking-[0.01em]">
             {#each item.nestedList as nestedItem, k (k)}
               <li>
                 {#each nestedItem.content as node, l (l)}

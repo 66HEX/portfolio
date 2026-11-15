@@ -162,7 +162,7 @@
 <div class="relative mb-8 flex w-full items-center justify-between gap-4 pr-4 pl-38">
   <header class="flex min-w-0 flex-col items-start justify-start gap-1">
     <h1 class="text-foreground font-display text-lg leading-none font-medium tracking-tight">{profile.name}</h1>
-    <p class="text-muted-foreground text-xs leading-none">{profile.role}</p>
+    <p class="text-muted-foreground text-xs leading-none tracking-[0.01em]">{profile.role}</p>
   </header>
 
   <ThemeToggle />

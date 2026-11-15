@@ -15,7 +15,10 @@
 
 <MarkdownCardWrapper class="mt-6">
   <Card.Root>
-    <blockquote {...restProps} class={cn("text-muted-foreground px-5 text-base font-normal italic", className)}>
+    <blockquote
+      {...restProps}
+      class={cn("text-muted-foreground px-5 text-base font-normal tracking-[0.01em] italic", className)}
+    >
       {@render children?.()}
     </blockquote>
   </Card.Root>
