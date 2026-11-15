@@ -2291,7 +2291,7 @@
 		keyId: string;
 		column: number;
 		row: number;
-		source: "pointer" | "keyboard" | "assistive";
+		source: "pointer";
 	};
 
 	type ShaderController = {
@@ -3211,7 +3211,6 @@
 				target.append(app.canvas);
 
 				let invalidate = () => renderFrame();
-				let syncKeyControls = () => {};
 				const resize = () => {
 					const size = resizeRenderer(app, target, rendererResolution(), RENDER_PIXEL_BUDGET);
 					if (!size?.changed) return;
@@ -3220,7 +3219,6 @@
 					mesh.height = height;
 					syncRenderMetrics(uniformGroup.uniforms, width, height, app.renderer.resolution);
 
-					syncKeyControls();
 					invalidate();
 				};
 				const resizeObserver = new ResizeObserver(resize);
@@ -3269,26 +3267,18 @@
 				let keyPress = 0;
 				let keyTarget = 0;
 				let heldPointer: number | undefined;
-				let heldKeyboard = false;
-				const keyControls = document.createElement("div");
-				keyControls.setAttribute("role", "group");
-				keyControls.setAttribute("aria-label", "Interactive keys");
-				keyControls.style.cssText = "position:absolute;inset:0;pointer-events:none;";
-				target.append(keyControls);
-				cleanup.push(() => keyControls.remove());
 				const writeKeyUniforms = () => {
 					uniformGroup.uniforms["uPressedKey"] = [pressedColumn, pressedRow];
 					uniformGroup.uniforms["uPress"] = keyPress;
 				};
 				const releaseKey = () => {
 					heldPointer = undefined;
-					heldKeyboard = false;
 					keyTarget = 0;
 					if (reducedMotion.matches || paused || !interactive) keyPress = 0;
 					writeKeyUniforms();
 					invalidate();
 				};
-				const pressKey = (column: number, row: number, source: ShaderKeyPress["source"]) => {
+				const pressKey = (column: number, row: number) => {
 					if (!interactive || paused || destroyed) return;
 					if (column !== pressedColumn || row !== pressedRow) keyPress = 0;
 					pressedColumn = column;
@@ -3304,7 +3294,7 @@
 							column + ":" + row,
 						column,
 						row,
-						source
+						source: "pointer"
 					});
 				};
 				const keyAxes = () => {
@@ -3428,7 +3418,7 @@
 					} catch {
 						/* Synthetic events need no capture. */
 					}
-					pressKey(hit.column, hit.row, "pointer");
+					pressKey(hit.column, hit.row);
 				};
 				const pointerUp = (event: PointerEvent) => {
 					if (event.pointerId !== heldPointer) return;
@@ -3448,135 +3438,6 @@
 					app.canvas.removeEventListener("lostpointercapture", pointerUp);
 					window.removeEventListener("blur", releaseKey);
 				});
-				let keyControlSignature = "";
-				syncKeyControls = () => {
-					const width = target.clientWidth,
-						height = target.clientHeight;
-					const signature = [
-						width,
-						height,
-						values.scale,
-						values.offsetX,
-						values.offsetY,
-						values.panX,
-						values.panY
-					].join(":");
-					if (signature !== keyControlSignature) {
-						keyControlSignature = signature;
-						const previousFocus = (document.activeElement as HTMLElement | null)?.dataset?.[
-							"shaderKey"
-						];
-						keyControls.replaceChildren();
-						if (width && height) {
-							const { right: r, up } = keyAxes();
-							const span = keyGeometry.viewSpan / values.scale;
-							const radius = Math.ceil(
-								(span * Math.max(1, width / height) * (1 + Math.abs(values.offsetX)) + 2) /
-									keyGeometry.pitch
-							);
-							const candidates: Array<{
-								column: number;
-								row: number;
-								x: number;
-								y: number;
-								id: string;
-								label: string;
-							}> = [];
-							const placeKey = (key: {
-								column: number;
-								row: number;
-								center: [number, number];
-								id: string;
-								label: string;
-							}) => {
-								const [x, z] = key.center;
-								const u =
-									0.5 +
-									values.offsetX +
-									(x * r[0]! + z * r[2]! - values.panX) / span / (width / height);
-								const v =
-									0.5 +
-									values.offsetY -
-									(x * up[0]! +
-										(keyGeometry.top - keyGeometry.targetY) * up[1]! +
-										z * up[2]! -
-										values.panY) /
-										span;
-								if (u > 0.015 && u < 0.985 && v > 0.015 && v < 0.985)
-									candidates.push({
-										column: key.column,
-										row: key.row,
-										x: u * width,
-										y: v * height,
-										id: key.id,
-										label: key.label
-									});
-							};
-							if (explicitKeys) {
-								for (const key of explicitKeys) placeKey(key);
-							} else
-								for (let row = -radius; row <= radius; row++)
-									for (let column = -radius; column <= radius; column++) {
-										placeKey({
-											column,
-											row,
-											center: [
-												column * keyGeometry.pitch + keyRowShift(row),
-												row * keyGeometry.pitch
-											],
-											id: column + ":" + row,
-											label:
-												column === 0 && row === 0
-													? "Logo key"
-													: "Key column " + column + ", row " + row
-										});
-									}
-							candidates.sort((a, b) => (Math.abs(a.y - b.y) > 20 ? a.y - b.y : a.x - b.x));
-							for (const key of candidates) {
-								const button = document.createElement("button");
-								button.type = "button";
-								button.dataset["shaderKey"] = key.id;
-								button.setAttribute("aria-label", key.label);
-								button.style.cssText =
-									"position:absolute;width:44px;height:44px;transform:translate(-50%,-50%);padding:0;border:0;border-radius:6px;background:transparent;pointer-events:none;opacity:0;outline:2px solid Highlight;outline-offset:3px;box-shadow:0 0 0 4px Canvas;";
-								button.style.left = key.x + "px";
-								button.style.top = key.y + "px";
-								button.addEventListener("focus", () => {
-									button.style.opacity = "1";
-								});
-								button.addEventListener("blur", () => {
-									button.style.opacity = "0";
-									if (heldKeyboard) releaseKey();
-								});
-								button.addEventListener("keydown", (event) => {
-									if (event.key !== "Enter" && event.key !== " ") return;
-									event.preventDefault();
-									if (event.repeat || heldKeyboard || !interactive || paused) return;
-									heldKeyboard = true;
-									pressKey(key.column, key.row, "keyboard");
-								});
-								button.addEventListener("keyup", (event) => {
-									if (event.key !== "Enter" && event.key !== " ") return;
-									event.preventDefault();
-									if (heldKeyboard) releaseKey();
-								});
-								button.addEventListener("click", (event) => {
-									if (event.detail !== 0 || heldKeyboard) return;
-									pressKey(key.column, key.row, "assistive");
-									releaseKey();
-								});
-								keyControls.append(button);
-							}
-						}
-						if (previousFocus)
-							Array.from(keyControls.querySelectorAll("button"))
-								.find((button) => button.dataset["shaderKey"] === previousFocus)
-								?.focus();
-					}
-					for (const button of keyControls.querySelectorAll("button"))
-						button.disabled = !interactive || paused;
-				};
-				syncKeyControls();
 				const settleKeys = () => {
 					keyPress = keyTarget;
 					writeKeyUniforms();
@@ -3589,7 +3450,6 @@
 				};
 				const syncKeys = () => {
 					if (!interactive || paused) resetKeys();
-					syncKeyControls();
 				};
 				const updateKeys = (elapsed: number) => {
 					keyPress = dampValue(keyPress, keyTarget, keyTarget ? 38 : 22, elapsed);
@@ -3626,7 +3486,6 @@
 					syncKeys,
 					resetKeys,
 					settleKeys,
-					syncKeyControls,
 					backend,
 					destroy: () => runCleanup(cleanup)
 				};
@@ -3736,7 +3595,6 @@
 								options.onStatus?.({ state: "error", reason: errorMessage(error) });
 						});
 
-				scene.syncKeyControls();
 				scene.loop.invalidate();
 			},
 			setPaused(nextPaused) {
@@ -3776,7 +3634,6 @@
 				scene.uniforms["uTime"] = 0;
 
 				scene.resetKeys();
-				scene.syncKeyControls();
 				scene.loop.invalidate();
 			},
 			resize() {
@@ -3841,7 +3698,7 @@
 		exposure?: number;
 		/** Stops rendering while preserving the current frame. @default false */
 		paused?: boolean;
-		/** Press a key with a pointer or keyboard. onKeyPress runs synchronously for actions or audio. @default true */
+		/** Press a key with a pointer. onKeyPress runs synchronously for actions or audio. @default true */
 		interactive?: boolean;
 		/** Maximum device-pixel ratio used by the renderer. @default 2 */
 		maxDpr?: number;

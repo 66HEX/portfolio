@@ -96,6 +96,7 @@
             class="absolute inset-0 overflow-hidden transition-opacity duration-500 motion-reduce:transition-none"
             class:opacity-0={!shaderReady}
             inert={!shaderReady}
+            aria-hidden="true"
           >
             {#if KeycapLogo}
               <KeycapLogo
