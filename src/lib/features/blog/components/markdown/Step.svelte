@@ -36,7 +36,7 @@
       />
     </CardWrapper>
   {/if}
-  <div class={cn("text-muted-foreground space-y-4 text-sm tracking-[0.01em] [&>:first-child]:mt-0", !title && "pt-2")}>
+  <div class={cn("text-muted-foreground space-y-4 text-sm tracking-normal [&>:first-child]:mt-0", !title && "pt-2")}>
     {@render children?.()}
   </div>
 </div>

@@ -509,7 +509,7 @@
               {errorAnnouncement}
             </p>
 
-            <p class="text-muted-foreground text-center text-xs tracking-[0.01em] text-balance">
+            <p class="text-muted-foreground text-center text-xs tracking-normal text-balance">
               {content.form.privacyNote}
             </p>
           </div>

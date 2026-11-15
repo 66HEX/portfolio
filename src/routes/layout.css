@@ -99,9 +99,18 @@
 }
 
 @theme inline {
-  --font-display: "Tomato Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Tomato Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Stack Sans Text", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Stack Sans Text", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-weight-thin: 100;
+  --font-weight-extralight: 100;
+  --font-weight-light: 200;
+  --font-weight-normal: 300;
+  --font-weight-medium: 400;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 700;
+  --font-weight-black: 800;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -225,7 +234,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans font-normal antialiased;
   }
 
   ::selection {

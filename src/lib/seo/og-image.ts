@@ -31,18 +31,18 @@ const el = (type: string, props: Record<string, unknown> = {}, ...children: Taku
 
 const takumiFontLoaders = [
   {
-    key: "tomato-grotesk",
-    name: "Tomato Grotesk",
+    key: "stack-sans-text",
+    name: "Stack Sans Text",
     weight: 400,
     style: "normal" as const,
     data: async () => {
       const event = getRequestEvent();
-      const fontUrl = new URL(asset("/fonts/TomatoGrotesk-Regular.woff2"), event.url);
+      const fontUrl = new URL(asset("/fonts/StackSansText-Regular.woff2"), event.url);
       const assets = event.platform?.env?.ASSETS;
       // The dev ASSETS binding serves the last build, which may not contain fonts yet.
       const response = !dev && assets ? await assets.fetch(fontUrl) : await event.fetch(fontUrl);
       if (!response.ok) {
-        throw new Error(`Failed to load Tomato Grotesk for Open Graph images (${response.status})`);
+        throw new Error(`Failed to load Stack Sans Text for Open Graph images (${response.status})`);
       }
       return response.arrayBuffer();
     },
@@ -64,7 +64,7 @@ const createComponent = ({ title, description, category = "Writing", kind = "por
         overflow: "hidden",
         backgroundColor: colors.background,
         color: colors.foreground,
-        fontFamily: "Tomato Grotesk, sans-serif",
+        fontFamily: "Stack Sans Text, sans-serif",
         fontWeight: 400,
       },
     },

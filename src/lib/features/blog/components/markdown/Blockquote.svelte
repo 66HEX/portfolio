@@ -17,7 +17,7 @@
   <Card.Root>
     <blockquote
       {...restProps}
-      class={cn("text-muted-foreground px-5 text-base font-normal tracking-[0.01em] italic", className)}
+      class={cn("text-muted-foreground px-5 text-base font-normal tracking-normal italic", className)}
     >
       {@render children?.()}
     </blockquote>

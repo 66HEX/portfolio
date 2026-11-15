@@ -68,9 +68,9 @@ Keep public images and documents in `static/`, referenced with root-relative URL
 - `static/resume.pdf` and, if used, its source in `resume/resume.tex`;
 - `src/lib/assets/hex-logo.svg`, used by Open Graph images.
 
-The current font is self-hosted Mona Sans, with variable weights from 200 to 900 and separate normal and italic files. Font declarations and the regular-font preload live in `src/app.html`; font stacks and theme tokens live in `src/routes/layout.css`. OG font loading lives in `src/lib/seo/og-image.ts` and uses the static Regular face for consistent rendering. Update all three if changing fonts. `src/lib/seo/og-theme.ts` owns the OG palette.
+The current font is self-hosted Stack Sans Text, with variable weights from 200 to 700. The family has no italic face, so browsers synthesize italics. Font declarations and the variable-font preload live in `src/app.html`; font stacks and theme tokens live in `src/routes/layout.css`. OG font loading lives in `src/lib/seo/og-image.ts` and uses the static Regular face for consistent rendering. Update all three and `hero.shader.fontUrl` in `src/portfolio/config.ts` if changing fonts, then regenerate the keyboard artwork with `scripts/render-og-keyboard.mjs`. `src/lib/seo/og-theme.ts` owns the OG palette.
 
-`KeycapLogo` under `src/lib/features/hero/components/` was initially exported from Godsend and is now maintained directly in this repository. Edit the component here when changing the shader. Camera, material, lighting and typography settings live in `hero.shader`, including `legendScale` and `letterSpacing` (in em, from -0.1 to 0.5). The logo uses `static/favicon.svg`; legends use the self-hosted Mona Sans variable font.
+`KeycapLogo` under `src/lib/features/hero/components/` was initially exported from Godsend and is now maintained directly in this repository. Edit the component here when changing the shader. Camera, material, lighting and typography settings live in `hero.shader`, including `legendScale` and `letterSpacing` (in em, from -0.1 to 0.5). The logo uses `static/favicon.svg`; legends use the self-hosted Stack Sans Text Regular font.
 
 | `hero.shader` settings                                        | Purpose                                               |
 | ------------------------------------------------------------- | ----------------------------------------------------- |
