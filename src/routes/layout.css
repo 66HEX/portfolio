@@ -56,6 +56,7 @@
 
   --shadow-dark: var(--border);
   --shadow-light: var(--card);
+  --shadow-outline-opacity-boost: 0%;
 }
 
 .dark {
@@ -94,6 +95,7 @@
   --sidebar-ring: lab(48.496% 0 0);
   --shadow-dark: lab(0% 0 0);
   --shadow-light: var(--border);
+  --shadow-outline-opacity-boost: 20%;
 }
 
 @theme inline {
@@ -145,13 +147,15 @@
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 7.45%, transparent),
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent);
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(7.06% + var(--shadow-outline-opacity-boost)), transparent);
   --shadow-xs:
     0px 1px 1px -0.5px color-mix(in oklab, var(--shadow-dark) 18.82%, transparent),
     0px 2px 2px -1px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
     0px 4px 4px -2px color-mix(in oklab, var(--shadow-dark) 1.96%, transparent),
     0px 8px 4px -3px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(7.06% + var(--shadow-outline-opacity-boost)), transparent),
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset;
@@ -160,7 +164,8 @@
     0px 3px 3px -1px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
     0px 6px 5px -2px color-mix(in oklab, var(--shadow-dark) 1.96%, transparent),
     0px 15px 6px -3px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(7.06% + var(--shadow-outline-opacity-boost)), transparent),
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent),
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset;
@@ -171,12 +176,14 @@
     0px 19px 8px -3px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 7.06%, transparent),
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(7.06% + var(--shadow-outline-opacity-boost)), transparent),
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 3.92%, transparent);
   --shadow-lg:
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(10.2% + var(--shadow-outline-opacity-boost)), transparent),
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
     0px 2px 5px -1px color-mix(in oklab, var(--shadow-dark) 5.88%, transparent),
     0px 8px 12px -1px color-mix(in oklab, var(--shadow-dark) 5.1%, transparent),
@@ -185,7 +192,8 @@
   --shadow-xl:
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset,
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(10.2% + var(--shadow-outline-opacity-boost)), transparent),
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
     0px 4px 8px -1px color-mix(in oklab, var(--shadow-dark) 5.88%, transparent),
     0px 15px 15px -1px color-mix(in oklab, var(--shadow-dark) 5.1%, transparent),
@@ -196,7 +204,8 @@
     0px 53px 53px 0px color-mix(in oklab, var(--shadow-dark) 5.88%, transparent),
     0px 119px 71px 0px color-mix(in oklab, var(--shadow-dark) 3.14%, transparent),
     0px 211px 85px 0px color-mix(in oklab, var(--shadow-dark) 1.18%, transparent),
-    0px 0px 0px 1px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
+    0px 0px 0px 1px
+      color-mix(in oklab, var(--shadow-dark) calc(10.2% + var(--shadow-outline-opacity-boost)), transparent),
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-dark) 10.2%, transparent),
     0px 0px 0px 1px color-mix(in oklab, var(--shadow-light) 5.1%, transparent) inset,
     0px 1px 0px 0px color-mix(in oklab, var(--shadow-light) 8.16%, transparent) inset;
