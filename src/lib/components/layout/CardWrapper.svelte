@@ -13,7 +13,7 @@
 
 <svelte:element
   this={tag}
-  class={cn("bg-muted overflow-hidden rounded-[calc(var(--radius-xl)+0.25rem)] border p-1", className)}
+  class={cn("bg-muted overflow-hidden rounded-[calc(var(--radius-xl)+0.25rem)] p-1.25", className)}
 >
   {@render children?.()}
 </svelte:element>

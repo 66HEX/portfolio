@@ -23,7 +23,7 @@
         {/if}
 
         <Avatar.Root
-          class="bg-card dark:bg-input-30 relative z-10 size-7 items-center justify-center rounded-md shadow-[0_0_0_3px_var(--secondary),var(--shadow-xs)] after:rounded-md dark:shadow-[0_0_0_3px_var(--background),var(--shadow-xs)]"
+          class="bg-card dark:bg-input-30 relative z-10 size-7 items-center justify-center rounded-md after:rounded-md shadow-[var(--shadow-xs),0_0_0_3px_var(--secondary)]!"
         >
           {#if item.darkLogoSrc}
             <img

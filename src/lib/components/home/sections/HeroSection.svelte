@@ -90,7 +90,7 @@
 <SectionBlock>
   <div class="relative h-48 w-full">
     <CardWrapper class="relative h-full">
-      <Card.Root class="absolute inset-1 gap-0 p-0">
+      <Card.Root class="absolute inset-1.25 gap-0 p-0">
         {#if portfolio.hero.shader.enabled}
           <div
             class="absolute inset-0 overflow-hidden transition-opacity duration-500 motion-reduce:transition-none"
