@@ -33,7 +33,7 @@ In the first layout, the file table could grow comfortably. Everything else had 
 
 I gave the preview the larger area and moved the queue below it. The inspector stayed on the right. This kept the working relationship simple: choose a file below, look at it above, change its output alongside it.
 
-![Frame 0.34.0, with a large preview above the file queue and the Metadata inspector on the right.](/images/blog/frame-design/frame-0.34.0.webp)
+![Frame 0.34.0, with a large preview above the file queue and the Source inspector on the right.](/images/blog/frame-design/frame-0.34.0.webp)
 
 <MediaCaption>0.34.0. The selected file has room of its own, with the rest of the batch still visible.</MediaCaption>
 
@@ -45,7 +45,7 @@ The tools follow the same division. Rotation, flipping, and cropping sit beside 
 
 Giving the preview more room made the remaining problem clearer: the settings beside it still needed somewhere sensible to go. As Frame gained settings, adding another category to the tab bar became an easy answer. Eventually, the navigation itself was asking for too much attention. An icon-only version saved width, but it made the categories harder to recognize.
 
-The three tabs in 0.34.0 describe different jobs. Metadata tells me what is in the source. Output is where I decide what the exported file should be. Presets holds configurations I can use again. This distinction also explains why editing metadata belongs inside Output: it changes the file I'm about to create.
+The three tabs in 0.34.0 describe different jobs. Source tells me what is in the source. Output is where I decide what the exported file should be. Presets holds configurations I can use again. This distinction also explains why editing metadata belongs inside Output: it changes the file I'm about to create.
 
 ![Frame 0.34.0 on macOS with Output selected, Video expanded, and controls for resolution, encoder, pixel format, encoding speed, and quality beside the media preview.](/images/blog/frame-design/frame-0.34.0-output.webp)
 
