@@ -237,6 +237,14 @@
     @apply bg-background text-foreground font-sans font-normal antialiased;
   }
 
+  [data-portfolio-home] :where(h1, h2, h3, h4, h5, h6),
+  [data-blog-post] :where(h1, h2, h3, h4, h5, h6) {
+    font-feature-settings:
+      "liga" 1,
+      "calt" 1,
+      "ss01" 1;
+  }
+
   ::selection {
     @apply bg-primary text-primary-foreground;
   }

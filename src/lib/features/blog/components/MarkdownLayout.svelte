@@ -112,7 +112,7 @@
   {@html blogPostingJsonLdScript}
 </svelte:head>
 
-<div class="w-full">
+<div class="w-full" data-blog-post>
   <div class="p-4">
     <Button href={resolve("/")} variant="ghost" size="sm" aria-label="Back to home">
       <IconRenderer icon={IconArrowLeft} size={12} />

@@ -140,6 +140,7 @@ const createComponent = ({ title, description, category = "Writing", kind = "por
           style: {
             width: isArticle ? 1000 : 1048,
             fontSize: titleSize,
+            fontFeatureSettings: '"ss01" 1',
             letterSpacing: "-0.045em",
             lineHeight: 1.08,
             textWrap: "balance",

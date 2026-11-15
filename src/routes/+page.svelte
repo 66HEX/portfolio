@@ -62,7 +62,7 @@
   {@html personJsonLdScript}
 </svelte:head>
 
-<div class="w-full">
+<div class="w-full" data-portfolio-home>
   <HeroSection hero={homepageContent.hero} profile={homepageContent.profile} />
   {#each portfolio.sections as section (section)}
     {@const visible =
