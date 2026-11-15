@@ -9,7 +9,7 @@ type BlogEntry = {
   description: string;
 };
 
-const summary = `${homepageContent.site.siteName} is ${homepageContent.seo.description}`;
+const summary = homepageContent.seo.description;
 
 const detailParagraphs = [
   "LLM-friendly Markdown for local blog posts is available at `/blog/raw/<slug>`; this is the source blog content without page chrome.",

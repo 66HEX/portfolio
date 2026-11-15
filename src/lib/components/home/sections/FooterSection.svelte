@@ -5,7 +5,7 @@
   import SectionBlock from "$lib/components/layout/SectionBlock.svelte";
   import IconRenderer from "$lib/components/icons/IconRenderer.svelte";
   import CardWrapper from "$lib/components/layout/CardWrapper.svelte";
-  import { IconRss } from "$lib/components/icons/data";
+  import { IconFileSparkle, IconRss } from "$lib/components/icons/data";
 
   const year = new Date().getFullYear();
 
@@ -34,6 +34,9 @@
             {/each}
             <IconLinkButton href="/rss.xml" ariaLabel="Subscribe via RSS" target="_self" rel="">
               <IconRenderer icon={IconRss} size={16} />
+            </IconLinkButton>
+            <IconLinkButton href="/llms.txt" ariaLabel="View llms.txt" target="_self" rel="">
+              <IconRenderer icon={IconFileSparkle} size={16} />
             </IconLinkButton>
           </div>
 
