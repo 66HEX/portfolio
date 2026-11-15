@@ -82,7 +82,12 @@ function createThemeStore() {
 
   const toggle = () => {
     const nextTheme = current === "dark" ? "light" : "dark";
-    if (browser && document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      browser &&
+      document.startViewTransition &&
+      !window.matchMedia("(pointer: coarse)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       document.startViewTransition(async () => {
         set(nextTheme);
         await tick();
