@@ -6,6 +6,12 @@ export const projectsData: { title: string; ctaLabel: string; githubCtaLabel: st
   githubCtaLabel: "GitHub",
   items: [
     {
+      title: "Frame",
+      description: "Aesthetic media converter.",
+      href: "https://framegui.app/",
+      githubHref: "https://github.com/66HEX/frame/",
+    },
+    {
       title: "Motion Core",
       description: "Motion Components for Svelte.",
       href: "https://motion-core.dev/",
@@ -18,10 +24,10 @@ export const projectsData: { title: string; ctaLabel: string; githubCtaLabel: st
       githubHref: "https://github.com/kaltwrk/spektral",
     },
     {
-      title: "Frame",
-      description: "Aesthetic media converter.",
-      href: "https://framegui.app/",
-      githubHref: "https://github.com/66HEX/frame/",
+      title: "Hasta",
+      description: "Pointer motion prediction library.",
+      href: "https://hasta.madebyhex.com/",
+      githubHref: "https://github.com/66HEX/hasta",
     },
     {
       title: "Tensum",

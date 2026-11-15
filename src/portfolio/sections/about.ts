@@ -32,6 +32,24 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
     {
       content: [
         { type: "text", text: "Creator of " },
+        { type: "link", text: "Frame", href: "https://framegui.app/" },
+        {
+          type: "text",
+          text: "—a Rust-native FFmpeg desktop app built with GPUI-CE, with granular video, audio, image, subtitle, and metadata workflows.",
+        },
+      ],
+      nestedList: [
+        {
+          content: [
+            { type: "highlight", text: "2200+ stars" },
+            { type: "text", text: " on GitHub" },
+          ],
+        },
+      ],
+    },
+    {
+      content: [
+        { type: "text", text: "Creator of " },
         { type: "link", text: "Motion Core", href: "https://motion-core.dev/" },
         {
           type: "text",
@@ -71,24 +89,6 @@ export const aboutData: { title: string; items: AboutListItem[] } = {
           content: [
             { type: "text", text: "Recognized by " },
             { type: "link", text: "WebGPU.com", href: "https://www.webgpu.com/showcase/motion-gpu-webgpu-shaders/" },
-          ],
-        },
-      ],
-    },
-    {
-      content: [
-        { type: "text", text: "Creator of " },
-        { type: "link", text: "Frame", href: "https://framegui.app/" },
-        {
-          type: "text",
-          text: "—a Rust-native FFmpeg desktop app built with GPUI-CE, with granular video, audio, image, subtitle, and metadata workflows.",
-        },
-      ],
-      nestedList: [
-        {
-          content: [
-            { type: "highlight", text: "2200+ stars" },
-            { type: "text", text: " on GitHub" },
           ],
         },
       ],
