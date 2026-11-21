@@ -104,6 +104,7 @@ const createComponent = ({ title, description, category = "Writing", kind = "por
             fontSize: 28,
             lineHeight: 1,
             letterSpacing: "-0.035em",
+            transform: "translateY(-2px)",
           },
         },
         "madebyhex",
