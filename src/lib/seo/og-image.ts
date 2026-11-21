@@ -29,23 +29,32 @@ const el = (type: string, props: Record<string, unknown> = {}, ...children: Taku
   props: children.length === 0 ? props : { ...props, children: children.length === 1 ? children[0] : children },
 });
 
+const loadOgFont = async (fontPath: string, label: string) => {
+  const event = getRequestEvent();
+  const fontUrl = new URL(asset(fontPath), event.url);
+  const assets = event.platform?.env?.ASSETS;
+  // The dev ASSETS binding serves the last build, which may not contain fonts yet.
+  const response = !dev && assets ? await assets.fetch(fontUrl) : await event.fetch(fontUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to load ${label} for Open Graph images (${response.status})`);
+  }
+  return response.arrayBuffer();
+};
+
 const takumiFontLoaders = [
+  {
+    key: "stack-sans-headline",
+    name: "Stack Sans Headline",
+    weight: 400,
+    style: "normal" as const,
+    data: () => loadOgFont("/fonts/StackSansHeadline-Regular.woff2", "Stack Sans Headline"),
+  },
   {
     key: "stack-sans-text",
     name: "Stack Sans Text",
     weight: 400,
     style: "normal" as const,
-    data: async () => {
-      const event = getRequestEvent();
-      const fontUrl = new URL(asset("/fonts/StackSansText-Regular.woff2"), event.url);
-      const assets = event.platform?.env?.ASSETS;
-      // The dev ASSETS binding serves the last build, which may not contain fonts yet.
-      const response = !dev && assets ? await assets.fetch(fontUrl) : await event.fetch(fontUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to load Stack Sans Text for Open Graph images (${response.status})`);
-      }
-      return response.arrayBuffer();
-    },
+    data: () => loadOgFont("/fonts/StackSansText-Regular.woff2", "Stack Sans Text"),
   },
 ];
 
@@ -139,9 +148,9 @@ const createComponent = ({ title, description, category = "Writing", kind = "por
         {
           style: {
             width: isArticle ? 1000 : 1048,
+            fontFamily: "Stack Sans Headline, Stack Sans Text, sans-serif",
             fontSize: titleSize,
             fontFeatureSettings: '"ss01" 1',
-            letterSpacing: "-0.045em",
             lineHeight: 1.08,
             textWrap: "balance",
             overflowWrap: "anywhere",

@@ -34,7 +34,7 @@
     {id}
     {...rest}
     class={cn(
-      "min-w-0 scroll-m-24 leading-tight font-medium tracking-tight",
+      "font-display min-w-0 scroll-m-24 leading-tight font-medium",
       level === 6 ? "text-muted-foreground" : "text-foreground",
       sizes[level],
       className,

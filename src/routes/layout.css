@@ -99,7 +99,7 @@
 }
 
 @theme inline {
-  --font-display: "Stack Sans Text", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Stack Sans Headline", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Stack Sans Text", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-weight-thin: 100;
@@ -235,6 +235,10 @@
 
   body {
     @apply bg-background text-foreground font-sans font-normal antialiased;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-display);
   }
 
   [data-portfolio-home] :where(h1, h2, h3, h4, h5, h6),

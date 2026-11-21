@@ -24,7 +24,7 @@
           class="bg-card! h-full w-full rounded-full text-xs shadow-md [counter-increment:step] before:content-[counter(step)]"
         />
       </CardWrapper>
-      <h3 class="text-foreground relative z-10 text-base leading-tight font-medium tracking-tight">
+      <h3 class="text-foreground font-display relative z-10 text-base leading-tight font-medium">
         {title}
       </h3>
     </div>

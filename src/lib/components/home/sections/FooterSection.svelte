@@ -17,7 +17,7 @@
     <footer>
       <Card.Root>
         <Card.Header class="gap-2">
-          <h2 class="text-foreground font-display text-lg leading-none font-medium tracking-tight">
+          <h2 class="text-foreground font-display text-lg leading-none font-medium">
             {content.headline}
           </h2>
           <p class="text-muted-foreground max-w-xl text-sm tracking-normal text-balance">

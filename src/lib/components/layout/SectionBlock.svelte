@@ -37,7 +37,7 @@
       {:else}
         <h2
           id={sectionHeadingId}
-          class={cn("text-foreground font-display text-lg leading-none font-medium tracking-tight", titleClass)}
+          class={cn("text-foreground font-display text-lg leading-none font-medium", titleClass)}
         >
           {title}
         </h2>

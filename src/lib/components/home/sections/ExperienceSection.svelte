@@ -76,7 +76,9 @@
           </div>
 
           <div class="mt-3">
-            <h3 class="text-foreground text-base leading-none font-medium tracking-tight text-balance">{item.role}</h3>
+            <h3 class="text-foreground font-display text-base leading-none font-medium text-balance">
+              {item.role}
+            </h3>
             <p
               class="text-muted-foreground mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-none tracking-normal"
             >

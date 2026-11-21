@@ -35,7 +35,7 @@
         </Avatar.Root>
         <div class="flex min-w-0 flex-col gap-0.5">
           <div class="flex items-center gap-1">
-            <p class="text-foreground truncate text-base leading-none font-medium tracking-tight">{item.name}</p>
+            <p class="text-foreground font-display truncate text-base leading-none font-medium">{item.name}</p>
             {#if item.verified}
               <IconRenderer icon={IconBadgeCheck} class="text-primary shrink-0" size={16} label="Verified account" />
             {/if}

@@ -24,7 +24,7 @@
     <div class="space-y-3">
       <p class="text-muted-foreground font-mono text-xs tabular-nums">{page.status}</p>
       <div class="space-y-2">
-        <h1 id="error-title" class="text-foreground font-display text-xl leading-tight font-medium tracking-tight">
+        <h1 id="error-title" class="text-foreground font-display text-xl leading-tight font-medium">
           {title}
         </h1>
         <p class="text-muted-foreground text-sm">{description}</p>

@@ -126,7 +126,7 @@
     </div>
     {#if !published}<Badge variant="secondary" class="mt-2">Draft preview</Badge>{/if}
     <div class="mt-2">
-      <h1 class="text-foreground font-display text-xl leading-none font-medium tracking-tight">
+      <h1 class="text-foreground font-display text-xl leading-none font-medium">
         {title}
       </h1>
       {#if description}
